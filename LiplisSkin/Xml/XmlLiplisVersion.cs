@@ -12,7 +12,7 @@ using System.Reflection;
 
 namespace Liplis.Xml
 {
-    public class XmlVersion : XmlSetting
+    public class XmlLiplisVersion : XmlSetting
     {
         ///=============================
         ///プロパティ
@@ -29,7 +29,7 @@ namespace Liplis.Xml
         /// <summary>
         /// 
         /// </summary>
-        public XmlVersion(string versionFilePath)
+        public XmlLiplisVersion(string versionFilePath)
         {
             //設定の取得
             setting = new SharedPreferences(versionFilePath);

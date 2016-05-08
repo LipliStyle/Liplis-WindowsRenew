@@ -18,7 +18,7 @@ using System.Xml;
 
 namespace Liplis.Xml
 {
-    public class XmlChat : XmlReadList
+    public class XmlLiplisChat : XmlReadList
     {
         ///==========================
         /// 内容
@@ -54,7 +54,7 @@ namespace Liplis.Xml
         /// 設定ファイルを読み込む
         /// </summary>
         #region XmlChat
-        public XmlChat(string loadSkin)
+        public XmlLiplisChat(string loadSkin)
         {
             try
             {

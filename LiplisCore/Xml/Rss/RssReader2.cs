@@ -11,17 +11,12 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.ServiceModel.Syndication;
-using System.Text;
 using System.Xml;
 
 namespace Liplis.Xml.Rss
 {
     public class RssReader2
     {
-        ///============================
-        /// 使用エンコード
-        Encoding enc;
-
         ///============================
         /// RSS基本情報
         #region RssBasicData

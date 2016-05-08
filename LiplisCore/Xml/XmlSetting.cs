@@ -1,33 +1,18 @@
 ﻿//=======================================================================
-//  ClassName : XmlSettingObject
+//  ClassName : XmlSetting
 //  概要      : XML設定
 //
 //  Liplis5.0
 //
 //  Copyright(c) 2010-2016 LipliStyle.Sachin
 //=======================================================================
-using Liplis.Utl;
-using System;
-
 namespace Liplis.Xml
 {
-    [Serializable]
     public abstract class XmlSetting
     {
         ///=============================
         ///クラス
         protected SharedPreferences setting;
-
-        //===========================================================
-        //　　　　　　　　　　　初期化処理
-        //===========================================================
-        /// <summary>
-        /// コンストラクター
-        /// </summary>
-        public XmlSetting()
-        {
-            //プリファレンスは子クラスのコンストラクターで初期化する
-        }
 
         //===========================================================
         //　　　　　　　　　　　実装メソッド
@@ -51,6 +36,7 @@ namespace Liplis.Xml
         /// <summary>
         /// ビット値のチェック
         /// </summary>
+        #region bitCheck
         protected int bitCheck(int bit)
         {
             if (bit == 1 || bit == 0)
@@ -62,5 +48,6 @@ namespace Liplis.Xml
                 return 0;
             }
         }
+        #endregion
     }
 }

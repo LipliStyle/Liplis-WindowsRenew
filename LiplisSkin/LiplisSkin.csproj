@@ -24,7 +24,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -43,18 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Body\BaseLpsBody.cs" />
-    <Compile Include="Body\LpsBody.cs" />
+    <Compile Include="Body\LiplisBody.cs" />
     <Compile Include="Exp\SkinLoadFaildException.cs" />
     <Compile Include="Exp\SkinNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Skin.cs" />
     <Compile Include="SkinController.cs" />
-    <Compile Include="Xml\XmlBody.cs" />
-    <Compile Include="Xml\XmlChat.cs" />
-    <Compile Include="Xml\XmlSkin.cs" />
-    <Compile Include="Xml\XmlTouch.cs" />
-    <Compile Include="Xml\XmlVersion.cs" />
+    <Compile Include="Xml\XmlLiplisBody.cs" />
+    <Compile Include="Xml\XmlLiplisChat.cs" />
+    <Compile Include="Xml\XmlLIplisSkin.cs" />
+    <Compile Include="Xml\XmlLiplisTouch.cs" />
+    <Compile Include="Xml\XmlLiplisVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LiplisCore\LiplisCore.csproj">

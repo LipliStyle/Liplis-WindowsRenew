@@ -18,7 +18,7 @@ using System.Xml;
 
 namespace Liplis.Xml
 {
-    public class XmlBody : XmlReadList
+    public class XmlLiplisBody : XmlReadList
     {
         ///==========================
         /// スキンパス
@@ -33,35 +33,35 @@ namespace Liplis.Xml
 
         ///==========================
         /// リスト
-        public LstShufflableList<BaseLpsBody> normalList { get; set; }
-        public LstShufflableList<BaseLpsBody> joyPList { get; set; }
-        public LstShufflableList<BaseLpsBody> joyMList { get; set; }
-        public LstShufflableList<BaseLpsBody> admirationPList { get; set; }
-        public LstShufflableList<BaseLpsBody> admirationMList { get; set; }
-        public LstShufflableList<BaseLpsBody> peacePList { get; set; }
-        public LstShufflableList<BaseLpsBody> peaceMList { get; set; }
-        public LstShufflableList<BaseLpsBody> ecstasyPList { get; set; }
-        public LstShufflableList<BaseLpsBody> ecstasyMList { get; set; }
-        public LstShufflableList<BaseLpsBody> amazementPList { get; set; }
-        public LstShufflableList<BaseLpsBody> amazementMList { get; set; }
-        public LstShufflableList<BaseLpsBody> ragePList { get; set; }
-        public LstShufflableList<BaseLpsBody> rageMList { get; set; }
-        public LstShufflableList<BaseLpsBody> interestPList { get; set; }
-        public LstShufflableList<BaseLpsBody> interestMList { get; set; }
-        public LstShufflableList<BaseLpsBody> respectPList { get; set; }
-        public LstShufflableList<BaseLpsBody> respectMList { get; set; }
-        public LstShufflableList<BaseLpsBody> calmlyPList { get; set; }
-        public LstShufflableList<BaseLpsBody> calmlyMList { get; set; }
-        public LstShufflableList<BaseLpsBody> proudPList { get; set; }
-        public LstShufflableList<BaseLpsBody> proudMList { get; set; }
+        public LstShufflableList<LiplisBody> normalList { get; set; }
+        public LstShufflableList<LiplisBody> joyPList { get; set; }
+        public LstShufflableList<LiplisBody> joyMList { get; set; }
+        public LstShufflableList<LiplisBody> admirationPList { get; set; }
+        public LstShufflableList<LiplisBody> admirationMList { get; set; }
+        public LstShufflableList<LiplisBody> peacePList { get; set; }
+        public LstShufflableList<LiplisBody> peaceMList { get; set; }
+        public LstShufflableList<LiplisBody> ecstasyPList { get; set; }
+        public LstShufflableList<LiplisBody> ecstasyMList { get; set; }
+        public LstShufflableList<LiplisBody> amazementPList { get; set; }
+        public LstShufflableList<LiplisBody> amazementMList { get; set; }
+        public LstShufflableList<LiplisBody> ragePList { get; set; }
+        public LstShufflableList<LiplisBody> rageMList { get; set; }
+        public LstShufflableList<LiplisBody> interestPList { get; set; }
+        public LstShufflableList<LiplisBody> interestMList { get; set; }
+        public LstShufflableList<LiplisBody> respectPList { get; set; }
+        public LstShufflableList<LiplisBody> respectMList { get; set; }
+        public LstShufflableList<LiplisBody> calmlyPList { get; set; }
+        public LstShufflableList<LiplisBody> calmlyMList { get; set; }
+        public LstShufflableList<LiplisBody> proudPList { get; set; }
+        public LstShufflableList<LiplisBody> proudMList { get; set; }
 
-        public LstShufflableList<BaseLpsBody> sitdownList { get; set; }
+        public LstShufflableList<LiplisBody> sitdownList { get; set; }
 
         ///=============================
         /// 破損ボディ
-        public LstShufflableList<BaseLpsBody> batteryHiList { get; set; }           //小破 2013/10/27 ver3.2.0
-        public LstShufflableList<BaseLpsBody> batteryMidList { get; set; }          //中破 2013/10/27 ver3.2.0
-        public LstShufflableList<BaseLpsBody> batteryLowList { get; set; }          //大破 2013/10/27 ver3.2.0
+        public LstShufflableList<LiplisBody> batteryHiList { get; set; }           //小破 2013/10/27 ver3.2.0
+        public LstShufflableList<LiplisBody> batteryMidList { get; set; }          //中破 2013/10/27 ver3.2.0
+        public LstShufflableList<LiplisBody> batteryLowList { get; set; }          //大破 2013/10/27 ver3.2.0
 
         ///==========================
         /// インデックス
@@ -316,7 +316,7 @@ namespace Liplis.Xml
         /// コンストラクター
         /// ロード中のスキンからbody.xmlの位置を特定し、読み込み
         /// </summary>
-        public XmlBody(string loadSkin)
+        public XmlLiplisBody(string loadSkin)
         {
             try
             {
@@ -358,7 +358,7 @@ namespace Liplis.Xml
         /// <summary>
         /// デフォルトコンストラクター
         /// </summary>
-        public XmlBody()
+        public XmlLiplisBody()
         {
             try
             {
@@ -399,28 +399,28 @@ namespace Liplis.Xml
         /// </summary>
         protected void initList()
         {
-            normalList      = new LstShufflableList<BaseLpsBody>();
-            joyPList        = new LstShufflableList<BaseLpsBody>();
-            joyMList        = new LstShufflableList<BaseLpsBody>();
-            admirationPList = new LstShufflableList<BaseLpsBody>();
-            admirationMList = new LstShufflableList<BaseLpsBody>();
-            peacePList      = new LstShufflableList<BaseLpsBody>();
-            peaceMList      = new LstShufflableList<BaseLpsBody>();
-            ecstasyPList    = new LstShufflableList<BaseLpsBody>();
-            ecstasyMList    = new LstShufflableList<BaseLpsBody>();
-            amazementPList  = new LstShufflableList<BaseLpsBody>();
-            amazementMList  = new LstShufflableList<BaseLpsBody>();
-            ragePList       = new LstShufflableList<BaseLpsBody>();
-            rageMList       = new LstShufflableList<BaseLpsBody>();
-            interestPList   = new LstShufflableList<BaseLpsBody>();
-            interestMList   = new LstShufflableList<BaseLpsBody>();
-            respectPList    = new LstShufflableList<BaseLpsBody>();
-            respectMList    = new LstShufflableList<BaseLpsBody>();
-            calmlyPList     = new LstShufflableList<BaseLpsBody>();
-            calmlyMList     = new LstShufflableList<BaseLpsBody>();
-            proudPList      = new LstShufflableList<BaseLpsBody>();
-            proudMList      = new LstShufflableList<BaseLpsBody>();
-            sitdownList     = new LstShufflableList<BaseLpsBody>();
+            normalList      = new LstShufflableList<LiplisBody>();
+            joyPList        = new LstShufflableList<LiplisBody>();
+            joyMList        = new LstShufflableList<LiplisBody>();
+            admirationPList = new LstShufflableList<LiplisBody>();
+            admirationMList = new LstShufflableList<LiplisBody>();
+            peacePList      = new LstShufflableList<LiplisBody>();
+            peaceMList      = new LstShufflableList<LiplisBody>();
+            ecstasyPList    = new LstShufflableList<LiplisBody>();
+            ecstasyMList    = new LstShufflableList<LiplisBody>();
+            amazementPList  = new LstShufflableList<LiplisBody>();
+            amazementMList  = new LstShufflableList<LiplisBody>();
+            ragePList       = new LstShufflableList<LiplisBody>();
+            rageMList       = new LstShufflableList<LiplisBody>();
+            interestPList   = new LstShufflableList<LiplisBody>();
+            interestMList   = new LstShufflableList<LiplisBody>();
+            respectPList    = new LstShufflableList<LiplisBody>();
+            respectMList    = new LstShufflableList<LiplisBody>();
+            calmlyPList     = new LstShufflableList<LiplisBody>();
+            calmlyMList     = new LstShufflableList<LiplisBody>();
+            proudPList      = new LstShufflableList<LiplisBody>();
+            proudMList      = new LstShufflableList<LiplisBody>();
+            sitdownList     = new LstShufflableList<LiplisBody>();
         }
 
         /// <summary>
@@ -465,9 +465,9 @@ namespace Liplis.Xml
         /// <summary>
         /// 設定読込
         /// </summary>
-        protected virtual LstShufflableList<BaseLpsBody> readResult(string b11, string b12, string b21, string b22, string b31, string b32, string touch)
+        protected virtual LstShufflableList<LiplisBody> readResult(string b11, string b12, string b21, string b22, string b31, string b32, string touch)
         {
-            LstShufflableList<BaseLpsBody> result = new LstShufflableList<BaseLpsBody>();
+            LstShufflableList<LiplisBody> result = new LstShufflableList<LiplisBody>();
             int idx = 0;
             List<string> b11l = new List<string>();
             List<string> b12l = new List<string>();
@@ -505,7 +505,7 @@ namespace Liplis.Xml
             {
                 try
                 {
-                    result.Add(new LpsBody(b11l[idx], b12l[idx], b21l[idx], b22l[idx], b31l[idx], b32l[idx], tl[idx], LpsPathController.getBodyPath(loadSkin)));
+                    result.Add(new LiplisBody(b11l[idx], b12l[idx], b21l[idx], b22l[idx], b31l[idx], b32l[idx], tl[idx], LpsPathController.getBodyPath(loadSkin)));
                 }
                 catch
                 {
@@ -546,7 +546,7 @@ namespace Liplis.Xml
         /// </summary>
         /// <param name="emotion"></param>
         /// <returns></returns>
-        public BaseLpsBody getLiplisBody(int emotion, int point)
+        public LiplisBody getLiplisBody(int emotion, int point)
         {
             //2014/10/04 emotionが0でなく、ポイントが0の場合、エモーションの値をポイントにセットする。
             //文章の場合は、エモーションのみの設定となるため。
@@ -685,7 +685,7 @@ namespace Liplis.Xml
         /// <summary>
         /// ボティをランダムに取得する
         /// </summary>
-        protected BaseLpsBody selectBody(LstShufflableList<BaseLpsBody> lst)
+        protected LiplisBody selectBody(LstShufflableList<LiplisBody> lst)
         {
             if (lst.Count > 0)
             {
@@ -698,7 +698,7 @@ namespace Liplis.Xml
         /// <summary>
         /// 健康状態状態からIDを取得する
         /// </summary>
-        public BaseLpsBody getLiplisBodyHelth(int helth, int emotion, int point)
+        public LiplisBody getLiplisBodyHelth(int helth, int emotion, int point)
         {
             try
             {

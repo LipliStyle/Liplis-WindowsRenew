@@ -19,7 +19,7 @@ using System.Reflection;
 namespace Liplis.Xml
 {
     [Serializable]
-    public class XmlSkin : XmlSetting
+    public class XmlLIplisSkin : XmlSetting
     {
                 ///=============================
         ///プロパティ
@@ -46,7 +46,7 @@ namespace Liplis.Xml
         /// skin.xmlのパスを指定して読み込む
         /// </summary>
 
-        public XmlSkin(string skinSettingPath):base()
+        public XmlLIplisSkin(string skinSettingPath):base()
         {
             try
             {
@@ -69,7 +69,7 @@ namespace Liplis.Xml
         /// コンストラクター
         /// 要素を直接指定し、スキン設定を作成
         /// </summary>
-        public XmlSkin(string charName, int width, int height, string textFont, string textColor, string linkColor, string titleColor, string themaColor, string themaColorSub)
+        public XmlLIplisSkin(string charName, int width, int height, string textFont, string textColor, string linkColor, string titleColor, string themaColor, string themaColorSub)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace Liplis.Xml
         /// コンストラクター
         /// </summary>
         
-        public XmlSkin()
+        public XmlLIplisSkin()
         {
         }
         #endregion

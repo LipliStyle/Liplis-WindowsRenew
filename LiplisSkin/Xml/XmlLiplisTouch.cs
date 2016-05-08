@@ -17,7 +17,7 @@ using System.Xml;
 
 namespace Liplis.Xml
 {
-    public class XmlTouch : XmlReadList
+    public class XmlLiplisTouch : XmlReadList
     {
         ///==========================
 		/// 内容
@@ -55,7 +55,7 @@ namespace Liplis.Xml
         /// 設定ファイルを読み込む
         /// </summary>
         #region XmlTouch
-        public XmlTouch(string loadSkin)
+        public XmlLiplisTouch(string loadSkin)
 		{
 			try
 			{
@@ -74,8 +74,9 @@ namespace Liplis.Xml
 				}
 				else
 				{
+                    //タッチXMLは必須としない
                     //読み込みに失敗した場合はエラー
-                    throw new SkinNotFoundException();
+                    //throw new SkinNotFoundException();
                 }
 
 			}
@@ -85,7 +86,7 @@ namespace Liplis.Xml
                 throw new SkinNotFoundException(err);
             }
 		}
-        public XmlTouch()
+        public XmlLiplisTouch()
 		{
 			initList();
 		}

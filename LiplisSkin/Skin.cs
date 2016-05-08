@@ -21,10 +21,10 @@ namespace Liplis
 
         ///=============================
         ///実データ
-        public XmlSkin xmlSkin { get; set; }
-        public XmlBody xmlBody { get; set; }
-        public XmlChat xmlChat { get; set; }
-        public XmlTouch xmlTouch { get; set; }
+        public XmlLIplisSkin xmlSkin { get; set; }
+        public XmlLiplisBody xmlBody { get; set; }
+        public XmlLiplisChat xmlChat { get; set; }
+        public XmlLiplisTouch xmlTouch { get; set; }
 
         /// <summary>
         /// コンストラクター
@@ -33,10 +33,10 @@ namespace Liplis
         public Skin(string skinSettingPath)
         {
             //各XMLのインスタンス化
-            xmlSkin = new XmlSkin(skinSettingPath);
-            xmlBody = new XmlBody(xmlSkin.charName);
-            xmlChat = new XmlChat(xmlSkin.charName);
-            xmlTouch = new XmlTouch(xmlSkin.charName);
+            xmlSkin = new XmlLIplisSkin(skinSettingPath);
+            xmlBody = new XmlLiplisBody(xmlSkin.charName);
+            xmlChat = new XmlLiplisChat(xmlSkin.charName);
+            xmlTouch = new XmlLiplisTouch(xmlSkin.charName);
 
             //キャラクター名の取得
             this.charName = xmlSkin.charName;

@@ -82,8 +82,8 @@ namespace Liplis.Utl
             LpsLogController lc = new LpsLogController();
             try
             {
-                checkDir(getAppPath() + "\\skin");
-                return getAppPath() + "\\skin\\";
+                checkDir(getAppPath() + "\\Skin");
+                return getAppPath() + "\\Skin\\";
             }
             catch (System.Exception err)
             {
@@ -229,8 +229,8 @@ namespace Liplis.Utl
             LpsLogController lc = new LpsLogController();
             try
             {
-                checkDir(getAppPath() + "\\skin");
-                return getAppPath() + "\\skin\\" + loadSkin + "\\define\\body.xml";
+                checkDir(getAppPath() + "\\Skin");
+                return getAppPath() + "\\Skin\\" + loadSkin + "\\define\\body.xml";
             }
             catch (System.Exception err)
             {
@@ -250,8 +250,8 @@ namespace Liplis.Utl
             LpsLogController lc = new LpsLogController();
             try
             {
-                checkDir(getAppPath() + "\\skin");
-                return getAppPath() + "\\skin\\" + loadSkin + "\\define\\chat.xml";
+                checkDir(getAppPath() + "\\Skin");
+                return getAppPath() + "\\Skin\\" + loadSkin + "\\define\\chat.xml";
             }
             catch (System.Exception err)
             {
@@ -272,8 +272,8 @@ namespace Liplis.Utl
             LpsLogController lc = new LpsLogController();
             try
             {
-                checkDir(getAppPath() + "\\skin");
-                return getAppPath() + "\\skin\\" + loadSkin + "\\define\\touch.xml";
+                checkDir(getAppPath() + "\\Skin");
+                return getAppPath() + "\\Skin\\" + loadSkin + "\\define\\touch.xml";
             }
             catch (System.Exception err)
             {
@@ -293,8 +293,8 @@ namespace Liplis.Utl
             LpsLogController lc = new LpsLogController();
             try
             {
-                checkDir(getAppPath() + "\\skin");
-                return getAppPath() + "\\skin\\" + loadSkin + "\\define\\tone.xml";
+                checkDir(getAppPath() + "\\Skin");
+                return getAppPath() + "\\Skin\\" + loadSkin + "\\define\\tone.xml";
             }
             catch (System.Exception err)
             {
@@ -314,8 +314,8 @@ namespace Liplis.Utl
             LpsLogController lc = new LpsLogController();
             try
             {
-                checkDir(getAppPath() + "\\skin");
-                return getAppPath() + "\\skin\\" + loadSkin + "\\window\\";
+                checkDir(getAppPath() + "\\Skin");
+                return getAppPath() + "\\Skin\\" + loadSkin + "\\window\\";
             }
             catch (System.Exception err)
             {
@@ -335,29 +335,8 @@ namespace Liplis.Utl
             LpsLogController lc = new LpsLogController();
             try
             {
-                checkDir(getAppPath() + "\\skin");
-                return getAppPath() + "\\skin\\" + loadSkin + "\\body\\";
-            }
-            catch (System.Exception err)
-            {
-                LpsLogController.writingLog("LpsPathController", MethodBase.GetCurrentMethod().Name, err.ToString());
-                return "";
-            }
-        }
-        #endregion
-
-        /// <summary>
-        /// skinSettingsパスを返す
-        /// </summary>
-        /// <returns>パス</returns> 
-        #region getSkinSettingsPath
-        public static string getSkinSettingsPath()
-        {
-            LpsLogController lc = new LpsLogController();
-            try
-            {
-                checkDir(getAppPath() + "\\skinSettings");
-                return getAppPath() + "\\skinSettings\\";
+                checkDir(getAppPath() + "\\Skin");
+                return getAppPath() + "\\Skin\\" + loadSkin + "\\body\\";
             }
             catch (System.Exception err)
             {

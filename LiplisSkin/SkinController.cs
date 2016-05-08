@@ -9,9 +9,7 @@
 //
 //  Copyright(c) 2010-2016 LipliStyle.Sachin
 //=======================================================================
-using Liplis.Exp;
 using Liplis.Utl;
-using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -29,6 +27,10 @@ namespace Liplis
         ///スキンファイル
         public const string SKIN_FILE_NAME = "skin.xml";
 
+        ///=============================
+        ///読込結果
+        bool flgResult = true;
+
         /// <summary>
         /// コンストラクター
         /// </summary>
@@ -36,6 +38,8 @@ namespace Liplis
         {
             //スキンフォルダに配置されているすべてのスキンを読み込む
             loadAllSkin();
+
+           
         }
 
         /// <summary>
@@ -50,17 +54,20 @@ namespace Liplis
             //スキンフォルダのチェック&取得
             skinPath = LpsPathController.getSkinPath();
 
-            //読み込み失敗を警戒
-            try
-            {
-                //スキンフォルダ内のフォルダ一覧を取得する
-                string[] dirs = Directory.GetDirectories(skinPath);
 
-                //スキンファイルの存在確認とオブジェクトリストの生成
-                foreach (string dir in dirs)
+            //スキンフォルダ内のフォルダ一覧を取得する
+            string[] dirs = Directory.GetDirectories(skinPath);
+
+            //スキン設定パス
+            string skinSettingpath = "";
+
+            //スキンファイルの存在確認とオブジェクトリストの生成
+            foreach (string dir in dirs)
+            {
+                try
                 {
                     //スキンファイルパス
-                    string skinSettingpath = dir + "\\" + SKIN_FILE_NAME;
+                    skinSettingpath = dir + "\\" + SKIN_FILE_NAME;
 
                     //ファイルの存在チェック
                     if (LpsPathController.checkFileExist(skinSettingpath))
@@ -69,15 +76,32 @@ namespace Liplis
                         Skin skin = new Skin(skinSettingpath);
 
                         //辞書に登録する
-                        dicSkin.Add(skin.charName, skin);
-                        lstSkin.Add(skin);
+                        if (!dicSkin.ContainsKey(skin.charName))
+                        {
+                            dicSkin.Add(skin.charName, skin);
+                            lstSkin.Add(skin);
+                        }
+                        else
+                        {
+                            LpsLogController.writingLogSt("同一キャラクターのスキンが検出されました。同一キャラクターのスキンは最初のものを除き、スキップされます。");
+                            LpsLogController.writingLogSt("対象パス:" + skinSettingpath);
+                            flgResult = false;  
+                        }
                     }
                 }
-            }
-            catch(Exception ex)
-            {
-                throw new SkinLoadFaildException(ex);
+                catch
+                {
+                    LpsLogController.writingLogSt("スキンファイルの読み込みに失敗しました。確認してください。");
+                    LpsLogController.writingLogSt("対象パス:" + skinSettingpath);
+                    flgResult = false;
+                }
             }
         }
+
+        /// <summary>
+        /// エラー回避のためのダミー
+        /// </summary>
+        private void dummy(){if (flgResult) { }
+}
     }
 }
