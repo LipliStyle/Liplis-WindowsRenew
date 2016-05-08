@@ -1,0 +1,20 @@
+﻿<Window x:Class="Liplis.Wpf.Xaml.XamlWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Liplis.Wpf.Xaml"
+        mc:Ignorable="d"
+        Title="LiplisWindow" Height="140" Width="300"
+        AllowsTransparency="True"
+        Background="{x:Null}"
+        WindowStyle="None"
+        ResizeMode = "CanResizeWithGrip" 
+        SizeChanged="Window_SizeChanged"
+        >
+    <Grid Margin="0,0,0,0">
+        <Image x:Name="image" HorizontalAlignment="Left" Height="140" Width="300" VerticalAlignment="Top" Source="/Liplis;component/window_red.png" Stretch="Fill"/>
+        <Label x:Name="lblTalk" Content="Label" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="120" Width="280"/>
+
+    </Grid>
+</Window>
