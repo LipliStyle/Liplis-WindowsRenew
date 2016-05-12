@@ -694,7 +694,16 @@ namespace Liplis.Xml
             }
             return normalList[0];
         }
-            
+
+        /// <summary>
+        /// デフォルトのボディを返す
+        /// </summary>
+        /// <returns></returns>
+        public LiplisBody getDefaultBody()
+        {
+            return this.normalList[0];
+        }
+
         /// <summary>
         /// 健康状態状態からIDを取得する
         /// </summary>

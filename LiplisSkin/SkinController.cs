@@ -9,6 +9,7 @@
 //
 //  Copyright(c) 2010-2016 LipliStyle.Sachin
 //=======================================================================
+using Liplis.Com;
 using Liplis.Utl;
 using System.Collections.Generic;
 using System.IO;
@@ -38,8 +39,6 @@ namespace Liplis
         {
             //スキンフォルダに配置されているすべてのスキンを読み込む
             loadAllSkin();
-
-           
         }
 
         /// <summary>
@@ -97,6 +96,38 @@ namespace Liplis
                 }
             }
         }
+
+        /// <summary>
+        /// キャラクター名からスキンを取得する
+        /// </summary>
+        /// <param name="charName"></param>
+        /// <returns></returns>
+        public Skin getSkin(string charName)
+        {
+            if(dicSkin.ContainsKey(charName))
+            {
+                return dicSkin[charName];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// スキンを適当に取得する
+        /// </summary>
+        /// <param name="charName"></param>
+        /// <returns></returns>
+        public Skin getSkinRandam()
+        {
+            //ランダムインデックス取得
+            int idx = LpsLiplisUtil.getRandamInt(lstSkin.Count-1);
+
+            //得られたインデックスからスキンを返す
+            return lstSkin[idx];
+        }
+
 
         /// <summary>
         /// エラー回避のためのダミー

@@ -63,9 +63,29 @@ namespace Liplis.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap battery_100 {
+            get {
+                object obj = ResourceManager.GetObject("battery_100", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap ico_char_lili {
             get {
                 object obj = ResourceManager.GetObject("ico_char_lili", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap ico_intro {
+            get {
+                object obj = ResourceManager.GetObject("ico_intro", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

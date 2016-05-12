@@ -147,6 +147,75 @@ namespace Liplis.Body
         }
 
         /// <summary>
+        /// ボディを取得する
+        /// 目、口、方向の引数から、最適なボディを返す
+        /// </summary>
+        /// <param name="eye"></param>
+        /// <param name="mouth"></param>
+        /// <param name="direction"></param>
+        /// <returns></returns>
+        public string getBodyPath(int eye, int mouth)
+        {
+            if (mouth == 0)
+            {
+                if (eye == 1)
+                {
+                    return bodyDir + body11;
+                }
+                else if (eye == 2)
+                {
+                    return bodyDir + body21;
+                }
+                else if (eye == 3)
+                {
+                    return bodyDir + body31;
+                }
+                else
+                {
+                    return bodyDir + body11;
+                }
+            }
+            else if (mouth == 1)
+            {
+                if (eye == 1)
+                {
+                    return bodyDir + body12;
+                }
+                else if (eye == 2)
+                {
+                    return bodyDir + body22;
+                }
+                else if (eye == 3)
+                {
+                    return bodyDir + body32;
+                }
+                else
+                {
+                    return bodyDir + body12;
+                }
+            }
+            else
+            {
+                if (eye == 1)
+                {
+                    return bodyDir + body11;
+                }
+                else if (eye == 2)
+                {
+                    return bodyDir + body21;
+                }
+                else if (eye == 3)
+                {
+                    return bodyDir + body31;
+                }
+                else
+                {
+                    return bodyDir + body11;
+                }
+            }
+        }
+
+        /// <summary>
         /// ビットマップのパスをチェックした上で、
         /// 存在する場合はそのパスの画像を返す。
         /// 存在しない場合は透明１ドットのインスタンスを返す

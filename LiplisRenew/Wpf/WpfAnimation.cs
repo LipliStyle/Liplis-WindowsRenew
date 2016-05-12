@@ -31,19 +31,23 @@ namespace Liplis.Wpf
         /// </summary>
         /// <param name="targetWindow"></param>
         /// <param name="targetControl"></param>
-        public static void opacityUp(Window targetWindow, ContentControl targetControl)
+        public static void opacityUp(Window targetWindow, FrameworkElement targetControl)
+        {
+            opacityUp(targetWindow, targetControl, 5000000);
+        }
+        public static void opacityUp(Window targetWindow, FrameworkElement targetControl, Int32 interval)
         {
             //ストーリーボード取得
-            Storyboard storyboard = opacityAnimation(targetControl, 0.0, 1.0, 5000000);
+            Storyboard storyboard = opacityAnimation(targetControl, 0.0, 1.0, interval);
 
             //アニメーション開始
             storyboard.Begin(targetWindow);
         }
-        public static Storyboard opacityUpStoryboard(ContentControl targetControl)
+        public static Storyboard opacityUpStoryboard(FrameworkElement targetControl)
         {
             return opacityAnimation(targetControl, 0.0, 1.0, 5000000);
         }
-        public static Storyboard opacityUpStoryboard(ContentControl targetControl, double toOpa)
+        public static Storyboard opacityUpStoryboard(FrameworkElement targetControl, double toOpa)
         {
             return opacityAnimation(targetControl, 0.0, toOpa, 5000000);
         }
@@ -53,19 +57,23 @@ namespace Liplis.Wpf
         /// </summary>
         /// <param name="targetWindow"></param>
         /// <param name="targetControl"></param>
-        public static void opacityDown(Window targetWindow, ContentControl targetControl)
+        public static void opacityDown(Window targetWindow, FrameworkElement targetControl)
+        {
+            opacityDown(targetWindow, targetControl, 5000000);
+        }
+        public static void opacityDown(Window targetWindow, FrameworkElement targetControl, Int32 interval)
         {
             //ストーリーボード取得
-            Storyboard storyboard = opacityAnimation(targetControl, 1.0, 0.0, 5000000);
+            Storyboard storyboard = opacityAnimation(targetControl, 1.0, 0.0, interval);
 
             //アニメーション開始
             storyboard.Begin(targetWindow);
         }
-        public static Storyboard opacityDownStoryboard(ContentControl targetControl)
+        public static Storyboard opacityDownStoryboard(FrameworkElement targetControl)
         {
             return opacityAnimation(targetControl, 1.0, 0.0, 5000000);
         }
-        public static Storyboard opacityDownStoryboard(ContentControl targetControl, double fromOpa)
+        public static Storyboard opacityDownStoryboard(FrameworkElement targetControl, double fromOpa)
         {
             return opacityAnimation(targetControl, fromOpa, 0.0, 5000000);
         }
@@ -77,8 +85,10 @@ namespace Liplis.Wpf
         /// <param name="targetControl"></param>
         /// <param name="opaFrom"></param>
         /// <param name="opaTo"></param>
-        public static Storyboard opacityAnimation(ContentControl targetControl, double opaFrom, double opaTo, int interval)
+        public static Storyboard opacityAnimation(FrameworkElement targetControl, double opaFrom, double opaTo, int interval)
         {
+
+
 
             Storyboard storyboard = new Storyboard();
             TimeSpan duration = new TimeSpan(interval);

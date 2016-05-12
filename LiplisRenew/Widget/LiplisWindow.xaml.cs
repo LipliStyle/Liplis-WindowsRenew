@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Liplis.Wpf.Xaml
+namespace Liplis.Widget
 {
     /// <summary>
     /// XsamlWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class XamlWindow : Window
+    public partial class LiplisWindow : Window
     {
-        public XamlWindow()
+        public LiplisWindow()
         {
             InitializeComponent();
         }
@@ -45,4 +45,7 @@ namespace Liplis.Wpf.Xaml
             this.image.Height = this.Height;
         }
     }
+
+
+
 }

@@ -121,7 +121,7 @@ namespace Liplis.Xml
         /// (チャット定義もそれに従うこととする)
         /// </summary>
         #region getGreetMessage
-        public MsgTalkMessage getGreetMessage(string type)
+        public MsgTalkMessage getGreet(string type)
         {
             return getMacheGreet(getTargetTypeList(type));
         }
@@ -501,6 +501,31 @@ namespace Liplis.Xml
             }
         }
         #endregion
+
+        /// <summary>
+        /// 時刻情報を取得する
+        /// </summary>
+        /// <returns></returns>
+        public MsgTalkMessage getClockInfo()
+        {
+            string resStr = "";
+            DateTime nowTime = DateTime.Now;
+
+            //時刻情報のセリフを取得
+            resStr = getChatWordStr("clockInfo");
+        
+            //空だったら、電池格納用ワードを入れておく
+            if(resStr == "")
+            {
+                resStr = nowTime.ToString("yyyy/MM/dd HH:mm:ss");
+            }
+            else
+            {
+                resStr = resStr.Replace("[?]", nowTime.ToString("yyyy/MM/dd HH:mm:ss"));
+            }
+
+            return new MsgTalkMessage(resStr, 1, 1);
+        }
 
         /// <summary>
         /// getTimeSignal

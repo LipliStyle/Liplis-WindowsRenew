@@ -51,9 +51,10 @@
     <Compile Include="SkinController.cs" />
     <Compile Include="Xml\XmlLiplisBody.cs" />
     <Compile Include="Xml\XmlLiplisChat.cs" />
-    <Compile Include="Xml\XmlLIplisSkin.cs" />
+    <Compile Include="Xml\XmlLiplisSkin.cs" />
     <Compile Include="Xml\XmlLiplisTouch.cs" />
     <Compile Include="Xml\XmlLiplisVersion.cs" />
+    <Compile Include="Xml\XmlLiplisWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LiplisCore\LiplisCore.csproj">

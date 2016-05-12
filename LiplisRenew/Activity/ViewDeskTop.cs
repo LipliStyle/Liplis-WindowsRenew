@@ -25,7 +25,6 @@
 //
 //  Copyright(c) 2010-2016 LipliStyle.Sachin
 //=======================================================================
-using Liplis.Json;
 using Liplis.MainSystem;
 using Liplis.Msg;
 using System;
@@ -39,7 +38,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows;
 using System.Security.Permissions;
-using Liplis.Wpf.Xaml;
+using Liplis.Widget;
+using Liplis.Gui;
+using Liplis.Com;
 
 namespace Liplis.Activity
 {
@@ -48,11 +49,11 @@ namespace Liplis.Activity
         ///=============================
         ///設定関連
         public LiplisKeyManager kman ;
-        public LiplisPreference setting;
+        public LiplisPreference baseSetting;
 
         //=================================
         //リプリスウィジェット
-        public List<XamlLiplisImage> widgetList;
+        public List<LiplisWidget> widgetList;
 
         //=================================
         //logリスト
@@ -110,8 +111,11 @@ namespace Liplis.Activity
             //クラスの初期化、設定の読み込み
             initClass();
 
+            //起動前チェック
+            liplisStartCheck();
+
             //ウィジェットリストの初期化
-            initWidgetList();
+            initLiplis();
 
             //暫定
             openMenu();
@@ -124,17 +128,44 @@ namespace Liplis.Activity
         {
             this.kman    = new LiplisKeyManager();  //キーマネージャーの初期化
             this.lpsLog  = new MsgLiplisLogList();  //ログリストの初期化
-            this.setting = new LiplisPreference();  //設定読み込み
+            this.baseSetting = new LiplisPreference();  //設定読み込み
             this.sc      = new SkinController();    //スキン管理クラス
+        }
+
+        /// <summary>
+        /// スタートチェック
+        /// </summary>
+        private void liplisStartCheck()
+        {
+            //スキン数チェック
+            if(sc.lstSkin.Count == 0)
+            {
+                LpsMessage.showError(LiplisErrorDefine.LPS_ERROR_001_SKIN_NOT_FOUND);
+                Environment.Exit(1);
+            }
         }
 
         /// <summary>
         /// ウィジェットリストの初期化
         /// </summary>
-        private void initWidgetList()
+        private void initLiplis()
         {
-            widgetList = new List<XamlLiplisImage>();
+            //ウィジェットリストの初期化
+            widgetList = new List<LiplisWidget>();
 
+            if (this.kman.keyList.Count == 0)
+            {
+                //キーリストが０件の場合、リリ(または他キャラ)を一個追加して起動
+                this.addNewDefaultWidget();
+            }
+            else
+            {
+                //キーリストを回してウィジェットインスタンスを生成する
+                foreach(var key in this.kman.keyList)
+                {
+                    this.addLoadWidget(key);
+                }
+            }
 
         }
         #endregion
@@ -265,5 +296,220 @@ namespace Liplis.Activity
         #endregion
 
 
+        //============================================================
+        //
+        //ウィジェット処理
+        //
+        //============================================================
+
+        /// <summary>
+        /// ウィジェットを追加する(新規追加)
+        /// </summary>
+        public void addNewDefaultWidget()
+        {
+            //リリのスキンを探す
+            Skin defaultSkin = sc.getSkin(LpsDefine.DEFAULT_SKIN);
+
+            //リリが見つからなければ他を探す
+            if (defaultSkin == null)
+            {
+                defaultSkin = sc.getSkinRandam();
+            }
+
+            //新規キー作成
+            LiplisWidgetPreference widgetSetting = createWidgetSettingFromSkin(defaultSkin);
+
+            //ウィジェット
+            LiplisWidget lps = new LiplisWidget(this, widgetSetting, defaultSkin);
+
+            //ウィジェットリストに追加する
+            this.widgetList.Add(lps);
+
+            //キーマネージャに追加する
+            this.kman.addKey(defaultSkin.charName);
+        }
+
+        /// <summary>
+        /// ウィジェットを追加する(読み込み追加)
+        /// </summary>
+        /// <param name="key"></param>
+        public void addWidget(Skin skin)
+        {
+            //キー取得
+            LiplisWidgetPreference widgetSetting = createWidgetSettingFromSkin(skin);
+
+            LiplisWidget lps = new LiplisWidget(this, widgetSetting, skin);
+
+            //ウィジェットリストに追加する
+            this.widgetList.Add(lps);
+
+            //召喚
+            lps.Show();
+
+            //キーマネージャに追加する
+            this.kman.addKey(widgetSetting.key);
+        }
+
+        /// <summary>
+        /// ウィジェットを追加する(読み込み追加)
+        /// </summary>
+        /// <param name="key"></param>
+        private void addLoadWidget(string key)
+        {
+            //キー取得
+            LiplisWidgetPreference widgetSetting = createWidgetSetttingFromKey(key);
+
+            //スキンデータ取得
+            Skin skin = sc.getSkin(widgetSetting.charName);
+
+            //スキンデータ取得チェック
+            if (skin != null)
+            {
+                LiplisWidget lps = new LiplisWidget(this, widgetSetting, skin);
+
+                //ウィジェットリストに追加する
+                this.widgetList.Add(lps);
+            }
+        }
+
+
+        /// <summary>
+        /// キーからプリファレンスを読み出す
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        private LiplisWidgetPreference createWidgetSetttingFromKey(string key)
+        {
+            LiplisWidgetPreference widgetSetting = new LiplisWidgetPreference();
+
+            if (key == "")
+            {
+                //初期座標の設定
+                widgetSetting.locationX = Screen.PrimaryScreen.Bounds.Width / 2 ;
+                widgetSetting.locationY = Screen.PrimaryScreen.Bounds.Height / 2;
+            }
+            else
+            {
+                //キーからロード
+                widgetSetting = new LiplisWidgetPreference(key);
+            }
+
+            return widgetSetting;
+        }
+
+        /// <summary>
+        /// スキンからプリファレンスを作成する
+        /// </summary>
+        /// <param name="skin"></param>
+        /// <returns></returns>
+        private LiplisWidgetPreference createWidgetSettingFromSkin(Skin skin)
+        {
+            LiplisWidgetPreference widgetSetting = new LiplisWidgetPreference();
+
+            //キャラクター名設定
+            widgetSetting.charName = skin.charName;
+
+            //初期座標の設定
+            widgetSetting.locationX = Screen.PrimaryScreen.Bounds.Width / 2;
+            widgetSetting.locationY = Screen.PrimaryScreen.Bounds.Height / 2;
+
+            return widgetSetting;
+        }
+
+
+
+        /*
+        ウィジェットをデスクトップから削除する
+        */
+        private void delWidget(LiplisWidget widget)
+        {
+            //キーマネージャーからキーを削除する
+            this.kman.delKey(widget.setting.charName);
+
+            //ウィジェットリストから削除する
+            this.delFromWidgetList(widget);
+
+            //Liplisオブジェクトの削除
+            Invoke((MethodInvoker)delegate
+            {
+                widget.Dispose();
+            });
+        }
+
+        /*
+        デスクトップの全てのウィジェットを削除する
+        */
+        private void delWidgetAll()
+        {
+            foreach(var widget in widgetList)
+            {
+                this.delWidget(widget);
+            }
+
+            //キーは全て削除
+            this.kman.delAllKey();
+        }
+
+        /*
+        ウィジェットをウィジェットリストから削除する
+        */
+        private void delFromWidgetList(LiplisWidget widget)
+        {
+            //ヒットしたら削除
+            if (widgetList.Contains(widget))
+            {
+                this.widgetList.Remove(widget);
+            }
+        }
+
+        /*
+        ウィジェットをスリープにする
+        */
+        private void widgetSleep()
+        {
+            //設定チェック
+            if (this.baseSetting.lpsAutoSleep == 1)
+            {
+                //ウィジェットリストを回してらりほー
+                foreach(var wid in this.widgetList)
+                {
+                    Invoke((MethodInvoker)delegate
+                    {
+                        wid.sleep();
+                    });
+                }
+            }
+        }
+
+        /*
+        ウィジェットをウェイクアップする
+        */
+        private void widgetWakeup()
+        {
+            ////設定チェック
+            //if (this.baseSetting.lpsAutoWakeup == 1)
+            //{
+            //    //ウィジェットリストを回して起こす
+
+            //    foreach (var widget in this.widgetList)
+            //    {
+            //        widget.wakeup();
+            //    }
+            //}
+        }
+
+        /// <summary>
+        /// デスクトップの全てのウィジェットにレスキューする
+        /// </summary>
+        private void rescueWidgetAll()
+        {
+            foreach (var widget in this.widgetList)
+            {
+                Invoke((MethodInvoker)delegate
+                {
+                    widget.rescue(0);
+                });
+            }
+        }
     }
 }

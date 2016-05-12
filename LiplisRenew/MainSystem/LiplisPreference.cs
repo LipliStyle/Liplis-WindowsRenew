@@ -16,28 +16,32 @@ using System.Reflection;
 
 namespace Liplis.MainSystem
 {
-    public class LiplisPreference : XmlSetting
+    public class LiplisPreference : SharedPreferences
     {
+        ///=============================
+        /// プロパティ
+        public string lpsUid;                   //0
+        public Int32 lpsAutoSleep;              //1
+        public Int32 lpsAutoWakeup;             //2
+        //public Int32 lpsTalkWindowClickMode;    //3
+        //public Int32 lpsBrowserMode;            //4
+        //public Int32 lpsAutoRescue;             //5
+
+        public const string PREFS_UID               = "uid";
+        public const string PREFS_AUTO_SLEEP        = "lpsAutoSleep";
+        public const string PREFS_AUTO_WAKEUP       = "lpsAutoWakeup";
+        //public const string PREFS_WINDOW_CLIKC_MODE = "lpsTalkWindowClickMode";
+        //public const string PREFS_BRW_MODE          = "lpsBrowserMode";
+        //public const string PREFS_AUTO_RESCUE       = "lpsAutoRescue";
+
         /// <summary>
         /// コンストラクター
         /// </summary>
         #region コンストラクター
-        public LiplisPreference()
+        public LiplisPreference():base(LpsPathController.getSettingFilePath())
         {
-            try
-            {
-                //設定の取得
-                setting = new SharedPreferences(LpsPathController.getSettingFilePath());
-
-                //読み込み
-                getPreferenceData();
-
-            }
-            catch (System.Exception err)
-            {
-                //設定ファイルの読み込みエラーの旨、異常位置を知らせるウインドウを出すべき
-                LpsLogController.writingLog(this.GetType().Name, MethodBase.GetCurrentMethod().Name, LpsPathController.getSettingFilePath() + "が存在しないため作成します" + Environment.NewLine + err);
-            }
+            //読み込み
+            setData();
         }
         #endregion
 
@@ -45,13 +49,15 @@ namespace Liplis.MainSystem
         /// <summary>
         /// 設定の読み込み
         /// </summary>
-        public override void getPreferenceData()
+        public void setData()
         {
             try
             {
-
+                this.lpsUid = getString(PREFS_UID, LpsGuidCreator.createLiplisGuid());
+                this.lpsAutoSleep = getInt(PREFS_AUTO_SLEEP, 0);
+                this.lpsAutoWakeup = getInt(PREFS_AUTO_WAKEUP, 0);
             }
-            catch (System.Exception err)
+            catch (Exception err)
             {
                 LpsLogController.writingLog(this.GetType().Name, MethodBase.GetCurrentMethod().Name, "readResult:設定の読込失敗" + Environment.NewLine + err);
             }
@@ -61,7 +67,7 @@ namespace Liplis.MainSystem
         /// <summary>
         /// 設定の保存
         /// </summary>
-        public override void setPreferenceData()
+        public void setPreferenceData()
         {
         }
     }

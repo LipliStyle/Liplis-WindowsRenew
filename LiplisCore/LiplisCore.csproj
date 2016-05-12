@@ -95,6 +95,7 @@
     <Compile Include="Talk\LiplisFaildMessage.cs" />
     <Compile Include="Talk\LiplisTag.cs" />
     <Compile Include="Task\LpsSTATask.cs" />
+    <Compile Include="Utl\LpsGuidCreator.cs" />
     <Compile Include="Utl\LpsLogController.cs" />
     <Compile Include="Utl\LpsPathController.cs" />
     <Compile Include="Voc\LpsVoiceRoid.cs" />

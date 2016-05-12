@@ -16,6 +16,10 @@ namespace Liplis.Com
         public const string PRG_NAME_LIPLIS = "Liplis";
 
         ///=============================
+        /// デフォルトスキン名
+        public const string DEFAULT_SKIN = "LiliRenew";
+
+        ///=============================
         /// 設定ファイルパス定義
         #region 設定ファイルパス定義
         public const string SETTING_SKIN_FILE_NAME = "skin.xml";
@@ -86,6 +90,69 @@ namespace Liplis.Com
         public const string URL_NICO_DOMAIN = "http://www.nicovideo.jp/";
         public const string URL_NICO_LOGIN_PAGE_URL = "https://secure.nicovideo.jp/secure/login?site=niconico";
         public const string URL_NICO_INFO = "http://ext.nicovideo.jp/api/getthumbinfo/";
+        #endregion
+
+        ///=============================
+        /// チャット制御コード
+        #region 制御コード
+        public const string CHAT_DEF_GREET = "greet";
+        public const string CHAT_DEF_GOODBYE = "goodBye";
+        public const string CHAT_DEF_CHANGE = "change";
+        public const string CHAT_DEF_BATTERY_INFOT = "batteryInfo";
+
+        public const string setting_Working = "setting_Working";
+        public const string setting_NotFound = "setting_NotFound";
+        public const string setting_AlreadyRegist = "setting_AlreadyRegist";
+        public const string setting_AlreadyDelete = "setting_AlreadyDelete";
+        public const string setting_RssNotValid = "setting_RssNotValid";
+        public const string setting_RssValid = "setting_RssValid";
+        public const string setting_Success = "setting_Success";
+        public const string setting_Rss_Reg_Success = "setting_Rss_Reg_Success";
+        public const string setting_Rss_Upd_Success = "setting_Rss_Upd_Success";
+        public const string setting_Faild = "setting_Faild";
+        public const string setting_Delete = "setting_Delete";
+        public const string setting_DeleteConfirm = "setting_DeleteConfirm";
+        public const string setting_DeleteSuccess = "setting_DeleteSuccess";
+        public const string setting_DeleteFaild = "setting_DeleteFaild";
+        public const string setting_Cancel = "setting_Cancel";
+        public const string setting_UrlEmpty = "setting_UrlEmpty";
+        public const string setting_NotFoundRssDelete = "setting_NotFoundRssDelete";
+        public const string setting_NotFoundNotVaildRss = "setting_NotFoundNotVaildRss";
+        public const string setting_FoundNotVaildRss = "setting_FoundNotVaildRss";
+        public const string setting_NFRD_Success = "setting_NFRD_Success";
+        public const string setting_NFRD_SAF = "setting_NFRD_SAF";
+        public const string setting_RSS_ADD = "setting_RssAdd";
+        public const string setting_CacheChange = "setting_CacheChange";
+        public const string setting_CacheChanged = "setting_CacheChanged";
+        public const string setting_updateNow = "setting_updateNow";
+
+
+        public const string errNotFoundBrowzer = "errNotFoundBrowzer";
+        public const string errNothingIsFound = "errNothingIsFound";
+        public const string errNotFoundTopix = "errNotFoundTopix";
+        public const string errNoTopixNoConnection = "errNoTopixNoConnection";
+
+        public const string newDataSearchStart = "newDataSearchStart";
+        public const string newDataSearchEnd = "newDataSearchEnd";
+        public const string updateNow = "updateNow";
+        public const string err_BrowzerErr = "err_BrowzerErr";
+        public const string err_Commnand = "err_Commnand";
+
+        public const string rdoFrqReticent = "rdoFrqReticent";
+        public const string rdoFrqRefined = "rdoFrqRefined";
+        public const string rdoFrqKeeps = "rdoFrqKeeps";
+        public const string rdoFrqQuiet = "rdoFrqQuiet";
+        public const string rdoFrqNormal = "rdoFrqNormal";
+        public const string rdoFrqTalkative = "rdoFrqTalkative";
+        public const string rdoFrqNoisy = "rdoFrqNoisy";
+        public const string rdoFrqVerryNoisy = "rdoFrqVerryNoisy";
+        public const string rdoFrqMachen = "rdoFrqMachen";
+        public const string rdoFrqChangeable = "rdoFrqChangeable";
+        public const string notConect = "notConect";
+        public const string setting_DbCrean = "setting_DbCrean";
+        public const string setting_DbCrean_End = "setting_DbCrean_End";
+
+        public const string endChat = "endChat";
         #endregion
 
     }

@@ -12,8 +12,8 @@
 //
 //  Copyright(c) 2010-2016 LipliStyle.Sachin
 //=======================================================================
+using Liplis.Widget;
 using Liplis.Wpf;
-using Liplis.Wpf.Xaml;
 using System;
 using System.Timers;
 using System.Windows;
@@ -251,13 +251,20 @@ namespace Liplis.Activity
             string picPath = skin.xmlBody.getLiplisBody(0, 0).getBodyPath11();
 
             //画像セット
+            WpfAnimation.opacityDown(this, imgChar);
             imgChar.Source = new BitmapImage(new Uri(picPath));
+            WpfAnimation.opacityUp(this, imgChar);
 
             //ラベルセット
             lblCharName.Content = skin.xmlSkin.charName;
 
             //紹介文章セット
             lblCharIntroduction.Content = skin.xmlSkin.charIntroduction;
+        }
+
+        private void skinSelectAnimation()
+        {
+
         }
         #endregion
 
@@ -318,8 +325,6 @@ namespace Liplis.Activity
                 }
             }));
         }
-
-
         private void btnRight_MouseEnter(object sender, MouseEventArgs e)
         {
             Storyboard storyboard = WpfAnimation.opacityUpStoryboard(btnRight,0.6);
@@ -334,14 +339,12 @@ namespace Liplis.Activity
             ////アニメーション開始
             storyboard.Begin(this);
         }
-
         private void btnRight_MouseLeave(object sender, MouseEventArgs e)
         {
             WpfAnimation.opacityDown(this, btnRight);
 
             timerBtnRight.Stop();
         }
-
         private void OnElapsed_timerBtnRight(object sender, ElapsedEventArgs e)
         {
             Dispatcher.Invoke(new Action(() =>
@@ -358,19 +361,21 @@ namespace Liplis.Activity
                     }
                 }
             }));
-
         }
-
-
         #endregion
 
         private void btnCharSelect_Click(object sender, RoutedEventArgs e)
         {
-            XamlLiplisImage liplis = new XamlLiplisImage();
-            XamlWindow window = new XamlWindow();
+            if(selectedSkin != null)
+            {
+                desktop.addWidget(selectedSkin);
+            }
+            
+            //LiplisWidget liplis = new LiplisWidget();
+            //LiplisWindow window = new LiplisWindow();
 
-            liplis.Show();
-            window.Show();
+            //liplis.Show();
+            //window.Show();
 
         }
     }

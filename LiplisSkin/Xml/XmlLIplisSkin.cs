@@ -19,7 +19,7 @@ using System.Reflection;
 namespace Liplis.Xml
 {
     [Serializable]
-    public class XmlLIplisSkin : XmlSetting
+    public class XmlLiplisSkin : SharedPreferences
     {
                 ///=============================
         ///プロパティ
@@ -46,13 +46,10 @@ namespace Liplis.Xml
         /// skin.xmlのパスを指定して読み込む
         /// </summary>
 
-        public XmlLIplisSkin(string skinSettingPath):base()
+        public XmlLiplisSkin(string skinSettingPath):base(skinSettingPath)
         {
             try
             {
-                //設定の取得
-                setting = new SharedPreferences(skinSettingPath);
-
                 //読み込み
                 getPreferenceData();
 
@@ -69,17 +66,17 @@ namespace Liplis.Xml
         /// コンストラクター
         /// 要素を直接指定し、スキン設定を作成
         /// </summary>
-        public XmlLIplisSkin(string charName, int width, int height, string textFont, string textColor, string linkColor, string titleColor, string themaColor, string themaColorSub)
+        public XmlLiplisSkin(string charName, int width, int height, string textFont, string textColor, string linkColor, string titleColor, string themaColor, string themaColorSub)
         {
             try
             {
                 //設定
-                this.charName = charName;
-                this.textFont = textFont;
-                this.textColor = textColor;
-                this.linkColor = linkColor;
-                this.titleColor = titleColor;
-                this.themaColor = themaColor;
+                this.charName      = charName;
+                this.textFont      = textFont;
+                this.textColor     = textColor;
+                this.linkColor     = linkColor;
+                this.titleColor    = titleColor;
+                this.themaColor    = themaColor;
                 this.themaColorSub = themaColorSub;
 
             }
@@ -95,7 +92,7 @@ namespace Liplis.Xml
         /// コンストラクター
         /// </summary>
         
-        public XmlLIplisSkin()
+        public XmlLiplisSkin()
         {
         }
         #endregion
@@ -111,20 +108,20 @@ namespace Liplis.Xml
         /// readXmlで読み込んだ結果を自変数に読み込む
         /// </summary>
 
-        public override void getPreferenceData()
+        public void getPreferenceData()
         {
             try
             {
-                charName = setting.getString(LpsDefine.SKIN_CHAR_NAME, LpsDefine.SKIN_DEF_CHAR_NAME);
-                textFont = setting.getString(LpsDefine.SKIN_FONT, LpsDefine.SKIN_DEF_FONT);
-                textColor = setting.getString(LpsDefine.SKIN_TEXT_COLOR, LpsDefine.SKIN_DEF_TEXT_COLOR);
-                linkColor = setting.getString(LpsDefine.SKIN_LINK_COLOR, LpsDefine.SKIN_DEF_LINK_COLOR);
-                titleColor = setting.getString(LpsDefine.SKIN_TITLE_COLOR, LpsDefine.SKIN_DEF_TITLE_COLOR);
-                themaColor = setting.getString(LpsDefine.SKIN_THEMA_COLOR, LpsDefine.SKIN_DEF_THEMA_COLOR);     //ver2.2.2
-                themaColorSub = setting.getString(LpsDefine.SKIN_THEMA_COLOR2, LpsDefine.SKIN_DEF_THEMA_COLOR2);   //ver2.2.2
-                charIntroduction = setting.getString(LpsDefine.SKIN_CHAR_INTRO, LpsDefine.SKIN_DEF_CHAR_INTRO);
-                version = setting.getString(LpsDefine.SKIN_VERSION, LpsDefine.SKIN_DEF_VERSION);
-                toneUrl = setting.getString(LpsDefine.SKIN_TONE_URL, LpsDefine.SKIN_DEF_TONE_URL);
+                charName         = getString(LpsDefine.SKIN_CHAR_NAME, LpsDefine.SKIN_DEF_CHAR_NAME);
+                textFont         = getString(LpsDefine.SKIN_FONT, LpsDefine.SKIN_DEF_FONT);
+                textColor        = getString(LpsDefine.SKIN_TEXT_COLOR, LpsDefine.SKIN_DEF_TEXT_COLOR);
+                linkColor        = getString(LpsDefine.SKIN_LINK_COLOR, LpsDefine.SKIN_DEF_LINK_COLOR);
+                titleColor       = getString(LpsDefine.SKIN_TITLE_COLOR, LpsDefine.SKIN_DEF_TITLE_COLOR);
+                themaColor       = getString(LpsDefine.SKIN_THEMA_COLOR, LpsDefine.SKIN_DEF_THEMA_COLOR);     //ver2.2.2
+                themaColorSub    = getString(LpsDefine.SKIN_THEMA_COLOR2, LpsDefine.SKIN_DEF_THEMA_COLOR2);   //ver2.2.2
+                charIntroduction = getString(LpsDefine.SKIN_CHAR_INTRO, LpsDefine.SKIN_DEF_CHAR_INTRO);
+                version          = getString(LpsDefine.SKIN_VERSION, LpsDefine.SKIN_DEF_VERSION);
+                toneUrl          = getString(LpsDefine.SKIN_TONE_URL, LpsDefine.SKIN_DEF_TONE_URL);
             }
             catch (System.Exception err)
             {
@@ -146,7 +143,7 @@ namespace Liplis.Xml
         /// setPreferenceData
         /// セーブ
         /// </summary>
-        public override void setPreferenceData()
+        public void setPreferenceData()
         {
 
         }
