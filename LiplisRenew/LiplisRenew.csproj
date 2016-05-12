@@ -133,15 +133,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ico_win_wnd.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_win_max.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_win_min.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="Widget\LiplisWidget.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -156,86 +147,26 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\normal_1_1_1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="normal_1_1_1.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <Folder Include="Exp\" />
     <Folder Include="Wpf\Xaml\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="window_red.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\battery_1001.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_pow1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_setting1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_view1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_zzz1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\battery_1002.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_back1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_pow2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_setting2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_view2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="battery_100.png" />
-    <Resource Include="ico_char_lili.png" />
-    <Resource Include="ico_intro.png" />
-    <Resource Include="ico_log.png" />
-    <Resource Include="ico_pow.png" />
-    <Resource Include="ico_setting.png" />
-    <Resource Include="ico_view.png" />
-    <Resource Include="ico_zzz.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_char_lili.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_log.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_pow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_zzz.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\battery_100.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_intro.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_setting.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_view.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_back.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="ico_back.png" />
+    <Content Include="Resources\battery_100.png" />
+    <Content Include="Resources\ico_back.png" />
+    <Content Include="Resources\ico_char_lili.png" />
+    <Content Include="Resources\ico_intro.png" />
+    <Content Include="Resources\ico_log.png" />
+    <Content Include="Resources\ico_pow.png" />
+    <Content Include="Resources\ico_setting.png" />
+    <Content Include="Resources\ico_view.png" />
+    <Content Include="Resources\ico_win_max.png" />
+    <Content Include="Resources\ico_win_min.png" />
+    <Content Include="Resources\ico_win_wnd.png" />
+    <Content Include="Resources\ico_zzz.png" />
+    <Content Include="Resources\normal_1_1_1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

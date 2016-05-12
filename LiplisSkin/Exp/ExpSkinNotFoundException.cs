@@ -10,16 +10,16 @@ using System;
 
 namespace Liplis.Exp
 {
-    public class SkinNotFoundException : Exception
+    public class ExpSkinNotFoundException : Exception
     {
         private const string MESSAGE = "Liplisスキンが見つからなかったか、読み込みに失敗しました。";
 
-        public SkinNotFoundException()
+        public ExpSkinNotFoundException()
         : base(MESSAGE)
         {
         }
 
-        public SkinNotFoundException(Exception inner)
+        public ExpSkinNotFoundException(Exception inner)
         : base(MESSAGE, inner)
         {
         }

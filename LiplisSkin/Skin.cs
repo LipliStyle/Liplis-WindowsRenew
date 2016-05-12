@@ -38,7 +38,7 @@ namespace Liplis
             xmlBody = new XmlLiplisBody(xmlSkin.charName);
             xmlChat = new XmlLiplisChat(xmlSkin.charName);
             xmlTouch = new XmlLiplisTouch(xmlSkin.charName);
-
+            xmlWindow = new XmlLiplisWindow(xmlSkin.charName);
 
             //キャラクター名の取得
             this.charName = xmlSkin.charName;

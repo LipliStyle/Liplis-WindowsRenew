@@ -10,16 +10,16 @@ using System;
 
 namespace Liplis.Exp
 {
-    public class SkinLoadFaildException : Exception
+    public class ExpSkinLoadFaildException : Exception
     {
         private const string MESSAGE = "Liplisスキンの読み込みに失敗しました。";
 
-        public SkinLoadFaildException()
+        public ExpSkinLoadFaildException()
         : base(MESSAGE)
         {
         }
 
-        public SkinLoadFaildException(Exception inner)
+        public ExpSkinLoadFaildException(Exception inner)
         : base(MESSAGE, inner)
         {
         }

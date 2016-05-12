@@ -347,12 +347,12 @@ namespace Liplis.Xml
                 else
                 {
                     //読み込みに失敗した場合はエラー
-                    throw new SkinNotFoundException();
+                    throw new ExpSkinNotFoundException();
                 }
             }
             catch (System.Exception err)
             {
-                throw new SkinNotFoundException(err);
+                throw new ExpSkinNotFoundException(err);
             }
         }
         /// <summary>
@@ -369,7 +369,7 @@ namespace Liplis.Xml
             }
             catch (Exception)
             {
-                throw new SkinNotFoundException();
+                throw new ExpSkinNotFoundException();
             }
         }
         #endregion

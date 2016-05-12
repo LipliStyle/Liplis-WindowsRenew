@@ -83,7 +83,7 @@ namespace Liplis.Xml
 			catch (System.Exception err)
 			{
                 //読み込みに失敗した場合はエラー
-                throw new SkinNotFoundException(err);
+                throw new ExpSkinNotFoundException(err);
             }
 		}
         public XmlLiplisTouch()

@@ -1,6 +1,6 @@
 ﻿//=======================================================================
-//  ClassName : XamlLiplisImage
-//  概要      : リプリスイメージ
+//  ClassName : LiplisWidget
+//  概要      : リプリスウィジェット
 //
 // iOS版:UiImageに対応
 //
@@ -14,6 +14,7 @@
 using Liplis.Activity;
 using Liplis.Body;
 using Liplis.Com;
+using Liplis.Gui;
 using Liplis.MainSystem;
 using Liplis.Msg;
 using Liplis.Utl;
@@ -118,27 +119,32 @@ namespace Liplis.Widget
         /// </summary>
         public LiplisWidget(ViewDeskTop desk, LiplisWidgetPreference setting, Skin skin)
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
 
-            //設定データ
-            this.setting = setting;
+                //設定データ
+                this.setting = setting;
 
-            //デスクトップクラス取得
-            this.desk = desk;
+                //デスクトップクラス取得
+                this.desk = desk;
 
-            //スキンデータ取得
-            this.skin = skin;
+                //スキンデータ取得
+                this.skin = skin;
 
-            //ビューの初期化;
-            this.initView();
+                //ビューの初期化;
+                this.initView();
 
-            //クラスの初期化
-            this.initClass();
+                //クラスの初期化
+                this.initClass();
 
-            //あいさつ
-            this.greet();
-
-
+                //あいさつ
+                this.greet();
+            }
+            catch (Exception ex)
+            {
+                initErrorEnd(ex);
+            }
         }
 
         /// <summary>
@@ -146,18 +152,77 @@ namespace Liplis.Widget
         /// </summary>
         private void initClass()
         {
-            //デフォルトボディロード
-            this.lpsBody = skin.xmlBody.getDefaultBody();
+            try
+            {
+                //デフォルトボディロード
+                this.lpsBody = skin.xmlBody.getDefaultBody();
 
-            //TODO: LiplisWidget initClass モードによっては話題収集の実行が必要
+                //TODO: LiplisWidget initClass モードによっては話題収集の実行が必要
+                //TODO: LiplisWidget 話題収集はデスクトップクラスで行い、そこからしゅとくするようにする。
+                //話題収集の実行
+                //this.onCheckNewsQueue();
 
-            //話題収集の実行
-            //this.onCheckNewsQueue();
+                //TODO: LiplisWidget initClass バッテリーオブジェクトの作成
 
-            //TODO: LiplisWidget initClass バッテリーオブジェクトの作成
+                //バッテリーオブジェクトの初期化
+                this.lpsBattery = new LiplisBattery();
+            }
+            catch (Exception ex)
+            {
+                initErrorEnd(ex);
+            }
+        }
 
-            //バッテリーオブジェクトの初期化
-            this.lpsBattery = new  LiplisBattery();
+        /// <summary>
+        /// 画面要素の初期化
+        /// </summary>
+        private void initView()
+        {
+            try
+            {
+                //ウインドウの初期化
+                this.window = new LiplisWindow();
+
+                this.window.Show();
+
+                //サイズ設定
+                setSize(skin.xmlBody.height, skin.xmlBody.width);
+
+                //アイコン設定
+                this.icoSleep.Source = new BitmapImage(new Uri(this.skin.xmlWindow.ICO_ZZZ));
+                this.icoLog.Source = new BitmapImage(new Uri(this.skin.xmlWindow.ICO_LOG));
+                this.icoSetting.Source = new BitmapImage(new Uri(this.skin.xmlWindow.ICO_SETTING));
+                this.icoChat.Source = new BitmapImage(new Uri(this.skin.xmlWindow.ICO_INTRODUCTION));
+                this.icoClock.Source = new BitmapImage(new Uri(this.skin.xmlWindow.ICO_BACK));
+                this.icoBattery.Source = new BitmapImage(new Uri(this.skin.xmlWindow.BATTERY_100));
+
+                //ロケーション設定
+                setWidgetLocation();
+            }
+            catch(Exception ex)
+            {
+                initErrorEnd(ex);
+            }
+        }
+
+        /// <summary>
+        /// 初期化時のエラー 終了処理
+        /// </summary>
+        /// <param name="ex"></param>
+        private void initErrorEnd(Exception ex)
+        {
+            //エラーメッセージ作成
+            StringBuilder message = new StringBuilder();
+
+            message.AppendLine("ウィジェットの初期化に失敗しました。Skinに問題がある可能性があります。");
+            message.Append("エラー原因:");
+            message.Append(ex.Message);
+
+            //エラーメッセージ
+            LpsMessage.showError(message.ToString());
+
+            //ウィジェットを閉じる
+            this.Close();
         }
 
         /// <summary>
@@ -176,14 +241,6 @@ namespace Liplis.Widget
 
             //ナウワードインデックスの初期化
             this.cntLnw = 0;
-        }
-
-        /// <summary>
-        /// 画面要素の初期化
-        /// </summary>
-        private void initView()
-        {
-            setSize(skin.xmlBody.height, skin.xmlBody.width);
         }
 
         //============================================================
@@ -371,68 +428,15 @@ namespace Liplis.Widget
             DragMove();
 
             //ウインドウの追随
-            setWidgetLocation(this.Top, 0);
+            setWidgetLocation();
         }
 
         /*
         各パーツをボディに追随させる
         */
-        private void  setWidgetLocation(double offsetY, double windowOffsetY)
+        private void  setWidgetLocation()
         {
-            ////ボディフレーム
-            //let frameImgBody : CGRect = imgBody.frame
-    
-
-            //var frameImgWindow : CGRect = imgWindow.frame
-            //var frameLblTalkLabel : CGRect = lblLpsTalkLabel.frame
-    
-
-            //var frameIcoSleep: CGRect = icoSleep.frame
-            //var frameIcoLog: CGRect = icoLog.frame
-            //var frameIcoSetting: CGRect = icoSetting.frame
-            //var frameIcoChat: CGRect = icoChat.frame
-            //var frameIcoClock: CGRect = icoClock.frame
-            //var frameIcoBattery: CGRect = icoBattery.frame
-    
-
-            //frameImgWindow.origin.x = frameImgBody.origin.x - frameImgWindow.width / 2 + frameImgBody.width / 2
-            //frameImgWindow.origin.y = frameImgBody.origin.y - 45 + windowOffsetY
-            //frameLblTalkLabel.origin.x = frameImgBody.origin.x - frameImgWindow.width / 2 + frameImgBody.width / 2 + 5
-            //frameLblTalkLabel.origin.y = frameImgBody.origin.y - 45 + windowOffsetY
-    
-
-            //frameIcoSleep.origin.x = frameImgWindow.origin.x
-            //frameIcoSleep.origin.y = frameImgBody.origin.y + frameImgBody.height - 112 + offsetY
-            //frameIcoLog.origin.x = frameImgWindow.origin.x
-            //frameIcoLog.origin.y = frameImgBody.origin.y + frameImgBody.height - 72 + offsetY
-            //frameIcoSetting.origin.x = frameImgWindow.origin.x
-            //frameIcoSetting.origin.y = frameImgBody.origin.y + frameImgBody.height - 32 + offsetY
-            //frameIcoChat.origin.x = frameImgWindow.origin.x + frameImgWindow.width - 32
-            //frameIcoChat.origin.y = frameImgBody.origin.y + frameImgBody.height - 112 + offsetY
-            //frameIcoClock.origin.x = frameImgWindow.origin.x + frameImgWindow.width - 32
-            //frameIcoClock.origin.y = frameImgBody.origin.y + frameImgBody.height - 72 + offsetY
-            //frameIcoBattery.origin.x = frameImgWindow.origin.x + frameImgWindow.width - 32
-            //frameIcoBattery.origin.y = frameImgBody.origin.y + frameImgBody.height - 32 + offsetY
-    
-            ////移動したフレーム値を反映
-            //self.imgWindow.frame = frameImgWindow
-            //self.lblLpsTalkLabel.frame = frameLblTalkLabel
-    
-
-            //self.imgClockBase.frame = frameIcoClock
-            //self.imgClockLongHand.frame = frameIcoClock
-            //self.imgClockShortHand.frame = frameIcoClock
-    
-
-            //self.icoSleep.frame = frameIcoSleep
-            //self.icoLog.frame = frameIcoLog
-            //self.icoSetting.frame = frameIcoSetting
-            //self.icoChat.frame = frameIcoChat
-            //self.icoClock.frame = frameIcoClock
-            //self.icoBattery.frame = frameIcoBattery
-    
-            ////レクトの設定
-            //self.frame = CGRect(x: frameImgWindow.origin.x, y: frameImgWindow.origin.y, width: frameImgWindow.width, height: frameIcoSetting.origin.y + frameIcoSetting.height - frameImgWindow.origin.y)
+            window.setWindowLocation((Int32)this.Top, (Int32)this.Width);
         }
 
         /*
@@ -481,7 +485,7 @@ namespace Liplis.Widget
             }
 
             //パーツの位置調整
-            this.setWidgetLocation(-10, windowOffsetY: 5);
+            this.setWidgetLocation();
 
             //座標セーブ
             this.saveLocation();

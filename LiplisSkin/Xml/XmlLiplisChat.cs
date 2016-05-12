@@ -74,14 +74,14 @@ namespace Liplis.Xml
                 else
                 {
                     //読み込みに失敗した場合はエラー
-                    throw new SkinNotFoundException();
+                    throw new ExpSkinNotFoundException();
                 }
 
             }
             catch (System.Exception err)
             {
                 //読み込みに失敗した場合はエラー
-                throw new SkinNotFoundException(err);
+                throw new ExpSkinNotFoundException(err);
             }
         }
         #endregion

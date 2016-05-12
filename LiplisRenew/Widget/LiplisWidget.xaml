@@ -12,11 +12,11 @@
         >
     <Grid x:Name="imageGrid" Width="240" Height="300">
         <Image x:Name="image" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="240" Source="/Liplis;component/Resources/normal_1_1_1.png"/>
-        <Image x:Name="icoSleep" HorizontalAlignment="Left" Height="36" Margin="10,136,0,0" VerticalAlignment="Top" Width="36" Source="/Liplis;component/ico_zzz.png"/>
-        <Image x:Name="icoLog" HorizontalAlignment="Left" Height="36" Margin="10,186,0,0" VerticalAlignment="Top" Width="36" Source="/Liplis;component/ico_log.png"/>
-        <Image x:Name="icoSetting" HorizontalAlignment="Left" Height="36" Margin="10,236,0,0" VerticalAlignment="Top" Width="36" Source="/Liplis;component/ico_setting.png"/>
-        <Image x:Name="icoChat" HorizontalAlignment="Left" Height="36" Margin="194,136,0,0" VerticalAlignment="Top" Width="36" Source="/Liplis;component/ico_intro.png"/>
-        <Image x:Name="icoClock" HorizontalAlignment="Left" Height="36" Margin="194,186,0,0" VerticalAlignment="Top" Width="36" Source="/Liplis;component/ico_back.png"/>
-        <Image x:Name="icoBattery" HorizontalAlignment="Left" Height="36" Margin="194,236,0,0" VerticalAlignment="Top" Width="36" Source="/Liplis;component/battery_100.png"/>
+        <Image x:Name="icoSleep" HorizontalAlignment="Left" Height="48" Margin="10,126,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/ico_zzz.png"/>
+        <Image x:Name="icoLog" HorizontalAlignment="Left" Height="48" Margin="10,184,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/ico_log.png"/>
+        <Image x:Name="icoSetting" HorizontalAlignment="Left" Height="48" Margin="10,242,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/ico_setting.png"/>
+        <Image x:Name="icoChat" HorizontalAlignment="Left" Height="48" Margin="182,126,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/ico_intro.png"/>
+        <Image x:Name="icoClock" HorizontalAlignment="Left" Height="48" Margin="182,184,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/ico_back.png"/>
+        <Image x:Name="icoBattery" HorizontalAlignment="Left" Height="48" Margin="182,242,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/battery_100.png"/>
     </Grid>
 </Window>

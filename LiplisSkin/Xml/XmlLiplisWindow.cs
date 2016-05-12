@@ -8,6 +8,7 @@
 //  Copyright(c) 2010-2016 LipliStyle.Sachin
 //=======================================================================
 
+using Liplis.Com;
 using Liplis.Utl;
 
 namespace Liplis.Xml
@@ -57,7 +58,7 @@ namespace Liplis.Xml
         public string ICO_TRAY { get; set; }
         public string ICO_WAIKUP { get; set; }
         public string ICO_ZZZ { get; set; }
-        public string INTRODUCTION { get; set; }
+        public string ICO_INTRODUCTION { get; set; }
         public string SETTING { get; set; }
         public string WINDOW { get; set; }
         public string WINDOW_BLUE { get; set; }
@@ -123,7 +124,7 @@ namespace Liplis.Xml
             this.ICO_TRAY         = this.liplisWindowDirPath + "ico_tray.png";
             this.ICO_WAIKUP       = this.liplisWindowDirPath + "ico_waikup.png";
             this.ICO_ZZZ          = this.liplisWindowDirPath + "ico_zzz.png";
-            this.INTRODUCTION     = this.liplisWindowDirPath + "introduction.png";
+            this.ICO_INTRODUCTION     = this.liplisWindowDirPath + "ico_intro";
             this.SETTING          = this.liplisWindowDirPath + "setting.png";
             this.WINDOW           = this.liplisWindowDirPath + "window.png";
             this.WINDOW_BLUE      = this.liplisWindowDirPath + "window_blue.png";
@@ -132,7 +133,46 @@ namespace Liplis.Xml
             this.WINDOW_PURPLE    = this.liplisWindowDirPath + "window_purple.png";
             this.WINDOW_RED       = this.liplisWindowDirPath + "window_red.png";
             this.WINDOW_YELLOW    = this.liplisWindowDirPath + "window_yellow.png";
-
         }
+
+        /// <summary>
+        /// アイコンパスを設定する
+        /// </summary>
+        /// <param name="iconFileName"></param>
+        private string getIconPath(string iconFileName)
+        {
+            string iconPath = "";
+
+            //アイコンパスの設定
+            iconPath = this.liplisWindowDirPath + iconFileName;
+
+            //アイコンが見つかれば、パスを返す
+            if(LpsLiplisUtil.ExistsFile(iconPath))
+            {
+                return iconPath;
+            }
+
+            //デフォルト無地アイコンパスの設定
+            iconPath = this.liplisWindowDirPath + "ico_back.png";
+
+            //アイコンが見つからなければデフォルトアイコンを返す
+            if (LpsLiplisUtil.ExistsFile(iconPath))
+            {
+                return iconPath;
+            }
+
+            //デフォルト無地アイコンパスの設定
+            iconPath = LpsPathController.getAppPath() + "\\Skin\\LiliRenew\\window\\" + "ico_back.png";
+
+            if (LpsLiplisUtil.ExistsFile(iconPath))
+            {
+                return iconPath;
+            }
+            else
+            {
+                throw new System.Exception("");
+            }
+        }
+
     }
 }
