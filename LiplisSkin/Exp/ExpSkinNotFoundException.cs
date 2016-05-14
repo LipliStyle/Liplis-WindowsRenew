@@ -1,5 +1,5 @@
 ﻿//=======================================================================
-//  ClassName : SkinNotFoundException
+//  ClassName : ExpSkinNotFoundException
 //  概要      : Skinが見つからなかったエラー
 //
 //  Liplis5.0

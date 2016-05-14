@@ -14,6 +14,7 @@
 using Liplis.Activity;
 using Liplis.Body;
 using Liplis.Com;
+using Liplis.Exp;
 using Liplis.Gui;
 using Liplis.MainSystem;
 using Liplis.Msg;
@@ -47,7 +48,7 @@ namespace Liplis.Widget
         //Liplis要素
         public LiplisWidgetPreference setting;
         private Skin skin;
-        private LiplisWindow window;
+        private LiplisWindow talkWindow;
 
         //=================================
         //ロードボディオブジェクト
@@ -121,6 +122,7 @@ namespace Liplis.Widget
         {
             try
             {
+                //画面要素初期化
                 InitializeComponent();
 
                 //設定データ
@@ -141,9 +143,18 @@ namespace Liplis.Widget
                 //あいさつ
                 this.greet();
             }
-            catch (Exception ex)
+            catch (Exception err)
             {
-                initErrorEnd(ex);
+                //初期化処理でエラーが発生した場合は、メッセージを表示して終了する
+
+                //エラーメッセージ
+                LpsMessage.showError(err.Message);
+
+                //ログ出力
+                LpsLogController.writingLog(this.GetType().Name, MethodBase.GetCurrentMethod().Name, err.ToString());
+
+                //ウィジェットを閉じる
+                this.Close();
             }
         }
 
@@ -169,7 +180,7 @@ namespace Liplis.Widget
             }
             catch (Exception ex)
             {
-                initErrorEnd(ex);
+                throw new ExpWidgetInitException(ex);
             }
         }
 
@@ -180,20 +191,64 @@ namespace Liplis.Widget
         {
             try
             {
-                //ウインドウの初期化
-                this.window = new LiplisWindow();
-
-                this.window.Show();
+                //座標調整
+                this.Top = setting.locationY;
+                this.Left = setting.locationX;
 
                 //サイズ設定
-                setSize(skin.xmlBody.height, skin.xmlBody.width);
+                this.setSize(skin.xmlBody.height, skin.xmlBody.width);
+
+                //アイコンサイズ調整
+                Int32 iconBaseSide = (Int32)this.Width;
+
+                //高さの方が小さければ、高さをベースに設定
+                if (this.Width > this.Height)
+                {
+                    iconBaseSide = (Int32)this.Height;
+                }
+
+                Int32 iconSide = (Int32)(iconBaseSide / 6);
+                this.icoSleep.Width    = iconSide;
+                this.icoSleep.Height   = iconSide;
+                this.icoLog.Width      = iconSide;
+                this.icoLog.Height     = iconSide;
+                this.icoSetting.Width  = iconSide;
+                this.icoSetting.Height = iconSide;
+                this.icoChat.Width     = iconSide;
+                this.icoChat.Height    = iconSide;
+                this.icoClock.Width    = iconSide;
+                this.icoClock.Height   = iconSide;
+                this.icoBattery.Width  = iconSide;                
+                this.icoBattery.Height = iconSide;
+
+                //ウインドウの初期化
+                this.talkWindow = new LiplisWindow();
+                this.talkWindow.Show();
+
+                //アイコン座標設定準備
+                //列方向位置
+                Int32 leftSideXMargin = 10;
+                Int32 rightSideXMargin = (Int32)this.Width - 10 - iconSide;
+
+                //行方向位置
+                Int32 row1YMargin = (Int32)(this.Height / 2 - iconSide / 2); //1行目アイコン位置
+                Int32 row3YMargin = (Int32)(this.Height - iconSide - 10);    //3行目アイコン位置
+                Int32 row2YMargin = (Int32)(row1YMargin - iconSide / 2 + (row3YMargin + iconSide - row1YMargin) / 2); //2行目アイコン位置 1行目、2行目の間の真ん中に来るように計算
+
+                //アイコン座標せてい
+                this.icoSleep.Margin   = new Thickness(leftSideXMargin, row1YMargin, 0, 0);
+                this.icoLog.Margin     = new Thickness(leftSideXMargin, row2YMargin, 0, 0);
+                this.icoSetting.Margin = new Thickness(leftSideXMargin, row3YMargin, 0, 0);
+                this.icoChat.Margin    = new Thickness(rightSideXMargin, row1YMargin, 0, 0);
+                this.icoClock.Margin   = new Thickness(rightSideXMargin, row2YMargin, 0, 0);
+                this.icoBattery.Margin = new Thickness(rightSideXMargin, row3YMargin, 0, 0);
 
                 //アイコン設定
-                this.icoSleep.Source = new BitmapImage(new Uri(this.skin.xmlWindow.ICO_ZZZ));
-                this.icoLog.Source = new BitmapImage(new Uri(this.skin.xmlWindow.ICO_LOG));
+                this.icoSleep.Source   = new BitmapImage(new Uri(this.skin.xmlWindow.ICO_ZZZ));
+                this.icoLog.Source     = new BitmapImage(new Uri(this.skin.xmlWindow.ICO_LOG));
                 this.icoSetting.Source = new BitmapImage(new Uri(this.skin.xmlWindow.ICO_SETTING));
-                this.icoChat.Source = new BitmapImage(new Uri(this.skin.xmlWindow.ICO_INTRODUCTION));
-                this.icoClock.Source = new BitmapImage(new Uri(this.skin.xmlWindow.ICO_BACK));
+                this.icoChat.Source    = new BitmapImage(new Uri(this.skin.xmlWindow.ICO_INTRODUCTION));
+                this.icoClock.Source   = new BitmapImage(new Uri(this.skin.xmlWindow.ICO_BACK));
                 this.icoBattery.Source = new BitmapImage(new Uri(this.skin.xmlWindow.BATTERY_100));
 
                 //ロケーション設定
@@ -201,28 +256,8 @@ namespace Liplis.Widget
             }
             catch(Exception ex)
             {
-                initErrorEnd(ex);
+                throw new ExpWidgetInitException(ex);
             }
-        }
-
-        /// <summary>
-        /// 初期化時のエラー 終了処理
-        /// </summary>
-        /// <param name="ex"></param>
-        private void initErrorEnd(Exception ex)
-        {
-            //エラーメッセージ作成
-            StringBuilder message = new StringBuilder();
-
-            message.AppendLine("ウィジェットの初期化に失敗しました。Skinに問題がある可能性があります。");
-            message.Append("エラー原因:");
-            message.Append(ex.Message);
-
-            //エラーメッセージ
-            LpsMessage.showError(message.ToString());
-
-            //ウィジェットを閉じる
-            this.Close();
         }
 
         /// <summary>
@@ -259,7 +294,7 @@ namespace Liplis.Widget
             stopUpdateTimer();
 
             //設定の保存
-            this.setting.saveSettings();
+            this.setting.setPreferenceData();
 
             //閉じる
             this.Close();
@@ -431,12 +466,21 @@ namespace Liplis.Widget
             setWidgetLocation();
         }
 
+
+        private void Window_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            setWidgetLocation();
+        }
+
         /*
         各パーツをボディに追随させる
         */
         private void  setWidgetLocation()
         {
-            window.setWindowLocation((Int32)this.Top, (Int32)this.Width);
+            Dispatcher.Invoke(new Action(() =>
+            {
+                talkWindow.setWindowLocation((Int32)this.Top, (Int32)this.Left, (Int32)this.Width);
+            })); 
         }
 
         /*
@@ -999,78 +1043,77 @@ namespace Liplis.Widget
         /// <returns></returns>
         private bool setText()
         {
-            ////送りワード文字数チェック
-            //if(self.cntLnw != 0)
-            //{
-            //    if(self.cntLct >= self.liplisNowWord.utf16.count)
-            //    {
-            //        //終了チェック
-            //        if(self.checkEnd()){return true}
+            //送りワード文字数チェック
+            if (this.cntLnw != 0)
+            {
+                if (this.cntLct >= this.liplisNowWord.Length)
+                {
+                    //終了チェック
+                    if (this.checkEnd()) { return true; }
 
-            //        //チャットテキストカウントの初期化
-            //        self.cntLct = 0
+                    //チャットテキストカウントの初期化
+                    this.cntLct = 0;
 
-            //        //なうワードの初期化
-            //        self.liplisNowWord = self.liplisNowTopic.nameList[cntLnw]
+                    //なうワードの初期化
+                    this.liplisNowWord = this.liplisNowTopic.nameList[cntLnw];
 
-            //        //プレブエモーションセット
-            //        self.prvEmotion = self.nowEmotion
+                    //プレブエモーションセット
+                    this.prvEmotion = this.nowEmotion;
 
-            //        //なうエモーションの取得
-            //        self.nowEmotion = self.liplisNowTopic.emotionList[self.cntLnw]
+                    //なうエモーションの取得
+                    this.nowEmotion = this.liplisNowTopic.emotionList[this.cntLnw];
 
-            //        //なうポイントの取得
-            //        self.nowPoint = self.liplisNowTopic.pointList[self.cntLnw]
+                    //なうポイントの取得
+                    this.nowPoint = this.liplisNowTopic.pointList[this.cntLnw];
 
-            //        //インデックスインクリメント
-            //        self.cntLnw = self.cntLnw + 1
-            //    }
-            //}
-            //else if(self.cntLnw == 0)
-            //{
-            //    //チャットテキストカウントの初期化
-            //    self.cntLct = 0
+                    //インデックスインクリメント
+                    this.cntLnw = this.cntLnw + 1;
+                }
+            }
+            else if (this.cntLnw == 0)
+            {
+                //チャットテキストカウントの初期化
+                this.cntLct = 0;
 
-            //    //空チェック
-            //    if self.liplisNowTopic.nameList.count == 0
-            //    {
-            //        self.checkEnd()
-            //        return true
-            //    }
+                //空チェック
+                if (this.liplisNowTopic.nameList.Count == 0)
+                {
+                    this.checkEnd();
+                    return true;
+                }
 
-            //    //なうワードの初期化
-            //    self.liplisNowWord = self.liplisNowTopic.nameList[self.cntLnw]
+                //なうワードの初期化
+                this.liplisNowWord = this.liplisNowTopic.nameList[this.cntLnw];
 
-            //    //次ワード遷移
-            //    self.cntLnw = self.cntLnw + 1
+                //次ワード遷移
+                this.cntLnw = this.cntLnw + 1;
 
-            //    //空だったら、空じゃなくなるまで繰り返す
-            //    if(self.liplisNowWord == "")
-            //{
-            //    repeat
-            //                {
-            //        //チェックエンド
-            //        checkEnd()
+                //空だったら、空じゃなくなるまで繰り返す
+                if (this.liplisNowWord == "")
+                {
+                    while (this.liplisNowWord == "")
+                    {
+                        //チェックエンド
+                        checkEnd();
 
-            //                    //終了チェック
-            //        if (self.cntLnw > self.liplisNowTopic.nameList[cntLnw].utf16.count) { break}
+                        //終了チェック
+                        if (this.cntLnw > this.liplisNowTopic.nameList[cntLnw].Length) { break; }
 
-            //        //ナウワードの初期化
-            //        self.liplisNowWord = self.liplisNowTopic.nameList[self.cntLnw]
+                        //ナウワードの初期化
+                        this.liplisNowWord = this.liplisNowTopic.nameList[this.cntLnw];
 
-            //                    //次ワード遷移
-            //        self.cntLnw = self.cntLnw + 1
-            //                }
-            //    while (self.liplisNowWord == "")
-            //            }
-            //        }
-            //        else
-            //        {
+                        //次ワード遷移
+                        this.cntLnw = this.cntLnw + 1;
+                    }
+                }
+            }
+            else
+            {
 
-            //        }
-            //        //おしゃべり
-            //        self.liplisChatText = self.liplisChatText + (self.liplisNowWord as NSString).substringWithRange(NSRange(location : self.cntLct, length : 1))
-            //        self.cntLct = self.cntLct + 1
+            }
+            //おしゃべり
+            this.liplisChatText = this.liplisChatText + this.liplisNowWord.Substring(this.cntLct,1);
+            this.cntLct = this.cntLct + 1;
 
             return false;
         }
@@ -1080,27 +1123,28 @@ namespace Liplis.Widget
         /// </summary>
         public void updateText()
         {
-            //TODO: LiplisWidget テキストウィンドウ実装完了時、実装する
+            try
+            {
+                if (liplisChatText.Equals(""))
+                {
+                    return;
+                }
 
-            //try
-            //{
-            //    if (liplisChatText.Equals(""))
-            //    {
-            //        return true;
-            //    }
+                //テキスト出力
+                if (liplisNowTopic.result.Length > cntLct - 1)
+                {
+                    //ウインドウテキスト出力
+                    this.talkWindow.updateText(liplisChatText);
 
-            //    //テキスト出力
-            //    if (liplisNowTopic.result.Length > cntLct - 1)
-            //    {
-            //        Invoke(new LpsDelegate.dlgS1ToVoid(at.setTextTotalkWindow), liplisChatText);
-            //        Invoke(new LpsDelegate.dlgI2ToVoid(at.setEmotionWindow), nowEmotion, nowPoint);
-            //    }
+                    //位置自動調整
+                    setWidgetLocation();
+                }
 
-            //}
-            //catch (Exception err)
-            //{
-            //    LpsLogController.writingLog(this.GetType().Name, MethodBase.GetCurrentMethod().Name, err.ToString());
-            //}
+            }
+            catch (Exception err)
+            {
+                LpsLogController.writingLog(this.GetType().Name, MethodBase.GetCurrentMethod().Name, err.ToString());
+            }
         }
 
         /// <summary>
@@ -1183,7 +1227,6 @@ namespace Liplis.Widget
         /// </summary>
         private void updateBodySitDown()
         {
-            //this.imgBody.image = null;
             //this.imgBody.image = self.lpsBody.sleep;
         }
 

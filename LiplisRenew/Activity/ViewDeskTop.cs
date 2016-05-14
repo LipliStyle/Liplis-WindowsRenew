@@ -262,7 +262,10 @@ namespace Liplis.Activity
         public void liplisEnd()
         {
             //TODO: ViewDeskTop liplisEnd もろもろの終了処理が必要か？
+            this.endAllWidget();
 
+
+            //終了
             this.Close();
         }
 
@@ -316,38 +319,8 @@ namespace Liplis.Activity
                 defaultSkin = sc.getSkinRandam();
             }
 
-            //新規キー作成
-            LiplisWidgetPreference widgetSetting = createWidgetSettingFromSkin(defaultSkin);
-
-            //ウィジェット
-            LiplisWidget lps = new LiplisWidget(this, widgetSetting, defaultSkin);
-
-            //ウィジェットリストに追加する
-            this.widgetList.Add(lps);
-
-            //キーマネージャに追加する
-            this.kman.addKey(defaultSkin.charName);
-        }
-
-        /// <summary>
-        /// ウィジェットを追加する(読み込み追加)
-        /// </summary>
-        /// <param name="key"></param>
-        public void addWidget(Skin skin)
-        {
-            //キー取得
-            LiplisWidgetPreference widgetSetting = createWidgetSettingFromSkin(skin);
-
-            LiplisWidget lps = new LiplisWidget(this, widgetSetting, skin);
-
-            //ウィジェットリストに追加する
-            this.widgetList.Add(lps);
-
-            //召喚
-            lps.Show();
-
-            //キーマネージャに追加する
-            this.kman.addKey(widgetSetting.key);
+            //あっどウィジェット
+            addWidget(defaultSkin);
         }
 
         /// <summary>
@@ -369,8 +342,34 @@ namespace Liplis.Activity
 
                 //ウィジェットリストに追加する
                 this.widgetList.Add(lps);
+
+                //出現させる
+                lps.Show();
             }
         }
+
+        /// <summary>
+        /// ウィジェットを追加する
+        /// </summary>
+        /// <param name="key"></param>
+        public void addWidget(Skin skin)
+        {
+            //キー取得
+            LiplisWidgetPreference widgetSetting = createWidgetSettingFromSkin(skin);
+
+            LiplisWidget lps = new LiplisWidget(this, widgetSetting, skin);
+
+            //ウィジェットリストに追加する
+            this.widgetList.Add(lps);
+
+            //召喚
+            lps.Show();
+
+            //キーマネージャに追加する
+            this.kman.addKey(widgetSetting.key);
+        }
+
+
 
 
         /// <summary>
@@ -380,7 +379,7 @@ namespace Liplis.Activity
         /// <returns></returns>
         private LiplisWidgetPreference createWidgetSetttingFromKey(string key)
         {
-            LiplisWidgetPreference widgetSetting = new LiplisWidgetPreference();
+            LiplisWidgetPreference widgetSetting = new LiplisWidgetPreference(key);
 
             if (key == "")
             {
@@ -413,14 +412,29 @@ namespace Liplis.Activity
             widgetSetting.locationX = Screen.PrimaryScreen.Bounds.Width / 2;
             widgetSetting.locationY = Screen.PrimaryScreen.Bounds.Height / 2;
 
+
+            //設定の保存
+            widgetSetting.setPreferenceData();
+
+            //設定を返す
             return widgetSetting;
         }
 
+        /// <summary>
+        /// すべてのウィジェットを終了させる
+        /// </summary>
+        public void endAllWidget()
+        {
+            foreach (LiplisWidget widget in widgetList)
+            {
+                widget.Close();
+            }
+        }
 
-
-        /*
-        ウィジェットをデスクトップから削除する
-        */
+        /// <summary>
+        /// ウィジェットをデスクトップから削除する
+        /// </summary>
+        /// <param name="widget"></param>
         private void delWidget(LiplisWidget widget)
         {
             //キーマネージャーからキーを削除する

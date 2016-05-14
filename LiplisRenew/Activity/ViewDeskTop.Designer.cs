@@ -45,7 +45,6 @@
             // 
             // tsmSleep
             // 
-            this.tsmSleep.Image = global::Liplis.Properties.Resources.ico_zzz;
             this.tsmSleep.Name = "tsmSleep";
             this.tsmSleep.Size = new System.Drawing.Size(163, 22);
             this.tsmSleep.Text = "全員 お休み/復帰";
@@ -53,7 +52,6 @@
             // 
             // tsmMinimize
             // 
-            this.tsmMinimize.Image = global::Liplis.Properties.Resources.ico_win_min;
             this.tsmMinimize.Name = "tsmMinimize";
             this.tsmMinimize.Size = new System.Drawing.Size(163, 22);
             this.tsmMinimize.Text = "非表示/戻す";
@@ -61,7 +59,6 @@
             // 
             // tsmSetting
             // 
-            this.tsmSetting.Image = global::Liplis.Properties.Resources.ico_setting;
             this.tsmSetting.Name = "tsmSetting";
             this.tsmSetting.Size = new System.Drawing.Size(163, 22);
             this.tsmSetting.Text = "設定";
@@ -69,7 +66,6 @@
             // 
             // tsmLog
             // 
-            this.tsmLog.Image = global::Liplis.Properties.Resources.ico_log;
             this.tsmLog.Name = "tsmLog";
             this.tsmLog.Size = new System.Drawing.Size(163, 22);
             this.tsmLog.Text = "ログ";
@@ -77,7 +73,6 @@
             // 
             // tsmEnd
             // 
-            this.tsmEnd.Image = global::Liplis.Properties.Resources.ico_win_wnd;
             this.tsmEnd.Name = "tsmEnd";
             this.tsmEnd.Size = new System.Drawing.Size(163, 22);
             this.tsmEnd.Text = "終了";
@@ -99,7 +94,6 @@
             // 
             // tsmMenu
             // 
-            this.tsmMenu.Image = global::Liplis.Properties.Resources.ico_char_lili;
             this.tsmMenu.Name = "tsmMenu";
             this.tsmMenu.Size = new System.Drawing.Size(163, 22);
             this.tsmMenu.Text = "Liplis操作メニュー";

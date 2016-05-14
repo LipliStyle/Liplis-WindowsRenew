@@ -12,9 +12,13 @@
         ResizeMode = "CanResizeWithGrip" 
         SizeChanged="Window_SizeChanged"
         >
-    <Grid Margin="0,0,0,0">
+    <Grid x:Name="imageGrid" Margin="0,0,0,0">
         <Image x:Name="image" HorizontalAlignment="Left" Height="140" Width="300" VerticalAlignment="Top" Source="/Liplis;component/window_red.png" Stretch="Fill"/>
-        <Label x:Name="lblTalk" Content="Label" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="120" Width="280"/>
+        <Label x:Name="lblLpsTalkLabel" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Height="120" Width="280">
+            <Label.Content>
+                <TextBlock x:Name="txbLpsTalkLabel" Text="Messaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaage" TextWrapping="Wrap"/>
+            </Label.Content>
+        </Label>
 
     </Grid>
 </Window>

@@ -74,7 +74,6 @@
             // btnCross
             // 
             this.btnCross.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(222)))), ((int)(((byte)(235)))));
-            this.btnCross.Image = global::Liplis.Properties.Resources.ico_win_wnd;
             this.btnCross.Location = new System.Drawing.Point(172, 0);
             this.btnCross.Name = "btnCross";
             this.btnCross.Size = new System.Drawing.Size(30, 20);
@@ -85,7 +84,6 @@
             // 
             this.btnChar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(179)))), ((int)(((byte)(208)))));
             this.btnChar.ForeColor = System.Drawing.Color.White;
-            this.btnChar.Image = global::Liplis.Properties.Resources.ico_char_lili;
             this.btnChar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnChar.Location = new System.Drawing.Point(1, 20);
             this.btnChar.Name = "btnChar";
@@ -101,7 +99,6 @@
             // 
             this.btnSleep.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(179)))), ((int)(((byte)(208)))));
             this.btnSleep.ForeColor = System.Drawing.Color.White;
-            this.btnSleep.Image = global::Liplis.Properties.Resources.ico_zzz;
             this.btnSleep.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnSleep.Location = new System.Drawing.Point(1, 199);
             this.btnSleep.Name = "btnSleep";
@@ -117,7 +114,6 @@
             // 
             this.btnSetting.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(179)))), ((int)(((byte)(208)))));
             this.btnSetting.ForeColor = System.Drawing.Color.White;
-            this.btnSetting.Image = global::Liplis.Properties.Resources.ico_setting;
             this.btnSetting.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnSetting.Location = new System.Drawing.Point(101, 20);
             this.btnSetting.Name = "btnSetting";
@@ -133,7 +129,6 @@
             // 
             this.btnLog.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(179)))), ((int)(((byte)(208)))));
             this.btnLog.ForeColor = System.Drawing.Color.White;
-            this.btnLog.Image = global::Liplis.Properties.Resources.ico_log;
             this.btnLog.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnLog.Location = new System.Drawing.Point(101, 109);
             this.btnLog.Name = "btnLog";
@@ -149,7 +144,6 @@
             // 
             this.btnEnd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(179)))), ((int)(((byte)(208)))));
             this.btnEnd.ForeColor = System.Drawing.Color.White;
-            this.btnEnd.Image = global::Liplis.Properties.Resources.ico_pow;
             this.btnEnd.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnEnd.Location = new System.Drawing.Point(101, 199);
             this.btnEnd.Name = "btnEnd";
@@ -165,7 +159,6 @@
             // 
             this.btnFlow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(179)))), ((int)(((byte)(208)))));
             this.btnFlow.ForeColor = System.Drawing.Color.White;
-            this.btnFlow.Image = global::Liplis.Properties.Resources.ico_view;
             this.btnFlow.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnFlow.Location = new System.Drawing.Point(1, 109);
             this.btnFlow.Name = "btnFlow";

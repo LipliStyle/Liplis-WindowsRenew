@@ -73,6 +73,7 @@
       <DependentUpon>ViewDeskTop.cs</DependentUpon>
     </Compile>
     <Compile Include="Com\LiplisErrorDefine.cs" />
+    <Compile Include="Exp\ExpWidgetInitException.cs" />
     <Compile Include="MainSystem\LiplisKeyManager.cs" />
     <Compile Include="MainSystem\Liplis.cs" />
     <Compile Include="MainSystem\LiplisBattery.cs" />
@@ -147,7 +148,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Exp\" />
     <Folder Include="Wpf\Xaml\" />
   </ItemGroup>
   <ItemGroup>

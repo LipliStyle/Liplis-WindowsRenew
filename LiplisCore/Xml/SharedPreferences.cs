@@ -140,7 +140,7 @@ namespace Liplis.Xml
         /// saveMonoSettings
         /// 現在自クラスにセットされている値を設定ファイルに書き込む
         /// </summary>
-        public void saveSettings()
+        protected void saveSettings()
         {
             //XMLライタの宣言
             XmlWriter writer = null;

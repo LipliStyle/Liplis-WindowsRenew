@@ -56,7 +56,7 @@ namespace Liplis.MainSystem
         /// コンストラクター
         /// </summary>
         #region コンストラクター
-        public LiplisWidgetPreference(string fileName):base(LpsPathController.getSettingFilePath() + fileName)
+        public LiplisWidgetPreference(string fileName):base(LpsPathController.getSettingPath() + fileName)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace Liplis.MainSystem
                 this.setWindow();
 
                 //保存
-                this.xmlFilePath = LpsPathController.getSettingFilePath() + this.key;
+                this.xmlFilePath = LpsPathController. getSettingPath() + this.key;
                 setPreferenceData();
             }
             catch (Exception err)

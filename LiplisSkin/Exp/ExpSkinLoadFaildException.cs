@@ -1,5 +1,6 @@
 ﻿//=======================================================================
-//  ClassName : SkinLoadFaildException
+//  ClassName :     public class ExpSkinLoadFaildException : Exception
+
 //  概要      : Skinの読み込みに失敗したエラー
 //
 //  Liplis5.0

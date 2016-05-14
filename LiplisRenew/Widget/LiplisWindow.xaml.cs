@@ -50,6 +50,11 @@ namespace Liplis.Widget
         {
             InitializeComponent();
         }
+
+        private void initWindow()
+        {
+
+        }
         #endregion
 
 
@@ -93,18 +98,35 @@ namespace Liplis.Widget
         /// <summary>
         /// ウインドウのロケーション設定
         /// </summary>
-        public void setWindowLocation(Int32 widgetTop, Int32 widgetWidth)
-        {
-            //中心位置計算
-            Int32 locationCenter = widgetTop + widgetWidth / 2;
-
-            //レフト位置
-            Int32 left = locationCenter + (Int32)this.Width;
-
-            //トップ位置
-            Int32 top = widgetTop - (Int32)this.Height + WIDGET_WINDOW_INTERVAL;
-
+        public void setWindowLocation(Int32 widgetTop, Int32 widgetLeft, Int32 widgetWidth)
+        {            
+            Dispatcher.Invoke(new Action(() =>
+            {
+                //中心位置計算
+                Int32 locationCenter = widgetLeft + widgetWidth / 2;
+                //場所確定
+                this.Left = locationCenter - (Int32)this.Width / 2; //レフト位置
+                this.Top = widgetTop - (Int32)this.Height + WIDGET_WINDOW_INTERVAL;//トップ位置
+            }));
         }
+
+        /// <summary>
+        /// テキストの更新
+        /// </summary>
+        /// <param name="liplisChatText"></param>
+        public void  updateText(string liplisChatText)
+        {
+            //ボディ設定
+            Dispatcher.Invoke(new Action(() =>
+            {
+                this.txbLpsTalkLabel.Text   = liplisChatText;
+                this.lblLpsTalkLabel.Height = (Int32)txbLpsTalkLabel.ActualHeight + 10;
+                this.image.Height           = (Int32)lblLpsTalkLabel.ActualHeight + 20;
+                this.imageGrid.Height       = (Int32)lblLpsTalkLabel.ActualHeight + 20;
+                this.Height                 = (Int32)lblLpsTalkLabel.ActualHeight + 20;
+            }));
+        }
+
         #endregion
 
     }

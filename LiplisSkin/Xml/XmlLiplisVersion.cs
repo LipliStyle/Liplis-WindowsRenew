@@ -12,7 +12,7 @@ using System.Reflection;
 
 namespace Liplis.Xml
 {
-    public class XmlLiplisVersion : XmlSetting
+    public class XmlLiplisVersion : SharedPreferences
     {
         ///=============================
         ///プロパティ
@@ -25,15 +25,11 @@ namespace Liplis.Xml
         #endregion
 
 
-
         /// <summary>
         /// 
         /// </summary>
-        public XmlLiplisVersion(string versionFilePath)
+        public XmlLiplisVersion(string versionFilePath):base(versionFilePath)
         {
-            //設定の取得
-            setting = new SharedPreferences(versionFilePath);
-
             getPreferenceData();
 
         }
@@ -43,12 +39,12 @@ namespace Liplis.Xml
         /// プリファレンスデータの取得
         /// </summary>
         #region getPreferenceData
-        public override void getPreferenceData()
+        public void getPreferenceData()
         {
             try
             {
                 //メイン設定の読込
-                version = setting.getString(PREFS_VERSION, Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                version = getString(PREFS_VERSION, Assembly.GetExecutingAssembly().GetName().Version.ToString());
             }
             catch (System.Exception err)
             {
@@ -64,10 +60,10 @@ namespace Liplis.Xml
         /// セーブ
         /// </summary>
         #region setPreferenceData
-        public override void setPreferenceData()
+        public void setPreferenceData()
         {
-            setting.setString(PREFS_VERSION, this.version);
-            setting.saveSettings();
+            setString(PREFS_VERSION, this.version);
+            saveSettings();
         }
         #endregion
     }

@@ -24,7 +24,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -132,7 +132,6 @@
     <Compile Include="Xml\XmlLinq.cs" />
     <Compile Include="Xml\XmlMost.cs" />
     <Compile Include="Xml\XmlReadList.cs" />
-    <Compile Include="Xml\XmlSetting.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Gui\_LpsError.resx">
