@@ -86,12 +86,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Tpc\LiplisNews.cs" />
     <Compile Include="Widget\LiplisWidget.xaml.cs">
       <DependentUpon>LiplisWidget.xaml</DependentUpon>
     </Compile>
     <Compile Include="Activity\ViewCharacter.xaml.cs">
       <DependentUpon>ViewCharacter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Wpf\LiplisIconImage.cs" />
     <Compile Include="Wpf\WpfAnimation.cs" />
     <Compile Include="Wpf\BitmapImageCreator.cs" />
     <Compile Include="Wpf\WpfUtil.cs" />
@@ -162,9 +164,12 @@
     <Content Include="Resources\ico_pow.png" />
     <Content Include="Resources\ico_setting.png" />
     <Content Include="Resources\ico_view.png" />
-    <Content Include="Resources\ico_win_max.png" />
-    <Content Include="Resources\ico_win_min.png" />
-    <Content Include="Resources\ico_win_wnd.png" />
+    <Resource Include="Resources\ico_win_max_on.png" />
+    <Resource Include="Resources\ico_win_min_on.png" />
+    <Resource Include="Resources\ico_win_wnd_on.png" />
+    <Resource Include="Resources\ico_win_max.png" />
+    <Resource Include="Resources\ico_win_min.png" />
+    <Resource Include="Resources\ico_win_wnd.png" />
     <Content Include="Resources\ico_zzz.png" />
     <Content Include="Resources\normal_1_1_1.png" />
   </ItemGroup>

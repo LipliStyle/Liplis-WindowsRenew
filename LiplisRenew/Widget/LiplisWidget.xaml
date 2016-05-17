@@ -8,15 +8,17 @@
         Title="LiplisWidget" Height="300" Width="240"
         AllowsTransparency="True"
         Background="{x:Null}"
-        WindowStyle="None" MouseUp="Window_MouseUp"
+        WindowStyle="None" StateChanged="Window_StateChanged"
         >
     <Grid x:Name="imageGrid" Width="240" Height="300">
-        <Image x:Name="image" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="240" Source="/Liplis;component/Resources/normal_1_1_1.png"/>
-        <Image x:Name="icoSleep" HorizontalAlignment="Left" Height="48" Margin="10,126,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/ico_zzz.png"/>
-        <Image x:Name="icoLog" HorizontalAlignment="Left" Height="48" Margin="10,184,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/ico_log.png"/>
-        <Image x:Name="icoSetting" HorizontalAlignment="Left" Height="48" Margin="10,242,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/ico_setting.png"/>
-        <Image x:Name="icoChat" HorizontalAlignment="Left" Height="48" Margin="182,126,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/ico_intro.png"/>
-        <Image x:Name="icoClock" HorizontalAlignment="Left" Height="48" Margin="182,184,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/ico_back.png"/>
-        <Image x:Name="icoBattery" HorizontalAlignment="Left" Height="48" Margin="182,242,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/battery_100.png"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="240" Source="/Liplis;component/Resources/normal_1_1_1.png" MouseDown="image_MouseDown" MouseUp="image_MouseUp"/>
+        <Image x:Name="icoSleep" HorizontalAlignment="Left" Height="48" Margin="10,126,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/ico_zzz.png" MouseDown="icoSleep_MouseDown" MouseUp="icoSleep_MouseUp" MouseLeave="icoSleep_MouseLeave"/>
+        <Image x:Name="icoLog" HorizontalAlignment="Left" Height="48" Margin="10,184,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/ico_log.png" MouseDown="icoLog_MouseDown" MouseLeave="icoLog_MouseLeave" MouseUp="icoLog_MouseUp"/>
+        <Image x:Name="icoSetting" HorizontalAlignment="Left" Height="48" Margin="10,242,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/ico_setting.png" MouseDown="icoSetting_MouseDown" MouseLeave="icoSetting_MouseLeave" MouseUp="icoSetting_MouseUp"/>
+        <Image x:Name="icoChat" HorizontalAlignment="Left" Height="48" Margin="182,126,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/ico_intro.png" MouseDown="icoChat_MouseDown" MouseLeave="icoChat_MouseLeave" MouseUp="icoChat_MouseUp"/>
+        <Image x:Name="icoClock" HorizontalAlignment="Left" Height="48" Margin="182,184,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/ico_back.png" MouseDown="icoClock_MouseDown" MouseLeave="icoClock_MouseLeave" MouseUp="icoClock_MouseUp"/>
+        <Image x:Name="icoBattery" HorizontalAlignment="Left" Height="48" Margin="182,242,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/battery_100.png" MouseDown="icoBattery_MouseDown" MouseLeave="icoBattery_MouseLeave" MouseUp="icoBattery_MouseUp"/>
+        <Image x:Name="icoEnd" HorizontalAlignment="Left" Height="14" Margin="226,0,0,0" VerticalAlignment="Top" Width="14" Source="/Liplis;component/Resources/ico_win_wnd.png" MouseDown="icoEnd_MouseDown" MouseEnter="icoEnd_MouseEnter" MouseUp="icoEnd_MouseUp" MouseLeave="icoEnd_MouseLeave"/>
+        <Image x:Name="icoMinimize" Height="14" Margin="212,0,14,0" VerticalAlignment="Top" Source="/Liplis;component/Resources/ico_win_min.png" MouseDown="icoMinimize_MouseDown" MouseEnter="icoMinimize_MouseEnter" MouseUp="icoMinimize_MouseUp" Width="14" MouseLeave="icoMinimize_MouseLeave"/>
     </Grid>
 </Window>

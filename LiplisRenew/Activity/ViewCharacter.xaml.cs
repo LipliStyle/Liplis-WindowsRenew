@@ -370,13 +370,6 @@ namespace Liplis.Activity
             {
                 desktop.addWidget(selectedSkin);
             }
-            
-            //LiplisWidget liplis = new LiplisWidget();
-            //LiplisWindow window = new LiplisWindow();
-
-            //liplis.Show();
-            //window.Show();
-
         }
     }
 }

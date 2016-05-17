@@ -672,10 +672,6 @@ namespace Liplis.Xml
                     return selectBody(proudMList);
                 }
             }
-            else if (emotion == 100)
-            {
-                return selectBody(sitdownList);
-            }
             else
             {
                 return selectBody(normalList);
@@ -752,6 +748,15 @@ namespace Liplis.Xml
             {
                 return normalList[0];
             }
+        }
+
+        /// <summary>
+        /// おやすみ画像を返す
+        /// </summary>
+        /// <returns></returns>
+        public LiplisBody sleep()
+        {
+            return selectBody(sitdownList);
         }
         #endregion
     }

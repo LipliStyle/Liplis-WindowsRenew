@@ -20,19 +20,26 @@ namespace Liplis.MainSystem
     {
         ///=============================
         /// プロパティ
-        public string lpsUid;                   //0
-        public Int32 lpsAutoSleep;              //1
-        public Int32 lpsAutoWakeup;             //2
-        //public Int32 lpsTalkWindowClickMode;    //3
-        //public Int32 lpsBrowserMode;            //4
-        //public Int32 lpsAutoRescue;             //5
+        public string uid;                  public const string PREFS_UID = "uid";
+        public Int32 lpsAutoSleep;          public const string PREFS_AUTO_SLEEP = "lpsAutoSleep";
+        public Int32 lpsAutoWakeup;         public const string PREFS_AUTO_WAKEUP = "lpsAutoWakeup";
 
-        public const string PREFS_UID               = "uid";
-        public const string PREFS_AUTO_SLEEP        = "lpsAutoSleep";
-        public const string PREFS_AUTO_WAKEUP       = "lpsAutoWakeup";
-        //public const string PREFS_WINDOW_CLIKC_MODE = "lpsTalkWindowClickMode";
-        //public const string PREFS_BRW_MODE          = "lpsBrowserMode";
-        //public const string PREFS_AUTO_RESCUE       = "lpsAutoRescue";
+        public Int32 lpsNewsRange;          public const string KEY_LPSNEWSRANGE   = "lpsNewsRange";           //9
+        public Int32 lpsNewsAlready;        public const string KEY_LPSNEWSALREADY = "lpsNewsAlready";         //10
+        public Int32 lpsNewsRunOut;         public const string KEY_LPSNEWSRUNOUT  = "lpsNewsRunOut";          //11
+
+        public Int32 lpsTopicNews;          public const string KEY_LPSTOPIC_NEWS         = "lpsTopicNews";           //12
+        public Int32 lpsTopic2ch;           public const string KEY_LPSTOPIC_2CH          = "lpsTopic2ch";            //13
+        public Int32 lpsTopicNico;          public const string KEY_LPSTOPIC_NICO         = "lpsTopicNico";           //14
+        public Int32 lpsTopicRss;           public const string KEY_LPSTOPIC_RSS          = "lpsTopicRss";            //15
+        public Int32 lpsTopicTwitter;       public const string KEY_LPSTOPIC_TWITTER      = "lpsTopicTwitter";        //16
+        public Int32 lpsTopicTwitterPu;     public const string KEY_LPSTOPIC_TWITTERPU    = "lpsTopicTwitterPu";      //17
+        public Int32 lpsTopicTwitterMy;     public const string KEY_LPSTOPIC_TWITTERMY    = "lpsTopicTwitterMy";      //18
+        public Int32 lpsTopicTwitterMode;   public const string KEY_LPSTOPIC_TWITTERMODE  = "lpsTopicTwitterMode";    //19
+        public Int32 lpsTopicCharMsg;       public const string KEY_LPSTOPIC_TOPICCHARMSG = "lpsTopicCharMsg";        //20
+
+
+
 
         /// <summary>
         /// コンストラクター
@@ -53,7 +60,7 @@ namespace Liplis.MainSystem
         {
             try
             {
-                this.lpsUid = getString(PREFS_UID, LpsGuidCreator.createLiplisGuid());
+                this.uid = getString(PREFS_UID, LpsGuidCreator.createLiplisGuid());
                 this.lpsAutoSleep = getInt(PREFS_AUTO_SLEEP, 0);
                 this.lpsAutoWakeup = getInt(PREFS_AUTO_WAKEUP, 0);
             }

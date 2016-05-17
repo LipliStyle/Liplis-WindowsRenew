@@ -11,19 +11,12 @@
 //
 //  Copyright(c) 2010-2016 LipliStyle.Sachin
 //=======================================================================
+using Liplis.MainSystem;
+using Liplis.Wpf;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Liplis.Widget
 {
@@ -33,8 +26,20 @@ namespace Liplis.Widget
     public partial class LiplisWindow : Window
     {
         //=================================
+        //Liplis要素
+        private LiplisWidgetPreference setting;
+        private Skin skin;
+
+        //=================================
+        //ウインドウ制御プロパティ
+        private Int32 nowTxbLpsTalkLabelHeight;
+        private Int32 prvTxbLpsTalkLabelHeight;
+
+        //=================================
         //リプリスウィジェットとウインドウのデフォルトインターバル
-        private const Int32 WIDGET_WINDOW_INTERVAL = 5;
+        private const Int32 WIDGET_WINDOW_INTERVAL = -10;
+
+
 
         //============================================================
         //
@@ -46,14 +51,21 @@ namespace Liplis.Widget
         /// <summary>
         /// コンストラクター
         /// </summary>
-        public LiplisWindow()
+        public LiplisWindow(LiplisWidgetPreference setting, Skin skin)
         {
+            //スキン取得
+            this.skin = skin;
+            this.setting = setting;
+
             InitializeComponent();
+
+            //ウインドウ設定
+            initWindow();
         }
 
         private void initWindow()
         {
-
+            setWindow();
         }
         #endregion
 
@@ -119,11 +131,35 @@ namespace Liplis.Widget
             //ボディ設定
             Dispatcher.Invoke(new Action(() =>
             {
+                //テキストセット
                 this.txbLpsTalkLabel.Text   = liplisChatText;
-                this.lblLpsTalkLabel.Height = (Int32)txbLpsTalkLabel.ActualHeight + 10;
-                this.image.Height           = (Int32)lblLpsTalkLabel.ActualHeight + 20;
-                this.imageGrid.Height       = (Int32)lblLpsTalkLabel.ActualHeight + 20;
-                this.Height                 = (Int32)lblLpsTalkLabel.ActualHeight + 20;
+
+                //現在高さ取得
+                nowTxbLpsTalkLabelHeight = (Int32)txbLpsTalkLabel.ActualHeight;
+
+                //現在高さが変化していたら、アニメーションで高さ拡張
+                if (prvTxbLpsTalkLabelHeight != nowTxbLpsTalkLabelHeight)
+                {
+                    this.Height                 = nowTxbLpsTalkLabelHeight + 27;
+                    this.imageGrid.Height       = nowTxbLpsTalkLabelHeight + 27;
+                    WpfAnimation.windowHeightChange(this, this.image, this.image.Height, nowTxbLpsTalkLabelHeight +27);
+                    this.lblLpsTalkLabel.Height = nowTxbLpsTalkLabelHeight + 17;
+                }
+
+                //前回値設定
+                prvTxbLpsTalkLabelHeight = nowTxbLpsTalkLabelHeight;
+            }));
+        }
+
+        /// <summary>
+        /// ウインドウをセットする
+        /// TODO: 設定画面でウインドウを変更した場合、このメソッドを呼ぶ
+        /// </summary>
+        public void setWindow()
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                this.image.Source = new BitmapImage(new Uri(this.skin.xmlWindow.getWindowPath(setting.lpsWindow)));
             }));
         }
 

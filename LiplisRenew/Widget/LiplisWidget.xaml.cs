@@ -18,6 +18,8 @@ using Liplis.Exp;
 using Liplis.Gui;
 using Liplis.MainSystem;
 using Liplis.Msg;
+using Liplis.Talk;
+using Liplis.Tpc;
 using Liplis.Utl;
 using Liplis.Wpf;
 using System;
@@ -34,6 +36,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -60,7 +63,7 @@ namespace Liplis.Widget
 
         //=================================
         //ニュースインスタンス
-        //private LiplsNews lpsNews;
+        private LiplisNews lpsNews;
         private LiplisBattery lpsBattery;
         //private LiplisApiChat lpsChatTalk;
 
@@ -68,9 +71,13 @@ namespace Liplis.Widget
         //タイマー
         private Timer updateTimer;
         private Timer nextTimer;
-        private Timer startMoveTimer;
         private Int32 flgAlarm = 0;
-    
+
+        //行方向位置
+        Int32 row1YMargin;
+        Int32 row3YMargin;
+        Int32 row2YMargin;
+
         //=================================
         //制御プロパティ
         private MsgTalkMessage liplisNowTopic;          //現在ロードおしゃべりデータ
@@ -114,6 +121,15 @@ namespace Liplis.Widget
         ///=====================================
         /// 時報制御
         private Int32 prvHour = 0;
+
+        ///=====================================
+        /// ウィイェット関連
+        LiplisIconImage lpsIcoSleep;
+        LiplisIconImage lpsIcoLog;
+        LiplisIconImage lpsIcoSetting;
+        LiplisIconImage lpsIcoChat;
+        LiplisIconImage lpsIcoClock;
+        LiplisIconImage lpsIcoBattery;
 
         /// <summary>
         /// コンストラクター
@@ -168,12 +184,13 @@ namespace Liplis.Widget
                 //デフォルトボディロード
                 this.lpsBody = skin.xmlBody.getDefaultBody();
 
+                //ニュースの初期化
+                this.lpsNews = new LiplisNews(desk.baseSetting, setting,skin.xmlSkin.toneUrl);
+
                 //TODO: LiplisWidget initClass モードによっては話題収集の実行が必要
-                //TODO: LiplisWidget 話題収集はデスクトップクラスで行い、そこからしゅとくするようにする。
+                //TODO: LiplisWidget 話題収集はデスクトップクラスで行い、そこから取得するようにする。
                 //話題収集の実行
                 //this.onCheckNewsQueue();
-
-                //TODO: LiplisWidget initClass バッテリーオブジェクトの作成
 
                 //バッテリーオブジェクトの初期化
                 this.lpsBattery = new LiplisBattery();
@@ -198,32 +215,18 @@ namespace Liplis.Widget
                 //サイズ設定
                 this.setSize(skin.xmlBody.height, skin.xmlBody.width);
 
+                //ウインドウの初期化
+                this.talkWindow = new LiplisWindow(this.setting, this.skin);
+                this.talkWindow.Show();
+
                 //アイコンサイズ調整
                 Int32 iconBaseSide = (Int32)this.Width;
 
                 //高さの方が小さければ、高さをベースに設定
-                if (this.Width > this.Height)
-                {
-                    iconBaseSide = (Int32)this.Height;
-                }
+                if (this.Width > this.Height){iconBaseSide = (Int32)this.Height;}
 
+                //アイコンの1辺を計算
                 Int32 iconSide = (Int32)(iconBaseSide / 6);
-                this.icoSleep.Width    = iconSide;
-                this.icoSleep.Height   = iconSide;
-                this.icoLog.Width      = iconSide;
-                this.icoLog.Height     = iconSide;
-                this.icoSetting.Width  = iconSide;
-                this.icoSetting.Height = iconSide;
-                this.icoChat.Width     = iconSide;
-                this.icoChat.Height    = iconSide;
-                this.icoClock.Width    = iconSide;
-                this.icoClock.Height   = iconSide;
-                this.icoBattery.Width  = iconSide;                
-                this.icoBattery.Height = iconSide;
-
-                //ウインドウの初期化
-                this.talkWindow = new LiplisWindow();
-                this.talkWindow.Show();
 
                 //アイコン座標設定準備
                 //列方向位置
@@ -231,25 +234,21 @@ namespace Liplis.Widget
                 Int32 rightSideXMargin = (Int32)this.Width - 10 - iconSide;
 
                 //行方向位置
-                Int32 row1YMargin = (Int32)(this.Height / 2 - iconSide / 2); //1行目アイコン位置
-                Int32 row3YMargin = (Int32)(this.Height - iconSide - 10);    //3行目アイコン位置
-                Int32 row2YMargin = (Int32)(row1YMargin - iconSide / 2 + (row3YMargin + iconSide - row1YMargin) / 2); //2行目アイコン位置 1行目、2行目の間の真ん中に来るように計算
+                this.row1YMargin = (Int32)(this.Height / 2 - iconSide / 2); //1行目アイコン位置
+                this.row3YMargin = (Int32)(this.Height - iconSide - 10);    //3行目アイコン位置
+                this.row2YMargin = (Int32)(row1YMargin - iconSide / 2 + (row3YMargin + iconSide - row1YMargin) / 2); //2行目アイコン位置 1行目、2行目の間の真ん中に来るように計算
 
-                //アイコン座標せてい
-                this.icoSleep.Margin   = new Thickness(leftSideXMargin, row1YMargin, 0, 0);
-                this.icoLog.Margin     = new Thickness(leftSideXMargin, row2YMargin, 0, 0);
-                this.icoSetting.Margin = new Thickness(leftSideXMargin, row3YMargin, 0, 0);
-                this.icoChat.Margin    = new Thickness(rightSideXMargin, row1YMargin, 0, 0);
-                this.icoClock.Margin   = new Thickness(rightSideXMargin, row2YMargin, 0, 0);
-                this.icoBattery.Margin = new Thickness(rightSideXMargin, row3YMargin, 0, 0);
+                //アイコンインスタンス取得
+                this.lpsIcoSleep   = new LiplisIconImage(this.icoSleep, this.skin.xmlWindow.ICO_ZZZ, iconSide, leftSideXMargin, row1YMargin);
+                this.lpsIcoLog     = new LiplisIconImage(this.icoLog, this.skin.xmlWindow.ICO_LOG, iconSide, leftSideXMargin, row2YMargin);
+                this.lpsIcoSetting = new LiplisIconImage(this.icoSetting, this.skin.xmlWindow.ICO_SETTING, iconSide, leftSideXMargin, row3YMargin);
+                this.lpsIcoChat    = new LiplisIconImage(this.icoChat, this.skin.xmlWindow.ICO_INTRODUCTION, iconSide, rightSideXMargin, row1YMargin);
+                this.lpsIcoClock   = new LiplisIconImage(this.icoClock, this.skin.xmlWindow.ICO_BACK, iconSide, rightSideXMargin, row2YMargin);
+                this.lpsIcoBattery = new LiplisIconImage(this.icoBattery, this.skin.xmlWindow.BATTERY_100, iconSide, rightSideXMargin, row3YMargin);
 
-                //アイコン設定
-                this.icoSleep.Source   = new BitmapImage(new Uri(this.skin.xmlWindow.ICO_ZZZ));
-                this.icoLog.Source     = new BitmapImage(new Uri(this.skin.xmlWindow.ICO_LOG));
-                this.icoSetting.Source = new BitmapImage(new Uri(this.skin.xmlWindow.ICO_SETTING));
-                this.icoChat.Source    = new BitmapImage(new Uri(this.skin.xmlWindow.ICO_INTRODUCTION));
-                this.icoClock.Source   = new BitmapImage(new Uri(this.skin.xmlWindow.ICO_BACK));
-                this.icoBattery.Source = new BitmapImage(new Uri(this.skin.xmlWindow.BATTERY_100));
+                //デフォルトアイコン座標調整(✕、最小化ボタン)
+                this.icoEnd.Margin = new Thickness(this.Width - 14, 0, 0, 0);
+                this.icoMinimize.Margin = new Thickness(this.Width - 42, 0, 0, 0);
 
                 //ロケーション設定
                 setWidgetLocation();
@@ -293,11 +292,22 @@ namespace Liplis.Widget
             stopNextTimer();
             stopUpdateTimer();
 
+            nextTimer.Dispose();
+            updateTimer.Dispose();
+
             //設定の保存
             this.setting.setPreferenceData();
 
+            //デスクトップのウィジェットから削除する
+            desk.delWidgetRegisterData(this);
+
             //閉じる
-            this.Close();
+            Dispatcher.Invoke(new Action(() =>
+            {
+                this.talkWindow.Close();
+                this.Close();
+            }));
+
         }
 
         /// <summary>
@@ -452,25 +462,132 @@ namespace Liplis.Widget
         //
         //============================================================
 
-
         /// <summary>
-        /// ドラッグムーブ
+        /// ボディマウスダウン
         /// </summary>
+        /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        private void image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            base.OnMouseLeftButtonDown(e);
-            DragMove();
+            //ベースレクと生成
+            Rect windowRect = new Rect(this.image.Margin.Left, this.image.Margin.Top, this.Width, this.Height);
+
+            //クリックアニメ
+            WpfAnimation.imageClickDownAnimeation(this, windowRect, this.image);
+
+            //ドラッグ
+            try
+            {
+                DragMove();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            
+            //クリック終了時アニメ
+            WpfAnimation.imageClickUpAnimeation(this, windowRect, this.image);
 
             //ウインドウの追随
             setWidgetLocation();
+
+            //座標記録
+            setting.setLocation((int)this.Left,(int)this.Top);
         }
 
-
-        private void Window_MouseUp(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// ボディクリック
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void image_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            setWidgetLocation();
+            Console.WriteLine("");
         }
+
+        private void icoEnd_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// 終了ボタン押下
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void icoEnd_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            goodBaydLiplis();
+        }
+
+        /// <summary>
+        /// 終了ボタンの色付け
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void icoEnd_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                this.icoEnd.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/ico_win_wnd_on.png"));
+            }));
+        }
+
+        private void icoEnd_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                this.icoEnd.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/ico_win_wnd.png"));
+            }));
+        }
+
+        private void icoMinimize_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// 最小化ボタン押下
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void icoMinimize_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;   
+        }
+
+        /// <summary>
+        /// 最小化ボタンの色付け
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void icoMinimize_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+
+                this.icoMinimize.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/ico_win_min_on.png"));
+            }));
+        }
+        private void icoMinimize_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                this.icoMinimize.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/ico_win_min.png"));
+            }));
+        }
+
+        /// <summary>
+        /// 状態変化時
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            this.talkWindow.WindowState = this.WindowState;
+        }
+
+
 
         /*
         各パーツをボディに追随させる
@@ -545,7 +662,132 @@ namespace Liplis.Widget
             this.setting.setPreferenceData();
         }
 
+        //============================================================
+        //
+        //ボタンイベント
+        //
+        //============================================================
 
+        /// <summary>
+        /// スリープボタンイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void icoSleep_MouseDown(object sender, MouseButtonEventArgs e)  {iconAnimationButtonOn(sender);}
+        private void icoSleep_MouseLeave(object sender, MouseEventArgs e)       {iconAnimationButtonOff(sender);}
+        private void icoSleep_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            iconAnimationButtonOff(sender);
+
+            //UPのときにクリックされたと判定
+            onClickSleep();
+        }
+
+        /// <summary>
+        /// ログボタンイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void icoLog_MouseDown(object sender, MouseButtonEventArgs e)    {iconAnimationButtonOn(sender);}
+        private void icoLog_MouseLeave(object sender, MouseEventArgs e)         {iconAnimationButtonOff(sender);}
+        private void icoLog_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            iconAnimationButtonOff(sender);
+        }
+
+
+        /// <summary>
+        /// 設定ボタンイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void icoSetting_MouseDown(object sender, MouseButtonEventArgs e){iconAnimationButtonOn(sender);}
+        private void icoSetting_MouseLeave(object sender, MouseEventArgs e){iconAnimationButtonOff(sender);}
+        private void icoSetting_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            iconAnimationButtonOff(sender);
+        }
+
+
+        /// <summary>
+        /// チャットボタンイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void icoChat_MouseDown(object sender, MouseButtonEventArgs e){iconAnimationButtonOn(sender);}
+        private void icoChat_MouseLeave(object sender, MouseEventArgs e){iconAnimationButtonOff(sender);}
+        private void icoChat_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            iconAnimationButtonOff(sender);
+        }
+
+
+        /// <summary>
+        /// クロックボタンイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void icoClock_MouseDown(object sender, MouseButtonEventArgs e){iconAnimationButtonOn(sender);}
+        private void icoClock_MouseLeave(object sender, MouseEventArgs e){iconAnimationButtonOff(sender);}
+        private void icoClock_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            iconAnimationButtonOff(sender);
+        }
+
+
+        /// <summary>
+        /// バッテリーボタンイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void icoBattery_MouseDown(object sender, MouseButtonEventArgs e){iconAnimationButtonOn(sender);}
+        private void icoBattery_MouseLeave(object sender, MouseEventArgs e){iconAnimationButtonOff(sender);}
+        private void icoBattery_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            iconAnimationButtonOff(sender);
+        }
+
+
+
+
+        /// <summary>
+        /// アイコンをおした時のアニメーション
+        /// </summary>
+        /// <param name="sender"></param>
+        private void iconAnimationButtonOn(object sender)
+        {
+            //イメージ取得
+            Image image = (Image)sender;
+
+            //アイコンイメージ取得
+            LiplisIconImage lii = (LiplisIconImage)image.Tag;
+
+            //クリックアニメ
+            WpfAnimation.imageClickDownAnimeation(this, new Rect(lii.xMargin, lii.yMargin, lii.iconSide, lii.iconSide), image);
+
+            //ONフラグ設定
+            lii.buttonOn = true;
+        }
+
+        /// <summary>
+        /// アイコンからマウスボタンを離したときのアニメーション
+        /// </summary>
+        /// <param name="sender"></param>
+        private void iconAnimationButtonOff(object sender)
+        {
+            //イメージ取得
+            Image image = (Image)sender;
+
+            //アイコンイメージ取得
+            LiplisIconImage lii = (LiplisIconImage)image.Tag;
+
+            //クリック終了時アニメ
+            if (lii.buttonOn) { WpfAnimation.imageClickUpAnimeation(this, new Rect(lii.xMargin, lii.yMargin, lii.iconSide, lii.iconSide), image); }
+
+
+            //ONフラグ設定
+            lii.buttonOn = false;
+        }
 
         //============================================================
         //
@@ -773,13 +1015,13 @@ namespace Liplis.Widget
                     return;
                 }
 
-                //話題がつきたかチェック
-                if (this.checkRunout())
-                {
-                    //再カウント
-                    reSetUpdateCount();
-                    return;
-                }
+                ////話題がつきたかチェック
+                //if (this.checkRunout())
+                //{
+                //    //再カウント
+                //    reSetUpdateCount();
+                //    return;
+                //}
 
                 //次の話題おしゃべり
                 this.runLiplis();
@@ -825,6 +1067,9 @@ namespace Liplis.Widget
 
             //チャットスタート
             this.chatStart();
+
+            //ネクストタイマーを止めておく
+            this.stopNextTimer();
         }
 
         /// <summary>
@@ -1031,7 +1276,6 @@ namespace Liplis.Widget
                 //終了フラグがONなら、終了する
                 if (flgEnd) { Dispose(); }
 
-
                 return true;
             }
             return false;
@@ -1228,6 +1472,10 @@ namespace Liplis.Widget
         private void updateBodySitDown()
         {
             //this.imgBody.image = self.lpsBody.sleep;
+            Dispatcher.Invoke(new Action(() =>
+            {
+                this.image.Source = new BitmapImage(new Uri(this.skin.xmlBody.sleep().getBodyPath11()));
+            }));
         }
 
 
@@ -1402,10 +1650,10 @@ namespace Liplis.Widget
         /// </summary>
         private void onCheckNewsQueue()
         {
-            //if (!this.flgSitdown)
-            //{
-            //    this.lpsNews.checkNewsQueue(this.getPostDataForLiplisNewsList());
-            //}
+            if (!this.flgSitdown)
+            {
+                this.lpsNews.checkNewsQueue();
+            }
         }
 
         //TODO: LiplisWidget ニュース取得処理 要実装
@@ -1414,51 +1662,19 @@ namespace Liplis.Widget
         /// </summary>
         private void getShortNews()
         {
-            //this.liplisNowTopic = this.lpsNews.getShortNews(this.getPostDataForLiplisNews());
-    
-            ////取得失敗メッセージ
-            //if (this.liplisNowTopic == null)
-            //{
-            //    this.liplisNowTopic = FctLiplisMsg.createMsgMassageDlFaild();
-            //    liplisUrl = "";
-            //}
-            //else
-            //{
-            //    this.liplisUrl = this.liplisNowTopic.url;
-            //}
+            this.liplisNowTopic = this.lpsNews.getSummaryNewsFromQ();
 
-        }
-
-        /// <summary>
-        /// ポストパラメーターの作成(ニュース単体向け)
-        /// </summary>
-        /// <returns></returns>
-        private NameValueCollection getPostDataForLiplisNews()
-        {
-            NameValueCollection nameValuePair = new NameValueCollection();
-            nameValuePair.Add("tone", this.skin.xmlSkin.toneUrl);                       //TONE_URLの指定
-            nameValuePair.Add("newsFlg", this.setting.getNewsFlg());                    //NEWS_FLGの指定
-            nameValuePair.Add("randomkey",DateTime.Now.ToString("yyyyyMMddHHmmss"));    //キャッシュ防止
-            return nameValuePair;
-        }
-
-        /// <summary>
-        /// ポストパラメーターの作成(ニュースリスト向け)
-        /// </summary>
-        /// <returns></returns>
-        private NameValueCollection getPostDataForLiplisNewsList()
-        {
-            NameValueCollection nameValuePair = new NameValueCollection();
-            nameValuePair.Add("userid",         desk.baseSetting.lpsUid);                       //UIDLの指定
-            nameValuePair.Add("tone",           this.skin.xmlSkin.toneUrl);                     //TONE_URLの指定
-            nameValuePair.Add("newsFlg",        this.setting.getNewsFlg());                     //ニュースフラグの指定
-            nameValuePair.Add("num",            "100");                                         //個数
-            nameValuePair.Add("hour",           this.setting.lpsNewsRange.ToString());          //時間範囲の指定
-            nameValuePair.Add("already",        this.setting.lpsNewsAlready.ToString());        //オールレディ
-            nameValuePair.Add("twitterMode",    this.setting.lpsTopicTwitterMode.ToString());   //ツイッターモード
-            nameValuePair.Add("runout",         this.setting.lpsNewsRunOut.ToString());         //ランアウト
-
-            return nameValuePair;
+            //取得失敗メッセージ
+            if (this.liplisNowTopic == null)
+            {
+                // TODO:失敗したら、次のインターバルは長くしたい
+                this.liplisNowTopic = LiplisFaildMessage.getMessage();
+                liplisUrl = "";
+            }
+            else
+            {
+                this.liplisUrl = this.liplisNowTopic.url;
+            }
         }
 
         //============================================================
@@ -1477,7 +1693,7 @@ namespace Liplis.Widget
             this.flgSitdown = false;
 
             //アイコン変更
-            //this.icoSleep.setImage(self.lpsIcon.imgSleep, forState: UIControlState.Normal);
+            this.lpsIcoSleep.setImage(this.skin.xmlWindow.ICO_ZZZ);
 
             //あいさつ
             this.greet();
@@ -1493,10 +1709,10 @@ namespace Liplis.Widget
             this.flgSitdown = true;
 
             //アイコン変更
-            //self.icoSleep.setImage(self.lpsIcon.imgWakeup, forState: UIControlState.Normal);
+            this.lpsIcoSleep.setImage(this.skin.xmlWindow.ICO_WAIKUP);
 
             //表示テキスト変更
-            //this.lblLpsTalkLabel.text = "zzz";
+            this.talkWindow.updateText("zzz");
 
             //おやすみの立ち絵に変更
             this.updateBodySitDown();
@@ -1553,6 +1769,7 @@ namespace Liplis.Widget
         {
             //TODO: LiplisWidget チャット画面とアイコンを作成したら、処理を作成する
         }
+
 
     }
 }

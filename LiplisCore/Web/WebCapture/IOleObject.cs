@@ -14,7 +14,6 @@ using System.Runtime.InteropServices.ComTypes;
 namespace Liplis.Web.WebCapture
 {
     // MEMO: エクステント・サイズを取得/設定するために使用。
-    // UNDONE: SetExtent() / GetExtent() 以外は今回使用しないため、いい加減な定義となっているので要注意。
     [Guid("00000112-0000-0000-C000-000000000046"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown), ComVisible(false), ComImport]
     public interface IOleObject
     {

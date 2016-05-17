@@ -1,205 +1,104 @@
 ﻿//=======================================================================
 //  ClassName : HttpPost
-//  概要      : httppostし、情報を取得する
+//  概要      : HttpPostを投げて、結果を取得する
+//
 //
 //  Liplis5.0
 //
-//  Update : 2011/07/17 ver0.3 作成
-//           2013/01/12 verMT  ストアアプリとの互換性なし。45バージョンを作成する。
 //  Copyright(c) 2010-2016 LipliStyle.Sachin
 //=======================================================================
 using System;
-using System.Collections.Specialized;
-using System.IO;
-using System.Net;
-using System.Net.Cache;
-using System.Text;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Liplis.Web
 {
-    public static class HttpPost
+    public class HttpPost
     {
-        const int WEB_POST_TIMEOUT = 30000;
-        const string WEB_POST_METHOD = "POST";
-        const string WEB_POST_CONTENT_TYPE = "application/x-www-form-urlencoded";
-
         ///====================================================================
         ///
         ///                        パブリックメソッド
         ///                         
         ///====================================================================
-
+        
         /// <summary>
-        /// ポストを送信する
-        /// (UTF-8のみ)
-        /// 
+        /// Httpポストを実行する
         /// </summary>
-        /// <param name="url"></param>
+        /// <param name="uri"></param>
         /// <param name="postData"></param>
         /// <returns></returns>
-        public static string sendPost(string url, NameValueCollection postData)
+        public static string sendPost(string uri, FormUrlEncodedContent postData)
         {
-            //受信したデータを表示する
-            return sendPost(url, getParamDataByte(postData));
+            //Post実行
+            Task<string> task = sendPostTask(uri, postData);
+
+            //待機
+            task.Wait();
+
+            //Jsonで結果取得
+            return task.Result;
         }
-        public static string sendPost(string url, byte[] data)
+        public static string sendPost(string uri, string userAgent, string language, TimeSpan timeOut, FormUrlEncodedContent postData)
         {
-            //ウェブリクエストの取得
-            HttpWebRequest req = getWebRequest(url, data.Length, WEB_POST_TIMEOUT);
+            //Post実行
+            Task<string> task = sendPostTask(uri, userAgent, language, timeOut, postData);
 
-            req.CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
+            //待機
+            task.Wait();
 
-            // ポスト・データの書き込み
-            sendPostRequest(req, data);
-
-            //受信したデータを表示する
-            return getWebResponse(req);
-        }
-        public static string sendPost(string url, NameValueCollection postData, int postTimeout)
-        {
-            //受信したデータを表示する
-            return sendPost(url, getParamDataByte(postData), postTimeout);
-        }
-        public static string sendPost(string url, byte[] data, int postTimeout)
-        {
-            //ウェブリクエストの取得
-            HttpWebRequest req = getWebRequest(url, data.Length, postTimeout);
-
-            req.CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
-
-            // ポスト・データの書き込み
-            sendPostRequest(req, data);
-
-            //受信したデータを表示する
-            return getWebResponse(req);
-        }
-
-        /// <summary>
-        /// ポストを送信する
-        /// (送りっぱなし)
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="postData"></param>
-        public static void throwPost(string url, NameValueCollection postData)
-        {
-            throwPost(url, getParamDataByte(postData));
-        }
-        public static void throwPost(string url, byte[] data)
-        {
-            //ウェブリクエストの取得
-            HttpWebRequest req = getWebRequest(url, data.Length, WEB_POST_TIMEOUT);
-
-            // ポスト・データの書き込み
-            sendPostRequest(req, data);
-        }
-
-
-        ///====================================================================
-        ///
-        ///                          JSONリクエスト
-        ///                         
-        ///====================================================================
-        public static string sendPostJsonReq(string url, NameValueCollection postData)
-        {
-            //受信したデータを表示する
-            return sendPostJsonReq(url, getParamDataByte(postData));
-        }
-        public static string sendPostJsonReq(string url, byte[] data)
-        {
-            //ウェブリクエストの取得
-            HttpWebRequest req = getWebRequest(url, data.Length, WEB_POST_TIMEOUT);
-
-            req.CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
-
-            req.ContentType = "application/json";
-
-
-            //ヘッダーデータの作成
-            //NameValueCollection headData = new NameValueCollection();
-            //headData.Add("Content-Type", "application/json");
-            //req.Headers.Add(headData);
-
-            // ポスト・データの書き込み
-            sendPostRequest(req, data);
-
-            //受信したデータを表示する
-            return getWebResponse(req);
+            //Jsonで結果取得
+            return task.Result;
         }
 
         ///====================================================================
         ///
-        ///                       POSTの実行メソッド
+        ///                            実行メソッド
         ///                         
         ///====================================================================
-
+        #region 実行メソッド
+        
         /// <summary>
-        /// getParamDataByte
-        /// パラメータをバイトで取得する
+        /// 非同期でポストを実行する
         /// </summary>
-        /// <param name="url"></param>
+        /// <param name="uri"></param>
+        /// <param name="postData"></param>
         /// <returns></returns>
-        private static byte[] getParamDataByte(NameValueCollection postData)
+        private static async Task<string> sendPostTask(string uri, FormUrlEncodedContent postData)
         {
-            string param = "";
-
-            //バラメータの取得
-            foreach (string k in postData)
-            {
-                param += String.Format("{0}={1}&", k, postData[k]);
-            }
-
-            //パラメータをバイト変換
-            return Encoding.UTF8.GetBytes(param);
+            return await sendPostTask(uri, "Liplis5.x", "ja-JP", TimeSpan.FromSeconds(20.0), postData);
         }
-
-        /// <summary>
-        /// getWebRequest
-        /// ウェブリクエストを取得する
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        private static HttpWebRequest getWebRequest(string url, long paramLength, int postTimeout)
+        private static async Task<string> sendPostTask(string uri, string userAgent, string language, TimeSpan timeOut, FormUrlEncodedContent postData)
         {
-            // リクエストの作成
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
-            req.Timeout = postTimeout;
-            req.Method = WEB_POST_METHOD;
-            req.ContentType = WEB_POST_CONTENT_TYPE;
-            req.ContentLength = paramLength;
-
-            return req;
-        }
-
-        /// <summary>
-        /// getWebResponse
-        /// ウェブレスポンスを取得する
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        private static string getWebResponse(HttpWebRequest req)
-        {
-            using (Stream resStream = req.GetResponse().GetResponseStream())
+            using (HttpClient client = new HttpClient())
             {
-                using (StreamReader sr = new StreamReader(resStream, Encoding.UTF8))
+                // ユーザーエージェント文字列をセット（オプション）
+                client.DefaultRequestHeaders.Add("User-Agent", userAgent);
+
+                // 受け入れ言語をセット（オプション）
+                client.DefaultRequestHeaders.Add("Accept-Language", language);
+
+                // タイムアウトをセット（オプション）
+                client.Timeout = timeOut;
+
+                try
                 {
-                    return sr.ReadToEnd();
+                    //WEBデータ取得
+                    var response = await client.PostAsync(uri, postData);
+                    return await response.Content.ReadAsStringAsync();
+                }
+                catch (HttpRequestException e)
+                {
+                    // 404エラーや、名前解決失敗など
+                    throw e;
+                }
+                catch (TaskCanceledException e)
+                {
+                    //タイムアウト等
+                    throw e;
                 }
             }
         }
 
-
-        /// <summary>
-        /// getWebRequest
-        /// ウェブリクエストを取得する
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        private static void sendPostRequest(HttpWebRequest req, byte[] pramData)
-        {
-            using (Stream reqStream = req.GetRequestStream())
-            {
-                reqStream.Write(pramData, 0, pramData.Length);
-            }
-        }
+        #endregion
     }
 }

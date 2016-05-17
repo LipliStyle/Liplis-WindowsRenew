@@ -26,6 +26,14 @@ namespace Liplis.Wpf
 {
     public class WpfAnimation
     {
+
+
+        //============================================================
+        //
+        //透明度操作
+        //
+        //============================================================
+        #region 透明度操作
         /// <summary>
         /// オパシティを上げる
         /// </summary>
@@ -114,6 +122,153 @@ namespace Liplis.Wpf
 
             return storyboard;
         }
+        #endregion
+
+
+
+
+
+
+        //============================================================
+        //
+        //サイズ操作
+        //
+        //============================================================
+        #region サイズ操作
+        public static void imageClickDownAnimeation(Window window, Rect baseRect, Image targetControl)
+        {
+            //ストーリーボード取得
+            Storyboard storyboard1 = WpfAnimation.sizeChangeImageAnimation(baseRect, targetControl, 1.0, 0.9, 600000);
+
+            //アニメーション開始
+            storyboard1.Begin(window);
+
+            Storyboard storyboard2 = WpfAnimation.sizeChangeImageAnimation(baseRect, targetControl, 0.9, 0.95, 600000);
+
+            //アニメーション開始
+            storyboard2.Begin(window);
+        }
+
+        public static void imageClickUpAnimeation(Window window, Rect baseRect, Image targetControl)
+        {
+            //ストーリーボード取得
+            Storyboard storyboard2 = WpfAnimation.sizeChangeImageAnimation(baseRect, targetControl, 0.95, 1.0, 600000);
+
+            //アニメーション開始
+            storyboard2.Begin(window);
+        }
+
+
+        /// <summary>
+        /// アニメーションでサイズを変化させる
+        /// </summary>
+        /// <param name="targetWindow"></param>
+        /// <param name="targetControl"></param>
+        /// <param name="opaFrom"></param>
+        /// <param name="opaTo"></param>
+        public static Storyboard sizeChangeImageAnimation(Rect baseRect, Image targetControl, double sizeFrom, double sizeTo, int interval)
+        {
+            Storyboard storyboard = new Storyboard();
+            TimeSpan duration = new TimeSpan(interval);
+
+            //ダブルアニメーションの生成
+            DoubleAnimation heightAnimation = new DoubleAnimation();
+            DoubleAnimation widthAnimation = new DoubleAnimation();
+            ThicknessAnimation marginAnimation = new ThicknessAnimation();
+
+            Thickness tkFrom = targetControl.Margin;
+            tkFrom.Left = baseRect.Left + (targetControl.Width - (targetControl.Width * sizeFrom))/2;
+            tkFrom.Top = baseRect.Top + (targetControl.Height - (targetControl.Height * sizeFrom))/2;
+
+            Thickness tkTo = targetControl.Margin;
+            tkTo.Left = baseRect.Left + (targetControl.Width - (targetControl.Width * sizeTo))/ 2;
+            tkTo.Top = baseRect.Top + (targetControl.Height - (targetControl.Height * sizeTo) )/ 2;
+
+
+            //アニメーション定義
+            heightAnimation.From = baseRect.Height * sizeFrom;
+            heightAnimation.To = baseRect.Height * sizeTo;
+            heightAnimation.Duration = new Duration(duration);
+
+            widthAnimation.From = baseRect.Width * sizeFrom;
+            widthAnimation.To = baseRect.Width * sizeTo;
+            widthAnimation.Duration = new Duration(duration);
+
+            marginAnimation.From = tkFrom;
+            marginAnimation.To = tkTo;
+            marginAnimation.Duration = new Duration(duration);
+
+
+            //対象コントロール設定
+            Storyboard.SetTargetName(heightAnimation, targetControl.Name);
+            Storyboard.SetTargetName(widthAnimation, targetControl.Name);
+            Storyboard.SetTargetName(marginAnimation, targetControl.Name);
+
+            //アニメーションターゲットの設定
+            Storyboard.SetTargetProperty(heightAnimation, new PropertyPath(Control.HeightProperty));
+            Storyboard.SetTargetProperty(widthAnimation, new PropertyPath(Control.WidthProperty));
+            Storyboard.SetTargetProperty(marginAnimation, new PropertyPath(Image.MarginProperty));
+
+            //ストーリーボードに追加
+            storyboard.Children.Add(heightAnimation);
+            storyboard.Children.Add(widthAnimation);
+            storyboard.Children.Add(marginAnimation);
+
+            return storyboard;
+        }
+        #endregion
+
+
+        //============================================================
+        //
+        //ウインドウ高さ操作
+        //
+        //============================================================
+        #region ウインドウ高さ操作
+        public static void windowHeightChange(Window targetWindow, Image targetControl, double sizeFrom, double sizeTo)
+        {
+            //ストーリーボード取得
+            Storyboard storyboard = windowHeightChangeAnimation(targetControl, sizeFrom, sizeTo, 1000000);
+
+            //アニメーション開始
+            storyboard.Begin(targetWindow);
+        }
+
+        /// <summary>
+        /// アニメーションでサイズを変化させる
+        /// </summary>
+        /// <param name="targetWindow"></param>
+        /// <param name="targetControl"></param>
+        /// <param name="opaFrom"></param>
+        /// <param name="opaTo"></param>
+        public static Storyboard windowHeightChangeAnimation(Image targetControl, double sizeFrom, double sizeTo, int interval)
+        {
+            Storyboard storyboard = new Storyboard();
+            TimeSpan duration = new TimeSpan(interval);
+
+            //ダブルアニメーションの生成
+            DoubleAnimation heightAnimation = new DoubleAnimation();
+
+            //アニメーション定義
+            heightAnimation.From = sizeFrom;
+            heightAnimation.To = sizeTo;
+            heightAnimation.Duration = new Duration(duration);
+
+            //対象コントロール設定
+            Storyboard.SetTargetName(heightAnimation, targetControl.Name);
+
+            //アニメーションターゲットの設定
+            Storyboard.SetTargetProperty(heightAnimation, new PropertyPath(Control.HeightProperty));
+
+            //ストーリーボードに追加
+            storyboard.Children.Add(heightAnimation);
+
+            storyboard.AccelerationRatio = 0.1;
+            storyboard.DecelerationRatio = 0.1;
+
+            return storyboard;
+        }
+        #endregion
 
     }
 }

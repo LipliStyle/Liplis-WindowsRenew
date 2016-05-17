@@ -174,5 +174,36 @@ namespace Liplis.Xml
             }
         }
 
+        /// <summary>
+        /// ウインドウパスを取得する
+        /// </summary>
+        /// <param name="lpsWindow"></param>
+        /// <returns></returns>
+        public string getWindowPath(int lpsWindow)
+        {
+            switch (lpsWindow)
+            {
+                case 0:
+                    return WINDOW;
+                case 1:
+                    return WINDOW_BLUE;
+                case 2:
+                    return WINDOW_GREEN;
+                case 3:
+                    return WINDOW_PINK;
+                case 4:
+                    return WINDOW_PURPLE;
+                case 5:
+                    return WINDOW_RED;
+                case 6:
+                    return WINDOW_YELLOW;
+                default:
+                    return WINDOW;
+            }
+
+
+
+        }
+
     }
 }

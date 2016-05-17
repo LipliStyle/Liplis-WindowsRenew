@@ -161,10 +161,18 @@ namespace Liplis.Activity
             else
             {
                 //キーリストを回してウィジェットインスタンスを生成する
+                List<string> delList = new List<string>();
                 foreach(var key in this.kman.keyList)
                 {
-                    this.addLoadWidget(key);
+                    //スキン読み込みに失敗した場合は削除リストに追加する
+                    if(!this.addLoadWidget(key))
+                    {
+                        delList.Add(key);
+                    }
                 }
+
+                //スキンが存在しないキーを削除する
+                this.kman.delKey(delList);
             }
 
         }
@@ -262,8 +270,9 @@ namespace Liplis.Activity
         public void liplisEnd()
         {
             //TODO: ViewDeskTop liplisEnd もろもろの終了処理が必要か？
-            this.endAllWidget();
 
+            //すべてのウィジェットを終了する
+            this.endAllWidget();
 
             //終了
             this.Close();
@@ -327,7 +336,7 @@ namespace Liplis.Activity
         /// ウィジェットを追加する(読み込み追加)
         /// </summary>
         /// <param name="key"></param>
-        private void addLoadWidget(string key)
+        private bool addLoadWidget(string key)
         {
             //キー取得
             LiplisWidgetPreference widgetSetting = createWidgetSetttingFromKey(key);
@@ -345,6 +354,12 @@ namespace Liplis.Activity
 
                 //出現させる
                 lps.Show();
+
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -435,19 +450,29 @@ namespace Liplis.Activity
         /// ウィジェットをデスクトップから削除する
         /// </summary>
         /// <param name="widget"></param>
-        private void delWidget(LiplisWidget widget)
+        public void delWidget(LiplisWidget widget)
         {
             //キーマネージャーからキーを削除する
-            this.kman.delKey(widget.setting.charName);
-
-            //ウィジェットリストから削除する
-            this.delFromWidgetList(widget);
+            delWidgetRegisterData(widget);
 
             //Liplisオブジェクトの削除
             Invoke((MethodInvoker)delegate
             {
                 widget.Dispose();
             });
+        }
+
+        /// <summary>
+        /// ウィジェット登録情報を削除する
+        /// </summary>
+        /// <param name="widget"></param>
+        public void delWidgetRegisterData(LiplisWidget widget)
+        {
+            //キーマネージャーからキーを削除する
+            this.kman.delKey(widget.setting.key);
+
+            //ウィジェットリストから削除する
+            this.delFromWidgetList(widget);
         }
 
         /*

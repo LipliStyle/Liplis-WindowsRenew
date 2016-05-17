@@ -80,6 +80,7 @@
     </Compile>
     <Compile Include="Lst\LstShufflableList.cs" />
     <Compile Include="Lst\LstSortComparator.cs" />
+    <Compile Include="Msg\MsgEmotion.cs" />
     <Compile Include="Msg\Rss\MsgRss.cs" />
     <Compile Include="Msg\Rss\MsgRssCatList.cs" />
     <Compile Include="Msg\Rss\MsgRssList.cs" />
@@ -105,9 +106,12 @@
     <Compile Include="Voc\Option\LpsVoiceRoidInfo.cs" />
     <Compile Include="Voc\Option\msgVoiceRoid.cs" />
     <Compile Include="Web\Clalis\ClalisForLiplis.cs" />
+    <Compile Include="Web\Clalis\ClalisForLiplisOld.cs" />
+    <Compile Include="Web\Clalis\Json\LiplisNewsJpJson.cs" />
     <Compile Include="Web\HtmlParser.cs" />
     <Compile Include="Web\HttpGet.cs" />
     <Compile Include="Web\HttpPost.cs" />
+    <Compile Include="Web\HttpPostOld.cs" />
     <Compile Include="Web\HttpResponseCheck.cs" />
     <Compile Include="Web\JpgController.cs" />
     <Compile Include="Web\MhtGenerator\MhtDownloader.cs" />

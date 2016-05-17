@@ -70,7 +70,7 @@ namespace Liplis.Web.WebCapture
                     return false;
                 }
 
-                // TODO: 下記の方法では、フレーム（FRAMESETタグ）を使っているWebページはキャプチャできない。
+                // 下記の方法では、フレーム（FRAMESETタグ）を使っているWebページはキャプチャできない。
                 HtmlDocument htmlDocument = webBrowser.Document;
                 HtmlElement htmlElement = htmlDocument.Body;
                 // キャプチャするWebページ全体のサイズを、HtmlElement.ScrollRectangleプロパティで取得
