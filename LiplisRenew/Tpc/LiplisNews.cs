@@ -57,6 +57,9 @@ namespace Liplis.Tpc
 
             //ニュースキューの初期化
             singleNewsQ = new ConcurrentQueue<MsgTalkMessage>();
+
+            //初期収集開始
+            collectTaskRun();
         }
 
         /// <summary>
@@ -105,6 +108,7 @@ namespace Liplis.Tpc
 
         /// <summary>
         /// 単発でサマリーニュースを取得する
+        /// TODO:この処理は同期処理で動かさないとデットロックする！
         /// </summary>
         /// <returns></returns>
         public MsgTalkMessage getSummaryNews()

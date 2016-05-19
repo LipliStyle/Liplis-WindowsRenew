@@ -88,6 +88,18 @@ namespace Liplis.Web.Clalis.Json
                 sbResult.Append(msg.result);
             }
 
+            //最後のあっとまーくを除去する
+            if (msg.nameList.Count > 0)
+            {
+                if (msg.nameList[msg.nameList.Count - 1] == "@")
+                {
+                    int targetIndex = msg.nameList.Count - 1;
+                    msg.nameList.RemoveAt(targetIndex);
+                    msg.emotionList.RemoveAt(targetIndex);
+                    msg.pointList.RemoveAt(targetIndex);
+                }
+            }
+
             //EOSの除去
             string result = sbResult.ToString().Replace("EOS", "");
 

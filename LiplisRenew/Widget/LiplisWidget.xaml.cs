@@ -51,7 +51,8 @@ namespace Liplis.Widget
         //Liplis要素
         public LiplisWidgetPreference setting;
         private Skin skin;
-        private LiplisWindow talkWindow;
+        private List<LiplisWindow> talkWindowList;
+        private LiplisWindow nowTalkWindow;
 
         //=================================
         //ロードボディオブジェクト
@@ -216,8 +217,9 @@ namespace Liplis.Widget
                 this.setSize(skin.xmlBody.height, skin.xmlBody.width);
 
                 //ウインドウの初期化
-                this.talkWindow = new LiplisWindow(this.setting, this.skin);
-                this.talkWindow.Show();
+                talkWindowList = new List<LiplisWindow>();
+                //this.talkWindow = new LiplisWindow(this.setting, this.skin);
+                //this.talkWindow.Show();
 
                 //アイコンサイズ調整
                 Int32 iconBaseSide = (Int32)this.Width;
@@ -304,7 +306,7 @@ namespace Liplis.Widget
             //閉じる
             Dispatcher.Invoke(new Action(() =>
             {
-                this.talkWindow.Close();
+                closeWindowList();
                 this.Close();
             }));
 
@@ -493,6 +495,8 @@ namespace Liplis.Widget
 
             //座標記録
             setting.setLocation((int)this.Left,(int)this.Top);
+
+            onNextClick();
         }
 
         /// <summary>
@@ -502,7 +506,7 @@ namespace Liplis.Widget
         /// <param name="e"></param>
         private void image_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Console.WriteLine("");
+            
         }
 
         private void icoEnd_MouseDown(object sender, MouseButtonEventArgs e)
@@ -584,7 +588,8 @@ namespace Liplis.Widget
         /// <param name="e"></param>
         private void Window_StateChanged(object sender, EventArgs e)
         {
-            this.talkWindow.WindowState = this.WindowState;
+            //TODO: Window_StateChanged ひとまずコメント ウインドウ状態をどうするか決定する
+            //this.talkWindow.WindowState = this.WindowState;
         }
 
 
@@ -594,15 +599,22 @@ namespace Liplis.Widget
         */
         private void  setWidgetLocation()
         {
+            if(nowTalkWindow == null)
+            {
+                return;
+            }
+
+            //TODO: Window_StateChanged ひとまずコメント どうやってウインドウをついづいさせるか決定する
             Dispatcher.Invoke(new Action(() =>
             {
-                talkWindow.setWindowLocation((Int32)this.Top, (Int32)this.Left, (Int32)this.Width);
-            })); 
+                nowTalkWindow.setWindowLocation((Int32)this.Top, (Int32)this.Left, (Int32)this.Width);
+
+            }));
         }
 
-        /*
-        おやすみボタン押下時処理
-        */
+        /// <summary>
+        /// おやすみボタン押下時処理
+        /// </summary>
         public void onClickSleep()
         {
             //おやすみチェック
@@ -615,6 +627,28 @@ namespace Liplis.Widget
             {
                 //通常なら、おやすみ
                 this.sleep();
+            }
+        }
+
+        /// <summary>
+        /// ネクストアイコン押下時処理
+        /// </summary>
+        protected void onNextClick()
+        {
+            //チャット中チェック
+            if (!flgChatting)
+            {
+                nextLiplis();
+            }
+            //2015/09/04 Liplis4.5.4 連打対策
+            else if (flgChatting && flgSkip)
+            {
+                flgSkip = false;
+                nextLiplis();
+            }
+            else
+            {
+                flgSkip = true;
             }
         }
 
@@ -661,6 +695,8 @@ namespace Liplis.Widget
             this.setting.locationY = (Int32)this.Top;
             this.setting.setPreferenceData();
         }
+
+
 
         //============================================================
         //
@@ -1131,7 +1167,8 @@ namespace Liplis.Widget
             //スキップチェック
             if (this.checkSkip())
             {
-                this.updateText();
+                //this.updateText();
+                return;
             }
 
             //ナウワード取得、ナウテキスト設定
@@ -1355,8 +1392,24 @@ namespace Liplis.Widget
             {
 
             }
-            //おしゃべり
-            this.liplisChatText = this.liplisChatText + this.liplisNowWord.Substring(this.cntLct,1);
+
+            //今回送り出し文字
+            string nowSendChar = this.liplisNowWord.Substring(this.cntLct, 1);
+
+            //アットマーク検出(新規ウインドウ追加)
+            if (nowSendChar == "@")
+            {
+                //アットマークは送らず、ウインドウ生成
+                addNewWindow();
+            }
+            else
+            {
+                //おしゃべり
+                this.liplisChatText = this.liplisChatText + nowSendChar;
+            }
+
+
+            //LCTカウントインクリメント
             this.cntLct = this.cntLct + 1;
 
             return false;
@@ -1378,7 +1431,7 @@ namespace Liplis.Widget
                 if (liplisNowTopic.result.Length > cntLct - 1)
                 {
                     //ウインドウテキスト出力
-                    this.talkWindow.updateText(liplisChatText);
+                    this.nowTalkWindow.updateText(liplisChatText);
 
                     //位置自動調整
                     setWidgetLocation();
@@ -1401,14 +1454,46 @@ namespace Liplis.Widget
         {
             try
             {
-                //送り
-                while (liplisNowTopic.result.Length > cntLct)
-                {
-                    setText();
-                }
+                //ウインドウ数
+                int windowIdx = 0;
 
-                //描画
-                updateText();
+                //おしゃべり
+                string zanSentence = liplisNowTopic.result.Remove(0, this.liplisChatText.Length);
+
+                //残リスト生成
+                List<string> zanList = new List<string>(zanSentence.Split('@'));
+
+                //残リストを回して、ウインドウ生成
+                foreach(string sentence in zanList)
+                {
+                    if(sentence == "")
+                    {
+                        continue;
+                    }
+
+                    if(windowIdx == 0)
+                    {
+                        //途中の文章に追加する
+                        this.liplisChatText = this.liplisChatText + sentence;
+
+                        //位置自動調整
+                        setWidgetLocation();
+                    }
+                    else
+                    {
+                        //ウインドウアッド
+                        addNewWindow();
+
+                        //新しい文章をチャットテキストに設定
+                        this.liplisChatText = sentence;
+                    }
+
+                    //描画
+                    this.nowTalkWindow.updateSkip(this.liplisChatText);
+
+                    //インデックスインクリメント
+                    windowIdx++;
+                }
 
                 return true;
             }
@@ -1594,7 +1679,11 @@ namespace Liplis.Widget
         /// </summary>
         private void  chatStart()
         {
+            //チャット中フラグON
             this.flgChatting = true;
+
+            //開いているウインドウを終了して、ウインドウを初期化する
+            createFirstWindow();
 
             //瞬時表示チェック
             if (this.setting.lpsSpeed == 3)
@@ -1622,6 +1711,82 @@ namespace Liplis.Widget
 
             this.flgChatting = false;
             this.flgSkip = false;
+        }
+
+        //============================================================
+        //
+        //ウインドウ制御
+        //
+        //============================================================
+
+        /// <summary>
+        /// ウインドウリストにあるウインドウをすべて閉じる
+        /// </summary>
+        private void closeWindowList()
+        {
+            foreach (var talkWindow in talkWindowList)
+            {
+                //talkWindow.Close();
+                talkWindow.endWindow();
+            }
+        }
+
+        /// <summary>
+        /// ファーストウインドウを表示する
+        /// </summary>
+        private void createFirstWindow()
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                //ウインドウが残っていたら消しておく
+                if (talkWindowList.Count > 0)
+                {
+                    closeWindowList();
+                }
+
+                //リストの最初期化
+                talkWindowList = new List<LiplisWindow>();
+
+                //トークウインドウ生成
+                nowTalkWindow = new LiplisWindow(this.setting, this.skin);
+
+                //あらかじめ位置を合わせておく
+                setWidgetLocation();
+
+                //出現
+                nowTalkWindow.Show();
+
+                //追加
+                talkWindowList.Add(nowTalkWindow);
+            }));
+        }
+
+        /// <summary>
+        /// 新しいウインドウを追加する
+        /// </summary>
+        private void addNewWindow()
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                //なうウインドウの移動
+                nowTalkWindow.windowMove(this.Top,this.Left,this.Width,this.Height);
+
+                //チャットテキストの初期化
+                this.liplisChatText = "";
+
+                //トークウインドウ生成
+                nowTalkWindow = new LiplisWindow(this.setting, this.skin);
+
+                //あらかじめ位置を合わせておく
+                setWidgetLocation();
+
+                //出現
+                nowTalkWindow.Show();
+
+                //追加
+                talkWindowList.Add(nowTalkWindow);
+            }));
+
         }
 
         //============================================================
@@ -1711,8 +1876,11 @@ namespace Liplis.Widget
             //アイコン変更
             this.lpsIcoSleep.setImage(this.skin.xmlWindow.ICO_WAIKUP);
 
+            //一つウインドウを作成
+            createFirstWindow();
+
             //表示テキスト変更
-            this.talkWindow.updateText("zzz");
+            this.nowTalkWindow.updateText("zzz");
 
             //おやすみの立ち絵に変更
             this.updateBodySitDown();

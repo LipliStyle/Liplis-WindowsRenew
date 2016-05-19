@@ -95,9 +95,6 @@ namespace Liplis.Wpf
         /// <param name="opaTo"></param>
         public static Storyboard opacityAnimation(FrameworkElement targetControl, double opaFrom, double opaTo, int interval)
         {
-
-
-
             Storyboard storyboard = new Storyboard();
             TimeSpan duration = new TimeSpan(interval);
 
@@ -110,7 +107,7 @@ namespace Liplis.Wpf
             animation.Duration = new Duration(duration);
 
             //対象コントロール設定
-            Storyboard.SetTargetName(animation, targetControl.Name);
+            Storyboard.SetTarget(animation, targetControl);
 
             //アニメーションターゲットの設定
             Storyboard.SetTargetProperty(animation, new PropertyPath(Control.OpacityProperty));
@@ -200,9 +197,9 @@ namespace Liplis.Wpf
 
 
             //対象コントロール設定
-            Storyboard.SetTargetName(heightAnimation, targetControl.Name);
-            Storyboard.SetTargetName(widthAnimation, targetControl.Name);
-            Storyboard.SetTargetName(marginAnimation, targetControl.Name);
+            Storyboard.SetTarget(heightAnimation, targetControl);
+            Storyboard.SetTarget(widthAnimation, targetControl);
+            Storyboard.SetTarget(marginAnimation, targetControl);
 
             //アニメーションターゲットの設定
             Storyboard.SetTargetProperty(heightAnimation, new PropertyPath(Control.HeightProperty));
@@ -255,7 +252,7 @@ namespace Liplis.Wpf
             heightAnimation.Duration = new Duration(duration);
 
             //対象コントロール設定
-            Storyboard.SetTargetName(heightAnimation, targetControl.Name);
+            Storyboard.SetTarget(heightAnimation, targetControl);
 
             //アニメーションターゲットの設定
             Storyboard.SetTargetProperty(heightAnimation, new PropertyPath(Control.HeightProperty));
@@ -270,5 +267,65 @@ namespace Liplis.Wpf
         }
         #endregion
 
+
+
+        //============================================================
+        //
+        //ウインドウ移動
+        //
+        //============================================================
+        #region ウインドウ移動
+        /// <summary>
+        /// ウインドウをアニメーションで移動させる
+        /// </summary>
+        /// <param name="targetWindow"></param>
+        /// <param name="moveToX"></param>
+        /// <param name="moveToY"></param>
+        public static void windowMove(Window targetWindow, double moveToX, double moveToY)
+        {
+            //ストーリーボード取得
+            Storyboard storyboard = windowMoveAnimation(targetWindow, moveToX, moveToY, 5000000);
+
+            //アニメーション開始
+            storyboard.Begin(targetWindow);
+        }
+
+
+        public static Storyboard windowMoveAnimation(Window targetWindow, double moveToX, double moveToY, int interval)
+        {
+            Storyboard storyboard = new Storyboard();
+            TimeSpan duration = new TimeSpan(interval);
+
+            //ダブルアニメーションの生成
+            DoubleAnimation topAnimation = new DoubleAnimation();
+            DoubleAnimation leftAnimation = new DoubleAnimation();
+
+            //アニメーション定義
+            topAnimation.From = targetWindow.Top;
+            topAnimation.To = moveToY;
+            topAnimation.Duration = new Duration(duration);
+
+            leftAnimation.From = targetWindow.Left;
+            leftAnimation.To = moveToX;
+            leftAnimation.Duration = new Duration(duration);
+
+            //対象コントロール設定
+            Storyboard.SetTarget(topAnimation, targetWindow);
+            Storyboard.SetTarget(leftAnimation, targetWindow);
+
+            //アニメーションターゲットの設定
+            Storyboard.SetTargetProperty(topAnimation, new PropertyPath("Top"));
+            Storyboard.SetTargetProperty(leftAnimation, new PropertyPath("Left"));
+
+            //ストーリーボードに追加
+            storyboard.Children.Add(topAnimation);
+            storyboard.Children.Add(leftAnimation);
+
+            storyboard.AccelerationRatio = 0.2;
+            storyboard.DecelerationRatio = 0.2;
+
+            return storyboard;
+        }
+        #endregion
     }
 }

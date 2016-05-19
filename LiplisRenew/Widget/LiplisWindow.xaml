@@ -11,7 +11,7 @@
         WindowStyle="None"
         ResizeMode = "CanResizeWithGrip" 
         SizeChanged="Window_SizeChanged"
-        ShowInTaskbar="False"
+        ShowInTaskbar="False" Loaded="Window_Loaded"
         >
     <Grid x:Name="imageGrid" Margin="0,0,0,0">
         <Image x:Name="image" HorizontalAlignment="Left" Height="140" Width="300" VerticalAlignment="Top" Source="/Liplis;component/window_red.png" Stretch="Fill"/>

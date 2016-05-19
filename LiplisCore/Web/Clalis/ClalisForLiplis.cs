@@ -10,6 +10,7 @@
 //=======================================================================
 
 using Clalis.v40.Res;
+using Liplis.Com;
 using Liplis.Msg;
 using Liplis.Web.Clalis.Json;
 using Newtonsoft.Json;
@@ -69,15 +70,20 @@ namespace Liplis.Web.Clalis
             try
             {
                 //パラメーター生成
-                FormUrlEncodedContent postData = new FormUrlEncodedContent(new Dictionary<string, string>
-                {
-                    { "userid", uid},               //UIDLの指定
-                    { "tone",toneUrl},              //TONE_URLの指定
-                    { "newsFlg",newsFlg}            //ニュースフラグの指定
-                });
+                //FormUrlEncodedContent postData = new FormUrlEncodedContent(new Dictionary<string, string>
+                //{
+                //    { "userid", uid},               //UIDLの指定
+                //    { "tone",toneUrl},              //TONE_URLの指定
+                //    { "newsFlg",newsFlg}            //ニュースフラグの指定
+                //});
+                NameValueCollection postData = new NameValueCollection();
+                postData.Add("userid", uid);                //TONE_URLの指定
+                postData.Add("tone", toneUrl);                //TONE_URLの指定
+                postData.Add("newsFlg", newsFlg);             //NEWS_FLGの指定
+
 
                 //Jsonで結果取得
-                string jsonText = HttpPost.sendPost(LIPLIS_API_SUMMARY_NEWS, postData);
+                string jsonText = HttpPostOld.sendPost(LIPLIS_API_SUMMARY_NEWS, postData);
 
                 //Jsonをニュースメッセージリストに変換
                 return LiplisNewsJpJson.getSummaryNews(jsonText);
@@ -114,7 +120,8 @@ namespace Liplis.Web.Clalis
                     { "hour",hour},                 //時間範囲の指定
                     { "already",already},           //オールレディ
                     { "twitterMode",twitterMode},   //ツイッターモード
-                    { "runout",runout}              //ランアウト
+                    { "runout",runout},              //ランアウト
+                    { "randomkey",DateTime.Now.ToString("yyyyMMddHHmmss") + LpsLiplisUtil.getName(20)}              //ランダム文字列
                 });
 
                 //Jsonで結果取得
