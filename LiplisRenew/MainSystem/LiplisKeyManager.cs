@@ -9,14 +9,12 @@
 //
 //  Copyright(c) 2010-2016 LipliStyle.Sachin
 //=======================================================================
-
 using Liplis.Com;
 using Liplis.Utl;
 using Liplis.Xml;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Liplis.MainSystem
 {

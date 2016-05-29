@@ -9,6 +9,7 @@
 //  Copyright(c) 2010-2016 LipliStyle.Sachin
 //=======================================================================
 
+using Clalis.v31.Res;
 using Clalis.v40.Res;
 using Liplis.Com;
 using Liplis.Msg;
@@ -56,6 +57,13 @@ namespace Liplis.Web.Clalis
         #endregion
 
 
+        ///====================================================================
+        ///
+        ///                             初期化処理
+        ///                        
+        ///====================================================================
+        #region 初期化処理 
+
         /// <summary>
         /// コンストラクター
         /// </summary>
@@ -63,8 +71,21 @@ namespace Liplis.Web.Clalis
         {
 
         }
+        #endregion
 
-
+        ///====================================================================
+        ///
+        ///                      ワンタイムパスワード関連
+        ///                        
+        ///====================================================================
+        #region ワンタイムパスワード関連
+        /// <summary>
+        /// サマリーニュースの取得
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <param name="toneUrl"></param>
+        /// <param name="newsFlg"></param>
+        /// <returns></returns>
         public static MsgTalkMessage getSummaryNews(string uid, string toneUrl, string newsFlg)
         {
             try
@@ -142,6 +163,224 @@ namespace Liplis.Web.Clalis
             }
             return;
         }
+        #endregion
+
+        //====================================================================
+        //
+        //                         ツイッター関連
+        //                        
+        //====================================================================
+        #region ツイッター関連
+        /// <summary>
+        /// ツイッター登録
+        /// 非同期
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <param name="token"></param>
+        /// <param name="secret"></param>
+        /// <param name="userId"></param>
+        /// <param name="screanNam"></param>
+        /// <returns></returns>
+        public static string twitterRegister(string uid, string token, string secret, string userId, string screanNam)
+        {
+            try
+            {
+                //引数の指定
+                FormUrlEncodedContent postData = new FormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    { "userid", uid},            //LiplisユーザーID
+                    { "token",token},            //トークン
+                    { "secret",secret},          //トークンシークレット
+                    { "twitteruid",userId},      //ツイッターユーザーID
+                    { "twittersname",screanNam}, //ツイッタースクリーンネーム
+                });
+
+                //Jsonで結果取得
+                string jsonText = HttpPost.sendPost(LIPLIS_API_REGISTER_TWITTER_USER_INFO, postData);
+
+                //APIの結果受け取り用クラス
+                return JsonConvert.DeserializeObject<ResLpsRegisterTwitterInfoRespons>(jsonText).responseCode;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Clalisシステムへのツイッター情報登録に失敗しました。", ex);
+            }
+        }
+        #endregion
+
+
+
+        ///====================================================================
+        ///
+        ///                      ワンタイムパスワード関連
+        ///                        
+        ///====================================================================
+        #region ワンタイムパスワード関連
+        /// <summary>
+        /// getOneTimePass
+        /// ワンタイムパスワードを取得する
+        /// 非同期
+        /// 
+        /// 成功の場合、ワンタイムパスワードを返す
+        /// 失敗の場合、空を返す
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <returns></returns>
+
+        public static string getOneTimePass(string uid)
+        {
+            try
+            {
+                FormUrlEncodedContent postData = new FormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    { "userid", uid},            //LiplisユーザーID
+                });
+
+                //Jsonで結果取得
+                string jsonText = HttpPost.sendPost(LIPLIS_API_GET_ONETIME_PASS, postData);
+
+                //ワンタイムパスワードを返す
+                return JsonConvert.DeserializeObject<ResUserOnetimePass>(jsonText).oneTimePass;
+            }
+            catch
+            {
+                //取得失敗(空を返す)
+                return "";
+            }
+        }
+
+        /// <summary>
+        /// getLiplisId
+        /// リプリスIDを取得する
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <returns></returns>
+        public static string getLiplisId(string oneTimePass)
+        {
+            try
+            {
+                //引数の指定
+                FormUrlEncodedContent postData = new FormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    { "onetimePass", oneTimePass},            //LiplisユーザーID
+                });
+
+                //Jsonで結果取得
+                string jsonText = HttpPost.sendPost(LIPLIS_API_GET_USERID, postData);
+
+                //APIの結果受け取り用クラス
+                return JsonConvert.DeserializeObject<ResLiplisId>(jsonText).userId;
+            }
+            catch
+            {
+                return "";
+            }
+        }
+        #endregion
+
+
+        //====================================================================
+        //
+        //                              RSS関連
+        //                        
+        //====================================================================
+        #region RSS関連 
+        /// <summary>
+        /// RSSリスト取得
+        /// 非同期
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <returns></returns>
+        public static ResLpsLoginRegisterInfoRssEachCat getUserRssList(string uid)
+        {
+            try
+            {
+                //引数の指定
+                FormUrlEncodedContent postData = new FormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    { "userid", uid},            //LiplisユーザーID
+                });
+
+
+                //Jsonで結果取得
+                string jsonText = HttpPost.sendPost(LIPLIS_API_GET_RSSLIST, postData);
+
+                //APIの結果受け取り用クラス
+                return JsonConvert.DeserializeObject<ResLpsLoginRegisterInfoRssEachCat>(jsonText);
+            }
+            catch
+            {
+                return new ResLpsLoginRegisterInfoRssEachCat();
+            }
+        }
+
+        /// <summary>
+        /// RSS登録
+        /// 非同期
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="cat"></param>
+        /// <param name="uid"></param>
+        /// <returns></returns>
+        public static string registRss(string url, string cat, string uid)
+        {
+            try
+            {
+                if (cat == "デフォルトカテゴリ")
+                {
+                    cat = "";
+                }
+
+                FormUrlEncodedContent postData = new FormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    { "userid", uid},       //LiplisユーザーID
+                　  { "addRssUrl", url},    //登録URL
+                    { "addRssCat", cat},    //登録カテゴリ
+                });
+
+
+                //Jsonで結果取得
+                string jsonText = HttpPost.sendPost(LIPLIS_API_REGISTER_RSS, postData);
+
+                //APIの結果受け取り用クラス
+                return JsonConvert.DeserializeObject<ResLpsLoginStatus>(jsonText).responseCode;
+            }
+            catch
+            {
+                return "-1";
+            }
+        }
+
+        /// <summary>
+        /// RSS削除
+        /// 非同期
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string deleteRss(string uid, string url)
+        {
+            try
+            {
+                //引数の指定
+                FormUrlEncodedContent postData = new FormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    { "userid", uid},               //LiplisユーザーID
+                    { "addRssUrl", url},            //対象URL
+                });
+
+                //Jsonで結果取得
+                string jsonText = HttpPost.sendPost(LIPLIS_API_DELETE_RSS, postData);
+
+                //APIの結果受け取り用クラス
+                return JsonConvert.DeserializeObject<ResLpsLoginStatus>(jsonText).responseCode;
+            }
+            catch
+            {
+                return "-1";
+            }
+        }
+        #endregion
 
 
 

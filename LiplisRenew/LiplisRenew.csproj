@@ -37,6 +37,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CoreTweet">
+      <HintPath>..\..\..\DLL\CoreTweet\net45\CoreTweet.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -60,6 +63,39 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activity\Sub\ViewRssAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Activity\Sub\ViewRssAdd.Designer.cs">
+      <DependentUpon>ViewRssAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Activity\Sub\ViewTwitterActivation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Activity\Sub\ViewTwitterActivation.Designer.cs">
+      <DependentUpon>ViewTwitterActivation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Activity\ViewLiplisLog.xaml.cs">
+      <DependentUpon>ViewLiplisLog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Activity\ViewLiplisRssSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Activity\ViewLiplisRssSetting.Designer.cs">
+      <DependentUpon>ViewLiplisRssSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Activity\ViewLiplisSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Activity\ViewLiplisSetting.Designer.cs">
+      <DependentUpon>ViewLiplisSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Activity\ViewLiplisWidgetSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Activity\ViewLiplisWidgetSetting.Designer.cs">
+      <DependentUpon>ViewLiplisWidgetSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Activity\ViewMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,7 +114,9 @@
     <Compile Include="MainSystem\Liplis.cs" />
     <Compile Include="MainSystem\LiplisBattery.cs" />
     <Compile Include="MainSystem\LiplisPreference.cs" />
+    <Compile Include="MainSystem\LiplisRssCategroyManager.cs" />
     <Compile Include="MainSystem\LiplisWidgetPreference.cs" />
+    <Compile Include="MainSystem\LiplisWindowManager.cs" />
     <Compile Include="Msg\MsgLiplisLogList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -93,13 +131,29 @@
     <Compile Include="Activity\ViewCharacter.xaml.cs">
       <DependentUpon>ViewCharacter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widget\LpsWindow\LiplisWindowStack.cs" />
     <Compile Include="Wpf\LiplisIconImage.cs" />
     <Compile Include="Wpf\WpfAnimation.cs" />
     <Compile Include="Wpf\BitmapImageCreator.cs" />
     <Compile Include="Wpf\WpfUtil.cs" />
-    <Compile Include="Widget\LiplisWindow.xaml.cs">
+    <Compile Include="Widget\LpsWindow\LiplisWindow.xaml.cs">
       <DependentUpon>LiplisWindow.xaml</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Activity\Sub\ViewRssAdd.resx">
+      <DependentUpon>ViewRssAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Activity\Sub\ViewTwitterActivation.resx">
+      <DependentUpon>ViewTwitterActivation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Activity\ViewLiplisRssSetting.resx">
+      <DependentUpon>ViewLiplisRssSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Activity\ViewLiplisSetting.resx">
+      <DependentUpon>ViewLiplisSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Activity\ViewLiplisWidgetSetting.resx">
+      <DependentUpon>ViewLiplisWidgetSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Activity\ViewMenu.resx">
       <DependentUpon>ViewMenu.cs</DependentUpon>
     </EmbeddedResource>
@@ -126,6 +180,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClalisInterface\ClalisInterface.csproj">
+      <Project>{6C3C910F-9CBA-4BEF-84EA-4523BD11B153}</Project>
+      <Name>ClalisInterface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LiplisCore\LiplisCore.csproj">
       <Project>{8e7b170f-7e64-49e5-9487-3108c5f6850d}</Project>
       <Name>LiplisCore</Name>
@@ -136,6 +194,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Activity\ViewLiplisLog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Widget\LiplisWidget.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -144,7 +206,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Widget\LiplisWindow.xaml">
+    <Page Include="Widget\LpsWindow\LiplisWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

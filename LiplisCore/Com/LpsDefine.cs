@@ -69,19 +69,20 @@ namespace Liplis.Com
         public const string SKIN_DEF_TONE_URL = "http://liplis.mine.nu/xml/Tone/LiplisLili.xml";
         #endregion
 
-
-
         ///=============================
         /// エンコード
-        public const string ENCODING_SJIS         = "Shift-JIS";    //日本語
-        public const string ENCODING_UTF8         = "UTF-8";        //日本語
-        public const string ENCODING_GB2312       = "936";          //中国語 簡易
-        public const string ENCODING_BIG5         = "950";          //中国語 繁
-        public const string ENCODING_IBM860       = "860";          //ポルトガル
-        public const int ENCODING_ISO_2022_KR     = 50225;          //朝鮮
+        #region エンコード
+        public const string ENCODING_SJIS = "Shift-JIS";    //日本語
+        public const string ENCODING_UTF8 = "UTF-8";        //日本語
+        public const string ENCODING_GB2312 = "936";          //中国語 簡易
+        public const string ENCODING_BIG5 = "950";          //中国語 繁
+        public const string ENCODING_IBM860 = "860";          //ポルトガル
+        public const int ENCODING_ISO_2022_KR = 50225;          //朝鮮
         public const string ENCODING_WINDOWS_1256 = "1256";         //アラビア
-        public const string ENCODING_IBM863       = "863";          //フランス語
-        public const int ENCODING_UNICODE         = 1200;
+        public const string ENCODING_IBM863 = "863";          //フランス語
+        public const int ENCODING_UNICODE = 1200;
+
+        #endregion
 
         ///=============================
         /// URL定義
@@ -155,5 +156,13 @@ namespace Liplis.Com
         public const string endChat = "endChat";
         #endregion
 
+
+        ///=============================
+        /// ツイッター認証コード
+        ///=============================
+        #region ツイッター認証コード
+        public const string TWITTER_OAUTH_CONSUMERKEY = "W1tQBXDr3pQu1atfIwp6A";
+        public const string TWITTER_OAUTH_CONSUMERSECRET = "eTFat5surbln3MH7f0uIlwmpOcQdjlkyg7vUk90eG8";
+        #endregion
     }
 }

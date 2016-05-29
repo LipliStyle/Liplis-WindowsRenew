@@ -5,13 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Liplis"
         mc:Ignorable="d"
-        Title="ViewCharacter" Height="365.558" Width="798" Background="{x:Null}">
+        Title="ViewCharacter" Height="365.558" Width="798">
+    
+    
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF2F852E" Offset="0"/>
+            <GradientStop Color="#FF5F9B55" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid Margin="0,0,0,0">
         <Image x:Name="imgChar" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="300"/>
         <Button x:Name="btnCharSelect" Content="Button" HorizontalAlignment="Left" Margin="112,308,0,0" VerticalAlignment="Top" Width="75"/>
         <ScrollViewer HorizontalScrollBarVisibility="Visible" Margin="305,1,0,0">
             <DockPanel HorizontalAlignment="Left" Height="335" LastChildFill="False" VerticalAlignment="Top" Width="484">
-                <GroupBox x:Name="groupBox1" Header="GroupBox"/>
+                <GroupBox x:Name="groupBox1" Header="GroupBox" Background="#FFCFE4C9" BorderThickness="0,1,1,1"/>
                 <GroupBox x:Name="groupBox2" Header="GroupBox"/>
                 <GroupBox x:Name="groupBox3" Header="GroupBox"/>
                 <GroupBox x:Name="groupBox4" Header="GroupBox"/>

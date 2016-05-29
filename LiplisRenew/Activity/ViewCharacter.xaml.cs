@@ -364,6 +364,14 @@ namespace Liplis.Activity
         }
         #endregion
 
+
+
+        ///====================================================================
+        ///
+        ///                          マウス置き移動制御
+        ///                         
+        ///====================================================================
+        #region 処理
         private void btnCharSelect_Click(object sender, RoutedEventArgs e)
         {
             if(selectedSkin != null)
@@ -371,5 +379,11 @@ namespace Liplis.Activity
                 desktop.addWidget(selectedSkin);
             }
         }
+
+
+
+
+        #endregion
+
     }
 }

@@ -260,8 +260,7 @@ namespace Liplis.Xml.Rss
                 return 0;
             }
         }
-        #endregion 
-
+        #endregion
     }
 }
 

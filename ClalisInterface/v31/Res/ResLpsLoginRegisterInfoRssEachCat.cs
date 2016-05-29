@@ -29,5 +29,47 @@ namespace Clalis.v31.Res
             this.rsslist = rsslist;
         }
         #endregion
+
+        /// <summary>
+        /// RSSが登録されているかチェックする
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public bool containsRss(string url)
+        {
+            foreach (RegisterRsUserInfoCat item in rsslist)
+            {
+                foreach (var rss in item.rsslist)
+                {
+                    if(url == rss.url)
+                    {
+                        //見つかった
+                        return true;
+                    }
+                }
+            }
+
+            //見つからなかった
+            return false;   
+        }
+
+        /// <summary>
+        /// カテゴリを取得する
+        /// </summary>
+        /// <param name="cat"></param>
+        /// <returns></returns>
+        public RegisterRsUserInfoCat getCatData(string cat)
+        {
+            foreach (RegisterRsUserInfoCat item in rsslist)
+            {
+                if(item.cat == cat)
+                {
+                    return item;
+                }
+            }
+
+            //見つからなかった
+            return null;
+        }
     }
 }

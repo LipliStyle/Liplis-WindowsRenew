@@ -2,8 +2,6 @@
 //  ClassName : WpfAnimation
 //  概要      : アニメーションを定義する
 //
-// iOS版と同等
-//
 //
 //
 //Liplis5.0

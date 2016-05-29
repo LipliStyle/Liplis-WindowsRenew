@@ -11,6 +11,7 @@
 //=======================================================================
 using Liplis.Com;
 using Liplis.Utl;
+using Liplis.Widget.LpsWindow;
 using Liplis.Xml;
 using System;
 using System.Reflection;
@@ -25,28 +26,33 @@ namespace Liplis.MainSystem
 
         ///=============================
         /// プロパティ
-        public string charName;             public const string KEY_CHAR_NAME       = "charName";               //0
-        public Int32 locationX= 0;          public const string KEY_LOCATION_X      = "locationX";              //1
-        public Int32 locationY= 0;          public const string KEY_LOCATION_Y      = "locationY";              //2
-        public Int32 lpsMode  = 0;          public const string KEY_LPSMODE         = "lpsMode";                //3
-        public Int32 lpsSpeed;              public const string KEY_LPSSPEED        = "lpsSpeed";               //5
-        public Int32 lpsWindow;             public const string KEY_LPSWINDOW       = "lpsWindow";              //6
-        public Int32 lpsDisplayIcon;        public const string KEY_LPSDISPLAYICON  = "lpsDisplayIcon";         //7
-        public Int32 lpsHealth;             public const string KEY_LPSHELTH        = "lpsHealth";              //8
+        public string charName;                         public const string KEY_CHAR_NAME       = "charName";              
+        public Int32 locationX= 0;                      public const string KEY_LOCATION_X      = "locationX";             
+        public Int32 locationY= 0;                      public const string KEY_LOCATION_Y      = "locationY";             
+        public Int32 lpsMode  = 0;                      public const string KEY_LPSMODE         = "lpsMode";               
+        public Int32 lpsSpeed;                          public const string KEY_LPSSPEED        = "lpsSpeed";              
+        public Int32 lpsWindow;                         public const string KEY_LPSWINDOW       = "lpsWindow";             
+        public Int32 lpsDisplayIcon;                    public const string KEY_LPSDISPLAYICON  = "lpsDisplayIcon";        
+        public Int32 lpsHealth;                         public const string KEY_LPSHELTH        = "lpsHealth";
+        public LiplisWindowStack lpsWindowStackMode;    public const string KEY_WINDOWSTACK     = "lpwWindowStack";
 
-        public Int32 lpsTopicHour;          public const string KEY_LPSNEWSRANGE   = "lpsNewsRange";           //9
-        public Int32 lpsAlready;        public const string KEY_LPSNEWSALREADY = "lpsNewsAlready";         //10
-        public Int32 lpsNewsRunOut;         public const string KEY_LPSNEWSRUNOUT  = "lpsNewsRunOut";          //11
+        public Int32 lpsTopicHour;                      public const string KEY_LPSNEWSRANGE     = "lpsNewsRange";           
+        public Int32 lpsAlready;       　　             public const string KEY_LPSNEWSALREADY   = "lpsNewsAlready";     
+        public Int32 lpsNewsRunOut;                     public const string KEY_LPSNEWSRUNOUT    = "lpsNewsRunOut";          
 
-        public Int32 lpsTopicNews;          public const string KEY_LPSTOPIC_NEWS         = "lpsTopicNews";           //12
-        public Int32 lpsTopic2ch;           public const string KEY_LPSTOPIC_2CH          = "lpsTopic2ch";            //13
-        public Int32 lpsTopicNico;          public const string KEY_LPSTOPIC_NICO         = "lpsTopicNico";           //14
-        public Int32 lpsTopicRss;           public const string KEY_LPSTOPIC_RSS          = "lpsTopicRss";            //15
-        public Int32 lpsTopicTwitter;       public const string KEY_LPSTOPIC_TWITTER      = "lpsTopicTwitter";        //16
-        public Int32 lpsTopicTwitterPu;     public const string KEY_LPSTOPIC_TWITTERPU    = "lpsTopicTwitterPu";      //17
-        public Int32 lpsTopicTwitterMy;     public const string KEY_LPSTOPIC_TWITTERMY    = "lpsTopicTwitterMy";      //18
-        public Int32 lpsTopicTwitterMode;   public const string KEY_LPSTOPIC_TWITTERMODE  = "lpsTopicTwitterMode";    //19
-        public Int32 lpsTopicCharMsg;       public const string KEY_LPSTOPIC_TOPICCHARMSG = "lpsTopicCharMsg";        //20
+        public Int32 lpsTopicNews;                      public const string KEY_LPSTOPIC_NEWS         = "lpsTopicNews";         
+        public Int32 lpsTopic2ch;                       public const string KEY_LPSTOPIC_2CH          = "lpsTopic2ch";           
+        public Int32 lpsTopicNico;                      public const string KEY_LPSTOPIC_NICO         = "lpsTopicNico";          
+        public Int32 lpsTopicRss;                       public const string KEY_LPSTOPIC_RSS          = "lpsTopicRss";           
+        public Int32 lpsTopicTwitter;                   public const string KEY_LPSTOPIC_TWITTER      = "lpsTopicTwitter";       
+        public Int32 lpsTopicTwitterPu;                 public const string KEY_LPSTOPIC_TWITTERPU    = "lpsTopicTwitterPu";     
+        public Int32 lpsTopicTwitterMy;                 public const string KEY_LPSTOPIC_TWITTERMY    = "lpsTopicTwitterMy";     
+        public Int32 lpsTopicTwitterMode;               public const string KEY_LPSTOPIC_TWITTERMODE  = "lpsTopicTwitterMode";   
+        public Int32 lpsTopicCharMsg;                   public const string KEY_LPSTOPIC_TOPICCHARMSG = "lpsTopicCharMsg";
+
+        public Int32 lpsVoiceOn;                        public const string KEY_LPS_VOICEROID_ON = "lpsVoiceOn";
+        public string lpsVoiceName;                     public const string KEY_LPS_VOICEROID_NAME = "lpsVoiceName";
+        public string lpsVoicePath;                     public const string KEY_LPS_VOICEROID_PATH = "lpsVoicePath";
 
         public string lpsWindowColor;
         public double lpsInterval;
@@ -116,6 +122,7 @@ namespace Liplis.MainSystem
             this.lpsAlready = 0;
             this.lpsNewsRunOut = 0;
             this.lpsHealth = 1;
+            this.lpsWindowStackMode = 0;
 
 
             this.lpsTopicNews = 1;
@@ -127,7 +134,10 @@ namespace Liplis.MainSystem
             this.lpsTopicTwitterMy = 0;
             this.lpsTopicTwitterMode = 0;
             this.lpsTopicCharMsg = 0;
-        }
+            this.lpsVoiceOn = 0;
+            this.lpsVoiceName = "";
+            this.lpsVoicePath = "";
+    }
 
 
         /// <summary>
@@ -135,27 +145,32 @@ namespace Liplis.MainSystem
         /// </summary>
         public void setData()
         {
-            this.charName = getString(KEY_CHAR_NAME, "");
-            this.locationX = getInt(KEY_LOCATION_X, 0);
-            this.locationY = getInt(KEY_LOCATION_Y, 0);
-            this.lpsMode = getInt(KEY_LPSMODE, 0);
-            this.lpsSpeed = getInt(KEY_LPSSPEED, 0);
-            this.lpsWindow = getInt(KEY_LPSWINDOW, 0);
-            this.lpsDisplayIcon = getInt(KEY_LPSDISPLAYICON, 0);
-            this.lpsHealth = getInt(KEY_LPSHELTH, 0);
-            this.lpsTopicHour = getInt(KEY_LPSNEWSRANGE, 0);
-            this.lpsAlready = getInt(KEY_LPSNEWSALREADY, 0);
-            this.lpsNewsRunOut = getInt(KEY_LPSNEWSRUNOUT, 0);
-            this.lpsTopicNews = getInt(KEY_LPSTOPIC_NEWS, 0);
-            this.lpsTopic2ch = getInt(KEY_LPSTOPIC_2CH, 0);
-            this.lpsTopicNico = getInt(KEY_LPSTOPIC_NICO, 0);
-            this.lpsTopicRss = getInt(KEY_LPSTOPIC_RSS, 0);
-            this.lpsTopicTwitter = getInt(KEY_LPSTOPIC_TWITTER, 0);
-            this.lpsTopicTwitterPu = getInt(KEY_LPSTOPIC_TWITTERPU, 0);
-            this.lpsTopicTwitterMy = getInt(KEY_LPSTOPIC_TWITTERMY, 0);
+            this.charName            = getString(KEY_CHAR_NAME, "");
+            this.locationX           = getInt(KEY_LOCATION_X, 0);
+            this.locationY           = getInt(KEY_LOCATION_Y, 0);
+            this.lpsMode             = getInt(KEY_LPSMODE, 0);
+            this.lpsSpeed            = getInt(KEY_LPSSPEED, 75);
+            this.lpsWindow           = getInt(KEY_LPSWINDOW, 0);
+            this.lpsDisplayIcon      = getInt(KEY_LPSDISPLAYICON, 0);
+            this.lpsHealth           = getInt(KEY_LPSHELTH, 0);
+            this.lpsWindowStackMode  = (LiplisWindowStack)getInt(KEY_WINDOWSTACK, (int)LiplisWindowStack.LeeftStack);
+            this.lpsTopicHour        = getInt(KEY_LPSNEWSRANGE, 0);
+            this.lpsAlready          = getInt(KEY_LPSNEWSALREADY, 0);
+            this.lpsNewsRunOut       = getInt(KEY_LPSNEWSRUNOUT, 0);
+            this.lpsTopicNews        = getInt(KEY_LPSTOPIC_NEWS, 0);
+            this.lpsTopic2ch         = getInt(KEY_LPSTOPIC_2CH, 0);
+            this.lpsTopicNico        = getInt(KEY_LPSTOPIC_NICO, 0);
+            this.lpsTopicRss         = getInt(KEY_LPSTOPIC_RSS, 0);
+            this.lpsTopicTwitter     = getInt(KEY_LPSTOPIC_TWITTER, 0);
+            this.lpsTopicTwitterPu   = getInt(KEY_LPSTOPIC_TWITTERPU, 0);
+            this.lpsTopicTwitterMy   = getInt(KEY_LPSTOPIC_TWITTERMY, 0);
             this.lpsTopicTwitterMode = getInt(KEY_LPSTOPIC_TWITTERMODE, 0);
-            this.lpsTopicCharMsg = getInt(KEY_LPSTOPIC_TOPICCHARMSG, 0);
-        }
+            this.lpsTopicCharMsg     = getInt(KEY_LPSTOPIC_TOPICCHARMSG, 0);
+            this.lpsVoiceOn          = getInt(KEY_LPS_VOICEROID_ON, 0);
+            this.lpsVoiceName = getString(KEY_LPS_VOICEROID_NAME, "");
+            this.lpsVoicePath = getString(KEY_LPS_VOICEROID_PATH, "");
+
+    }
 
         /// <summary>
         /// 設定の保存
@@ -170,6 +185,7 @@ namespace Liplis.MainSystem
             setInt(KEY_LPSWINDOW, this.lpsWindow);
             setInt(KEY_LPSDISPLAYICON, this.lpsDisplayIcon);
             setInt(KEY_LPSHELTH, this.lpsHealth);
+            setInt(KEY_WINDOWSTACK, (int)this.lpsWindowStackMode);
             setInt(KEY_LPSNEWSRANGE, this.lpsTopicHour);
             setInt(KEY_LPSNEWSALREADY, this.lpsAlready);
             setInt(KEY_LPSNEWSRUNOUT, this.lpsNewsRunOut);
@@ -182,7 +198,11 @@ namespace Liplis.MainSystem
             setInt(KEY_LPSTOPIC_TWITTERMY, this.lpsTopicTwitterMy);
             setInt(KEY_LPSTOPIC_TWITTERMODE, this.lpsTopicTwitterMode);
             setInt(KEY_LPSTOPIC_TOPICCHARMSG, this.lpsTopicCharMsg);
-            saveSettings();
+            setInt(KEY_LPS_VOICEROID_ON, this.lpsVoiceOn);
+            setString(KEY_LPS_VOICEROID_NAME, this.lpsVoiceName);
+            setString(KEY_LPS_VOICEROID_PATH, this.lpsVoicePath);
+
+        saveSettings();
         }
 
         //============================================================

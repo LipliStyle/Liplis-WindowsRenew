@@ -41,6 +41,7 @@ using System.Security.Permissions;
 using Liplis.Widget;
 using Liplis.Gui;
 using Liplis.Com;
+using Liplis.Wpf;
 
 namespace Liplis.Activity
 {
@@ -66,7 +67,7 @@ namespace Liplis.Activity
         //=================================
         //画面
         private ViewMenu menu;
-
+        public ViewLiplisLog vLog;
 
         ///====================================================================
         ///
@@ -126,10 +127,11 @@ namespace Liplis.Activity
         /// </summary>
         private void initClass()
         {
-            this.kman    = new LiplisKeyManager();  //キーマネージャーの初期化
-            this.lpsLog  = new MsgLiplisLogList();  //ログリストの初期化
+            this.kman        = new LiplisKeyManager();  //キーマネージャーの初期化
+            this.lpsLog      = new MsgLiplisLogList();  //ログリストの初期化
             this.baseSetting = new LiplisPreference();  //設定読み込み
-            this.sc      = new SkinController();    //スキン管理クラス
+            this.sc          = new SkinController();    //スキン管理クラス
+            this.createViewLog();                       //ログウインドウを開く
         }
 
         /// <summary>
@@ -175,6 +177,14 @@ namespace Liplis.Activity
                 this.kman.delKey(delList);
             }
 
+        }
+
+        /// <summary>
+        /// ログ画面の初期化
+        /// </summary>
+        private void createViewLog()
+        {
+            vLog = new ViewLiplisLog(this);
         }
         #endregion
 
@@ -276,6 +286,12 @@ namespace Liplis.Activity
 
             //終了
             this.Close();
+        }
+
+        //フォーム終了後、アプリケーションを終了する。
+        private void ViewDeskTop_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Environment.Exit(0);
         }
 
         /// <summary>
@@ -550,5 +566,49 @@ namespace Liplis.Activity
                 });
             }
         }
+
+
+
+
+
+
+        //============================================================
+        //
+        //画面処理
+        //
+        //============================================================
+
+
+        #region 画面処理
+
+        public void openViewLog()
+        {
+            //インスタンス化されているか
+            if (vLog == null)
+            {
+                createViewLog();
+            }
+
+            //閉じられているか?
+            if (WpfUtil.isWpfDisposed(vLog))
+            {
+                createViewLog();
+            }
+
+            //フォームを開く
+            vLog.Show();
+            vLog.Activate();
+        }
+
+        /// <summary>
+        /// ログの追加
+        /// </summary>
+        public void addLog(MsgTalkMessageLog log)
+        {
+            vLog.addLog(log);
+        }
+
+
+        #endregion
     }
 }

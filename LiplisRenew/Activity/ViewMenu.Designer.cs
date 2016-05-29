@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewMenu));
-            this.pnl = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
             this.btnCross = new System.Windows.Forms.Label();
             this.btnChar = new System.Windows.Forms.Button();
             this.btnSleep = new System.Windows.Forms.Button();
@@ -38,42 +36,15 @@
             this.btnLog = new System.Windows.Forms.Button();
             this.btnEnd = new System.Windows.Forms.Button();
             this.btnFlow = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.pnl = new System.Windows.Forms.Panel();
+            this.btnRss = new System.Windows.Forms.Button();
             this.pnl.SuspendLayout();
             this.SuspendLayout();
             // 
-            // pnl
-            // 
-            this.pnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(222)))), ((int)(((byte)(235)))));
-            this.pnl.Controls.Add(this.btnCross);
-            this.pnl.Controls.Add(this.btnChar);
-            this.pnl.Controls.Add(this.btnSleep);
-            this.pnl.Controls.Add(this.btnSetting);
-            this.pnl.Controls.Add(this.btnLog);
-            this.pnl.Controls.Add(this.btnEnd);
-            this.pnl.Controls.Add(this.btnFlow);
-            this.pnl.Controls.Add(this.lblTitle);
-            this.pnl.Location = new System.Drawing.Point(1, 1);
-            this.pnl.Name = "pnl";
-            this.pnl.Size = new System.Drawing.Size(202, 289);
-            this.pnl.TabIndex = 11;
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(222)))), ((int)(((byte)(235)))));
-            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblTitle.ForeColor = System.Drawing.Color.Black;
-            this.lblTitle.Location = new System.Drawing.Point(0, 0);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(202, 20);
-            this.lblTitle.TabIndex = 13;
-            this.lblTitle.Text = "Liplis メニュー";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblTitle_MouseDown);
-            this.lblTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.lblTitle_MouseMove);
-            // 
             // btnCross
             // 
-            this.btnCross.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(222)))), ((int)(((byte)(235)))));
+            this.btnCross.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(227)))), ((int)(((byte)(96)))));
             this.btnCross.Location = new System.Drawing.Point(172, 0);
             this.btnCross.Name = "btnCross";
             this.btnCross.Size = new System.Drawing.Size(30, 20);
@@ -85,7 +56,7 @@
             this.btnChar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(179)))), ((int)(((byte)(208)))));
             this.btnChar.ForeColor = System.Drawing.Color.White;
             this.btnChar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnChar.Location = new System.Drawing.Point(1, 20);
+            this.btnChar.Location = new System.Drawing.Point(3, 22);
             this.btnChar.Name = "btnChar";
             this.btnChar.Size = new System.Drawing.Size(100, 90);
             this.btnChar.TabIndex = 0;
@@ -100,7 +71,7 @@
             this.btnSleep.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(179)))), ((int)(((byte)(208)))));
             this.btnSleep.ForeColor = System.Drawing.Color.White;
             this.btnSleep.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSleep.Location = new System.Drawing.Point(1, 199);
+            this.btnSleep.Location = new System.Drawing.Point(4, 204);
             this.btnSleep.Name = "btnSleep";
             this.btnSleep.Size = new System.Drawing.Size(100, 90);
             this.btnSleep.TabIndex = 4;
@@ -115,7 +86,7 @@
             this.btnSetting.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(179)))), ((int)(((byte)(208)))));
             this.btnSetting.ForeColor = System.Drawing.Color.White;
             this.btnSetting.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSetting.Location = new System.Drawing.Point(101, 20);
+            this.btnSetting.Location = new System.Drawing.Point(105, 22);
             this.btnSetting.Name = "btnSetting";
             this.btnSetting.Size = new System.Drawing.Size(100, 90);
             this.btnSetting.TabIndex = 1;
@@ -130,7 +101,7 @@
             this.btnLog.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(179)))), ((int)(((byte)(208)))));
             this.btnLog.ForeColor = System.Drawing.Color.White;
             this.btnLog.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnLog.Location = new System.Drawing.Point(101, 109);
+            this.btnLog.Location = new System.Drawing.Point(105, 113);
             this.btnLog.Name = "btnLog";
             this.btnLog.Size = new System.Drawing.Size(100, 90);
             this.btnLog.TabIndex = 3;
@@ -145,7 +116,7 @@
             this.btnEnd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(179)))), ((int)(((byte)(208)))));
             this.btnEnd.ForeColor = System.Drawing.Color.White;
             this.btnEnd.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnEnd.Location = new System.Drawing.Point(101, 199);
+            this.btnEnd.Location = new System.Drawing.Point(105, 204);
             this.btnEnd.Name = "btnEnd";
             this.btnEnd.Size = new System.Drawing.Size(100, 90);
             this.btnEnd.TabIndex = 5;
@@ -160,7 +131,7 @@
             this.btnFlow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(179)))), ((int)(((byte)(208)))));
             this.btnFlow.ForeColor = System.Drawing.Color.White;
             this.btnFlow.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnFlow.Location = new System.Drawing.Point(1, 109);
+            this.btnFlow.Location = new System.Drawing.Point(4, 113);
             this.btnFlow.Name = "btnFlow";
             this.btnFlow.Size = new System.Drawing.Size(100, 90);
             this.btnFlow.TabIndex = 2;
@@ -170,12 +141,57 @@
             this.btnFlow.Click += new System.EventHandler(this.btnFlow_Click);
             this.btnFlow.Enter += new System.EventHandler(this.btnFlow_Enter);
             // 
+            // lblTitle
+            // 
+            this.lblTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(227)))), ((int)(((byte)(96)))));
+            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblTitle.ForeColor = System.Drawing.Color.Black;
+            this.lblTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(346, 20);
+            this.lblTitle.TabIndex = 13;
+            this.lblTitle.Text = "Liplis メニュー";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblTitle_MouseDown);
+            this.lblTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.lblTitle_MouseMove);
+            // 
+            // pnl
+            // 
+            this.pnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.pnl.Controls.Add(this.btnRss);
+            this.pnl.Controls.Add(this.btnCross);
+            this.pnl.Controls.Add(this.btnChar);
+            this.pnl.Controls.Add(this.btnSleep);
+            this.pnl.Controls.Add(this.btnSetting);
+            this.pnl.Controls.Add(this.btnLog);
+            this.pnl.Controls.Add(this.btnEnd);
+            this.pnl.Controls.Add(this.btnFlow);
+            this.pnl.Controls.Add(this.lblTitle);
+            this.pnl.Location = new System.Drawing.Point(2, 2);
+            this.pnl.Name = "pnl";
+            this.pnl.Size = new System.Drawing.Size(346, 298);
+            this.pnl.TabIndex = 11;
+            // 
+            // btnRss
+            // 
+            this.btnRss.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(179)))), ((int)(((byte)(208)))));
+            this.btnRss.ForeColor = System.Drawing.Color.White;
+            this.btnRss.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnRss.Location = new System.Drawing.Point(207, 22);
+            this.btnRss.Name = "btnRss";
+            this.btnRss.Size = new System.Drawing.Size(100, 90);
+            this.btnRss.TabIndex = 14;
+            this.btnRss.Text = "RSS";
+            this.btnRss.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnRss.UseVisualStyleBackColor = false;
+            this.btnRss.Click += new System.EventHandler(this.btnRss_Click);
+            // 
             // ViewMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(204, 291);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(233)))), ((int)(((byte)(241)))));
+            this.ClientSize = new System.Drawing.Size(320, 302);
             this.Controls.Add(this.pnl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -193,9 +209,10 @@
         private System.Windows.Forms.Button btnFlow;
         private System.Windows.Forms.Button btnEnd;
         private System.Windows.Forms.Button btnSleep;
-        private System.Windows.Forms.Panel pnl;
         private System.Windows.Forms.Label btnCross;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Panel pnl;
+        private System.Windows.Forms.Button btnRss;
     }
 }
 

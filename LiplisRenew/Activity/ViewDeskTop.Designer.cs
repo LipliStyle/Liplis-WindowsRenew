@@ -122,11 +122,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(300, 300);
+            this.ClientSize = new System.Drawing.Size(220, 210);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ViewDeskTop";
             this.Text = "Liplis Menu";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ViewDeskTop_FormClosed);
             this.liplisContext.ResumeLayout(false);
             this.ResumeLayout(false);
 

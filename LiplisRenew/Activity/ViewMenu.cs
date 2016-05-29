@@ -28,6 +28,8 @@ namespace Liplis.Activity
         //=================================
         //デスクトップインスタンス
         private ViewDeskTop desktop;
+        private ViewLiplisSetting viewSetting;
+        private ViewLiplisRssSetting viewRss;
         private ViewCharacter viewCharacter;
 
         ///====================================================================
@@ -100,7 +102,7 @@ namespace Liplis.Activity
 
         private void btnLog_Click(object sender, EventArgs e)
         {
-
+            desktop.openViewLog();
         }
 
         private void btnSleep_Click(object sender, EventArgs e)
@@ -115,7 +117,12 @@ namespace Liplis.Activity
 
         private void btnSetting_Click(object sender, EventArgs e)
         {
+            openViewSetting();
+        }
 
+        private void btnRss_Click(object sender, EventArgs e)
+        {
+            openViewRss();
         }
 
         /// <summary>
@@ -128,7 +135,7 @@ namespace Liplis.Activity
             openViewCharacter();
         }
 
-
+        
 
         /// <summary>
         /// ボタンエンター時 フォーカス
@@ -226,8 +233,60 @@ namespace Liplis.Activity
             viewCharacter = new ViewCharacter(this.desktop);
         }
 
+        /// <summary>
+        /// 設定画面を開く
+        /// </summary>
+        private void openViewSetting()
+        {
+            //インスタンス化されているか
+            if (viewSetting == null)
+            {
+                createViewSetting();
+            }
+
+            //閉じられているか?
+            if (viewSetting.IsDisposed)
+            {
+                createViewSetting();
+            }
+
+            //フォームを開く
+            viewSetting.Show();
+            viewSetting.Activate();
+        }
+        private void createViewSetting()
+        {
+            viewSetting = new ViewLiplisSetting(this.desktop.baseSetting);
+        }
+
+        /// <summary>
+        /// RSS設定画面を開く
+        /// </summary>
+        private void openViewRss()
+        {
+            //インスタンス化されているか
+            if (viewRss == null)
+            {
+                createViewRss();
+            }
+
+            //閉じられているか?
+            if (viewRss.IsDisposed)
+            {
+                createViewRss();
+            }
+
+            //フォームを開く
+            viewRss.Show();
+            viewRss.Activate();
+        }
+        private void createViewRss()
+        {
+            viewRss = new ViewLiplisRssSetting(this.desktop.baseSetting);
+        }
 
         #endregion
+
 
     }
 }

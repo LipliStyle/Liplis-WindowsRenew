@@ -51,8 +51,11 @@ namespace Liplis.Widget
         //Liplis要素
         public LiplisWidgetPreference setting;
         private Skin skin;
-        private List<LiplisWindow> talkWindowList;
-        private LiplisWindow nowTalkWindow;
+        private LiplisWindowManager windowManager;
+
+        //=================================
+        //ウインドウ
+        private ViewLiplisWidgetSetting viewWidgetSetting;
 
         //=================================
         //ロードボディオブジェクト
@@ -113,10 +116,10 @@ namespace Liplis.Widget
         private bool flgChatTalk    = false;   //
         private bool flgDebug       = false;   //
         private bool flgOutputDemo  = false;   //
+        private bool flgIconOn      = false;   //アイコン表示状態
 
         ///=====================================
         /// 設定値
-        private Int32 liplisInterval = 100;		    //インターバル
         private Int32 liplisRefresh  = 10;          //リフレッシュレート
 
         ///=====================================
@@ -217,9 +220,7 @@ namespace Liplis.Widget
                 this.setSize(skin.xmlBody.height, skin.xmlBody.width);
 
                 //ウインドウの初期化
-                talkWindowList = new List<LiplisWindow>();
-                //this.talkWindow = new LiplisWindow(this.setting, this.skin);
-                //this.talkWindow.Show();
+                this.windowManager = new LiplisWindowManager(this.setting,this.skin);
 
                 //アイコンサイズ調整
                 Int32 iconBaseSide = (Int32)this.Width;
@@ -251,6 +252,18 @@ namespace Liplis.Widget
                 //デフォルトアイコン座標調整(✕、最小化ボタン)
                 this.icoEnd.Margin = new Thickness(this.Width - 14, 0, 0, 0);
                 this.icoMinimize.Margin = new Thickness(this.Width - 42, 0, 0, 0);
+
+
+                //アイコンオパシティを0にしておく
+                this.icoMinimize.Opacity = 0;
+                this.icoEnd.Opacity = 0;
+                this.icoSleep.Opacity = 0;
+                this.icoLog.Opacity = 0;
+                this.icoSetting.Opacity = 0;
+                this.icoChat.Opacity = 0;
+                this.icoClock.Opacity = 0;
+                this.icoBattery.Opacity = 0;
+
 
                 //ロケーション設定
                 setWidgetLocation();
@@ -306,7 +319,7 @@ namespace Liplis.Widget
             //閉じる
             Dispatcher.Invoke(new Action(() =>
             {
-                closeWindowList();
+                this.windowManager.closeWindowList();
                 this.Close();
             }));
 
@@ -349,7 +362,7 @@ namespace Liplis.Widget
             {
                 this.updateTimer = new Timer();
                 this.updateTimer.Elapsed += new ElapsedEventHandler(onUpdate);
-                this.updateTimer.Interval = liplisInterval;
+                this.updateTimer.Interval = chatSpeedCulc();
             }
             else
             {
@@ -471,6 +484,22 @@ namespace Liplis.Widget
         /// <param name="e"></param>
         private void image_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            //ボタン処理
+            if (e.RightButton == MouseButtonState.Pressed)
+            {
+                rightButtonDown();
+            }
+            else
+            {
+                leftButtonDown();
+            }
+        }
+
+        /// <summary>
+        /// 左ボタンが押された時
+        /// </summary>
+        private void leftButtonDown()
+        {
             //ベースレクと生成
             Rect windowRect = new Rect(this.image.Margin.Left, this.image.Margin.Top, this.Width, this.Height);
 
@@ -482,21 +511,36 @@ namespace Liplis.Widget
             {
                 DragMove();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
-            
-            //クリック終了時アニメ
-            WpfAnimation.imageClickUpAnimeation(this, windowRect, this.image);
 
             //ウインドウの追随
             setWidgetLocation();
 
             //座標記録
-            setting.setLocation((int)this.Left,(int)this.Top);
+            setting.setLocation((int)this.Left, (int)this.Top);
 
             onNextClick();
+
+            //クリック終了時アニメ
+            WpfAnimation.imageClickUpAnimeation(this, windowRect, this.image);
+        }
+
+        /// <summary>
+        /// 右ボタンが押された時
+        /// </summary>
+        private void rightButtonDown()
+        {
+            if(!flgIconOn)
+            {
+                iconOn();
+            }
+            else
+            {
+                iconOff();
+            }
         }
 
         /// <summary>
@@ -599,15 +643,15 @@ namespace Liplis.Widget
         */
         private void  setWidgetLocation()
         {
-            if(nowTalkWindow == null)
+            if(windowManager.nowWindowIsNull())
             {
                 return;
             }
 
             //TODO: Window_StateChanged ひとまずコメント どうやってウインドウをついづいさせるか決定する
-            Dispatcher.Invoke(new Action(() =>
+            Dispatcher.BeginInvoke(new Action(() =>
             {
-                nowTalkWindow.setWindowLocation((Int32)this.Top, (Int32)this.Left, (Int32)this.Width);
+                windowManager.nowTalkWindow.setWindowLocation((Int32)this.Top, (Int32)this.Left, (Int32)this.Width);
 
             }));
         }
@@ -742,6 +786,9 @@ namespace Liplis.Widget
         private void icoSetting_MouseUp(object sender, MouseButtonEventArgs e)
         {
             iconAnimationButtonOff(sender);
+
+            //設定画面を開く
+            callWidgetSetting();
         }
 
 
@@ -1114,39 +1161,56 @@ namespace Liplis.Widget
         private void updateLiplis()
         {
             //設定速度に応じて動作をウェイトさせる
-            switch (this.setting.lpsSpeed)
+            //switch (this.setting.lpsSpeed)
+            //{
+            //    case 0:    //最速　常に実行
+            //        if (this.flgAlarm != 0) { this.refreshLiplis(); }
+            //        break;
+            //    case 1:    //普通　１回休む
+            //            if (this.cntSlow >= 1)
+            //            {
+            //                this.refreshLiplis();
+            //                this.cntSlow = 0;
+            //            }
+            //            else
+            //            {
+            //                this.cntSlow = this.cntSlow + 1;
+            //            }
+            //            break;
+            //    case 2:    //おそい　２回休む
+            //            if (this.cntSlow >= 2)
+            //            {
+            //                refreshLiplis();
+            //                this.cntSlow = 0;
+            //            }
+            //            else
+            //            {
+            //                this.cntSlow = this.cntSlow + 1;
+            //            }
+            //            break;
+            //    case 3:    //瞬間表示
+            //            this.immediateRefresh();
+            //            break;
+            //    default:   //ほかの値が設定された場合は瞬間表示とする
+            //        this.immediateRefresh();
+            //    break;
+            //}
+            try
             {
-                case 0:    //最速　常に実行
-                    if (this.flgAlarm != 0) { this.refreshLiplis(); }
-                    break;
-                case 1:    //普通　１回休む
-                        if (this.cntSlow >= 1)
-                        {
-                            this.refreshLiplis();
-                            this.cntSlow = 0;
-                        }
-                        else
-                        {
-                            this.cntSlow = this.cntSlow + 1;
-                        }
-                        break;
-                case 2:    //おそい　２回休む
-                        if (this.cntSlow >= 2)
-                        {
-                            refreshLiplis();
-                            this.cntSlow = 0;
-                        }
-                        else
-                        {
-                            this.cntSlow = this.cntSlow + 1;
-                        }
-                        break;
-                case 3:    //瞬間表示
-                        this.immediateRefresh();
-                        break;
-                default:   //ほかの値が設定された場合は瞬間表示とする
+                if (this.setting.lpsSpeed != 0)
+                {
+
+                    refreshLiplis();
+                }
+                else
+                {
                     this.immediateRefresh();
-                break;
+                }
+
+            }
+            catch
+            {
+                checkEnd();
             }
         }
 
@@ -1304,10 +1368,17 @@ namespace Liplis.Widget
         {
             if (this.cntLnw >= this.liplisNowTopic.nameList.Count)
             {
-                //TODO: LiplisWidget ログの送信 ログウィンドウ実装時、実装する
-                //this.desk.lpsLog.append(this.liplisChatText, url: this.liplisNowTopic.url);
+
+                //ログ出力
+                desk.addLog(new MsgTalkMessageLog(this.liplisNowTopic, this.liplisChatText));
+
+                //チャットストップ
                 this.chatStop();
+
+                //半めチェック
                 this.herfEyeCheck();
+
+                //トピック初期化
                 this.liplisNowTopic = null;
 
                 //終了フラグがONなら、終了する
@@ -1431,7 +1502,7 @@ namespace Liplis.Widget
                 if (liplisNowTopic.result.Length > cntLct - 1)
                 {
                     //ウインドウテキスト出力
-                    this.nowTalkWindow.updateText(liplisChatText);
+                    windowManager.updateText(liplisChatText);
 
                     //位置自動調整
                     setWidgetLocation();
@@ -1475,9 +1546,6 @@ namespace Liplis.Widget
                     {
                         //途中の文章に追加する
                         this.liplisChatText = this.liplisChatText + sentence;
-
-                        //位置自動調整
-                        setWidgetLocation();
                     }
                     else
                     {
@@ -1489,11 +1557,14 @@ namespace Liplis.Widget
                     }
 
                     //描画
-                    this.nowTalkWindow.updateSkip(this.liplisChatText);
+                    this.windowManager.updateSkip(this.liplisChatText);
 
                     //インデックスインクリメント
                     windowIdx++;
                 }
+
+                //位置自動調整
+                setWidgetLocation();
 
                 return true;
             }
@@ -1533,7 +1604,7 @@ namespace Liplis.Widget
                 else { this.cntBlink = this.cntBlink - 1; }
 
                 //ボディ設定
-                Dispatcher.Invoke(new Action(() =>
+                Dispatcher.BeginInvoke(new Action(() =>
                 {
                     this.image.Source = new BitmapImage(new Uri(this.lpsBody.getBodyPath(this.getBlinkState(), this.cntMouth)));
                 }));
@@ -1700,9 +1771,9 @@ namespace Liplis.Widget
             }
         }
 
-        /*
-        チャットストップ
-        */
+        /// <summary>
+        /// チャットストップ
+        /// </summary>
         private void chatStop()
         {
             this.flgAlarm = 0;
@@ -1713,52 +1784,45 @@ namespace Liplis.Widget
             this.flgSkip = false;
         }
 
+        /// <summary>
+        /// おしゃべり速度計算
+        /// </summary>
+        /// <returns></returns>
+        protected int chatSpeedCulc()
+        {
+            return (int)((100 - setting.lpsSpeed) * 1.66 + 33);
+        }
+
+        /// <summary>
+        /// チャットスピード変更
+        /// </summary>
+        public void chatSpeedChange()
+        {
+            //チャットスピード計算
+            updateTimer.Interval =chatSpeedCulc();
+        }
+
         //============================================================
         //
         //ウインドウ制御
         //
         //============================================================
 
-        /// <summary>
-        /// ウインドウリストにあるウインドウをすべて閉じる
-        /// </summary>
-        private void closeWindowList()
-        {
-            foreach (var talkWindow in talkWindowList)
-            {
-                //talkWindow.Close();
-                talkWindow.endWindow();
-            }
-        }
+
 
         /// <summary>
         /// ファーストウインドウを表示する
         /// </summary>
         private void createFirstWindow()
         {
-            Dispatcher.Invoke(new Action(() =>
+            //新しいウインドウを生成する
+            Dispatcher.BeginInvoke(new Action(() =>
             {
-                //ウインドウが残っていたら消しておく
-                if (talkWindowList.Count > 0)
-                {
-                    closeWindowList();
-                }
-
-                //リストの最初期化
-                talkWindowList = new List<LiplisWindow>();
-
-                //トークウインドウ生成
-                nowTalkWindow = new LiplisWindow(this.setting, this.skin);
-
-                //あらかじめ位置を合わせておく
-                setWidgetLocation();
-
-                //出現
-                nowTalkWindow.Show();
-
-                //追加
-                talkWindowList.Add(nowTalkWindow);
+                windowManager.createFirstWindow();
             }));
+
+            //あらかじめ位置を合わせておく
+            setWidgetLocation();
         }
 
         /// <summary>
@@ -1766,27 +1830,19 @@ namespace Liplis.Widget
         /// </summary>
         private void addNewWindow()
         {
+            //なうウインドウの移動
             Dispatcher.Invoke(new Action(() =>
             {
-                //なうウインドウの移動
-                nowTalkWindow.windowMove(this.Top,this.Left,this.Width,this.Height);
+                windowManager.addNewWindow(this.Top,this.Left,this.Width,this.Height);
 
-                //チャットテキストの初期化
-                this.liplisChatText = "";
-
-                //トークウインドウ生成
-                nowTalkWindow = new LiplisWindow(this.setting, this.skin);
-
-                //あらかじめ位置を合わせておく
-                setWidgetLocation();
-
-                //出現
-                nowTalkWindow.Show();
-
-                //追加
-                talkWindowList.Add(nowTalkWindow);
+                desk.addLog(new MsgTalkMessageLog(this.liplisNowTopic, this.liplisChatText));
             }));
 
+            //チャットテキストの初期化
+            this.liplisChatText = "";
+
+            //あらかじめ位置を合わせておく
+            setWidgetLocation();
         }
 
         //============================================================
@@ -1848,7 +1904,6 @@ namespace Liplis.Widget
         //
         //============================================================
 
-        //TODO: LiplisWidget おはよう処理 要実装
         /// <summary>
         /// おはよう
         /// </summary>
@@ -1864,7 +1919,6 @@ namespace Liplis.Widget
             this.greet();
         }
 
-        //TODO: LiplisWidget おやすみ処理 要実装
         /// <summary>
         /// おやすみ
         /// </summary>
@@ -1880,7 +1934,7 @@ namespace Liplis.Widget
             createFirstWindow();
 
             //表示テキスト変更
-            this.nowTalkWindow.updateText("zzz");
+            this.windowManager.updateText("zzz");
 
             //おやすみの立ち絵に変更
             this.updateBodySitDown();
@@ -1891,7 +1945,16 @@ namespace Liplis.Widget
         /// </summary>
         private void iconOn()
         {
-            //TODO: LiplisWidgetアイコンを作成したら、処理を作成する
+            this.flgIconOn = true;
+
+            WpfAnimation.opacityUp(this, icoMinimize);
+            WpfAnimation.opacityUp(this, icoEnd);
+            WpfAnimation.opacityUp(this, icoSleep);
+            WpfAnimation.opacityUp(this, icoLog);
+            WpfAnimation.opacityUp(this, icoSetting);
+            WpfAnimation.opacityUp(this, icoChat);
+            WpfAnimation.opacityUp(this, icoClock);
+            WpfAnimation.opacityUp(this, icoBattery);
         }
 
         /// <summary>
@@ -1899,7 +1962,16 @@ namespace Liplis.Widget
         /// </summary>
         private void iconOff()
         {
-            //TODO: LiplisWidgetアイコンを作成したら、処理を作成する
+            this.flgIconOn = false;
+
+            WpfAnimation.opacityDown(this, icoMinimize);
+            WpfAnimation.opacityDown(this, icoEnd);
+            WpfAnimation.opacityDown(this, icoSleep);
+            WpfAnimation.opacityDown(this, icoLog);
+            WpfAnimation.opacityDown(this, icoSetting);
+            WpfAnimation.opacityDown(this, icoChat);
+            WpfAnimation.opacityDown(this, icoClock);
+            WpfAnimation.opacityDown(this, icoBattery);
         }
 
         /// <summary>
@@ -1927,7 +1999,19 @@ namespace Liplis.Widget
         /// </summary>
         private void callWidgetSetting()
         {
-            //TODO: LiplisWidget 設定画面とアイコンを作成したら、処理を作成する
+            if(viewWidgetSetting == null)
+            {
+                viewWidgetSetting = new ViewLiplisWidgetSetting(this, this.desk.baseSetting, this.setting, this.skin);
+            }
+            else
+            {
+                if(viewWidgetSetting.IsDisposed)
+                {
+                    viewWidgetSetting = new ViewLiplisWidgetSetting(this, this.desk.baseSetting, this.setting, this.skin);
+                }
+            }
+
+            viewWidgetSetting.Show();
         }
 
         /// <summary>
@@ -1937,7 +2021,5 @@ namespace Liplis.Widget
         {
             //TODO: LiplisWidget チャット画面とアイコンを作成したら、処理を作成する
         }
-
-
     }
 }

@@ -63,7 +63,6 @@
     <Compile Include="Com\Random\BaseCompatilizedRandom.cs" />
     <Compile Include="Com\Random\BaseRandom.cs" />
     <Compile Include="Com\Random\RndMersenneTwister.cs" />
-    <Compile Include="Com\オビ_凡例.cs" />
     <Compile Include="Com\LpsDefine.cs" />
     <Compile Include="Gui\LpsMessage.cs" />
     <Compile Include="Gui\_LpsError.cs">
@@ -81,6 +80,7 @@
     <Compile Include="Lst\LstShufflableList.cs" />
     <Compile Include="Lst\LstSortComparator.cs" />
     <Compile Include="Msg\MsgEmotion.cs" />
+    <Compile Include="Msg\MsgTalkMessageLog.cs" />
     <Compile Include="Msg\Rss\MsgRss.cs" />
     <Compile Include="Msg\Rss\MsgRssCatList.cs" />
     <Compile Include="Msg\Rss\MsgRssList.cs" />
@@ -99,6 +99,7 @@
     <Compile Include="Utl\LpsGuidCreator.cs" />
     <Compile Include="Utl\LpsLogController.cs" />
     <Compile Include="Utl\LpsPathController.cs" />
+    <Compile Include="Voc\EnableVoiceRoid.cs" />
     <Compile Include="Voc\LpsVoiceRoid.cs" />
     <Compile Include="Voc\LpsVoiceRoid150.cs" />
     <Compile Include="Voc\Option\LpsVoiceRoidDefine.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Web\WebEncoding\FileType.cs" />
     <Compile Include="Web\WebEncoding\ReadJEnc.cs" />
     <Compile Include="Web\WedFileDownLoader.cs" />
+    <Compile Include="Xml\Rss\RssEnableChecker.cs" />
     <Compile Include="Xml\Rss\RssReader.cs" />
     <Compile Include="Xml\Rss\RssReader2.cs" />
     <Compile Include="Xml\SharedPreferences.cs" />

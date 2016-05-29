@@ -108,7 +108,7 @@ namespace Liplis.Tpc
 
         /// <summary>
         /// 単発でサマリーニュースを取得する
-        /// TODO:この処理は同期処理で動かさないとデットロックする！
+        /// この処理は同期処理で動かさないとデットロックする！
         /// </summary>
         /// <returns></returns>
         public MsgTalkMessage getSummaryNews()

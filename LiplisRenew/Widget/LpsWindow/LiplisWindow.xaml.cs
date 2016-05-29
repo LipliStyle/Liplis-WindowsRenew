@@ -38,10 +38,13 @@ namespace Liplis.Widget
         private Int32 prvTxbLpsTalkLabelHeight;
 
         //=================================
+        //ロケーションプロパティ
+        public double LocationX { get; set; }
+        public double LocationY { get; set; }
+
+        //=================================
         //リプリスウィジェットとウインドウのデフォルトインターバル
         private const Int32 WIDGET_WINDOW_INTERVAL = -10;
-
-
 
         //============================================================
         //
@@ -176,7 +179,7 @@ namespace Liplis.Widget
         /// <param name="liplisChatText"></param>
         public void  updateText(string liplisChatText)
         {
-            Dispatcher.Invoke(new Action(() =>
+            Dispatcher.BeginInvoke(new Action(() =>
             {
                 //テキストセット
                 this.txbLpsTalkLabel.Text = liplisChatText;
@@ -231,10 +234,9 @@ namespace Liplis.Widget
         }
 
         /// <summary>
-        /// ウインドウを移動する
-        /// TODO:移動ロジック要件等
+        /// ランダムにウインドウを移動する
         /// </summary>
-        public void windowMove(double lpsTop, double lpsLeft, double lpsWidth, double lpsHeight)
+        public void windowMoveRandam(double lpsTop, double lpsLeft, double lpsWidth, double lpsHeight)
         {
             int movePointX_Min = (int)(lpsLeft - (lpsWidth / 2));
             int movePointX_Max = (int)(lpsLeft + (lpsWidth * 1.5) - this.Width);
@@ -247,8 +249,22 @@ namespace Liplis.Widget
             int movePointY = LpsLiplisUtil.getRandamInt(movePointY_Min, movePointY_Max);
 
             //アニメーション移動
+            this.windowMove(movePointX, movePointY);
+        }
+        /// <summary>
+        /// ウインドウを移動する
+        /// </summary>
+        public void windowMove(double movePointX, double movePointY)
+        {
+            //アニメーション移動
             WpfAnimation.windowMove(this, movePointX, movePointY);
         }
+        public void windowMove()
+        {
+            //アニメーション移動
+            WpfAnimation.windowMove(this, this.LocationX, this.LocationY);
+        }
+
 
         /// <summary>
         /// ウインドウをセットする
