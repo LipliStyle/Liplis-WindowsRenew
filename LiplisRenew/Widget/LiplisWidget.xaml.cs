@@ -501,7 +501,7 @@ namespace Liplis.Widget
         private void leftButtonDown()
         {
             //ベースレクと生成
-            Rect windowRect = new Rect(this.image.Margin.Left, this.image.Margin.Top, this.Width, this.Height);
+            Rect windowRect = new Rect(0, 0, this.Width, this.Height);
 
             //クリックアニメ
             WpfAnimation.imageClickDownAnimeation(this, windowRect, this.image);
@@ -1370,7 +1370,7 @@ namespace Liplis.Widget
             {
 
                 //ログ出力
-                desk.addLog(new MsgTalkMessageLog(this.liplisNowTopic, this.liplisChatText));
+                desk.addLog(new MsgTalkMessageLog(this.liplisNowTopic, this.liplisChatText),this.skin,setting);
 
                 //チャットストップ
                 this.chatStop();
@@ -1835,7 +1835,7 @@ namespace Liplis.Widget
             {
                 windowManager.addNewWindow(this.Top,this.Left,this.Width,this.Height);
 
-                desk.addLog(new MsgTalkMessageLog(this.liplisNowTopic, this.liplisChatText));
+                desk.addLog(new MsgTalkMessageLog(this.liplisNowTopic, this.liplisChatText), this.skin, setting);
             }));
 
             //チャットテキストの初期化

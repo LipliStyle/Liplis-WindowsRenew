@@ -162,6 +162,34 @@ namespace Liplis.MainSystem
             talkWindowList.Add(nowTalkWindow);
         }
 
+        /// <summary>
+        /// タイトルウインドウを表示する
+        /// </summary>
+        public void createTitleWindow(double lpsTop, double lpsLeft, double lpsWidth, double lpsHeight)
+        {
+            //ウインドウが残っていたら消しておく
+            if (talkWindowList.Count > 0)
+            {
+                closeWindowList();
+            }
+
+            //リストの最初期化
+            talkWindowList = new List<LiplisWindow>();
+
+            //トークウインドウ生成
+            nowTalkWindow = new LiplisWindow(this.setting, this.skin);
+
+            //出現
+            nowTalkWindow.Show();
+
+            //追加
+            talkWindowList.Add(nowTalkWindow);
+
+
+            //おしゃべりウインドウ追加
+            addNewWindow(lpsTop, lpsLeft, lpsWidth, lpsHeight);
+        }
+
 
         /// <summary>
         /// 新しいウインドウを追加する

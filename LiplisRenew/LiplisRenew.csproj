@@ -218,22 +218,29 @@
     <Resource Include="window_red.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\battery_100.png" />
-    <Content Include="Resources\ico_back.png" />
-    <Content Include="Resources\ico_char_lili.png" />
-    <Content Include="Resources\ico_intro.png" />
-    <Content Include="Resources\ico_log.png" />
-    <Content Include="Resources\ico_pow.png" />
-    <Content Include="Resources\ico_setting.png" />
-    <Content Include="Resources\ico_view.png" />
+    <Content Include="Resources\design_battery_100.png" />
+    <Content Include="Resources\design_ico_back.png" />
+    <Content Include="Resources\design_ico_char_lili.png" />
+    <Content Include="Resources\design_ico_ntro.png" />
+    <Content Include="Resources\design_ico_og.png" />
+    <Content Include="Resources\design_ico_setting.png" />
+    <Resource Include="Resources\design_ico_next.png" />
+    <Resource Include="Resources\design_ico_stop.png" />
+    <None Include="Resources\ico_rss.png" />
+    <None Include="Resources\ico_setting.png" />
+    <None Include="Resources\ico_pow.png" />
+    <None Include="Resources\ico_log.png" />
+    <None Include="Resources\ico_zzz.png" />
+    <None Include="Resources\ico_view.png" />
+    <None Include="Resources\ico_char_lili.png" />
     <Resource Include="Resources\ico_win_max_on.png" />
     <Resource Include="Resources\ico_win_min_on.png" />
     <Resource Include="Resources\ico_win_wnd_on.png" />
     <Resource Include="Resources\ico_win_max.png" />
     <Resource Include="Resources\ico_win_min.png" />
     <Resource Include="Resources\ico_win_wnd.png" />
-    <Content Include="Resources\ico_zzz.png" />
-    <Content Include="Resources\normal_1_1_1.png" />
+    <Content Include="Resources\design_ico_zzz.png" />
+    <Content Include="Resources\design_normal_1_1_1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

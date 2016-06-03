@@ -603,9 +603,9 @@ namespace Liplis.Activity
         /// <summary>
         /// ログの追加
         /// </summary>
-        public void addLog(MsgTalkMessageLog log)
+        public void addLog(MsgTalkMessageLog log, Skin skin, LiplisWidgetPreference setting)
         {
-            vLog.addLog(log);
+            vLog.addLog(log, skin, setting);
         }
 
 

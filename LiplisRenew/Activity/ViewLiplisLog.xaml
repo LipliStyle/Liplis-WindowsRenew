@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Liplis.Activity"
         mc:Ignorable="d"
-        Title="ViewLiplisLog" Height="322.071" Width="505.995" Background="#FF1F1F1F" Closing="Window_Closing">
+        Title="ViewLiplisLog" Height="322.071" Width="659.328" Background="#FF1F1F1F" Closing="Window_Closing">
     <Window.BorderBrush>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FF04AEEE" Offset="0"/>
@@ -13,20 +13,34 @@
         </LinearGradientBrush>
     </Window.BorderBrush>
     <Grid>
-        <DockPanel Height="25" VerticalAlignment="Top" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="467*"/>
+            <ColumnDefinition Width="184*"/>
+        </Grid.ColumnDefinitions>
+        <DockPanel Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2" >
+            <DockPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF1D1D1D" Offset="0"/>
+                    <GradientStop Color="#FF535353" Offset="1"/>
+                </LinearGradientBrush>
+            </DockPanel.Background>
 
+            <Button x:Name="btnStart" Width="25" DockPanel.Dock="Left" IsEnabled="False" Click="btnStart_Click">
+                <Button.Content>
+                    <Image Source="../Resources/design_ico_next.png"></Image>
+                </Button.Content>
+            </Button>
+            <Button x:Name="btnStop" Width="25" DockPanel.Dock="Left" Click="btnStop_Click">
+                <Image Source="../Resources/design_ico_stop.png"/>
+            </Button>
 
-            <Label x:Name="label" Content="検索" Margin="0,0,0,0" Height="25" Foreground="White" DockPanel.Dock="Left" HorizontalAlignment="Left"/>
-
-
-            <Button x:Name="button" Content="Button" Height="22" Margin="0,0,0,0" Width="69" DockPanel.Dock="Right" HorizontalAlignment="Right" BorderThickness="1,0,1,1"/>
-            <TextBox x:Name="textBox" Height="21" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Margin="0,2,0,0" />
-
+            <TextBox x:Name="textBox" Height="21" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Margin="0,2,0,0" DockPanel.Dock="Right" Width="176" />
+            <Button x:Name="button" Content="検索" Height="22" Margin="0,2,0,1" Width="43"  HorizontalAlignment="Right" BorderThickness="1,0,1,1" DockPanel.Dock="Right" />
 
         </DockPanel>
-        <ScrollViewer x:Name="sv" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible"  Margin="0,25,0,0" Foreground="{x:Null}" Grid.Column="1">
-            <StackPanel x:Name="logListPanel" Orientation="Vertical" HorizontalAlignment="Left" Height="266" VerticalAlignment="Top" Width="498" Margin="0,0,0,0">
-                <Grid Height="52">
+        <ScrollViewer x:Name="sv" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible"  Margin="0,25,0,0" Foreground="{x:Null}" Height="Auto" Grid.ColumnSpan="2">
+            <StackPanel x:Name="logListPanel" Orientation="Vertical" Width="Auto" Margin="0,0,0,0">
+                <Grid Height="100">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF04AEEE" Offset="0"/>
@@ -34,18 +48,18 @@
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <DockPanel Height="50" LastChildFill="False" Background="#FF1F1F1F">
-                        <Image x:Name="image" Height="50" VerticalAlignment="Top" Width="50" DockPanel.Dock="Left"/>
-                        <Grid>
-                            <Image x:Name="image1" Height="50" VerticalAlignment="Top" Width="377"/>
-                            <Label x:Name="label2" Content="Label" HorizontalAlignment="Left" Margin="2,2,0,0" VerticalAlignment="Top" Height="46" Width="372" Foreground="#FF61C101"/>
+                    <DockPanel LastChildFill="False" Background="#FF1F1F1F" RenderTransformOrigin="0.498,1.51" Margin="0,0,0,0" Height="100">
+                        <Image x:Name="image" Height="100" VerticalAlignment="Top" Width="100" DockPanel.Dock="Left"/>
+                        <Grid Height="Auto" Width="Auto">
+                            <Image x:Name="image1" Height="100" VerticalAlignment="Top" Width="Auto"/>
+                            <Label x:Name="label2" Content="Label" HorizontalAlignment="Left" Margin="2,2,0,0" VerticalAlignment="Top" Height="46" Width="Auto" Foreground="#FF61C101"/>
                         </Grid>
-                        <DockPanel Height="50" LastChildFill="False" VerticalAlignment="Top" Width="50" DockPanel.Dock="Left">
+                        <Grid Height="100" VerticalAlignment="Top" Width="50" DockPanel.Dock="Right">
 
                             <Label x:Name="label1" Content="00:00" Height="25" Margin="0,22,0,0" VerticalAlignment="Center" Width="49" HorizontalAlignment="Center" Foreground="White" DockPanel.Dock="Bottom"/>
-                            <Button x:Name="button1" Content="Button" Height="19" Margin="0,1,0,-17" VerticalAlignment="Top" Width="24" DockPanel.Dock="Right"/>
-                            <Button x:Name="button2" Content="Button" Height="19" Margin="0,1,0,-17" VerticalAlignment="Top" Width="25"/>
-                        </DockPanel>
+                            <Button x:Name="button1" Content="Button" Height="19" VerticalAlignment="Top" Width="25" DockPanel.Dock="Right" Margin="25,19,0,0"/>
+                            <Button x:Name="button2" Content="Button" Height="19" VerticalAlignment="Top" Width="25" Margin="25,0,0,0"/>
+                        </Grid>
                     </DockPanel>
                 </Grid>
             </StackPanel>

@@ -12,6 +12,7 @@
 //
 //  Copyright(c) 2010-2016 LipliStyle.Sachin
 //=======================================================================
+using Liplis.MainSystem;
 using Liplis.Msg;
 using System;
 using System.Collections.Generic;
@@ -81,13 +82,137 @@ namespace Liplis.Activity
         /// ログの追加
         /// </summary>
         /// <param name="log"></param>
-        public void addLog(MsgTalkMessageLog log)
+        public void addLog(MsgTalkMessageLog log, Skin skin, LiplisWidgetPreference setting)
         {
             Dispatcher.BeginInvoke(new Action(() =>
             {
-                logListPanel.Children.Add(createCharGrid(log));
+                //----------------------------------------------------------------------------------------
+                DockPanel dp = new DockPanel();
+                dp.Height = 100;
+                dp.LastChildFill = false;
+                dp.Background = new SolidColorBrush(Color.FromRgb(31, 31, 31));
 
-                logListPanel.Height = logListPanel.Children.Count * 52;
+                //----------------------------------------------------------------------------------------
+                Image talkImage = new Image();
+                talkImage.Height = 100;
+                talkImage.Width = (skin.xmlBody.height / 2);
+                talkImage.Stretch = Stretch.UniformToFill;
+
+
+                //クリッピング
+                //1. 頭は半分以上上にある(可能性が高いので) 半分にする
+                double herfHeight = 100;
+                double herfWidth = (skin.xmlBody.height / skin.xmlBody.width) * 100;
+                int offsetX = 0;
+                int offsetY = 0;
+
+                //上半分でクリップする
+                CroppedBitmap cb = new CroppedBitmap(new BitmapImage(new Uri(skin.xmlBody.getLiplisBody(log.newsEmotion, log.newsPoint).getBodyPath(0, 0))),
+                                   new Int32Rect(offsetX, offsetY, skin.xmlBody.width, skin.xmlBody.height / 2));       //select region rect
+
+
+                talkImage.Source = cb;
+                DockPanel.SetDock(talkImage, Dock.Left);
+                //----------------------------------------------------------------------------------------
+                Grid innerGrid = new Grid();
+
+                //表示テキストブロック生成(ラベルのコンテント)
+                TextBlock tb = new TextBlock();
+                tb.TextWrapping = TextWrapping.Wrap;
+                tb.Text = log.result;
+
+                //バックグラウンドウインドウ生成
+                Image windowBagkGround = new Image();
+                windowBagkGround.Height = 50;
+                //windowBagkGround.Width = 393;
+                windowBagkGround.Margin = new Thickness(0, 0, 0, 0);
+                windowBagkGround.VerticalAlignment = VerticalAlignment.Top;
+                windowBagkGround.Stretch = Stretch.Fill;
+                windowBagkGround.Source = new BitmapImage(new Uri(skin.xmlWindow.getWindowPath(setting.lpsWindow)));
+
+                //表示ラベル生成
+                Label talkLog = new Label();
+                talkLog.HorizontalAlignment = HorizontalAlignment.Left;
+                talkLog.VerticalAlignment = VerticalAlignment.Top;
+                talkLog.Margin = new Thickness(2, 2, 0, 0);
+                talkLog.Height = 46;
+                //talkLog.Width = 388;
+                talkLog.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+                talkLog.Content = tb;
+
+                //グリッド要素に追加
+                innerGrid.Children.Add(windowBagkGround);
+                innerGrid.Children.Add(talkLog);
+                //----------------------------------------------------------------------------------------
+                Grid rightGrid = new Grid();
+                rightGrid.Width = 50;
+                rightGrid.Height = 100;
+
+                Label l = new Label();
+                l.Content = "00,00";
+                l.Height = 25;
+                l.Width = 50;
+                l.Margin = new Thickness(0, 75, 0, 0);
+                l.VerticalAlignment = VerticalAlignment.Center;
+                l.HorizontalAlignment = HorizontalAlignment.Center;
+                l.Foreground = Brushes.SkyBlue;
+                l.Content = DateTime.Now.ToString("HH:mm");
+
+                Button b1 = new Button();
+                b1.Width = 25;
+                b1.Height = 25;
+                b1.Margin = new Thickness(0, -50, 0, 0);
+                //b1.VerticalAlignment = VerticalAlignment.Top;
+                //DockPanel.SetDock(l, Dock.Right);
+
+
+                Button b2 = new Button();
+                b2.Width = 25;
+                b2.Height = 25;
+                b2.Margin = new Thickness(0, 0, 0, 0);
+                //b2.VerticalAlignment = VerticalAlignment.Top;
+
+
+
+
+                rightGrid.Children.Add(b1);
+                rightGrid.Children.Add(b2);
+                rightGrid.Children.Add(l);
+
+
+                DockPanel.SetDock(rightGrid, Dock.Right);
+
+
+
+                //----------------------------------------------------------------------------------------
+                //要素の追加
+                dp.Children.Add(talkImage);
+                dp.Children.Add(rightGrid);
+                dp.Children.Add(innerGrid);
+                
+                //----------------------------------------------------------------------------------------
+
+                logListPanel.Children.Add(dp);
+
+                logListPanel.Height = logListPanel.Children.Count * 100;
+
+
+
+
+
+                this.UpdateLayout();
+
+                innerGrid.Height = tb.ActualHeight + 20;
+                windowBagkGround.Height = tb.ActualHeight + 20;
+                talkLog.Height = tb.ActualHeight + 16;
+
+
+                //停止状態でなければ、下までスクロールする。(停止状態 = ストップボタンが有効のとき)
+                if(btnStop.IsEnabled)
+                {
+                    //スクロールビューの最後までスクロールする
+                    this.sv.ScrollToEnd();
+                }
             }));
         }
 
@@ -97,60 +222,103 @@ namespace Liplis.Activity
         /// </summary>
         /// <param name="skin"></param>
         /// <returns></returns>
-        private Grid createCharGrid(MsgTalkMessageLog log)
+        private DockPanel createCharGrid(MsgTalkMessageLog log, Skin skin, LiplisWidgetPreference setting)
         {
-            //グリッドの作成
-            Grid grid = new Grid();
-
-            grid.Height = 52;
-            grid.Width = 100;
-            grid.VerticalAlignment = VerticalAlignment.Top;
-
-
             DockPanel dp = new DockPanel();
-            dp.Height = 50;
+            dp.Height = 100;
             dp.LastChildFill = false;
             dp.Background = new SolidColorBrush(Color.FromRgb(31, 31, 31));
 
             //要素の追加
-            dp.Children.Add(createTalkImage());
-            dp.Children.Add(createTalkLogGrid(log));
+            dp.Children.Add(createTalkImage(log, skin));
+            dp.Children.Add(createTalkLogGrid(log,skin,setting));
             dp.Children.Add(createUtilPanel());
 
-            //ドックパネルの追加
-            grid.Children.Add(dp);
-
-            //作成したグリッドを返す
-            return grid;
+            return dp;
         }
 
-        private Image createTalkImage()
+        /// <summary>
+        /// セリフイメージを生成する
+        /// </summary>
+        /// <param name="log"></param>
+        /// <param name="skin"></param>
+        /// <returns></returns>
+        private Image createTalkImage(MsgTalkMessageLog log, Skin skin)
         {
             Image talkImage = new Image();
+            talkImage.Height = 100;
+            talkImage.Width = (skin.xmlBody.height / skin.xmlBody.width) * 100;
+
+
+            //クリッピング
+            //1. 頭は半分以上上にある(可能性が高いので) 半分にする
+            double herfHeight = 100;
+            double herfWidth = (skin.xmlBody.height / skin.xmlBody.width) * 100;
+            int offsetX = 0;
+            int offsetY = 0;
+
+            //2. 上半分を持ってくる
+
+            //3. 正方形にしにいく。このとき、幅と高さのパターンが3パターン考えられる
+            
+            //if (skin.xmlBody.width > herfHeight)
+            //{
+            //    //3.1 幅>算出高さ(順当に行けばこのパターンになるはず)
+            //    offsetX = herfWidth - (herfHeight / 2);
+            //}
+            //else if (skin.xmlBody.width == herfHeight)
+            //{
+            //    //3.2 幅=算出高さ
+            //    //加工必要なし
+            //}
+            //else
+            //{
+            //    //3.3 幅<算出高さ(ほぼ無いと考えている)
+            //    offsetY = (herfHeight / 2) - herfWidth;
+            //}
+
+
+            //上半分でクリップする
+            CroppedBitmap cb = new CroppedBitmap(new BitmapImage(new Uri(skin.xmlBody.getLiplisBody(log.newsEmotion, log.newsPoint).getBodyPath(0, 0))),
+   　　　　　　　　　　　　　　new Int32Rect(offsetX, offsetY, skin.xmlBody.width, skin.xmlBody.height/2));       //select region rect
+
+
+            talkImage.Source = cb;
+            DockPanel.SetDock(talkImage, Dock.Left);
 
             return talkImage;
         }
 
-        private Grid createTalkLogGrid(MsgTalkMessageLog log)
+        private Grid createTalkLogGrid(MsgTalkMessageLog log, Skin skin, LiplisWidgetPreference setting)
         {
             //グリッドの作成
             Grid innerGrid = new Grid();
 
+            //表示テキストブロック生成(ラベルのコンテント)
+            TextBlock tb = new TextBlock();
+            tb.TextWrapping = TextWrapping.Wrap;
+            tb.Text = log.result;
+
+            //バックグラウンドウインドウ生成
             Image windowBagkGround = new Image();
-            Label talkLog = new Label();
-
             windowBagkGround.Height = 50;
-            windowBagkGround.Width = 393;
+            //windowBagkGround.Width = 393;
+            windowBagkGround.Margin = new Thickness(0, 0, 0, 0);
             windowBagkGround.VerticalAlignment = VerticalAlignment.Top;
+            windowBagkGround.Stretch = Stretch.Fill;
+            windowBagkGround.Source = new BitmapImage(new Uri(skin.xmlWindow.getWindowPath(setting.lpsWindow)));
 
+            //表示ラベル生成
+            Label talkLog = new Label();
             talkLog.HorizontalAlignment = HorizontalAlignment.Left;
             talkLog.VerticalAlignment = VerticalAlignment.Top;
             talkLog.Margin = new Thickness(2, 2, 0, 0);
             talkLog.Height = 46;
-            talkLog.Width = 388;
-            talkLog.Foreground = new SolidColorBrush(Color.FromRgb(97, 193, 0));
-            talkLog.Content = log.result;
+            //talkLog.Width = 388;
+            talkLog.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+            talkLog.Content = tb;
 
+            //グリッド要素に追加
             innerGrid.Children.Add(windowBagkGround);
             innerGrid.Children.Add(talkLog);
 
@@ -160,9 +328,41 @@ namespace Liplis.Activity
         private DockPanel createUtilPanel()
         {
             DockPanel dp = new DockPanel();
-
+            dp.Width = 100;
+            DockPanel.SetDock(dp, Dock.Right);
             return dp;
         }
 
+        //============================================================
+        //
+        //イベントハンドラ
+        //
+        //============================================================
+        #region イベントハンドラ
+        
+        /// <summary>
+        /// ログストップボタン
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnStop_Click(object sender, RoutedEventArgs e)
+        {
+            btnStop.IsEnabled = false;
+            btnStart.IsEnabled = true;
+            sv.ScrollToVerticalOffset(logListPanel.Height - 3);
+        }
+
+        /// <summary>
+        /// ログ再開ボタン
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnStart_Click(object sender, RoutedEventArgs e)
+        {
+            btnStop.IsEnabled = true;
+            btnStart.IsEnabled = false;
+            sv.ScrollToEnd();
+        }
+        #endregion
     }
 }
