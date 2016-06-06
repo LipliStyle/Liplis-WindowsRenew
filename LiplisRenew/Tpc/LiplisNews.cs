@@ -132,7 +132,9 @@ namespace Liplis.Tpc
             }
         }
 
-
+        /// <summary>
+        /// ニュースキューチェック
+        /// </summary>
         public void checkNewsQueue()
         {
             if (this.singleNewsQ.Count < LPS_NEWS_QUEUE_HOLD_CNT)

@@ -1,9 +1,6 @@
 ﻿//=======================================================================
 //  ClassName : LiplisWindowStack
-//  概要      : ウインドウの積み方
-//
-//
-//
+//  概要      : ウインドウの積み方、および位置
 //Liplis5.0
 //
 //アップデート履歴
@@ -23,6 +20,7 @@ namespace Liplis.Widget.LpsWindow
     {
         AveStack,
         LeeftStack,
-        RightStarck
+        RightStarck,
+        NowTalkPos = 999
     }
 }

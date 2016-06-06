@@ -75,6 +75,7 @@ namespace Liplis.Widget
         //タイマー
         private Timer updateTimer;
         private Timer nextTimer;
+        private Timer leaveTimer;
         private Int32 flgAlarm = 0;
 
         //行方向位置
@@ -255,14 +256,22 @@ namespace Liplis.Widget
 
 
                 //アイコンオパシティを0にしておく
-                this.icoMinimize.Opacity = 0;
-                this.icoEnd.Opacity = 0;
-                this.icoSleep.Opacity = 0;
-                this.icoLog.Opacity = 0;
-                this.icoSetting.Opacity = 0;
-                this.icoChat.Opacity = 0;
-                this.icoClock.Opacity = 0;
-                this.icoBattery.Opacity = 0;
+                if(LpsLiplisUtil.bitToBool(setting.lpsDisplayIcon))
+                {
+                    flgIconOn = true;
+                }
+                else
+                {
+                    this.icoMinimize.Opacity = 0;
+                    this.icoEnd.Opacity = 0;
+                    this.icoSleep.Opacity = 0;
+                    this.icoLog.Opacity = 0;
+                    this.icoSetting.Opacity = 0;
+                    this.icoChat.Opacity = 0;
+                    this.icoClock.Opacity = 0;
+                    this.icoBattery.Opacity = 0;
+                }
+
 
 
                 //ロケーション設定
@@ -309,6 +318,7 @@ namespace Liplis.Widget
 
             nextTimer.Dispose();
             updateTimer.Dispose();
+            leaveTimer.Dispose();
 
             //設定の保存
             this.setting.setPreferenceData();
@@ -420,12 +430,6 @@ namespace Liplis.Widget
         */
         private void onNext(object sender, ElapsedEventArgs e)
         {
-            //アイコン表示オフなら、アイコンを消去する
-            if(this.setting.lpsDisplayIcon == 0)
-            {
-                this.iconOff();
-            }
-
             //次の話題
             this.nextLiplis();
         }
@@ -470,6 +474,54 @@ namespace Liplis.Widget
                 this.startNextTimer(60.0);
             }
         }
+
+        /// <summary>
+        /// リーブタイマーのスタート
+        /// </summary>
+        private void startLeaveTimer()
+        {
+            if (leaveTimer == null)
+            {
+                this.leaveTimer = new Timer();
+                this.leaveTimer.Elapsed += new ElapsedEventHandler(onLeave);
+                this.leaveTimer.Interval = 10000;
+            }
+            else
+            {
+                this.stopLeaveTimer();
+            }
+
+            leaveTimer.Start();
+        }
+        private void stopLeaveTimer()
+        {
+            //すでに起動していたら破棄する
+            if (leaveTimer != null)
+            {
+                leaveTimer.Stop();
+            }
+        }
+
+        /// <summary>
+        /// リーブ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void onLeave(object sender, ElapsedEventArgs e)
+        {
+            //タイマーオフ
+            stopLeaveTimer();
+
+            //ディスプレイアイコンONでなければアイコンをオフにする
+            if(!LpsLiplisUtil.bitToBool(setting.lpsDisplayIcon))
+            {
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    iconOff();
+                }));
+            }
+        }
+        
 
         //============================================================
         //
@@ -539,7 +591,10 @@ namespace Liplis.Widget
             }
             else
             {
-                iconOff();
+                if (!LpsLiplisUtil.bitToBool(setting.lpsDisplayIcon))
+                {
+                    iconOff();
+                }
             }
         }
 
@@ -1750,6 +1805,12 @@ namespace Liplis.Widget
         /// </summary>
         private void  chatStart()
         {
+            //nullチェック
+            if(liplisNowTopic == null)
+            {
+                chatStop();
+            }
+
             //チャット中フラグON
             this.flgChatting = true;
 
@@ -1814,11 +1875,30 @@ namespace Liplis.Widget
         /// ファーストウインドウを表示する
         /// </summary>
         private void createFirstWindow()
-        {
-            //新しいウインドウを生成する
+        {                //新しいウインドウを生成する
             Dispatcher.BeginInvoke(new Action(() =>
             {
-                windowManager.createFirstWindow();
+                try
+                {
+                    if (this.liplisNowTopic.url == "")
+                    {
+                        windowManager.createFirstWindow(this.Top, this.Left, this.Width);
+                    }
+                    else if (this.liplisNowTopic.url != "" && this.liplisNowTopic.jpgUrl != "")
+                    {
+                        windowManager.createTitleWindow(this.Top, this.Left, this.Width, this.Height, this.liplisNowTopic.title, this.liplisNowTopic.url, this.liplisNowTopic.jpgUrl);
+                    }
+                    else
+                    {
+                        windowManager.createTitleWindow(this.Top, this.Left, this.Width, this.Height, this.liplisNowTopic.title, this.liplisNowTopic.url, "");
+                    }
+                }
+                catch
+                {
+                    chatStop();
+                    return;
+                }
+
             }));
 
             //あらかじめ位置を合わせておく
@@ -2020,6 +2100,19 @@ namespace Liplis.Widget
         private void callChat()
         {
             //TODO: LiplisWidget チャット画面とアイコンを作成したら、処理を作成する
+        }
+
+        private void Window_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (!LpsLiplisUtil.bitToBool(setting.lpsDisplayIcon))
+            {
+                startLeaveTimer();
+            }
+        }
+
+        private void Window_MouseEnter(object sender, MouseEventArgs e)
+        {
+            stopLeaveTimer();
         }
     }
 }

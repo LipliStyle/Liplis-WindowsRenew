@@ -14,7 +14,9 @@
 //=======================================================================
 using Liplis.Com;
 using Liplis.MainSystem;
+using Liplis.Properties;
 using Liplis.Widget;
+using Liplis.Widget.LpsWindow;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -73,6 +75,12 @@ namespace Liplis.Activity
 
             //ウインドウ設定
             setWindow(this.setting.lpsWindow);
+
+            //ウインドウ表示位置設定
+            setWindowPos(this.setting.lpsWindowPos);
+
+            //ウインドウ表示個数設定
+            setWindowNum(this.setting.lpsWindowNum);
 
             //話題設定
             chkTopicNews.Checked         = LpsLiplisUtil.bitToBool(this.setting.lpsTopicNews);
@@ -320,7 +328,37 @@ namespace Liplis.Activity
             }
         }
 
+        /// <summary>
+        /// ウインドウ位置設定
+        /// </summary>
+        /// <param name="windowPos"></param>
+        private void setWindowPos(LiplisWindowStack windowPos)
+        {
+            switch (windowPos)
+            {
+                case LiplisWindowStack.AveStack:
+                    rdWindowPosLRC.Checked = true;
+                    break;
+                case LiplisWindowStack.LeeftStack:
+                    rdWindowPosLeft.Checked = true;
+                    break;
+                case LiplisWindowStack.RightStarck:
+                    rdWindowPosRight.Checked = true;
+                    break;
+                default:
+                    rdWindowPosLeft.Checked = true;
+                    break;
+            }
+        }
 
+        /// <summary>
+        /// ウインドウ表示個数を表示する
+        /// </summary>
+        /// <param name="windowNum"></param>
+        private void setWindowNum(int windowNum)
+        {
+            this.cboWindowNum.Text = windowNum.ToString();
+        }
 
         #endregion
 
@@ -521,6 +559,45 @@ namespace Liplis.Activity
             rbWindow7.Checked = true;
         }
 
+
+
+
+        /// <summary>
+        /// ウインドウ表示位置ラジオ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rdWindowPosRight_CheckedChanged(object sender, System.EventArgs e)
+        {
+            setting.lpsWindowPos = LiplisWindowStack.RightStarck;
+            setting.setPreferenceData();
+            this.picWindowPos.Image = LpsResorceManager.getResourceBitmap(typeof(Resources).Assembly, "window_pos_right");
+
+        }
+        private void rdWindowPosLeft_CheckedChanged(object sender, System.EventArgs e)
+        {
+            setting.lpsWindowPos = LiplisWindowStack.LeeftStack;
+            setting.setPreferenceData();
+            this.picWindowPos.Image = LpsResorceManager.getResourceBitmap(typeof(Resources).Assembly, "window_pos_left");
+        }
+        private void rdWindowPosLRC_CheckedChanged(object sender, System.EventArgs e)
+        {
+            setting.lpsWindowPos = LiplisWindowStack.AveStack;
+            setting.setPreferenceData();
+            this.picWindowPos.Image = LpsResorceManager.getResourceBitmap(typeof(Resources).Assembly, "window_pos_lrc");
+        }
+
+        /// <summary>
+        /// ウインドウ表示数コンボボックス押下
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cboWindowNum_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            setting.lpsWindowNum = int.Parse(cboWindowNum.Text);
+            setting.setPreferenceData();
+        }
+
         /// <summary>
         /// 話題設定
         /// </summary>
@@ -636,6 +713,8 @@ namespace Liplis.Activity
             }
 
         }
+
+
         #endregion
 
 

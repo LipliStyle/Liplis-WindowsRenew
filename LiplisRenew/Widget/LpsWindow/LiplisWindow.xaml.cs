@@ -20,7 +20,7 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
-namespace Liplis.Widget
+namespace Liplis.Widget.LpsWindow
 {
     /// <summary>
     /// XsamlWindow.xaml の相互作用ロジック
@@ -34,8 +34,9 @@ namespace Liplis.Widget
 
         //=================================
         //ウインドウ制御プロパティ
-        private Int32 nowTxbLpsTalkLabelHeight;
-        private Int32 prvTxbLpsTalkLabelHeight;
+        protected Int32 nowTxbLpsTalkLabelHeight;
+        protected Int32 prvTxbLpsTalkLabelHeight;
+        public LiplisWindowStack windowPos;
 
         //=================================
         //ロケーションプロパティ
@@ -56,22 +57,23 @@ namespace Liplis.Widget
         /// <summary>
         /// コンストラクター
         /// </summary>
-        public LiplisWindow(LiplisWidgetPreference setting, Skin skin)
+        public LiplisWindow(LiplisWidgetPreference setting, Skin skin, double lpsTop, double lpsLeft, double lpsWidth, LiplisWindowStack windowPos)
         {
             //スキン取得
             this.skin = skin;
             this.setting = setting;
+            this.windowPos = windowPos;
 
             InitializeComponent();
 
             //ウインドウ設定
-            initWindow();
+            initWindow(lpsTop, lpsLeft, lpsWidth);
         }
 
         /// <summary>
         /// ウインドウの初期化
         /// </summary>
-        private void initWindow()
+        protected virtual void initWindow(double lpsTop, double lpsLeft, double lpsWidth)
         {
             //ウインドウをセットする
             this.setWindow();
@@ -83,11 +85,15 @@ namespace Liplis.Widget
             this.image.Opacity = 0;
 
             //初期セット
+            this.WindowStartupLocation = WindowStartupLocation.Manual;
             this.txbLpsTalkLabel.Text = "";
             this.Height = nowTxbLpsTalkLabelHeight + 27;
             this.imageGrid.Height = nowTxbLpsTalkLabelHeight + 27;
             this.image.Height = nowTxbLpsTalkLabelHeight + 27;
             this.lblLpsTalkLabel.Height = nowTxbLpsTalkLabelHeight + 17;
+
+            //ウインドウ位置設定
+            _setWindowLocation((Int32)lpsTop, (Int32)lpsLeft, (Int32)lpsWidth);
         }
 
         /// <summary>
@@ -104,7 +110,7 @@ namespace Liplis.Widget
         /// <summary>
         /// ウインドウを終了する
         /// </summary>
-        public void endWindow()
+        public virtual void endWindow()
         {
             Dispatcher.Invoke(new Action(() =>
             {
@@ -161,23 +167,27 @@ namespace Liplis.Widget
         /// <summary>
         /// ウインドウのロケーション設定
         /// </summary>
-        public void setWindowLocation(Int32 widgetTop, Int32 widgetLeft, Int32 widgetWidth)
+        public void setWindowLocation(Int32 lpsTop, Int32 lpsLeft, Int32 lpsWidth)
         {            
             Dispatcher.Invoke(new Action(() =>
             {
-                //中心位置計算
-                Int32 locationCenter = widgetLeft + widgetWidth / 2;
-                //場所確定
-                this.Left = locationCenter - (Int32)this.Width / 2; //レフト位置
-                this.Top = widgetTop - (Int32)this.Height + WIDGET_WINDOW_INTERVAL;//トップ位置
+                _setWindowLocation(lpsTop, lpsLeft, lpsWidth);
             }));
+        }
+        public void _setWindowLocation(Int32 lpsTop, Int32 lpsLeft, Int32 lpsWIdth)
+        {
+            //中心位置計算
+            Int32 locationCenter = lpsLeft + lpsWIdth / 2;
+            //場所確定
+            this.Left = locationCenter - (Int32)this.Width / 2; //レフト位置
+            this.Top = lpsTop - (Int32)this.Height + WIDGET_WINDOW_INTERVAL;//トップ位置
         }
 
         /// <summary>
         /// テキストの更新
         /// </summary>
         /// <param name="liplisChatText"></param>
-        public void  updateText(string liplisChatText)
+        public virtual void  updateText(string liplisChatText)
         {
             Dispatcher.BeginInvoke(new Action(() =>
             {
@@ -191,10 +201,7 @@ namespace Liplis.Widget
                 if (prvTxbLpsTalkLabelHeight != nowTxbLpsTalkLabelHeight)
                 {
                     this.UpdateLayout();
-                    this.Height                 = nowTxbLpsTalkLabelHeight + 27;
-                    this.imageGrid.Height       = nowTxbLpsTalkLabelHeight + 27;
-                    WpfAnimation.windowHeightChange(this, this.image, this.image.Height, nowTxbLpsTalkLabelHeight +27);
-                    this.lblLpsTalkLabel.Height = nowTxbLpsTalkLabelHeight + 17;
+                    sizeChanveAnimation();
                 }
 
                 //前回値設定
@@ -206,13 +213,12 @@ namespace Liplis.Widget
         /// スキップ表示
         /// </summary>
         /// <param name="liplisChatText"></param>
-        public void updateSkip(string liplisChatText)
+        public virtual void updateSkip(string liplisChatText)
         {
             if(liplisChatText == "")
             {
                 Console.WriteLine("");
             }
-
 
             Dispatcher.Invoke(new Action(() =>
             {
@@ -222,21 +228,27 @@ namespace Liplis.Widget
 
                 //現在高さ取得
                 nowTxbLpsTalkLabelHeight = (Int32)txbLpsTalkLabel.ActualHeight;
-
-                //現在高さが変化していたら、アニメーションで高さ拡張
-                this.Height = nowTxbLpsTalkLabelHeight + 27;
-                this.imageGrid.Height = nowTxbLpsTalkLabelHeight + 27;
-                WpfAnimation.windowHeightChange(this, this.image, this.image.Height, nowTxbLpsTalkLabelHeight + 27);
-                this.lblLpsTalkLabel.Height = nowTxbLpsTalkLabelHeight + 17;
+                sizeChanveAnimation();
 
                 this.UpdateLayout();
             }));
         }
 
         /// <summary>
+        ///高さをアニメーションで変化させる
+        /// </summary>
+        public void sizeChanveAnimation()
+        {
+            this.Height = nowTxbLpsTalkLabelHeight + 27;
+            this.imageGrid.Height = nowTxbLpsTalkLabelHeight + 27;
+            WpfAnimation.windowHeightChange(this, this.image, this.image.Height, nowTxbLpsTalkLabelHeight + 27);
+            this.lblLpsTalkLabel.Height = nowTxbLpsTalkLabelHeight + 17;
+        }
+
+        /// <summary>
         /// ランダムにウインドウを移動する
         /// </summary>
-        public void windowMoveRandam(double lpsTop, double lpsLeft, double lpsWidth, double lpsHeight)
+        public void windowMoveRandam(double lpsTop, double lpsLeft, double lpsWidth, double lpsHeight, LiplisWindowStack windowPos)
         {
             int movePointX_Min = (int)(lpsLeft - (lpsWidth / 2));
             int movePointX_Max = (int)(lpsLeft + (lpsWidth * 1.5) - this.Width);
@@ -249,17 +261,18 @@ namespace Liplis.Widget
             int movePointY = LpsLiplisUtil.getRandamInt(movePointY_Min, movePointY_Max);
 
             //アニメーション移動
-            this.windowMove(movePointX, movePointY);
+            this.windowMove(movePointX, movePointY, windowPos);
         }
+
         /// <summary>
         /// ウインドウを移動する
         /// </summary>
-        public void windowMove(double movePointX, double movePointY)
+        public virtual void windowMove(double movePointX, double movePointY, LiplisWindowStack windowPos)
         {
             //アニメーション移動
             WpfAnimation.windowMove(this, movePointX, movePointY);
         }
-        public void windowMove()
+        public virtual void windowMove(LiplisWindowStack windowPos)
         {
             //アニメーション移動
             WpfAnimation.windowMove(this, this.LocationX, this.LocationY);

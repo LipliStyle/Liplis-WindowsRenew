@@ -34,28 +34,13 @@
             this.btnVoiceSetting = new System.Windows.Forms.Label();
             this.btnWidgetSetting = new System.Windows.Forms.Label();
             this.tbpEnvironment = new System.Windows.Forms.TabPage();
-            this.pnlWindow = new System.Windows.Forms.Panel();
-            this.lblDescriptionWindow = new System.Windows.Forms.Label();
-            this.picWindow7 = new System.Windows.Forms.PictureBox();
-            this.rbWindow7 = new System.Windows.Forms.RadioButton();
-            this.picWindow6 = new System.Windows.Forms.PictureBox();
-            this.rbWindow6 = new System.Windows.Forms.RadioButton();
-            this.picWindow5 = new System.Windows.Forms.PictureBox();
-            this.rbWindow5 = new System.Windows.Forms.RadioButton();
-            this.picWindow4 = new System.Windows.Forms.PictureBox();
-            this.rbWindow4 = new System.Windows.Forms.RadioButton();
-            this.picWindow3 = new System.Windows.Forms.PictureBox();
-            this.rbWindow3 = new System.Windows.Forms.RadioButton();
-            this.picWindow2 = new System.Windows.Forms.PictureBox();
-            this.rbWindow2 = new System.Windows.Forms.RadioButton();
-            this.picWindow1 = new System.Windows.Forms.PictureBox();
-            this.rbWindow1 = new System.Windows.Forms.RadioButton();
-            this.lblTitleWindow = new System.Windows.Forms.Label();
             this.pnlBattery = new System.Windows.Forms.Panel();
+            this.lblDescriptionBattery2 = new System.Windows.Forms.Label();
             this.lblDescriptionBattery = new System.Windows.Forms.Label();
             this.chkBattery = new System.Windows.Forms.CheckBox();
             this.lblTitleBattery = new System.Windows.Forms.Label();
             this.pnlIconOn = new System.Windows.Forms.Panel();
+            this.lblDescriptionIconOn2 = new System.Windows.Forms.Label();
             this.lblDescriptionIconOn = new System.Windows.Forms.Label();
             this.chkIconOn = new System.Windows.Forms.CheckBox();
             this.lblTitleIconOn = new System.Windows.Forms.Label();
@@ -118,6 +103,37 @@
             this.lblTitleTalkMode = new System.Windows.Forms.Label();
             this.pnlEnvironmentSpase = new System.Windows.Forms.Panel();
             this.tab = new System.Windows.Forms.TabControl();
+            this.tbpWIndow = new System.Windows.Forms.TabPage();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblDescriptionWindowNum = new System.Windows.Forms.Label();
+            this.cboWindowNum = new System.Windows.Forms.ComboBox();
+            this.lblDescriptionWindowNum2 = new System.Windows.Forms.Label();
+            this.lblTitleWindowNum = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.picWindowPos = new System.Windows.Forms.PictureBox();
+            this.lblDescriptionWindowPos = new System.Windows.Forms.Label();
+            this.rdWindowPosLRC = new System.Windows.Forms.RadioButton();
+            this.rdWindowPosLeft = new System.Windows.Forms.RadioButton();
+            this.rdWindowPosRight = new System.Windows.Forms.RadioButton();
+            this.lblTItleWindowPos = new System.Windows.Forms.Label();
+            this.pnlWindow = new System.Windows.Forms.Panel();
+            this.lblDescriptionWindow = new System.Windows.Forms.Label();
+            this.picWindow7 = new System.Windows.Forms.PictureBox();
+            this.rbWindow7 = new System.Windows.Forms.RadioButton();
+            this.picWindow6 = new System.Windows.Forms.PictureBox();
+            this.rbWindow6 = new System.Windows.Forms.RadioButton();
+            this.picWindow5 = new System.Windows.Forms.PictureBox();
+            this.rbWindow5 = new System.Windows.Forms.RadioButton();
+            this.picWindow4 = new System.Windows.Forms.PictureBox();
+            this.rbWindow4 = new System.Windows.Forms.RadioButton();
+            this.picWindow3 = new System.Windows.Forms.PictureBox();
+            this.rbWindow3 = new System.Windows.Forms.RadioButton();
+            this.picWindow2 = new System.Windows.Forms.PictureBox();
+            this.rbWindow2 = new System.Windows.Forms.RadioButton();
+            this.picWindow1 = new System.Windows.Forms.PictureBox();
+            this.rbWindow1 = new System.Windows.Forms.RadioButton();
+            this.lblTitleWindow = new System.Windows.Forms.Label();
+            this.pnlWindwoSpase = new System.Windows.Forms.Panel();
             this.tbpTopic = new System.Windows.Forms.TabPage();
             this.pnlRange = new System.Windows.Forms.Panel();
             this.lblDescriptionRange = new System.Windows.Forms.Label();
@@ -168,7 +184,7 @@
             this.pnlTopic = new System.Windows.Forms.Panel();
             this.lblDescriptionTopic = new System.Windows.Forms.Label();
             this.lblTitleTopic = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.pnlTopicSpase = new System.Windows.Forms.Panel();
             this.tbpVoice = new System.Windows.Forms.TabPage();
             this.pnl3VoiceEngineSetting = new System.Windows.Forms.Panel();
             this.lblDescription3VoiceEngineSetting = new System.Windows.Forms.Label();
@@ -184,9 +200,19 @@
             this.pnlVoiceSetting = new System.Windows.Forms.Panel();
             this.lblDescriptionVoiceSetting = new System.Windows.Forms.Label();
             this.lblTitleVoiceSetting = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
+            this.pnlVoiceSpase = new System.Windows.Forms.Panel();
             this.pnlCtrl.SuspendLayout();
             this.tbpEnvironment.SuspendLayout();
+            this.pnlBattery.SuspendLayout();
+            this.pnlIconOn.SuspendLayout();
+            this.pnlActive.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trcActive)).BeginInit();
+            this.pnlTalkMode.SuspendLayout();
+            this.tab.SuspendLayout();
+            this.tbpWIndow.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picWindowPos)).BeginInit();
             this.pnlWindow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picWindow7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picWindow6)).BeginInit();
@@ -195,12 +221,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picWindow3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picWindow2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picWindow1)).BeginInit();
-            this.pnlBattery.SuspendLayout();
-            this.pnlIconOn.SuspendLayout();
-            this.pnlActive.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trcActive)).BeginInit();
-            this.pnlTalkMode.SuspendLayout();
-            this.tab.SuspendLayout();
             this.tbpTopic.SuspendLayout();
             this.pnlRange.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trcRange)).BeginInit();
@@ -270,8 +290,6 @@
             // 
             this.tbpEnvironment.AutoScroll = true;
             this.tbpEnvironment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.tbpEnvironment.Controls.Add(this.pnlWindow);
-            this.tbpEnvironment.Controls.Add(this.lblTitleWindow);
             this.tbpEnvironment.Controls.Add(this.pnlBattery);
             this.tbpEnvironment.Controls.Add(this.lblTitleBattery);
             this.tbpEnvironment.Controls.Add(this.pnlIconOn);
@@ -288,208 +306,9 @@
             this.tbpEnvironment.TabIndex = 0;
             this.tbpEnvironment.Text = "ウィジェット設定";
             // 
-            // pnlWindow
-            // 
-            this.pnlWindow.Controls.Add(this.lblDescriptionWindow);
-            this.pnlWindow.Controls.Add(this.picWindow7);
-            this.pnlWindow.Controls.Add(this.rbWindow7);
-            this.pnlWindow.Controls.Add(this.picWindow6);
-            this.pnlWindow.Controls.Add(this.rbWindow6);
-            this.pnlWindow.Controls.Add(this.picWindow5);
-            this.pnlWindow.Controls.Add(this.rbWindow5);
-            this.pnlWindow.Controls.Add(this.picWindow4);
-            this.pnlWindow.Controls.Add(this.rbWindow4);
-            this.pnlWindow.Controls.Add(this.picWindow3);
-            this.pnlWindow.Controls.Add(this.rbWindow3);
-            this.pnlWindow.Controls.Add(this.picWindow2);
-            this.pnlWindow.Controls.Add(this.rbWindow2);
-            this.pnlWindow.Controls.Add(this.picWindow1);
-            this.pnlWindow.Controls.Add(this.rbWindow1);
-            this.pnlWindow.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlWindow.Location = new System.Drawing.Point(3, 682);
-            this.pnlWindow.Name = "pnlWindow";
-            this.pnlWindow.Size = new System.Drawing.Size(433, 189);
-            this.pnlWindow.TabIndex = 110;
-            // 
-            // lblDescriptionWindow
-            // 
-            this.lblDescriptionWindow.AutoSize = true;
-            this.lblDescriptionWindow.ForeColor = System.Drawing.Color.White;
-            this.lblDescriptionWindow.Location = new System.Drawing.Point(5, 8);
-            this.lblDescriptionWindow.Name = "lblDescriptionWindow";
-            this.lblDescriptionWindow.Size = new System.Drawing.Size(300, 12);
-            this.lblDescriptionWindow.TabIndex = 108;
-            this.lblDescriptionWindow.Text = "おしゃべりウインドウで使用するウインドウデザインを選択します。";
-            // 
-            // picWindow7
-            // 
-            this.picWindow7.Location = new System.Drawing.Point(268, 131);
-            this.picWindow7.Name = "picWindow7";
-            this.picWindow7.Size = new System.Drawing.Size(96, 42);
-            this.picWindow7.TabIndex = 27;
-            this.picWindow7.TabStop = false;
-            this.picWindow7.Click += new System.EventHandler(this.picWindow7_Click);
-            // 
-            // rbWindow7
-            // 
-            this.rbWindow7.AutoSize = true;
-            this.rbWindow7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.rbWindow7.Location = new System.Drawing.Point(278, 109);
-            this.rbWindow7.Name = "rbWindow7";
-            this.rbWindow7.Size = new System.Drawing.Size(74, 16);
-            this.rbWindow7.TabIndex = 26;
-            this.rbWindow7.TabStop = true;
-            this.rbWindow7.Text = "ウインドウ7";
-            this.rbWindow7.UseVisualStyleBackColor = true;
-            this.rbWindow7.CheckedChanged += new System.EventHandler(this.rbWindow7_CheckedChanged);
-            // 
-            // picWindow6
-            // 
-            this.picWindow6.Location = new System.Drawing.Point(163, 131);
-            this.picWindow6.Name = "picWindow6";
-            this.picWindow6.Size = new System.Drawing.Size(96, 42);
-            this.picWindow6.TabIndex = 25;
-            this.picWindow6.TabStop = false;
-            this.picWindow6.Click += new System.EventHandler(this.picWindow6_Click);
-            // 
-            // rbWindow6
-            // 
-            this.rbWindow6.AutoSize = true;
-            this.rbWindow6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.rbWindow6.Location = new System.Drawing.Point(173, 109);
-            this.rbWindow6.Name = "rbWindow6";
-            this.rbWindow6.Size = new System.Drawing.Size(74, 16);
-            this.rbWindow6.TabIndex = 24;
-            this.rbWindow6.TabStop = true;
-            this.rbWindow6.Text = "ウインドウ6";
-            this.rbWindow6.UseVisualStyleBackColor = true;
-            this.rbWindow6.CheckedChanged += new System.EventHandler(this.rbWindow6_CheckedChanged);
-            // 
-            // picWindow5
-            // 
-            this.picWindow5.Location = new System.Drawing.Point(59, 131);
-            this.picWindow5.Name = "picWindow5";
-            this.picWindow5.Size = new System.Drawing.Size(96, 42);
-            this.picWindow5.TabIndex = 23;
-            this.picWindow5.TabStop = false;
-            this.picWindow5.Click += new System.EventHandler(this.picWindow5_Click);
-            // 
-            // rbWindow5
-            // 
-            this.rbWindow5.AutoSize = true;
-            this.rbWindow5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.rbWindow5.Location = new System.Drawing.Point(69, 109);
-            this.rbWindow5.Name = "rbWindow5";
-            this.rbWindow5.Size = new System.Drawing.Size(74, 16);
-            this.rbWindow5.TabIndex = 22;
-            this.rbWindow5.TabStop = true;
-            this.rbWindow5.Text = "ウインドウ5";
-            this.rbWindow5.UseVisualStyleBackColor = true;
-            this.rbWindow5.CheckedChanged += new System.EventHandler(this.rbWindow5_CheckedChanged);
-            // 
-            // picWindow4
-            // 
-            this.picWindow4.Location = new System.Drawing.Point(321, 57);
-            this.picWindow4.Name = "picWindow4";
-            this.picWindow4.Size = new System.Drawing.Size(96, 42);
-            this.picWindow4.TabIndex = 21;
-            this.picWindow4.TabStop = false;
-            this.picWindow4.Click += new System.EventHandler(this.picWindow4_Click);
-            // 
-            // rbWindow4
-            // 
-            this.rbWindow4.AutoSize = true;
-            this.rbWindow4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.rbWindow4.Location = new System.Drawing.Point(331, 35);
-            this.rbWindow4.Name = "rbWindow4";
-            this.rbWindow4.Size = new System.Drawing.Size(74, 16);
-            this.rbWindow4.TabIndex = 20;
-            this.rbWindow4.TabStop = true;
-            this.rbWindow4.Text = "ウインドウ4";
-            this.rbWindow4.UseVisualStyleBackColor = true;
-            this.rbWindow4.CheckedChanged += new System.EventHandler(this.rbWindow4_CheckedChanged);
-            // 
-            // picWindow3
-            // 
-            this.picWindow3.Location = new System.Drawing.Point(217, 57);
-            this.picWindow3.Name = "picWindow3";
-            this.picWindow3.Size = new System.Drawing.Size(96, 42);
-            this.picWindow3.TabIndex = 19;
-            this.picWindow3.TabStop = false;
-            this.picWindow3.Click += new System.EventHandler(this.picWindow3_Click);
-            // 
-            // rbWindow3
-            // 
-            this.rbWindow3.AutoSize = true;
-            this.rbWindow3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.rbWindow3.Location = new System.Drawing.Point(227, 35);
-            this.rbWindow3.Name = "rbWindow3";
-            this.rbWindow3.Size = new System.Drawing.Size(74, 16);
-            this.rbWindow3.TabIndex = 18;
-            this.rbWindow3.TabStop = true;
-            this.rbWindow3.Text = "ウインドウ3";
-            this.rbWindow3.UseVisualStyleBackColor = true;
-            this.rbWindow3.CheckedChanged += new System.EventHandler(this.rbWindow3_CheckedChanged);
-            // 
-            // picWindow2
-            // 
-            this.picWindow2.Location = new System.Drawing.Point(113, 57);
-            this.picWindow2.Name = "picWindow2";
-            this.picWindow2.Size = new System.Drawing.Size(96, 42);
-            this.picWindow2.TabIndex = 17;
-            this.picWindow2.TabStop = false;
-            this.picWindow2.Click += new System.EventHandler(this.picWindow2_Click);
-            // 
-            // rbWindow2
-            // 
-            this.rbWindow2.AutoSize = true;
-            this.rbWindow2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.rbWindow2.Location = new System.Drawing.Point(123, 35);
-            this.rbWindow2.Name = "rbWindow2";
-            this.rbWindow2.Size = new System.Drawing.Size(74, 16);
-            this.rbWindow2.TabIndex = 16;
-            this.rbWindow2.TabStop = true;
-            this.rbWindow2.Text = "ウインドウ2";
-            this.rbWindow2.UseVisualStyleBackColor = true;
-            this.rbWindow2.CheckedChanged += new System.EventHandler(this.rbWindow2_CheckedChanged);
-            // 
-            // picWindow1
-            // 
-            this.picWindow1.Location = new System.Drawing.Point(9, 57);
-            this.picWindow1.Name = "picWindow1";
-            this.picWindow1.Size = new System.Drawing.Size(96, 42);
-            this.picWindow1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picWindow1.TabIndex = 15;
-            this.picWindow1.TabStop = false;
-            this.picWindow1.Click += new System.EventHandler(this.picWindow1_Click);
-            // 
-            // rbWindow1
-            // 
-            this.rbWindow1.AutoSize = true;
-            this.rbWindow1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.rbWindow1.Location = new System.Drawing.Point(19, 35);
-            this.rbWindow1.Name = "rbWindow1";
-            this.rbWindow1.Size = new System.Drawing.Size(74, 16);
-            this.rbWindow1.TabIndex = 14;
-            this.rbWindow1.TabStop = true;
-            this.rbWindow1.Text = "ウインドウ1";
-            this.rbWindow1.UseVisualStyleBackColor = true;
-            this.rbWindow1.CheckedChanged += new System.EventHandler(this.rbWindow1_CheckedChanged);
-            // 
-            // lblTitleWindow
-            // 
-            this.lblTitleWindow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(227)))), ((int)(((byte)(96)))));
-            this.lblTitleWindow.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblTitleWindow.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblTitleWindow.ForeColor = System.Drawing.Color.Black;
-            this.lblTitleWindow.Location = new System.Drawing.Point(3, 662);
-            this.lblTitleWindow.Name = "lblTitleWindow";
-            this.lblTitleWindow.Size = new System.Drawing.Size(433, 20);
-            this.lblTitleWindow.TabIndex = 109;
-            this.lblTitleWindow.Text = "ウインドウ";
-            // 
             // pnlBattery
             // 
+            this.pnlBattery.Controls.Add(this.lblDescriptionBattery2);
             this.pnlBattery.Controls.Add(this.lblDescriptionBattery);
             this.pnlBattery.Controls.Add(this.chkBattery);
             this.pnlBattery.Dock = System.Windows.Forms.DockStyle.Top;
@@ -498,12 +317,22 @@
             this.pnlBattery.Size = new System.Drawing.Size(433, 50);
             this.pnlBattery.TabIndex = 114;
             // 
+            // lblDescriptionBattery2
+            // 
+            this.lblDescriptionBattery2.AutoSize = true;
+            this.lblDescriptionBattery2.ForeColor = System.Drawing.Color.White;
+            this.lblDescriptionBattery2.Location = new System.Drawing.Point(5, 9);
+            this.lblDescriptionBattery2.Name = "lblDescriptionBattery2";
+            this.lblDescriptionBattery2.Size = new System.Drawing.Size(411, 12);
+            this.lblDescriptionBattery2.TabIndex = 3;
+            this.lblDescriptionBattery2.Text = "バッテリー残量が少なくなった時に、姿を変化させるかを設定します。(スキン対応の場合)";
+            // 
             // lblDescriptionBattery
             // 
             this.lblDescriptionBattery.AutoSize = true;
             this.lblDescriptionBattery.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lblDescriptionBattery.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.lblDescriptionBattery.Location = new System.Drawing.Point(5, 9);
+            this.lblDescriptionBattery.Location = new System.Drawing.Point(5, 27);
             this.lblDescriptionBattery.Name = "lblDescriptionBattery";
             this.lblDescriptionBattery.Size = new System.Drawing.Size(184, 16);
             this.lblDescriptionBattery.TabIndex = 1;
@@ -513,7 +342,7 @@
             // 
             this.chkBattery.AutoSize = true;
             this.chkBattery.ForeColor = System.Drawing.Color.White;
-            this.chkBattery.Location = new System.Drawing.Point(205, 9);
+            this.chkBattery.Location = new System.Drawing.Point(205, 27);
             this.chkBattery.Name = "chkBattery";
             this.chkBattery.Size = new System.Drawing.Size(15, 14);
             this.chkBattery.TabIndex = 0;
@@ -534,6 +363,7 @@
             // 
             // pnlIconOn
             // 
+            this.pnlIconOn.Controls.Add(this.lblDescriptionIconOn2);
             this.pnlIconOn.Controls.Add(this.lblDescriptionIconOn);
             this.pnlIconOn.Controls.Add(this.chkIconOn);
             this.pnlIconOn.Dock = System.Windows.Forms.DockStyle.Top;
@@ -542,12 +372,22 @@
             this.pnlIconOn.Size = new System.Drawing.Size(433, 50);
             this.pnlIconOn.TabIndex = 112;
             // 
+            // lblDescriptionIconOn2
+            // 
+            this.lblDescriptionIconOn2.AutoSize = true;
+            this.lblDescriptionIconOn2.ForeColor = System.Drawing.Color.White;
+            this.lblDescriptionIconOn2.Location = new System.Drawing.Point(5, 9);
+            this.lblDescriptionIconOn2.Name = "lblDescriptionIconOn2";
+            this.lblDescriptionIconOn2.Size = new System.Drawing.Size(201, 12);
+            this.lblDescriptionIconOn2.TabIndex = 2;
+            this.lblDescriptionIconOn2.Text = "アイコンを常時表示しておくか設定します。";
+            // 
             // lblDescriptionIconOn
             // 
             this.lblDescriptionIconOn.AutoSize = true;
             this.lblDescriptionIconOn.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lblDescriptionIconOn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.lblDescriptionIconOn.Location = new System.Drawing.Point(5, 9);
+            this.lblDescriptionIconOn.Location = new System.Drawing.Point(5, 27);
             this.lblDescriptionIconOn.Name = "lblDescriptionIconOn";
             this.lblDescriptionIconOn.Size = new System.Drawing.Size(165, 16);
             this.lblDescriptionIconOn.TabIndex = 1;
@@ -557,7 +397,7 @@
             // 
             this.chkIconOn.AutoSize = true;
             this.chkIconOn.ForeColor = System.Drawing.Color.White;
-            this.chkIconOn.Location = new System.Drawing.Point(205, 9);
+            this.chkIconOn.Location = new System.Drawing.Point(205, 27);
             this.chkIconOn.Name = "chkIconOn";
             this.chkIconOn.Size = new System.Drawing.Size(15, 14);
             this.chkIconOn.TabIndex = 0;
@@ -1232,6 +1072,7 @@
             // tab
             // 
             this.tab.Controls.Add(this.tbpEnvironment);
+            this.tab.Controls.Add(this.tbpWIndow);
             this.tab.Controls.Add(this.tbpTopic);
             this.tab.Controls.Add(this.tbpVoice);
             this.tab.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1240,6 +1081,372 @@
             this.tab.SelectedIndex = 0;
             this.tab.Size = new System.Drawing.Size(464, 502);
             this.tab.TabIndex = 4;
+            // 
+            // tbpWIndow
+            // 
+            this.tbpWIndow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.tbpWIndow.Controls.Add(this.panel2);
+            this.tbpWIndow.Controls.Add(this.lblTitleWindowNum);
+            this.tbpWIndow.Controls.Add(this.panel1);
+            this.tbpWIndow.Controls.Add(this.lblTItleWindowPos);
+            this.tbpWIndow.Controls.Add(this.pnlWindow);
+            this.tbpWIndow.Controls.Add(this.lblTitleWindow);
+            this.tbpWIndow.Controls.Add(this.pnlWindwoSpase);
+            this.tbpWIndow.Location = new System.Drawing.Point(4, 22);
+            this.tbpWIndow.Name = "tbpWIndow";
+            this.tbpWIndow.Padding = new System.Windows.Forms.Padding(3);
+            this.tbpWIndow.Size = new System.Drawing.Size(456, 476);
+            this.tbpWIndow.TabIndex = 3;
+            this.tbpWIndow.Text = "ウインドウ設定";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.lblDescriptionWindowNum);
+            this.panel2.Controls.Add(this.cboWindowNum);
+            this.panel2.Controls.Add(this.lblDescriptionWindowNum2);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(3, 417);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(450, 58);
+            this.panel2.TabIndex = 116;
+            // 
+            // lblDescriptionWindowNum
+            // 
+            this.lblDescriptionWindowNum.AutoSize = true;
+            this.lblDescriptionWindowNum.ForeColor = System.Drawing.Color.White;
+            this.lblDescriptionWindowNum.Location = new System.Drawing.Point(5, 9);
+            this.lblDescriptionWindowNum.Name = "lblDescriptionWindowNum";
+            this.lblDescriptionWindowNum.Size = new System.Drawing.Size(245, 12);
+            this.lblDescriptionWindowNum.TabIndex = 110;
+            this.lblDescriptionWindowNum.Text = "おしゃべりウインドウを積んでいく位置を設定します。";
+            // 
+            // cboWindowNum
+            // 
+            this.cboWindowNum.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboWindowNum.FormattingEnabled = true;
+            this.cboWindowNum.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"});
+            this.cboWindowNum.Location = new System.Drawing.Point(148, 24);
+            this.cboWindowNum.Name = "cboWindowNum";
+            this.cboWindowNum.Size = new System.Drawing.Size(121, 20);
+            this.cboWindowNum.TabIndex = 2;
+            this.cboWindowNum.SelectedIndexChanged += new System.EventHandler(this.cboWindowNum_SelectedIndexChanged);
+            // 
+            // lblDescriptionWindowNum2
+            // 
+            this.lblDescriptionWindowNum2.AutoSize = true;
+            this.lblDescriptionWindowNum2.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblDescriptionWindowNum2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.lblDescriptionWindowNum2.Location = new System.Drawing.Point(5, 27);
+            this.lblDescriptionWindowNum2.Name = "lblDescriptionWindowNum2";
+            this.lblDescriptionWindowNum2.Size = new System.Drawing.Size(124, 16);
+            this.lblDescriptionWindowNum2.TabIndex = 1;
+            this.lblDescriptionWindowNum2.Text = "表示ウインドウ数";
+            // 
+            // lblTitleWindowNum
+            // 
+            this.lblTitleWindowNum.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(227)))), ((int)(((byte)(96)))));
+            this.lblTitleWindowNum.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblTitleWindowNum.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblTitleWindowNum.ForeColor = System.Drawing.Color.Black;
+            this.lblTitleWindowNum.Location = new System.Drawing.Point(3, 397);
+            this.lblTitleWindowNum.Name = "lblTitleWindowNum";
+            this.lblTitleWindowNum.Size = new System.Drawing.Size(450, 20);
+            this.lblTitleWindowNum.TabIndex = 115;
+            this.lblTitleWindowNum.Text = "表示ウインドウ数";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.picWindowPos);
+            this.panel1.Controls.Add(this.lblDescriptionWindowPos);
+            this.panel1.Controls.Add(this.rdWindowPosLRC);
+            this.panel1.Controls.Add(this.rdWindowPosLeft);
+            this.panel1.Controls.Add(this.rdWindowPosRight);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(3, 269);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(450, 128);
+            this.panel1.TabIndex = 114;
+            // 
+            // picWindowPos
+            // 
+            this.picWindowPos.Image = global::Liplis.Properties.Resources.window_pos_left;
+            this.picWindowPos.InitialImage = null;
+            this.picWindowPos.Location = new System.Drawing.Point(272, 4);
+            this.picWindowPos.Name = "picWindowPos";
+            this.picWindowPos.Size = new System.Drawing.Size(160, 120);
+            this.picWindowPos.TabIndex = 110;
+            this.picWindowPos.TabStop = false;
+            // 
+            // lblDescriptionWindowPos
+            // 
+            this.lblDescriptionWindowPos.AutoSize = true;
+            this.lblDescriptionWindowPos.ForeColor = System.Drawing.Color.White;
+            this.lblDescriptionWindowPos.Location = new System.Drawing.Point(5, 8);
+            this.lblDescriptionWindowPos.Name = "lblDescriptionWindowPos";
+            this.lblDescriptionWindowPos.Size = new System.Drawing.Size(245, 12);
+            this.lblDescriptionWindowPos.TabIndex = 109;
+            this.lblDescriptionWindowPos.Text = "おしゃべりウインドウを積んでいく位置を設定します。";
+            // 
+            // rdWindowPosLRC
+            // 
+            this.rdWindowPosLRC.AutoSize = true;
+            this.rdWindowPosLRC.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.rdWindowPosLRC.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.rdWindowPosLRC.Location = new System.Drawing.Point(97, 88);
+            this.rdWindowPosLRC.Name = "rdWindowPosLRC";
+            this.rdWindowPosLRC.Size = new System.Drawing.Size(77, 20);
+            this.rdWindowPosLRC.TabIndex = 17;
+            this.rdWindowPosLRC.TabStop = true;
+            this.rdWindowPosLRC.Tag = "0";
+            this.rdWindowPosLRC.Text = "左中右";
+            this.rdWindowPosLRC.UseVisualStyleBackColor = true;
+            this.rdWindowPosLRC.CheckedChanged += new System.EventHandler(this.rdWindowPosLRC_CheckedChanged);
+            // 
+            // rdWindowPosLeft
+            // 
+            this.rdWindowPosLeft.AutoSize = true;
+            this.rdWindowPosLeft.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.rdWindowPosLeft.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.rdWindowPosLeft.Location = new System.Drawing.Point(97, 62);
+            this.rdWindowPosLeft.Name = "rdWindowPosLeft";
+            this.rdWindowPosLeft.Size = new System.Drawing.Size(43, 20);
+            this.rdWindowPosLeft.TabIndex = 16;
+            this.rdWindowPosLeft.TabStop = true;
+            this.rdWindowPosLeft.Tag = "2";
+            this.rdWindowPosLeft.Text = "左";
+            this.rdWindowPosLeft.UseVisualStyleBackColor = true;
+            this.rdWindowPosLeft.CheckedChanged += new System.EventHandler(this.rdWindowPosLeft_CheckedChanged);
+            // 
+            // rdWindowPosRight
+            // 
+            this.rdWindowPosRight.AutoSize = true;
+            this.rdWindowPosRight.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.rdWindowPosRight.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.rdWindowPosRight.Location = new System.Drawing.Point(97, 36);
+            this.rdWindowPosRight.Name = "rdWindowPosRight";
+            this.rdWindowPosRight.Size = new System.Drawing.Size(43, 20);
+            this.rdWindowPosRight.TabIndex = 15;
+            this.rdWindowPosRight.TabStop = true;
+            this.rdWindowPosRight.Tag = "1";
+            this.rdWindowPosRight.Text = "右";
+            this.rdWindowPosRight.UseVisualStyleBackColor = true;
+            this.rdWindowPosRight.CheckedChanged += new System.EventHandler(this.rdWindowPosRight_CheckedChanged);
+            // 
+            // lblTItleWindowPos
+            // 
+            this.lblTItleWindowPos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(227)))), ((int)(((byte)(96)))));
+            this.lblTItleWindowPos.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblTItleWindowPos.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblTItleWindowPos.ForeColor = System.Drawing.Color.Black;
+            this.lblTItleWindowPos.Location = new System.Drawing.Point(3, 249);
+            this.lblTItleWindowPos.Name = "lblTItleWindowPos";
+            this.lblTItleWindowPos.Size = new System.Drawing.Size(450, 20);
+            this.lblTItleWindowPos.TabIndex = 113;
+            this.lblTItleWindowPos.Text = "ウインドウ表示位置";
+            // 
+            // pnlWindow
+            // 
+            this.pnlWindow.Controls.Add(this.lblDescriptionWindow);
+            this.pnlWindow.Controls.Add(this.picWindow7);
+            this.pnlWindow.Controls.Add(this.rbWindow7);
+            this.pnlWindow.Controls.Add(this.picWindow6);
+            this.pnlWindow.Controls.Add(this.rbWindow6);
+            this.pnlWindow.Controls.Add(this.picWindow5);
+            this.pnlWindow.Controls.Add(this.rbWindow5);
+            this.pnlWindow.Controls.Add(this.picWindow4);
+            this.pnlWindow.Controls.Add(this.rbWindow4);
+            this.pnlWindow.Controls.Add(this.picWindow3);
+            this.pnlWindow.Controls.Add(this.rbWindow3);
+            this.pnlWindow.Controls.Add(this.picWindow2);
+            this.pnlWindow.Controls.Add(this.rbWindow2);
+            this.pnlWindow.Controls.Add(this.picWindow1);
+            this.pnlWindow.Controls.Add(this.rbWindow1);
+            this.pnlWindow.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlWindow.Location = new System.Drawing.Point(3, 60);
+            this.pnlWindow.Name = "pnlWindow";
+            this.pnlWindow.Size = new System.Drawing.Size(450, 189);
+            this.pnlWindow.TabIndex = 112;
+            // 
+            // lblDescriptionWindow
+            // 
+            this.lblDescriptionWindow.AutoSize = true;
+            this.lblDescriptionWindow.ForeColor = System.Drawing.Color.White;
+            this.lblDescriptionWindow.Location = new System.Drawing.Point(5, 8);
+            this.lblDescriptionWindow.Name = "lblDescriptionWindow";
+            this.lblDescriptionWindow.Size = new System.Drawing.Size(300, 12);
+            this.lblDescriptionWindow.TabIndex = 108;
+            this.lblDescriptionWindow.Text = "おしゃべりウインドウで使用するウインドウデザインを選択します。";
+            // 
+            // picWindow7
+            // 
+            this.picWindow7.Location = new System.Drawing.Point(268, 131);
+            this.picWindow7.Name = "picWindow7";
+            this.picWindow7.Size = new System.Drawing.Size(96, 42);
+            this.picWindow7.TabIndex = 27;
+            this.picWindow7.TabStop = false;
+            // 
+            // rbWindow7
+            // 
+            this.rbWindow7.AutoSize = true;
+            this.rbWindow7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.rbWindow7.Location = new System.Drawing.Point(278, 109);
+            this.rbWindow7.Name = "rbWindow7";
+            this.rbWindow7.Size = new System.Drawing.Size(74, 16);
+            this.rbWindow7.TabIndex = 26;
+            this.rbWindow7.TabStop = true;
+            this.rbWindow7.Text = "ウインドウ7";
+            this.rbWindow7.UseVisualStyleBackColor = true;
+            // 
+            // picWindow6
+            // 
+            this.picWindow6.Location = new System.Drawing.Point(163, 131);
+            this.picWindow6.Name = "picWindow6";
+            this.picWindow6.Size = new System.Drawing.Size(96, 42);
+            this.picWindow6.TabIndex = 25;
+            this.picWindow6.TabStop = false;
+            // 
+            // rbWindow6
+            // 
+            this.rbWindow6.AutoSize = true;
+            this.rbWindow6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.rbWindow6.Location = new System.Drawing.Point(173, 109);
+            this.rbWindow6.Name = "rbWindow6";
+            this.rbWindow6.Size = new System.Drawing.Size(74, 16);
+            this.rbWindow6.TabIndex = 24;
+            this.rbWindow6.TabStop = true;
+            this.rbWindow6.Text = "ウインドウ6";
+            this.rbWindow6.UseVisualStyleBackColor = true;
+            // 
+            // picWindow5
+            // 
+            this.picWindow5.Location = new System.Drawing.Point(59, 131);
+            this.picWindow5.Name = "picWindow5";
+            this.picWindow5.Size = new System.Drawing.Size(96, 42);
+            this.picWindow5.TabIndex = 23;
+            this.picWindow5.TabStop = false;
+            // 
+            // rbWindow5
+            // 
+            this.rbWindow5.AutoSize = true;
+            this.rbWindow5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.rbWindow5.Location = new System.Drawing.Point(69, 109);
+            this.rbWindow5.Name = "rbWindow5";
+            this.rbWindow5.Size = new System.Drawing.Size(74, 16);
+            this.rbWindow5.TabIndex = 22;
+            this.rbWindow5.TabStop = true;
+            this.rbWindow5.Text = "ウインドウ5";
+            this.rbWindow5.UseVisualStyleBackColor = true;
+            // 
+            // picWindow4
+            // 
+            this.picWindow4.Location = new System.Drawing.Point(321, 57);
+            this.picWindow4.Name = "picWindow4";
+            this.picWindow4.Size = new System.Drawing.Size(96, 42);
+            this.picWindow4.TabIndex = 21;
+            this.picWindow4.TabStop = false;
+            // 
+            // rbWindow4
+            // 
+            this.rbWindow4.AutoSize = true;
+            this.rbWindow4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.rbWindow4.Location = new System.Drawing.Point(331, 35);
+            this.rbWindow4.Name = "rbWindow4";
+            this.rbWindow4.Size = new System.Drawing.Size(74, 16);
+            this.rbWindow4.TabIndex = 20;
+            this.rbWindow4.TabStop = true;
+            this.rbWindow4.Text = "ウインドウ4";
+            this.rbWindow4.UseVisualStyleBackColor = true;
+            // 
+            // picWindow3
+            // 
+            this.picWindow3.Location = new System.Drawing.Point(217, 57);
+            this.picWindow3.Name = "picWindow3";
+            this.picWindow3.Size = new System.Drawing.Size(96, 42);
+            this.picWindow3.TabIndex = 19;
+            this.picWindow3.TabStop = false;
+            // 
+            // rbWindow3
+            // 
+            this.rbWindow3.AutoSize = true;
+            this.rbWindow3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.rbWindow3.Location = new System.Drawing.Point(227, 35);
+            this.rbWindow3.Name = "rbWindow3";
+            this.rbWindow3.Size = new System.Drawing.Size(74, 16);
+            this.rbWindow3.TabIndex = 18;
+            this.rbWindow3.TabStop = true;
+            this.rbWindow3.Text = "ウインドウ3";
+            this.rbWindow3.UseVisualStyleBackColor = true;
+            // 
+            // picWindow2
+            // 
+            this.picWindow2.Location = new System.Drawing.Point(113, 57);
+            this.picWindow2.Name = "picWindow2";
+            this.picWindow2.Size = new System.Drawing.Size(96, 42);
+            this.picWindow2.TabIndex = 17;
+            this.picWindow2.TabStop = false;
+            // 
+            // rbWindow2
+            // 
+            this.rbWindow2.AutoSize = true;
+            this.rbWindow2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.rbWindow2.Location = new System.Drawing.Point(123, 35);
+            this.rbWindow2.Name = "rbWindow2";
+            this.rbWindow2.Size = new System.Drawing.Size(74, 16);
+            this.rbWindow2.TabIndex = 16;
+            this.rbWindow2.TabStop = true;
+            this.rbWindow2.Text = "ウインドウ2";
+            this.rbWindow2.UseVisualStyleBackColor = true;
+            // 
+            // picWindow1
+            // 
+            this.picWindow1.Location = new System.Drawing.Point(9, 57);
+            this.picWindow1.Name = "picWindow1";
+            this.picWindow1.Size = new System.Drawing.Size(96, 42);
+            this.picWindow1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picWindow1.TabIndex = 15;
+            this.picWindow1.TabStop = false;
+            // 
+            // rbWindow1
+            // 
+            this.rbWindow1.AutoSize = true;
+            this.rbWindow1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.rbWindow1.Location = new System.Drawing.Point(19, 35);
+            this.rbWindow1.Name = "rbWindow1";
+            this.rbWindow1.Size = new System.Drawing.Size(74, 16);
+            this.rbWindow1.TabIndex = 14;
+            this.rbWindow1.TabStop = true;
+            this.rbWindow1.Text = "ウインドウ1";
+            this.rbWindow1.UseVisualStyleBackColor = true;
+            // 
+            // lblTitleWindow
+            // 
+            this.lblTitleWindow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(227)))), ((int)(((byte)(96)))));
+            this.lblTitleWindow.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblTitleWindow.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblTitleWindow.ForeColor = System.Drawing.Color.Black;
+            this.lblTitleWindow.Location = new System.Drawing.Point(3, 40);
+            this.lblTitleWindow.Name = "lblTitleWindow";
+            this.lblTitleWindow.Size = new System.Drawing.Size(450, 20);
+            this.lblTitleWindow.TabIndex = 111;
+            this.lblTitleWindow.Text = "ウインドウ";
+            // 
+            // pnlWindwoSpase
+            // 
+            this.pnlWindwoSpase.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlWindwoSpase.Location = new System.Drawing.Point(3, 3);
+            this.pnlWindwoSpase.Name = "pnlWindwoSpase";
+            this.pnlWindwoSpase.Size = new System.Drawing.Size(450, 37);
+            this.pnlWindwoSpase.TabIndex = 1;
             // 
             // tbpTopic
             // 
@@ -1255,7 +1462,7 @@
             this.tbpTopic.Controls.Add(this.pnlTopicNews);
             this.tbpTopic.Controls.Add(this.pnlTopic);
             this.tbpTopic.Controls.Add(this.lblTitleTopic);
-            this.tbpTopic.Controls.Add(this.panel3);
+            this.tbpTopic.Controls.Add(this.pnlTopicSpase);
             this.tbpTopic.Location = new System.Drawing.Point(4, 22);
             this.tbpTopic.Name = "tbpTopic";
             this.tbpTopic.Padding = new System.Windows.Forms.Padding(3);
@@ -1795,13 +2002,13 @@
             this.lblTitleTopic.TabIndex = 109;
             this.lblTitleTopic.Text = "おしゃべりジャンル";
             // 
-            // panel3
+            // pnlTopicSpase
             // 
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(3, 3);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(450, 37);
-            this.panel3.TabIndex = 1;
+            this.pnlTopicSpase.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTopicSpase.Location = new System.Drawing.Point(3, 3);
+            this.pnlTopicSpase.Name = "pnlTopicSpase";
+            this.pnlTopicSpase.Size = new System.Drawing.Size(450, 37);
+            this.pnlTopicSpase.TabIndex = 1;
             // 
             // tbpVoice
             // 
@@ -1813,7 +2020,7 @@
             this.tbpVoice.Controls.Add(this.pnl2VoiceSetting);
             this.tbpVoice.Controls.Add(this.pnlVoiceSetting);
             this.tbpVoice.Controls.Add(this.lblTitleVoiceSetting);
-            this.tbpVoice.Controls.Add(this.panel5);
+            this.tbpVoice.Controls.Add(this.pnlVoiceSpase);
             this.tbpVoice.Location = new System.Drawing.Point(4, 22);
             this.tbpVoice.Name = "tbpVoice";
             this.tbpVoice.Size = new System.Drawing.Size(456, 476);
@@ -1971,13 +2178,13 @@
             this.lblTitleVoiceSetting.TabIndex = 129;
             this.lblTitleVoiceSetting.Text = "音声おしゃべり設定";
             // 
-            // panel5
+            // pnlVoiceSpase
             // 
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel5.Location = new System.Drawing.Point(0, 0);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(456, 37);
-            this.panel5.TabIndex = 2;
+            this.pnlVoiceSpase.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlVoiceSpase.Location = new System.Drawing.Point(0, 0);
+            this.pnlVoiceSpase.Name = "pnlVoiceSpase";
+            this.pnlVoiceSpase.Size = new System.Drawing.Size(456, 37);
+            this.pnlVoiceSpase.TabIndex = 2;
             // 
             // ViewLiplisWidgetSetting
             // 
@@ -1993,15 +2200,6 @@
             this.Text = "ViewLiplisWidgetSetting";
             this.pnlCtrl.ResumeLayout(false);
             this.tbpEnvironment.ResumeLayout(false);
-            this.pnlWindow.ResumeLayout(false);
-            this.pnlWindow.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picWindow7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picWindow6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picWindow5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picWindow4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picWindow3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picWindow2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picWindow1)).EndInit();
             this.pnlBattery.ResumeLayout(false);
             this.pnlBattery.PerformLayout();
             this.pnlIconOn.ResumeLayout(false);
@@ -2012,6 +2210,21 @@
             this.pnlTalkMode.ResumeLayout(false);
             this.pnlTalkMode.PerformLayout();
             this.tab.ResumeLayout(false);
+            this.tbpWIndow.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picWindowPos)).EndInit();
+            this.pnlWindow.ResumeLayout(false);
+            this.pnlWindow.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picWindow7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picWindow6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picWindow5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picWindow4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picWindow3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picWindow2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picWindow1)).EndInit();
             this.tbpTopic.ResumeLayout(false);
             this.pnlRange.ResumeLayout(false);
             this.pnlRange.PerformLayout();
@@ -2051,23 +2264,6 @@
         private System.Windows.Forms.Label btnVoiceSetting;
         private System.Windows.Forms.Label btnWidgetSetting;
         private System.Windows.Forms.TabPage tbpEnvironment;
-        private System.Windows.Forms.Panel pnlWindow;
-        private System.Windows.Forms.Label lblDescriptionWindow;
-        private System.Windows.Forms.PictureBox picWindow7;
-        private System.Windows.Forms.RadioButton rbWindow7;
-        private System.Windows.Forms.PictureBox picWindow6;
-        private System.Windows.Forms.RadioButton rbWindow6;
-        private System.Windows.Forms.PictureBox picWindow5;
-        private System.Windows.Forms.RadioButton rbWindow5;
-        private System.Windows.Forms.PictureBox picWindow4;
-        private System.Windows.Forms.RadioButton rbWindow4;
-        private System.Windows.Forms.PictureBox picWindow3;
-        private System.Windows.Forms.RadioButton rbWindow3;
-        private System.Windows.Forms.PictureBox picWindow2;
-        private System.Windows.Forms.RadioButton rbWindow2;
-        private System.Windows.Forms.PictureBox picWindow1;
-        private System.Windows.Forms.RadioButton rbWindow1;
-        private System.Windows.Forms.Label lblTitleWindow;
         private System.Windows.Forms.Panel pnlActive;
         private System.Windows.Forms.Label lblDescriptionActive;
         private System.Windows.Forms.Label lblTitleActive;
@@ -2084,10 +2280,10 @@
         private System.Windows.Forms.CheckBox chkIconOn;
         private System.Windows.Forms.Label lblTitleIconOn;
         private System.Windows.Forms.TabPage tbpTopic;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel pnlTopicSpase;
         private System.Windows.Forms.TabPage tbpVoice;
         private System.Windows.Forms.Label btnTopicSetting;
-        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel pnlVoiceSpase;
         private System.Windows.Forms.Label lblTitleTopic;
         private System.Windows.Forms.Panel pnlTopicTwMyTimeLine;
         private System.Windows.Forms.CheckBox chkTopicTwMyTimeLine;
@@ -2203,5 +2399,38 @@
         private System.Windows.Forms.Label lblDescriptionVoiceSetting;
         private System.Windows.Forms.Panel pnlVoiceEngineSetting;
         private System.Windows.Forms.Label lblDescriptionVoiceEngineSetting;
+        private System.Windows.Forms.TabPage tbpWIndow;
+        private System.Windows.Forms.Panel pnlWindwoSpase;
+        private System.Windows.Forms.Panel pnlWindow;
+        private System.Windows.Forms.Label lblDescriptionWindow;
+        private System.Windows.Forms.PictureBox picWindow7;
+        private System.Windows.Forms.RadioButton rbWindow7;
+        private System.Windows.Forms.PictureBox picWindow6;
+        private System.Windows.Forms.RadioButton rbWindow6;
+        private System.Windows.Forms.PictureBox picWindow5;
+        private System.Windows.Forms.RadioButton rbWindow5;
+        private System.Windows.Forms.PictureBox picWindow4;
+        private System.Windows.Forms.RadioButton rbWindow4;
+        private System.Windows.Forms.PictureBox picWindow3;
+        private System.Windows.Forms.RadioButton rbWindow3;
+        private System.Windows.Forms.PictureBox picWindow2;
+        private System.Windows.Forms.RadioButton rbWindow2;
+        private System.Windows.Forms.PictureBox picWindow1;
+        private System.Windows.Forms.RadioButton rbWindow1;
+        private System.Windows.Forms.Label lblTitleWindow;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label lblDescriptionWindowNum2;
+        private System.Windows.Forms.Label lblTitleWindowNum;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblTItleWindowPos;
+        private System.Windows.Forms.Label lblDescriptionWindowPos;
+        private System.Windows.Forms.RadioButton rdWindowPosLRC;
+        private System.Windows.Forms.RadioButton rdWindowPosLeft;
+        private System.Windows.Forms.RadioButton rdWindowPosRight;
+        private System.Windows.Forms.ComboBox cboWindowNum;
+        private System.Windows.Forms.PictureBox picWindowPos;
+        private System.Windows.Forms.Label lblDescriptionBattery2;
+        private System.Windows.Forms.Label lblDescriptionIconOn2;
+        private System.Windows.Forms.Label lblDescriptionWindowNum;
     }
 }

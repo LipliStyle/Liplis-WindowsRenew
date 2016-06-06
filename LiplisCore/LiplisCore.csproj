@@ -58,6 +58,7 @@
     <Compile Include="Com\LpsDelegate.cs" />
     <Compile Include="Com\LpsLiplisUtil.cs" />
     <Compile Include="Com\LpsRegularEx.cs" />
+    <Compile Include="Com\LpsResorceManager.cs" />
     <Compile Include="Com\LpsWindowsApi.cs" />
     <Compile Include="Com\LpsWindowsApiDefine.cs" />
     <Compile Include="Com\Random\BaseCompatilizedRandom.cs" />

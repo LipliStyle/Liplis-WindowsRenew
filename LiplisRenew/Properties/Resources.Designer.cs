@@ -129,5 +129,35 @@ namespace Liplis.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap window_pos_left {
+            get {
+                object obj = ResourceManager.GetObject("window_pos_left", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap window_pos_lrc {
+            get {
+                object obj = ResourceManager.GetObject("window_pos_lrc", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap window_pos_right {
+            get {
+                object obj = ResourceManager.GetObject("window_pos_right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

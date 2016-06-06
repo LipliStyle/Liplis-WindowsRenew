@@ -131,7 +131,14 @@
     <Compile Include="Activity\ViewCharacter.xaml.cs">
       <DependentUpon>ViewCharacter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widget\LpsWindow\LiplisNewsPicture.xaml.cs">
+      <DependentUpon>LiplisNewsPicture.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widget\LpsWindow\LiplisTitleWindow.cs" />
     <Compile Include="Widget\LpsWindow\LiplisWindowStack.cs" />
+    <Compile Include="Wpf\Custom\HyperlinkText.xaml.cs">
+      <DependentUpon>HyperlinkText.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Wpf\LiplisIconImage.cs" />
     <Compile Include="Wpf\WpfAnimation.cs" />
     <Compile Include="Wpf\BitmapImageCreator.cs" />
@@ -206,7 +213,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Widget\LpsWindow\LiplisNewsPicture.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Widget\LpsWindow\LiplisWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Wpf\Custom\HyperlinkText.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -224,6 +239,12 @@
     <Content Include="Resources\design_ico_ntro.png" />
     <Content Include="Resources\design_ico_og.png" />
     <Content Include="Resources\design_ico_setting.png" />
+    <None Include="Resources\window_pos_lrc.png" />
+    <None Include="Resources\window_pos_right.png" />
+    <None Include="Resources\window_pos_left.png" />
+    <None Include="Resources\lrc.png" />
+    <None Include="Resources\right.png" />
+    <None Include="Resources\left.png" />
     <Resource Include="Resources\design_ico_next.png" />
     <Resource Include="Resources\design_ico_stop.png" />
     <None Include="Resources\ico_rss.png" />

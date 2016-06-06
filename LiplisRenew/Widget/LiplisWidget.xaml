@@ -8,7 +8,7 @@
         Title="LiplisWidget" Height="300" Width="240"
         AllowsTransparency="True"
         Background="{x:Null}"
-        WindowStyle="None" StateChanged="Window_StateChanged"
+        WindowStyle="None" StateChanged="Window_StateChanged" MouseLeave="Window_MouseLeave" MouseEnter="Window_MouseEnter"
         >
     <Grid x:Name="imageGrid" Width="240" Height="300">
         <Image x:Name="image" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="240" Source="../Resources/design_normal_1_1_1.png" MouseDown="image_MouseDown" MouseUp="image_MouseUp"/>

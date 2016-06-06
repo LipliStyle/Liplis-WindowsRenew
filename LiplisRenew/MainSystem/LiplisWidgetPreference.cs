@@ -34,7 +34,6 @@ namespace Liplis.MainSystem
         public Int32 lpsWindow;                         public const string KEY_LPSWINDOW       = "lpsWindow";             
         public Int32 lpsDisplayIcon;                    public const string KEY_LPSDISPLAYICON  = "lpsDisplayIcon";        
         public Int32 lpsHealth;                         public const string KEY_LPSHELTH        = "lpsHealth";
-        public LiplisWindowStack lpsWindowStackMode;    public const string KEY_WINDOWSTACK     = "lpwWindowStack";
 
         public Int32 lpsTopicHour;                      public const string KEY_LPSNEWSRANGE     = "lpsNewsRange";           
         public Int32 lpsAlready;       　　             public const string KEY_LPSNEWSALREADY   = "lpsNewsAlready";     
@@ -53,6 +52,10 @@ namespace Liplis.MainSystem
         public Int32 lpsVoiceOn;                        public const string KEY_LPS_VOICEROID_ON = "lpsVoiceOn";
         public string lpsVoiceName;                     public const string KEY_LPS_VOICEROID_NAME = "lpsVoiceName";
         public string lpsVoicePath;                     public const string KEY_LPS_VOICEROID_PATH = "lpsVoicePath";
+
+        public LiplisWindowStack lpsWindowPos;          public const string KEY_LPS_WINDOW_POS = "lpsWindowPos";    //0:左中右,1:右,2:左
+        public Int32 lpsWindowNum;                      public const string KEY_LPS_WINDOW_NUM = "lpsWindowNum";
+
 
         public string lpsWindowColor;
         public double lpsInterval;
@@ -122,8 +125,6 @@ namespace Liplis.MainSystem
             this.lpsAlready = 0;
             this.lpsNewsRunOut = 0;
             this.lpsHealth = 1;
-            this.lpsWindowStackMode = 0;
-
 
             this.lpsTopicNews = 1;
             this.lpsTopic2ch = 0;
@@ -137,6 +138,9 @@ namespace Liplis.MainSystem
             this.lpsVoiceOn = 0;
             this.lpsVoiceName = "";
             this.lpsVoicePath = "";
+
+            this.lpsWindowPos = LiplisWindowStack.LeeftStack;  //デフォルト表示位置左
+            this.lpsWindowNum = 5;  //でおフォルト表示数5
     }
 
 
@@ -153,7 +157,6 @@ namespace Liplis.MainSystem
             this.lpsWindow           = getInt(KEY_LPSWINDOW, 0);
             this.lpsDisplayIcon      = getInt(KEY_LPSDISPLAYICON, 0);
             this.lpsHealth           = getInt(KEY_LPSHELTH, 0);
-            this.lpsWindowStackMode  = (LiplisWindowStack)getInt(KEY_WINDOWSTACK, (int)LiplisWindowStack.LeeftStack);
             this.lpsTopicHour        = getInt(KEY_LPSNEWSRANGE, 0);
             this.lpsAlready          = getInt(KEY_LPSNEWSALREADY, 0);
             this.lpsNewsRunOut       = getInt(KEY_LPSNEWSRUNOUT, 0);
@@ -167,10 +170,11 @@ namespace Liplis.MainSystem
             this.lpsTopicTwitterMode = getInt(KEY_LPSTOPIC_TWITTERMODE, 0);
             this.lpsTopicCharMsg     = getInt(KEY_LPSTOPIC_TOPICCHARMSG, 0);
             this.lpsVoiceOn          = getInt(KEY_LPS_VOICEROID_ON, 0);
-            this.lpsVoiceName = getString(KEY_LPS_VOICEROID_NAME, "");
-            this.lpsVoicePath = getString(KEY_LPS_VOICEROID_PATH, "");
-
-    }
+            this.lpsVoiceName        = getString(KEY_LPS_VOICEROID_NAME, "");
+            this.lpsVoicePath        = getString(KEY_LPS_VOICEROID_PATH, "");
+            this.lpsWindowPos        = (LiplisWindowStack)getInt(KEY_LPS_WINDOW_POS, (int)LiplisWindowStack.LeeftStack);
+            this.lpsWindowNum        = getInt(KEY_LPS_WINDOW_NUM, 5);
+        }
 
         /// <summary>
         /// 設定の保存
@@ -185,7 +189,6 @@ namespace Liplis.MainSystem
             setInt(KEY_LPSWINDOW, this.lpsWindow);
             setInt(KEY_LPSDISPLAYICON, this.lpsDisplayIcon);
             setInt(KEY_LPSHELTH, this.lpsHealth);
-            setInt(KEY_WINDOWSTACK, (int)this.lpsWindowStackMode);
             setInt(KEY_LPSNEWSRANGE, this.lpsTopicHour);
             setInt(KEY_LPSNEWSALREADY, this.lpsAlready);
             setInt(KEY_LPSNEWSRUNOUT, this.lpsNewsRunOut);
@@ -201,8 +204,10 @@ namespace Liplis.MainSystem
             setInt(KEY_LPS_VOICEROID_ON, this.lpsVoiceOn);
             setString(KEY_LPS_VOICEROID_NAME, this.lpsVoiceName);
             setString(KEY_LPS_VOICEROID_PATH, this.lpsVoicePath);
+            setInt(KEY_LPS_WINDOW_POS, (int)this.lpsWindowPos);
+            setInt(KEY_LPS_WINDOW_NUM, this.lpsWindowNum);
 
-        saveSettings();
+            saveSettings();
         }
 
         //============================================================
