@@ -269,11 +269,13 @@ namespace Liplis.Widget.LpsWindow
         /// </summary>
         public virtual void windowMove(double movePointX, double movePointY, LiplisWindowStack windowPos)
         {
+            this.windowPos = windowPos;
             //アニメーション移動
             WpfAnimation.windowMove(this, movePointX, movePointY);
         }
         public virtual void windowMove(LiplisWindowStack windowPos)
         {
+            this.windowPos = windowPos;
             //アニメーション移動
             WpfAnimation.windowMove(this, this.LocationX, this.LocationY);
         }

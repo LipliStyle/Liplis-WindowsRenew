@@ -128,9 +128,16 @@ namespace Liplis.MainSystem
                 talkWindow.endWindow();
             }
   
+            //トークウインドウリストのクリア
             talkWindowList.Clear();
+
+            //センターリストのクリア
             centerList.Clear();
+
+            //レフトリストのクリア
             leftList.Clear();
+
+            //ライトリストのクリア
             rightList.Clear();
         }
 
@@ -230,7 +237,7 @@ namespace Liplis.MainSystem
         public void addNewWindow(double lpsTop, double lpsLeft, double lpsWidth, double lpsHeight)
         {
             //古いウインドウを終了する
-            delOldWindow();
+            delOldWindow(lpsTop, lpsLeft, lpsWidth);
 
             //なうウインドウの移動
             setPrvWindowMove(lpsTop, lpsLeft, lpsWidth, lpsHeight);
@@ -251,8 +258,15 @@ namespace Liplis.MainSystem
         /// <summary>
         /// 古いウインドウを終了する
         /// </summary>
-        public void delOldWindow()
+        public void delOldWindow(double lpsTop, double lpsLeft, double lpsWidth)
         {
+            double diff = 0;
+
+
+            ///このロジックには問題あり！！！！
+            ///頭をクールにしてから再度考えること！
+
+
             //最大数以上なら、最古参を終了する
             if (talkWindowList.Count >= setting.lpsWindowNum)
             {
@@ -264,13 +278,78 @@ namespace Liplis.MainSystem
                 talkWindowList[0].endWindow();
                 talkWindowList.RemoveAt(0);
 
+                //このメソッド、もう少し整理する
+
                 //今あるウインドウをスライドさせる
-                foreach (LiplisWindow window in talkWindowList)
+                //foreach (LiplisWindow window in talkWindowList)
+                //{
+                //    window.LocationX = window.Left;
+                //    window.LocationY = top;
+                //    window.windowMove(window.windowPos);
+                //}
+
+                //今あるウインドウをスライドさせる
+                switch (windowPos)
                 {
-                    window.LocationX = window.Left;
-                    window.LocationY = top;
-                    window.windowMove(window.windowPos);
+                    case LiplisWindowStack.LeeftStack:
+                        //レフトーリストの先頭を一つ削除
+                        leftList.RemoveAt(0);
+
+                        //リスト1つ目のウインドウと移動先との差を算出
+                        diff = leftList[0].Top - top;
+
+                        foreach (LiplisWindow window in leftList)
+                        {
+                            window.LocationX = lpsLeft - window.Width;
+                            window.LocationY = window.Top - diff;
+                            window.windowMove(window.windowPos);
+                        }
+
+                        break;
+                    case LiplisWindowStack.RightStarck:
+                        //ライトリストの先頭を一つ削除
+                        rightList.RemoveAt(0);
+
+                        //リスト1つ目のウインドウと移動先との差を算出
+                        diff = rightList[0].Top - top;
+
+                        foreach (LiplisWindow window in rightList)
+                        {
+                            window.LocationX = lpsLeft + lpsWidth;
+                            window.LocationY = window.Top - diff;
+                            window.windowMove(window.windowPos);
+                        }
+
+
+                        break;
+                    case LiplisWindowStack.AveStack:
+                        //センターリストの先頭を一つ削除
+                        centerList.RemoveAt(0);
+
+                        //左に配置
+                        double left = lpsLeft - nowTalkWindow.Width;
+
+                        //中心位置計算
+                        Int32 locationCenter = (Int32)(lpsLeft + lpsWidth / 2);
+
+                        //中央に配置
+                        left = locationCenter - (Int32)nowTalkWindow.Width / 2; //レフト位置
+
+                        //リスト1つ目のウインドウと移動先との差を算出
+                        diff = centerList[0].Top - top;
+
+                        foreach (LiplisWindow window in centerList)
+                        {
+                            window.LocationX = left;
+                            window.LocationY = window.Top - diff;
+                            window.windowMove(window.windowPos);
+                        }
+
+                        break;
+                    default:
+                        break;
                 }
+
             }
         }
 
