@@ -102,6 +102,12 @@
             this.bwTwitterRegister = new System.ComponentModel.BackgroundWorker();
             this.bwGetOneTimePassword = new System.ComponentModel.BackgroundWorker();
             this.bwSync = new System.ComponentModel.BackgroundWorker();
+            this.pnlMenuOpen = new System.Windows.Forms.Panel();
+            this.lblDescriptionMenuOpen = new System.Windows.Forms.Label();
+            this.chkMenuOpen = new System.Windows.Forms.CheckBox();
+            this.pnl2MenuOpen = new System.Windows.Forms.Panel();
+            this.lblDescription2MenuOpen = new System.Windows.Forms.Label();
+            this.lblTitleMenuOpen = new System.Windows.Forms.Label();
             this.tab.SuspendLayout();
             this.tbpEnvironment.SuspendLayout();
             this.pnlAutoWakeup.SuspendLayout();
@@ -127,6 +133,8 @@
             this.pnlSyncPassIssue.SuspendLayout();
             this.pnlCtrl.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.pnlMenuOpen.SuspendLayout();
+            this.pnl2MenuOpen.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab
@@ -145,6 +153,9 @@
             // tbpEnvironment
             // 
             this.tbpEnvironment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.tbpEnvironment.Controls.Add(this.pnlMenuOpen);
+            this.tbpEnvironment.Controls.Add(this.pnl2MenuOpen);
+            this.tbpEnvironment.Controls.Add(this.lblTitleMenuOpen);
             this.tbpEnvironment.Controls.Add(this.pnlAutoWakeup);
             this.tbpEnvironment.Controls.Add(this.pnl2AutoWakeup);
             this.tbpEnvironment.Controls.Add(this.lblTitleAutoWakeup);
@@ -877,6 +888,68 @@
             this.bwSync.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwSync_DoWork);
             this.bwSync.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwSync_RunWorkerCompleted);
             // 
+            // pnlMenuOpen
+            // 
+            this.pnlMenuOpen.Controls.Add(this.lblDescriptionMenuOpen);
+            this.pnlMenuOpen.Controls.Add(this.chkMenuOpen);
+            this.pnlMenuOpen.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlMenuOpen.Location = new System.Drawing.Point(3, 290);
+            this.pnlMenuOpen.Name = "pnlMenuOpen";
+            this.pnlMenuOpen.Size = new System.Drawing.Size(770, 50);
+            this.pnlMenuOpen.TabIndex = 112;
+            // 
+            // lblDescriptionMenuOpen
+            // 
+            this.lblDescriptionMenuOpen.AutoSize = true;
+            this.lblDescriptionMenuOpen.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblDescriptionMenuOpen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.lblDescriptionMenuOpen.Location = new System.Drawing.Point(5, 9);
+            this.lblDescriptionMenuOpen.Name = "lblDescriptionMenuOpen";
+            this.lblDescriptionMenuOpen.Size = new System.Drawing.Size(199, 16);
+            this.lblDescriptionMenuOpen.TabIndex = 1;
+            this.lblDescriptionMenuOpen.Text = "起動時にメニューを表示する";
+            // 
+            // chkMenuOpen
+            // 
+            this.chkMenuOpen.AutoSize = true;
+            this.chkMenuOpen.ForeColor = System.Drawing.Color.White;
+            this.chkMenuOpen.Location = new System.Drawing.Point(296, 13);
+            this.chkMenuOpen.Name = "chkMenuOpen";
+            this.chkMenuOpen.Size = new System.Drawing.Size(15, 14);
+            this.chkMenuOpen.TabIndex = 0;
+            this.chkMenuOpen.UseVisualStyleBackColor = true;
+            this.chkMenuOpen.CheckedChanged += new System.EventHandler(this.chkMenuOpen_CheckedChanged);
+            // 
+            // pnl2MenuOpen
+            // 
+            this.pnl2MenuOpen.Controls.Add(this.lblDescription2MenuOpen);
+            this.pnl2MenuOpen.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnl2MenuOpen.Location = new System.Drawing.Point(3, 260);
+            this.pnl2MenuOpen.Name = "pnl2MenuOpen";
+            this.pnl2MenuOpen.Size = new System.Drawing.Size(770, 30);
+            this.pnl2MenuOpen.TabIndex = 113;
+            // 
+            // lblDescription2MenuOpen
+            // 
+            this.lblDescription2MenuOpen.AutoSize = true;
+            this.lblDescription2MenuOpen.ForeColor = System.Drawing.Color.White;
+            this.lblDescription2MenuOpen.Location = new System.Drawing.Point(5, 9);
+            this.lblDescription2MenuOpen.Name = "lblDescription2MenuOpen";
+            this.lblDescription2MenuOpen.Size = new System.Drawing.Size(501, 12);
+            this.lblDescription2MenuOpen.TabIndex = 2;
+            this.lblDescription2MenuOpen.Text = "チェックしておくと、起動時に操作メニューを開きます。　メニューは、タスクトレイアイコンから開くこともできます。\r\n";
+            // 
+            // lblTitleMenuOpen
+            // 
+            this.lblTitleMenuOpen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(227)))), ((int)(((byte)(96)))));
+            this.lblTitleMenuOpen.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblTitleMenuOpen.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblTitleMenuOpen.Location = new System.Drawing.Point(3, 240);
+            this.lblTitleMenuOpen.Name = "lblTitleMenuOpen";
+            this.lblTitleMenuOpen.Size = new System.Drawing.Size(770, 20);
+            this.lblTitleMenuOpen.TabIndex = 111;
+            this.lblTitleMenuOpen.Text = "起動時のメニューの表示";
+            // 
             // ViewLiplisSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -929,6 +1002,10 @@
             this.pnlCtrl.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.pnlMenuOpen.ResumeLayout(false);
+            this.pnlMenuOpen.PerformLayout();
+            this.pnl2MenuOpen.ResumeLayout(false);
+            this.pnl2MenuOpen.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1009,5 +1086,11 @@
         private System.ComponentModel.BackgroundWorker bwTwitterRegister;
         private System.ComponentModel.BackgroundWorker bwGetOneTimePassword;
         private System.ComponentModel.BackgroundWorker bwSync;
+        private System.Windows.Forms.Panel pnlMenuOpen;
+        private System.Windows.Forms.Label lblDescriptionMenuOpen;
+        private System.Windows.Forms.CheckBox chkMenuOpen;
+        private System.Windows.Forms.Panel pnl2MenuOpen;
+        private System.Windows.Forms.Label lblDescription2MenuOpen;
+        private System.Windows.Forms.Label lblTitleMenuOpen;
     }
 }

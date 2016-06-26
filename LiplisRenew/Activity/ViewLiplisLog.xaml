@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Liplis.Activity"
         mc:Ignorable="d"
-        Title="ViewLiplisLog" Height="322.071" Width="659.328" Background="#FF1F1F1F" Closing="Window_Closing">
+        Title="ViewLiplisLog" Height="564" Width="660" Background="#FF1F1F1F" Closing="Window_Closing">
     <Window.BorderBrush>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FF04AEEE" Offset="0"/>
@@ -34,7 +34,7 @@
                 <Image Source="../Resources/design_ico_stop.png"/>
             </Button>
 
-            <TextBox x:Name="textBox" Height="21" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,2,0,0" DockPanel.Dock="Right" Width="176" />
+            <TextBox x:Name="txtSearchWord" Height="21" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,2,0,0" DockPanel.Dock="Right" Width="176" />
             <Button x:Name="button" Content="検索" Height="22" Margin="0,2,0,1" Width="43"  HorizontalAlignment="Right" BorderThickness="1,0,1,1" DockPanel.Dock="Right" Click="button_Click" />
 
         </DockPanel>

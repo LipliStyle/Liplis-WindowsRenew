@@ -45,10 +45,12 @@
             // btnCross
             // 
             this.btnCross.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(227)))), ((int)(((byte)(96)))));
-            this.btnCross.Location = new System.Drawing.Point(172, 0);
+            this.btnCross.Location = new System.Drawing.Point(177, 0);
             this.btnCross.Name = "btnCross";
             this.btnCross.Size = new System.Drawing.Size(30, 20);
             this.btnCross.TabIndex = 11;
+            this.btnCross.Text = "✕";
+            this.btnCross.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnCross.Click += new System.EventHandler(this.btnCross_Click);
             // 
             // btnSleep
@@ -122,7 +124,7 @@
             this.lblTitle.ForeColor = System.Drawing.Color.Black;
             this.lblTitle.Location = new System.Drawing.Point(0, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(316, 20);
+            this.lblTitle.Size = new System.Drawing.Size(209, 20);
             this.lblTitle.TabIndex = 13;
             this.lblTitle.Text = "Liplis メニュー";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -143,7 +145,7 @@
             this.pnl.Controls.Add(this.lblTitle);
             this.pnl.Location = new System.Drawing.Point(2, 2);
             this.pnl.Name = "pnl";
-            this.pnl.Size = new System.Drawing.Size(316, 299);
+            this.pnl.Size = new System.Drawing.Size(209, 299);
             this.pnl.TabIndex = 11;
             // 
             // btnRss
@@ -152,7 +154,7 @@
             this.btnRss.ForeColor = System.Drawing.Color.White;
             this.btnRss.Image = global::Liplis.Properties.Resources.ico_rss;
             this.btnRss.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnRss.Location = new System.Drawing.Point(207, 22);
+            this.btnRss.Location = new System.Drawing.Point(4, 113);
             this.btnRss.Name = "btnRss";
             this.btnRss.Size = new System.Drawing.Size(100, 90);
             this.btnRss.TabIndex = 14;
@@ -167,7 +169,7 @@
             this.btnChar.ForeColor = System.Drawing.Color.White;
             this.btnChar.Image = global::Liplis.Properties.Resources.ico_char_lili;
             this.btnChar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnChar.Location = new System.Drawing.Point(3, 22);
+            this.btnChar.Location = new System.Drawing.Point(4, 22);
             this.btnChar.Name = "btnChar";
             this.btnChar.Size = new System.Drawing.Size(100, 90);
             this.btnChar.TabIndex = 0;
@@ -183,13 +185,14 @@
             this.btnFlow.ForeColor = System.Drawing.Color.White;
             this.btnFlow.Image = global::Liplis.Properties.Resources.ico_view;
             this.btnFlow.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnFlow.Location = new System.Drawing.Point(4, 113);
+            this.btnFlow.Location = new System.Drawing.Point(212, 113);
             this.btnFlow.Name = "btnFlow";
             this.btnFlow.Size = new System.Drawing.Size(100, 90);
             this.btnFlow.TabIndex = 2;
             this.btnFlow.Text = "会話フロー";
             this.btnFlow.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnFlow.UseVisualStyleBackColor = false;
+            this.btnFlow.Visible = false;
             this.btnFlow.Click += new System.EventHandler(this.btnFlow_Click);
             this.btnFlow.Enter += new System.EventHandler(this.btnFlow_Enter);
             // 
@@ -198,11 +201,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(233)))), ((int)(((byte)(241)))));
-            this.ClientSize = new System.Drawing.Size(320, 302);
+            this.ClientSize = new System.Drawing.Size(212, 302);
             this.Controls.Add(this.pnl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ViewMenu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Liplis Menu";
             this.pnl.ResumeLayout(false);
             this.ResumeLayout(false);

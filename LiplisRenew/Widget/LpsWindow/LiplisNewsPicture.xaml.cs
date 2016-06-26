@@ -49,6 +49,9 @@ namespace Liplis.Widget.LpsWindow
             //表示座標設定
             this.Top = top;
             this.Left = left;
+
+            //非アクティブ
+            this.ShowActivated = false;
         }
 
         /// <summary>

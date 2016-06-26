@@ -81,6 +81,9 @@ namespace Liplis.Widget.LpsWindow
             //初期化しておく
             //this.updateText("");
 
+            //非アクティブ
+            this.ShowActivated = false; 
+
             //オパシティ0にしておく
             this.image.Opacity = 0;
 

@@ -12,21 +12,15 @@
 //
 //  Copyright(c) 2010-2016 LipliStyle.Sachin
 //=======================================================================
+using Liplis.Gui;
 using Liplis.MainSystem;
 using Liplis.Msg;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Liplis.Activity
 {
@@ -44,6 +38,11 @@ namespace Liplis.Activity
         //エンドフラグ
         private bool flgEnd = false;
 
+        //=================================
+        //テキストブロックリスト
+        private List<TextBox> tbList;
+        private int searchIndex = 0;
+
         /// <summary>
         /// コンストラクター
         /// </summary>
@@ -53,6 +52,9 @@ namespace Liplis.Activity
             this.desktop = desktop;
 
             InitializeComponent();
+
+            //テキストブロックリストの初期化
+            tbList = new List<TextBox>();
         }
 
         /// <summary>
@@ -96,7 +98,7 @@ namespace Liplis.Activity
                 Grid innerGrid = new Grid();
 
                 //表示テキストブロック生成(ラベルのコンテント)
-                TextBlock tb = createTextBlock(log);
+                TextBox tb = createTextBlock(log);
 
                 //バックグラウンドウインドウ生成
                 Image windowBagkGround = createWindowBagkGround(skin,setting);
@@ -119,9 +121,10 @@ namespace Liplis.Activity
 
                 //子要素追加
                 logListPanel.Children.Add(dp);
+                tbList.Add(tb);
 
                 ///500件以上は削除
-                if (logListPanel.Children.Count > 500){logListPanel.Children.RemoveAt(0);}
+                if (logListPanel.Children.Count > 500){logListPanel.Children.RemoveAt(0); tbList.RemoveAt(0); }
 
                 //高さ調整
                 logListPanel.Height = logListPanel.Children.Count * 100;
@@ -190,12 +193,14 @@ namespace Liplis.Activity
         /// テキストブロック生成
         /// </summary>
         /// <returns></returns>
-        private TextBlock createTextBlock(MsgTalkMessageLog log)
+        private TextBox createTextBlock(MsgTalkMessageLog log)
         {
             //テキストブロック生成
-            TextBlock tb = new TextBlock();
+            TextBox tb = new TextBox();
             tb.TextWrapping = TextWrapping.Wrap;
             tb.Text = log.result;
+            tb.Background = new SolidColorBrush(Colors.Transparent);
+            tb.BorderBrush = new SolidColorBrush(Colors.Transparent);
 
             //テキストブロックを返す
             return tb;
@@ -221,7 +226,7 @@ namespace Liplis.Activity
         /// </summary>
         /// <param name="tb"></param>
         /// <returns></returns>
-        private Label createTalkLogLabel(TextBlock tb)
+        private Label createTalkLogLabel(TextBox tb)
         {
             Label talkLog = new Label();
             talkLog.HorizontalAlignment = HorizontalAlignment.Left;
@@ -318,10 +323,55 @@ namespace Liplis.Activity
         /// <param name="e"></param>
         private void button_Click(object sender, RoutedEventArgs e)
         {
-
+            searchLog();
         }
         #endregion
 
 
+
+        //============================================================
+        //
+        //画面処理
+        //
+        //============================================================
+        #region 画面処理
+
+        private void searchLog()
+        {
+            int idx = 0;
+            bool flgHit = false;    
+
+            //テキストボックスリストを回して、ワードを探す
+            foreach (TextBox tb in tbList)
+            {
+                //もし、検索ワードが見つかったら、インデックスを保存する
+                if(tb.Text.Contains(txtSearchWord.Text) && searchIndex < idx)
+                {
+                    searchIndex = idx;
+                    tb.Focus();
+                    tb.SelectAll();
+                    flgHit = true;
+                    break;
+                }
+
+                idx++;
+            }
+
+            //ヒット有無判定
+            if(flgHit)
+            {
+                //対象記事までスクロール
+                //this.sv.ScrollToVerticalOffset(idx*40);
+            }
+            else
+            {
+                searchIndex = 0;
+                LpsMessage.showError("対象の語は見つかりませんでした。");
+            }
+        }
+
+
+
+        #endregion
     }
 }

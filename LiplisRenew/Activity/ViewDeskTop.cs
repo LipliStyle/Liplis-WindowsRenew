@@ -25,23 +25,16 @@
 //
 //  Copyright(c) 2010-2016 LipliStyle.Sachin
 //=======================================================================
+using Liplis.Com;
+using Liplis.Gui;
 using Liplis.MainSystem;
 using Liplis.Msg;
+using Liplis.Widget;
+using Liplis.Wpf;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows;
 using System.Security.Permissions;
-using Liplis.Widget;
-using Liplis.Gui;
-using Liplis.Com;
-using Liplis.Wpf;
+using System.Windows.Forms;
 
 namespace Liplis.Activity
 {
@@ -118,8 +111,8 @@ namespace Liplis.Activity
             //ウィジェットリストの初期化
             initLiplis();
 
-            //暫定
-            openMenu();
+            //メニューを開く
+            if(baseSetting.lpsMenuOpen == 1) { openMenu(); }
         }
 
         /// <summary>
@@ -185,6 +178,8 @@ namespace Liplis.Activity
         private void createViewLog()
         {
             vLog = new ViewLiplisLog(this);
+            vLog.Show();
+            vLog.Hide();
         }
         #endregion
 
@@ -299,7 +294,7 @@ namespace Liplis.Activity
         /// </summary>
         public void openMenu()
         {
-            //インスタンス化されているか
+             //インスタンス化されているか
             if (menu == null)
             {
                 createMenu();
@@ -323,13 +318,12 @@ namespace Liplis.Activity
 
         #endregion
 
-
         //============================================================
         //
         //ウィジェット処理
         //
         //============================================================
-
+        #region ウィジェット処理        
         /// <summary>
         /// ウィジェットを追加する(新規追加)
         /// </summary>
@@ -491,9 +485,9 @@ namespace Liplis.Activity
             this.delFromWidgetList(widget);
         }
 
-        /*
-        デスクトップの全てのウィジェットを削除する
-        */
+        /// <summary>
+        /// デスクトップの全てのウィジェットを削除する
+        /// </summary>
         private void delWidgetAll()
         {
             foreach(var widget in widgetList)
@@ -505,9 +499,10 @@ namespace Liplis.Activity
             this.kman.delAllKey();
         }
 
-        /*
-        ウィジェットをウィジェットリストから削除する
-        */
+        /// <summary>
+        /// ウィジェットをウィジェットリストから削除する
+        /// </summary>
+        /// <param name="widget"></param>
         private void delFromWidgetList(LiplisWidget widget)
         {
             //ヒットしたら削除
@@ -517,9 +512,9 @@ namespace Liplis.Activity
             }
         }
 
-        /*
-        ウィジェットをスリープにする
-        */
+        /// <summary>
+        /// ウィジェットをスリープにする
+        /// </summary>
         private void widgetSleep()
         {
             //設定チェック
@@ -536,9 +531,9 @@ namespace Liplis.Activity
             }
         }
 
-        /*
-        ウィジェットをウェイクアップする
-        */
+        /// <summary>
+        ///  ウィジェットをウェイクアップする
+        /// </summary>
         private void widgetWakeup()
         {
             ////設定チェック
@@ -567,18 +562,13 @@ namespace Liplis.Activity
             }
         }
 
-
-
-
-
+        #endregion
 
         //============================================================
         //
         //画面処理
         //
         //============================================================
-
-
         #region 画面処理
 
         public void openViewLog()

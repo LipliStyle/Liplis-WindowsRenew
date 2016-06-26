@@ -213,6 +213,9 @@ namespace Liplis.Widget
         {
             try
             {
+                //非アクティブ
+                this.ShowActivated = false;
+
                 //座標調整
                 this.Top = setting.locationY;
                 this.Left = setting.locationX;

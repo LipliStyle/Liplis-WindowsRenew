@@ -25,24 +25,8 @@ namespace Liplis.MainSystem
         public string uid;                  public const string PREFS_UID                 = "uid";
         public Int32 lpsAutoSleep;          public const string PREFS_AUTO_SLEEP          = "lpsAutoSleep";
         public Int32 lpsAutoWakeup;         public const string PREFS_AUTO_WAKEUP         = "lpsAutoWakeup";
-
-        public Int32 lpsNewsRange;          public const string KEY_LPSNEWSRANGE          = "lpsNewsRange";       
-        public Int32 lpsNewsAlready;        public const string KEY_LPSNEWSALREADY        = "lpsNewsAlready";     
-        public Int32 lpsNewsRunOut;         public const string KEY_LPSNEWSRUNOUT         = "lpsNewsRunOut";      
-
-        public Int32 lpsTopicNews;          public const string KEY_LPSTOPIC_NEWS         = "lpsTopicNews";       
-        public Int32 lpsTopic2ch;           public const string KEY_LPSTOPIC_2CH          = "lpsTopic2ch";        
-        public Int32 lpsTopicNico;          public const string KEY_LPSTOPIC_NICO         = "lpsTopicNico";       
-        public Int32 lpsTopicRss;           public const string KEY_LPSTOPIC_RSS          = "lpsTopicRss";        
-        public Int32 lpsTopicTwitter;       public const string KEY_LPSTOPIC_TWITTER      = "lpsTopicTwitter";    
-        public Int32 lpsTopicTwitterPu;     public const string KEY_LPSTOPIC_TWITTERPU    = "lpsTopicTwitterPu";  
-        public Int32 lpsTopicTwitterMy;     public const string KEY_LPSTOPIC_TWITTERMY    = "lpsTopicTwitterMy";  
-        public Int32 lpsTopicTwitterMode;   public const string KEY_LPSTOPIC_TWITTERMODE  = "lpsTopicTwitterMode";
-        public Int32 lpsTopicCharMsg;       public const string KEY_LPSTOPIC_TOPICCHARMSG = "lpsTopicCharMsg";
-
+        public Int32 lpsMenuOpen;           public const string PREFS_MENU_OPEN          = "lpsMenuOpen";
         public Int32 lpsTwitterActivate;    public const string KEY_TWITTER_ACTIVATE      = "lpsTwitterActivate";
-
-
         public List<voiceRoidSet> voiceRoidSetList;    public const string KEY_VOICE_ROID = "lpsVoiceRoidList";
 
 
@@ -68,6 +52,7 @@ namespace Liplis.MainSystem
                 this.uid                = getString(PREFS_UID, LpsGuidCreator.createLiplisGuid());
                 this.lpsAutoSleep       = getInt(PREFS_AUTO_SLEEP, 0);
                 this.lpsAutoWakeup      = getInt(PREFS_AUTO_WAKEUP, 0);
+                this.lpsMenuOpen        = getInt(PREFS_MENU_OPEN, 1);
                 this.lpsTwitterActivate = getInt(KEY_TWITTER_ACTIVATE, 0);
                 this.voiceRoidSetList   = JsonConvert.DeserializeObject<List<voiceRoidSet>>(getString(KEY_VOICE_ROID,""));
                
@@ -94,6 +79,7 @@ namespace Liplis.MainSystem
             setString(PREFS_UID, this.uid);
             setInt(PREFS_AUTO_SLEEP, this.lpsAutoSleep);
             setInt(PREFS_AUTO_WAKEUP, this.lpsAutoWakeup);
+            setInt(PREFS_MENU_OPEN, this.lpsMenuOpen);
             setInt(KEY_TWITTER_ACTIVATE, this.lpsTwitterActivate);
             setString(KEY_VOICE_ROID, JsonConvert.SerializeObject(this.voiceRoidSetList));
             saveSettings();

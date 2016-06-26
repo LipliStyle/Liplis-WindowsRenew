@@ -70,6 +70,7 @@ namespace Liplis.Activity
             //環境設定チェックボックス設定
             chkAutoSleep.Checked = LpsLiplisUtil.bitToBool(this.baseSetting.lpsAutoSleep);
             chkAutoWakeup.Checked = LpsLiplisUtil.bitToBool(this.baseSetting.lpsAutoWakeup);
+            chkMenuOpen.Checked = LpsLiplisUtil.bitToBool(this.baseSetting.lpsMenuOpen);
 
             //ツイッターアクティベートラベル設定
             setTwitterActivateLabel();
@@ -179,6 +180,16 @@ namespace Liplis.Activity
             this.baseSetting.setPreferenceData();
         }
 
+        /// <summary>
+        /// メニュー開き可否
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void chkMenuOpen_CheckedChanged(object sender, EventArgs e)
+        {
+            this.baseSetting.lpsAutoWakeup = LpsLiplisUtil.boolToBit(chkAutoWakeup.Checked);
+            this.baseSetting.setPreferenceData();
+        }
         #endregion
 
 
@@ -546,6 +557,7 @@ namespace Liplis.Activity
                 LpsMessage.showMessage("同期処理が完了しました。");
             }
         }
+
 
 
         #endregion
