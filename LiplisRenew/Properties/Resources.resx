@@ -133,11 +133,23 @@
   <data name="ico_setting" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_setting.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ico_tweet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ico_tweet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ico_view" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_view.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ico_web" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ico_web.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ico_zzz" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_zzz.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mode_hitori" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mode_hitori.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mode_minna" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mode_minna.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="window_pos_left" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\window_pos_left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

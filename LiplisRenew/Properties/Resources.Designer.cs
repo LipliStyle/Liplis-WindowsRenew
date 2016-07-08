@@ -113,6 +113,16 @@ namespace Liplis.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap ico_tweet {
+            get {
+                object obj = ResourceManager.GetObject("ico_tweet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap ico_view {
             get {
                 object obj = ResourceManager.GetObject("ico_view", resourceCulture);
@@ -123,9 +133,39 @@ namespace Liplis.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap ico_web {
+            get {
+                object obj = ResourceManager.GetObject("ico_web", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap ico_zzz {
             get {
                 object obj = ResourceManager.GetObject("ico_zzz", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap mode_hitori {
+            get {
+                object obj = ResourceManager.GetObject("mode_hitori", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap mode_minna {
+            get {
+                object obj = ResourceManager.GetObject("mode_minna", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

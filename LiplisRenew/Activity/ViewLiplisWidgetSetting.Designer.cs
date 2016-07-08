@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewLiplisWidgetSetting));
             this.pnlCtrl = new System.Windows.Forms.Panel();
+            this.btnTalkWindowSetting = new System.Windows.Forms.Label();
             this.btnTopicSetting = new System.Windows.Forms.Label();
             this.btnVoiceSetting = new System.Windows.Forms.Label();
             this.btnWidgetSetting = new System.Windows.Forms.Label();
@@ -66,7 +67,7 @@
             this.txtActiveValue = new System.Windows.Forms.TextBox();
             this.lblDescriptionActive = new System.Windows.Forms.Label();
             this.lblTitleActive = new System.Windows.Forms.Label();
-            this.pnlTalkMode = new System.Windows.Forms.Panel();
+            this.pnlMode = new System.Windows.Forms.Panel();
             this.rdoFrqKeeps = new System.Windows.Forms.RadioButton();
             this.rdoFrqMachen = new System.Windows.Forms.RadioButton();
             this.rdoFrqVerryNoisy = new System.Windows.Forms.RadioButton();
@@ -75,7 +76,7 @@
             this.rdoFrqQuiet = new System.Windows.Forms.RadioButton();
             this.rdoFrqReticent = new System.Windows.Forms.RadioButton();
             this.lblDescriptionTalkMode2 = new System.Windows.Forms.Label();
-            this.lblDescriptionTalkMode = new System.Windows.Forms.Label();
+            this.lblDescriptionMode = new System.Windows.Forms.Label();
             this.lblTalkModeChattingWithEveryone = new System.Windows.Forms.Label();
             this.lblTalkModeChatAlone = new System.Windows.Forms.Label();
             this.lblTalkModeSetting = new System.Windows.Forms.Label();
@@ -100,6 +101,12 @@
             this.lblSetFrq4 = new System.Windows.Forms.Label();
             this.lblSetFrq2 = new System.Windows.Forms.Label();
             this.lblSetFrq1 = new System.Windows.Forms.Label();
+            this.lblTitleMode = new System.Windows.Forms.Label();
+            this.pnlTalkMode = new System.Windows.Forms.Panel();
+            this.picTalkMode = new System.Windows.Forms.PictureBox();
+            this.lblDescriptionTalkMode = new System.Windows.Forms.Label();
+            this.rdTalkModeMinna = new System.Windows.Forms.RadioButton();
+            this.rdTalkModeHitori = new System.Windows.Forms.RadioButton();
             this.lblTitleTalkMode = new System.Windows.Forms.Label();
             this.pnlEnvironmentSpase = new System.Windows.Forms.Panel();
             this.tab = new System.Windows.Forms.TabControl();
@@ -207,7 +214,9 @@
             this.pnlIconOn.SuspendLayout();
             this.pnlActive.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trcActive)).BeginInit();
+            this.pnlMode.SuspendLayout();
             this.pnlTalkMode.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picTalkMode)).BeginInit();
             this.tab.SuspendLayout();
             this.tbpWIndow.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -241,6 +250,7 @@
             // 
             // pnlCtrl
             // 
+            this.pnlCtrl.Controls.Add(this.btnTalkWindowSetting);
             this.pnlCtrl.Controls.Add(this.btnTopicSetting);
             this.pnlCtrl.Controls.Add(this.btnVoiceSetting);
             this.pnlCtrl.Controls.Add(this.btnWidgetSetting);
@@ -250,15 +260,27 @@
             this.pnlCtrl.Size = new System.Drawing.Size(464, 59);
             this.pnlCtrl.TabIndex = 3;
             // 
+            // btnTalkWindowSetting
+            // 
+            this.btnTalkWindowSetting.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(116)))), ((int)(((byte)(1)))));
+            this.btnTalkWindowSetting.ForeColor = System.Drawing.Color.White;
+            this.btnTalkWindowSetting.Location = new System.Drawing.Point(111, 9);
+            this.btnTalkWindowSetting.Name = "btnTalkWindowSetting";
+            this.btnTalkWindowSetting.Size = new System.Drawing.Size(130, 42);
+            this.btnTalkWindowSetting.TabIndex = 3;
+            this.btnTalkWindowSetting.Text = "おしゃべりウインドウ設定";
+            this.btnTalkWindowSetting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnTalkWindowSetting.Click += new System.EventHandler(this.btnTalkWindowSetting_Click);
+            // 
             // btnTopicSetting
             // 
             this.btnTopicSetting.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(116)))), ((int)(((byte)(1)))));
             this.btnTopicSetting.ForeColor = System.Drawing.Color.White;
-            this.btnTopicSetting.Location = new System.Drawing.Point(111, 9);
+            this.btnTopicSetting.Location = new System.Drawing.Point(247, 9);
             this.btnTopicSetting.Name = "btnTopicSetting";
             this.btnTopicSetting.Size = new System.Drawing.Size(93, 42);
             this.btnTopicSetting.TabIndex = 2;
-            this.btnTopicSetting.Text = "ウィジェット設定";
+            this.btnTopicSetting.Text = "話題設定";
             this.btnTopicSetting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnTopicSetting.Click += new System.EventHandler(this.btnTopicSetting_Click);
             // 
@@ -266,7 +288,7 @@
             // 
             this.btnVoiceSetting.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(116)))), ((int)(((byte)(1)))));
             this.btnVoiceSetting.ForeColor = System.Drawing.Color.White;
-            this.btnVoiceSetting.Location = new System.Drawing.Point(210, 9);
+            this.btnVoiceSetting.Location = new System.Drawing.Point(346, 9);
             this.btnVoiceSetting.Name = "btnVoiceSetting";
             this.btnVoiceSetting.Size = new System.Drawing.Size(93, 42);
             this.btnVoiceSetting.TabIndex = 1;
@@ -296,6 +318,8 @@
             this.tbpEnvironment.Controls.Add(this.lblTitleIconOn);
             this.tbpEnvironment.Controls.Add(this.pnlActive);
             this.tbpEnvironment.Controls.Add(this.lblTitleActive);
+            this.tbpEnvironment.Controls.Add(this.pnlMode);
+            this.tbpEnvironment.Controls.Add(this.lblTitleMode);
             this.tbpEnvironment.Controls.Add(this.pnlTalkMode);
             this.tbpEnvironment.Controls.Add(this.lblTitleTalkMode);
             this.tbpEnvironment.Controls.Add(this.pnlEnvironmentSpase);
@@ -312,7 +336,7 @@
             this.pnlBattery.Controls.Add(this.lblDescriptionBattery);
             this.pnlBattery.Controls.Add(this.chkBattery);
             this.pnlBattery.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlBattery.Location = new System.Drawing.Point(3, 612);
+            this.pnlBattery.Location = new System.Drawing.Point(3, 771);
             this.pnlBattery.Name = "pnlBattery";
             this.pnlBattery.Size = new System.Drawing.Size(433, 50);
             this.pnlBattery.TabIndex = 114;
@@ -355,7 +379,7 @@
             this.lblTitleBattery.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTitleBattery.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lblTitleBattery.ForeColor = System.Drawing.Color.Black;
-            this.lblTitleBattery.Location = new System.Drawing.Point(3, 592);
+            this.lblTitleBattery.Location = new System.Drawing.Point(3, 751);
             this.lblTitleBattery.Name = "lblTitleBattery";
             this.lblTitleBattery.Size = new System.Drawing.Size(433, 20);
             this.lblTitleBattery.TabIndex = 113;
@@ -367,7 +391,7 @@
             this.pnlIconOn.Controls.Add(this.lblDescriptionIconOn);
             this.pnlIconOn.Controls.Add(this.chkIconOn);
             this.pnlIconOn.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlIconOn.Location = new System.Drawing.Point(3, 542);
+            this.pnlIconOn.Location = new System.Drawing.Point(3, 701);
             this.pnlIconOn.Name = "pnlIconOn";
             this.pnlIconOn.Size = new System.Drawing.Size(433, 50);
             this.pnlIconOn.TabIndex = 112;
@@ -410,7 +434,7 @@
             this.lblTitleIconOn.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTitleIconOn.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lblTitleIconOn.ForeColor = System.Drawing.Color.Black;
-            this.lblTitleIconOn.Location = new System.Drawing.Point(3, 522);
+            this.lblTitleIconOn.Location = new System.Drawing.Point(3, 681);
             this.lblTitleIconOn.Name = "lblTitleIconOn";
             this.lblTitleIconOn.Size = new System.Drawing.Size(433, 20);
             this.lblTitleIconOn.TabIndex = 111;
@@ -439,7 +463,7 @@
             this.pnlActive.Controls.Add(this.txtActiveValue);
             this.pnlActive.Controls.Add(this.lblDescriptionActive);
             this.pnlActive.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlActive.Location = new System.Drawing.Point(3, 399);
+            this.pnlActive.Location = new System.Drawing.Point(3, 558);
             this.pnlActive.Name = "pnlActive";
             this.pnlActive.Size = new System.Drawing.Size(433, 123);
             this.pnlActive.TabIndex = 108;
@@ -644,52 +668,52 @@
             this.lblTitleActive.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTitleActive.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lblTitleActive.ForeColor = System.Drawing.Color.Black;
-            this.lblTitleActive.Location = new System.Drawing.Point(3, 379);
+            this.lblTitleActive.Location = new System.Drawing.Point(3, 538);
             this.lblTitleActive.Name = "lblTitleActive";
             this.lblTitleActive.Size = new System.Drawing.Size(433, 20);
             this.lblTitleActive.TabIndex = 107;
             this.lblTitleActive.Text = "アクティブ度";
             // 
-            // pnlTalkMode
+            // pnlMode
             // 
-            this.pnlTalkMode.Controls.Add(this.rdoFrqKeeps);
-            this.pnlTalkMode.Controls.Add(this.rdoFrqMachen);
-            this.pnlTalkMode.Controls.Add(this.rdoFrqVerryNoisy);
-            this.pnlTalkMode.Controls.Add(this.rdoFrqTalkative);
-            this.pnlTalkMode.Controls.Add(this.rdoFrqNormal);
-            this.pnlTalkMode.Controls.Add(this.rdoFrqQuiet);
-            this.pnlTalkMode.Controls.Add(this.rdoFrqReticent);
-            this.pnlTalkMode.Controls.Add(this.lblDescriptionTalkMode2);
-            this.pnlTalkMode.Controls.Add(this.lblDescriptionTalkMode);
-            this.pnlTalkMode.Controls.Add(this.lblTalkModeChattingWithEveryone);
-            this.pnlTalkMode.Controls.Add(this.lblTalkModeChatAlone);
-            this.pnlTalkMode.Controls.Add(this.lblTalkModeSetting);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq102);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq83);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq63);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq53);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq43);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq23);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq13);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq101);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq82);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq62);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq52);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq42);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq22);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq12);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq10);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq8);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq6);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq5);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq4);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq2);
-            this.pnlTalkMode.Controls.Add(this.lblSetFrq1);
-            this.pnlTalkMode.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTalkMode.Location = new System.Drawing.Point(3, 60);
-            this.pnlTalkMode.Name = "pnlTalkMode";
-            this.pnlTalkMode.Size = new System.Drawing.Size(433, 319);
-            this.pnlTalkMode.TabIndex = 106;
+            this.pnlMode.Controls.Add(this.rdoFrqKeeps);
+            this.pnlMode.Controls.Add(this.rdoFrqMachen);
+            this.pnlMode.Controls.Add(this.rdoFrqVerryNoisy);
+            this.pnlMode.Controls.Add(this.rdoFrqTalkative);
+            this.pnlMode.Controls.Add(this.rdoFrqNormal);
+            this.pnlMode.Controls.Add(this.rdoFrqQuiet);
+            this.pnlMode.Controls.Add(this.rdoFrqReticent);
+            this.pnlMode.Controls.Add(this.lblDescriptionTalkMode2);
+            this.pnlMode.Controls.Add(this.lblDescriptionMode);
+            this.pnlMode.Controls.Add(this.lblTalkModeChattingWithEveryone);
+            this.pnlMode.Controls.Add(this.lblTalkModeChatAlone);
+            this.pnlMode.Controls.Add(this.lblTalkModeSetting);
+            this.pnlMode.Controls.Add(this.lblSetFrq102);
+            this.pnlMode.Controls.Add(this.lblSetFrq83);
+            this.pnlMode.Controls.Add(this.lblSetFrq63);
+            this.pnlMode.Controls.Add(this.lblSetFrq53);
+            this.pnlMode.Controls.Add(this.lblSetFrq43);
+            this.pnlMode.Controls.Add(this.lblSetFrq23);
+            this.pnlMode.Controls.Add(this.lblSetFrq13);
+            this.pnlMode.Controls.Add(this.lblSetFrq101);
+            this.pnlMode.Controls.Add(this.lblSetFrq82);
+            this.pnlMode.Controls.Add(this.lblSetFrq62);
+            this.pnlMode.Controls.Add(this.lblSetFrq52);
+            this.pnlMode.Controls.Add(this.lblSetFrq42);
+            this.pnlMode.Controls.Add(this.lblSetFrq22);
+            this.pnlMode.Controls.Add(this.lblSetFrq12);
+            this.pnlMode.Controls.Add(this.lblSetFrq10);
+            this.pnlMode.Controls.Add(this.lblSetFrq8);
+            this.pnlMode.Controls.Add(this.lblSetFrq6);
+            this.pnlMode.Controls.Add(this.lblSetFrq5);
+            this.pnlMode.Controls.Add(this.lblSetFrq4);
+            this.pnlMode.Controls.Add(this.lblSetFrq2);
+            this.pnlMode.Controls.Add(this.lblSetFrq1);
+            this.pnlMode.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlMode.Location = new System.Drawing.Point(3, 219);
+            this.pnlMode.Name = "pnlMode";
+            this.pnlMode.Size = new System.Drawing.Size(433, 319);
+            this.pnlMode.TabIndex = 106;
             // 
             // rdoFrqKeeps
             // 
@@ -785,15 +809,15 @@
             this.lblDescriptionTalkMode2.TabIndex = 138;
             this.lblDescriptionTalkMode2.Text = "※みんなでおしゃべりの頻度は、他キャラの設定とバランスで頻度が決まります。";
             // 
-            // lblDescriptionTalkMode
+            // lblDescriptionMode
             // 
-            this.lblDescriptionTalkMode.AutoSize = true;
-            this.lblDescriptionTalkMode.ForeColor = System.Drawing.Color.White;
-            this.lblDescriptionTalkMode.Location = new System.Drawing.Point(5, 9);
-            this.lblDescriptionTalkMode.Name = "lblDescriptionTalkMode";
-            this.lblDescriptionTalkMode.Size = new System.Drawing.Size(162, 12);
-            this.lblDescriptionTalkMode.TabIndex = 137;
-            this.lblDescriptionTalkMode.Text = "おしゃべりする頻度を設定します。";
+            this.lblDescriptionMode.AutoSize = true;
+            this.lblDescriptionMode.ForeColor = System.Drawing.Color.White;
+            this.lblDescriptionMode.Location = new System.Drawing.Point(5, 9);
+            this.lblDescriptionMode.Name = "lblDescriptionMode";
+            this.lblDescriptionMode.Size = new System.Drawing.Size(162, 12);
+            this.lblDescriptionMode.TabIndex = 137;
+            this.lblDescriptionMode.Text = "おしゃべりする頻度を設定します。";
             // 
             // lblTalkModeChattingWithEveryone
             // 
@@ -1049,6 +1073,80 @@
             this.lblSetFrq1.Text = "マシンガン";
             this.lblSetFrq1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // lblTitleMode
+            // 
+            this.lblTitleMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(227)))), ((int)(((byte)(96)))));
+            this.lblTitleMode.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblTitleMode.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblTitleMode.ForeColor = System.Drawing.Color.Black;
+            this.lblTitleMode.Location = new System.Drawing.Point(3, 199);
+            this.lblTitleMode.Name = "lblTitleMode";
+            this.lblTitleMode.Size = new System.Drawing.Size(433, 20);
+            this.lblTitleMode.TabIndex = 105;
+            this.lblTitleMode.Text = "おしゃべり頻度";
+            // 
+            // pnlTalkMode
+            // 
+            this.pnlTalkMode.Controls.Add(this.picTalkMode);
+            this.pnlTalkMode.Controls.Add(this.lblDescriptionTalkMode);
+            this.pnlTalkMode.Controls.Add(this.rdTalkModeMinna);
+            this.pnlTalkMode.Controls.Add(this.rdTalkModeHitori);
+            this.pnlTalkMode.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTalkMode.Location = new System.Drawing.Point(3, 60);
+            this.pnlTalkMode.Name = "pnlTalkMode";
+            this.pnlTalkMode.Size = new System.Drawing.Size(433, 139);
+            this.pnlTalkMode.TabIndex = 116;
+            // 
+            // picTalkMode
+            // 
+            this.picTalkMode.Image = global::Liplis.Properties.Resources.mode_hitori;
+            this.picTalkMode.InitialImage = null;
+            this.picTalkMode.Location = new System.Drawing.Point(259, 9);
+            this.picTalkMode.Name = "picTalkMode";
+            this.picTalkMode.Size = new System.Drawing.Size(160, 120);
+            this.picTalkMode.TabIndex = 114;
+            this.picTalkMode.TabStop = false;
+            // 
+            // lblDescriptionTalkMode
+            // 
+            this.lblDescriptionTalkMode.AutoSize = true;
+            this.lblDescriptionTalkMode.ForeColor = System.Drawing.Color.White;
+            this.lblDescriptionTalkMode.Location = new System.Drawing.Point(3, 7);
+            this.lblDescriptionTalkMode.Name = "lblDescriptionTalkMode";
+            this.lblDescriptionTalkMode.Size = new System.Drawing.Size(245, 12);
+            this.lblDescriptionTalkMode.TabIndex = 113;
+            this.lblDescriptionTalkMode.Text = "おしゃべりウインドウを積んでいく位置を設定します。";
+            // 
+            // rdTalkModeMinna
+            // 
+            this.rdTalkModeMinna.AutoSize = true;
+            this.rdTalkModeMinna.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.rdTalkModeMinna.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.rdTalkModeMinna.Location = new System.Drawing.Point(42, 77);
+            this.rdTalkModeMinna.Name = "rdTalkModeMinna";
+            this.rdTalkModeMinna.Size = new System.Drawing.Size(148, 20);
+            this.rdTalkModeMinna.TabIndex = 112;
+            this.rdTalkModeMinna.TabStop = true;
+            this.rdTalkModeMinna.Tag = "2";
+            this.rdTalkModeMinna.Text = "みんなでおしゃべり";
+            this.rdTalkModeMinna.UseVisualStyleBackColor = true;
+            this.rdTalkModeMinna.CheckedChanged += new System.EventHandler(this.rdTalkModeMinna_CheckedChanged);
+            // 
+            // rdTalkModeHitori
+            // 
+            this.rdTalkModeHitori.AutoSize = true;
+            this.rdTalkModeHitori.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.rdTalkModeHitori.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.rdTalkModeHitori.Location = new System.Drawing.Point(42, 51);
+            this.rdTalkModeHitori.Name = "rdTalkModeHitori";
+            this.rdTalkModeHitori.Size = new System.Drawing.Size(140, 20);
+            this.rdTalkModeHitori.TabIndex = 111;
+            this.rdTalkModeHitori.TabStop = true;
+            this.rdTalkModeHitori.Tag = "1";
+            this.rdTalkModeHitori.Text = "ひとりでおしゃべり";
+            this.rdTalkModeHitori.UseVisualStyleBackColor = true;
+            this.rdTalkModeHitori.CheckedChanged += new System.EventHandler(this.rdTalkModeHitori_CheckedChanged);
+            // 
             // lblTitleTalkMode
             // 
             this.lblTitleTalkMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(227)))), ((int)(((byte)(96)))));
@@ -1058,7 +1156,7 @@
             this.lblTitleTalkMode.Location = new System.Drawing.Point(3, 40);
             this.lblTitleTalkMode.Name = "lblTitleTalkMode";
             this.lblTitleTalkMode.Size = new System.Drawing.Size(433, 20);
-            this.lblTitleTalkMode.TabIndex = 105;
+            this.lblTitleTalkMode.TabIndex = 115;
             this.lblTitleTalkMode.Text = "おしゃべりモード";
             // 
             // pnlEnvironmentSpase
@@ -1097,7 +1195,7 @@
             this.tbpWIndow.Padding = new System.Windows.Forms.Padding(3);
             this.tbpWIndow.Size = new System.Drawing.Size(456, 476);
             this.tbpWIndow.TabIndex = 3;
-            this.tbpWIndow.Text = "ウインドウ設定";
+            this.tbpWIndow.Text = "おしゃべりウインドウ設定";
             // 
             // panel2
             // 
@@ -2207,8 +2305,11 @@
             this.pnlActive.ResumeLayout(false);
             this.pnlActive.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trcActive)).EndInit();
+            this.pnlMode.ResumeLayout(false);
+            this.pnlMode.PerformLayout();
             this.pnlTalkMode.ResumeLayout(false);
             this.pnlTalkMode.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picTalkMode)).EndInit();
             this.tab.ResumeLayout(false);
             this.tbpWIndow.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -2267,8 +2368,8 @@
         private System.Windows.Forms.Panel pnlActive;
         private System.Windows.Forms.Label lblDescriptionActive;
         private System.Windows.Forms.Label lblTitleActive;
-        private System.Windows.Forms.Panel pnlTalkMode;
-        private System.Windows.Forms.Label lblTitleTalkMode;
+        private System.Windows.Forms.Panel pnlMode;
+        private System.Windows.Forms.Label lblTitleMode;
         private System.Windows.Forms.Panel pnlEnvironmentSpase;
         private System.Windows.Forms.TabControl tab;
         private System.Windows.Forms.Panel pnlBattery;
@@ -2313,7 +2414,7 @@
         private System.Windows.Forms.Label lblDescription2VoiceEngineSetting;
         private System.Windows.Forms.ComboBox cboVoiceEngineSetting;
         private System.Windows.Forms.Label lblDescription3VoiceEngineSetting;
-        private System.Windows.Forms.Label lblDescriptionTalkMode;
+        private System.Windows.Forms.Label lblDescriptionMode;
         private System.Windows.Forms.Label lblTalkModeChattingWithEveryone;
         private System.Windows.Forms.Label lblTalkModeChatAlone;
         private System.Windows.Forms.Label lblTalkModeSetting;
@@ -2432,5 +2533,12 @@
         private System.Windows.Forms.Label lblDescriptionBattery2;
         private System.Windows.Forms.Label lblDescriptionIconOn2;
         private System.Windows.Forms.Label lblDescriptionWindowNum;
+        private System.Windows.Forms.Label btnTalkWindowSetting;
+        private System.Windows.Forms.Label lblTitleTalkMode;
+        private System.Windows.Forms.Panel pnlTalkMode;
+        private System.Windows.Forms.PictureBox picTalkMode;
+        private System.Windows.Forms.Label lblDescriptionTalkMode;
+        private System.Windows.Forms.RadioButton rdTalkModeMinna;
+        private System.Windows.Forms.RadioButton rdTalkModeHitori;
     }
 }

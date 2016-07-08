@@ -239,6 +239,10 @@
     <Content Include="Resources\design_ico_ntro.png" />
     <Content Include="Resources\design_ico_og.png" />
     <Content Include="Resources\design_ico_setting.png" />
+    <None Include="Resources\ico_web.png" />
+    <None Include="Resources\ico_tweet.png" />
+    <None Include="Resources\mode_hitori.png" />
+    <None Include="Resources\mode_minna.png" />
     <None Include="Resources\window_pos_lrc.png" />
     <None Include="Resources\window_pos_right.png" />
     <None Include="Resources\window_pos_left.png" />

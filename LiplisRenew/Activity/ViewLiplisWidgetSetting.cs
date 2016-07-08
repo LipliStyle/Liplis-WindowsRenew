@@ -62,7 +62,10 @@ namespace Liplis.Activity
             setWindowPic();
 
             //トークモード設定
-            setTalkMode(this.setting.lpsMode);
+            setTalkMode(this.setting.lpsTalkMode);
+
+            //モード設定
+            setMode(this.setting.lpsMode);
 
             //おしゃべり速度取得
             setActive();
@@ -230,6 +233,13 @@ namespace Liplis.Activity
             this.btnTopicSetting.ForeColor = Color.Black;
         }
 
+        private void btnTalkWindowSetting_Click(object sender, System.EventArgs e)
+        {
+            this.tab.SelectedTab = this.tbpWIndow;
+            this.setButtonDefaultColor();
+            this.btnTalkWindowSetting.BackColor = Color.FromArgb(192, 255, 255);
+            this.btnTalkWindowSetting.ForeColor = Color.Black;
+        }
 
         private void btnVoiceSetting_Click(object sender, System.EventArgs e)
         {
@@ -242,9 +252,11 @@ namespace Liplis.Activity
         private void setButtonDefaultColor()
         {
             this.btnWidgetSetting.BackColor      = Color.FromArgb(223, 116, 1);
+            this.btnTalkWindowSetting.BackColor  = Color.FromArgb(223, 116, 1);
             this.btnTopicSetting.BackColor       = Color.FromArgb(223, 116, 1);
-            this.btnVoiceSetting.BackColor     = Color.FromArgb(223, 116, 1);
+            this.btnVoiceSetting.BackColor       = Color.FromArgb(223, 116, 1);
             this.btnWidgetSetting.ForeColor      = Color.White;
+            this.btnTalkWindowSetting.ForeColor  = Color.White;
             this.btnTopicSetting.ForeColor       = Color.White;
             this.btnVoiceSetting.ForeColor       = Color.White;
         }
@@ -259,12 +271,28 @@ namespace Liplis.Activity
         //============================================================
         #region 設定反映
         /// <summary>
-        /// おしゃべりモードのラジオボタンをONにする
+        /// トークモードのセット
         /// </summary>
         /// <param name="talkMode"></param>
         private void setTalkMode(int talkMode)
         {
-            switch(talkMode)
+            if(talkMode == 1)
+            {
+                rdTalkModeMinna.Checked = true;
+            }
+            else
+            {
+                rdTalkModeHitori.Checked = true;
+            }
+        }
+
+        /// <summary>
+        /// おしゃべりモードのラジオボタンをONにする
+        /// </summary>
+        /// <param name="mode"></param>
+        private void setMode(int mode)
+        {
+            switch(mode)
             {
                 case 0:
                     rdoFrqMachen.Checked = true;
@@ -390,6 +418,24 @@ namespace Liplis.Activity
         {
             setting.lpsHealth = LpsLiplisUtil.boolToBit(chkBattery.Checked);
             setting.setPreferenceData();
+        }
+
+        /// <summary>
+        /// トークモード設定
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rdTalkModeHitori_CheckedChanged(object sender, System.EventArgs e)
+        {
+            setting.lpsTalkMode = 0;
+            setting.setPreferenceData();
+            this.picTalkMode.Image = LpsResorceManager.getResourceBitmap(typeof(Resources).Assembly, "mode_hitori");
+        }
+        private void rdTalkModeMinna_CheckedChanged(object sender, System.EventArgs e)
+        {
+            setting.lpsTalkMode = 1;
+            setting.setPreferenceData();
+            this.picTalkMode.Image = LpsResorceManager.getResourceBitmap(typeof(Resources).Assembly, "mode_minna");
         }
 
         /// <summary>
@@ -713,6 +759,7 @@ namespace Liplis.Activity
             }
 
         }
+
 
 
         #endregion

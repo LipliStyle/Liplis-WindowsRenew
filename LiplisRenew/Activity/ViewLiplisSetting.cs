@@ -187,7 +187,7 @@ namespace Liplis.Activity
         /// <param name="e"></param>
         private void chkMenuOpen_CheckedChanged(object sender, EventArgs e)
         {
-            this.baseSetting.lpsAutoWakeup = LpsLiplisUtil.boolToBit(chkAutoWakeup.Checked);
+            this.baseSetting.lpsMenuOpen = LpsLiplisUtil.boolToBit(chkMenuOpen.Checked);
             this.baseSetting.setPreferenceData();
         }
         #endregion

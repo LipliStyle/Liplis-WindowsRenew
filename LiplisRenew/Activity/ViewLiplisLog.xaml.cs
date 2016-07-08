@@ -15,6 +15,7 @@
 using Liplis.Gui;
 using Liplis.MainSystem;
 using Liplis.Msg;
+using Liplis.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -262,20 +263,24 @@ namespace Liplis.Activity
             clockLabel.Content = DateTime.Now.ToString("HH:mm");
 
             //ボタン1生成
-            Button b1 = new Button();
-            b1.Width = 25;
-            b1.Height = 25;
-            b1.Margin = new Thickness(0, -50, 0, 0);
+            Button btnTweet = new Button();
+            btnTweet.Width = 25;
+            btnTweet.Height = 25;
+            btnTweet.Margin = new Thickness(0, -50, 0, 0);
+            btnTweet.Background = WpfUtil.convertBitmapToImageBrash(Properties.Resources.ico_tweet);
+            btnTweet.Click += btnTweet_Click;
 
             //ボタン2生成
-            Button b2 = new Button();
-            b2.Width = 25;
-            b2.Height = 25;
-            b2.Margin = new Thickness(0, 0, 0, 0);
+            Button btnWeb = new Button();
+            btnWeb.Width = 25;
+            btnWeb.Height = 25;
+            btnWeb.Margin = new Thickness(0, 0, 0, 0);
+            btnWeb.Background = WpfUtil.convertBitmapToImageBrash(Properties.Resources.ico_web);
+            btnWeb.Click += btnWeb_Click;
 
             //要素の追加
-            rightGrid.Children.Add(b1);
-            rightGrid.Children.Add(b2);
+            rightGrid.Children.Add(btnTweet);
+            rightGrid.Children.Add(btnWeb);
             rightGrid.Children.Add(clockLabel);
 
             //ドックパネル設定
@@ -324,6 +329,26 @@ namespace Liplis.Activity
         private void button_Click(object sender, RoutedEventArgs e)
         {
             searchLog();
+        }
+
+        /// <summary>
+        /// ツイートクリック
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnTweet_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// ウェブクリック
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnWeb_Click(object sender, RoutedEventArgs e)
+        {
+
         }
         #endregion
 

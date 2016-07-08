@@ -28,7 +28,8 @@ namespace Liplis.MainSystem
         /// プロパティ
         public string charName;                         public const string KEY_CHAR_NAME       = "charName";              
         public Int32 locationX= 0;                      public const string KEY_LOCATION_X      = "locationX";             
-        public Int32 locationY= 0;                      public const string KEY_LOCATION_Y      = "locationY";             
+        public Int32 locationY= 0;                      public const string KEY_LOCATION_Y      = "locationY";
+        public Int32 lpsTalkMode = 0;                   public const string KEY_LPSTALKMODE     = "lpsTalkMode";
         public Int32 lpsMode  = 0;                      public const string KEY_LPSMODE         = "lpsMode";               
         public Int32 lpsSpeed;                          public const string KEY_LPSSPEED        = "lpsSpeed";              
         public Int32 lpsWindow;                         public const string KEY_LPSWINDOW       = "lpsWindow";             
@@ -117,6 +118,7 @@ namespace Liplis.MainSystem
             this.charName = "";
             this.locationX = 0;
             this.locationY = 0;
+            this.lpsTalkMode = 0;
             this.lpsMode = 0;
             this.lpsSpeed = 0;
             this.lpsWindow = 0;
@@ -152,6 +154,7 @@ namespace Liplis.MainSystem
             this.charName            = getString(KEY_CHAR_NAME, "");
             this.locationX           = getInt(KEY_LOCATION_X, 0);
             this.locationY           = getInt(KEY_LOCATION_Y, 0);
+            this.lpsTalkMode     = getInt(KEY_LPSTALKMODE, 0);
             this.lpsMode             = getInt(KEY_LPSMODE, 0);
             this.lpsSpeed            = getInt(KEY_LPSSPEED, 75);
             this.lpsWindow           = getInt(KEY_LPSWINDOW, 0);
@@ -184,6 +187,7 @@ namespace Liplis.MainSystem
             setString(KEY_CHAR_NAME, this.charName);
             setInt(KEY_LOCATION_X, this.locationX);
             setInt(KEY_LOCATION_Y, this.locationY);
+            setInt(KEY_LPSTALKMODE, this.lpsTalkMode);
             setInt(KEY_LPSMODE, this.lpsMode);
             setInt(KEY_LPSSPEED, this.lpsSpeed);
             setInt(KEY_LPSWINDOW, this.lpsWindow);
