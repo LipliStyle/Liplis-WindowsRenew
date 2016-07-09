@@ -1,19 +1,24 @@
-﻿using Clalis.v31.Res;
+﻿//=======================================================================
+//  ClassName : ViewLiplisRssSetting
+//  概要      : RSS設定画面
+//
+//
+//Liplis5.0
+//
+//アップデート履歴
+//   2016/05/08 ver5.0.0 作成
+//
+//  Copyright(c) 2010-2016 LipliStyle.Sachin
+//=======================================================================
+using Clalis.v31.Res;
 using Liplis.Activity.Sub;
-using Liplis.Com;
 using Liplis.Gui;
 using Liplis.MainSystem;
 using Liplis.Web.Clalis;
 using Liplis.Xml.Rss;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Liplis.Activity

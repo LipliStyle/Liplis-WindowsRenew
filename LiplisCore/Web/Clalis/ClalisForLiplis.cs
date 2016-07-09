@@ -384,6 +384,42 @@ namespace Liplis.Web.Clalis
 
 
 
+        ///====================================================================
+        ///
+        ///                         ツイッター関連
+        ///                        
+        ///====================================================================
+        #region twitter
+        /// <summary>
+        /// ツイートする
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <param name="topicId"></param>
+        /// <returns></returns>
+        public static ResLpsLoginStatus tweet(string uid, string sentence)
+        {
+            try
+            {
+                //引数の指定
+                FormUrlEncodedContent postData = new FormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    { "userid", uid},               //LiplisユーザーID
+                    { "sentence", sentence},            //対象URL
+                });
+
+
+                //Jsonで結果取得
+                string jsonText = HttpPost.sendPost(LIPLIS_TWEET, postData);
+
+                //APIの結果受け取り用クラス
+                return JsonConvert.DeserializeObject<ResLpsLoginStatus>(jsonText);
+            }
+            catch
+            {
+                return new ResLpsLoginStatus("-1", uid);
+            }
+        }
+        #endregion
 
     }
 }

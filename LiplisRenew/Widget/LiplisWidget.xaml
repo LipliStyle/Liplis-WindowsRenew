@@ -8,8 +8,31 @@
         Title="LiplisWidget" Height="300" Width="240"
         AllowsTransparency="True"
         Background="{x:Null}"
-        WindowStyle="None" StateChanged="Window_StateChanged" MouseLeave="Window_MouseLeave" MouseEnter="Window_MouseEnter"
+        WindowStyle="None" StateChanged="Window_StateChanged" MouseLeave="Window_MouseLeave" MouseEnter="Window_MouseEnter" Loaded="Window_Loaded"
         >
+    <Window.Resources>
+        <Storyboard x:Key="SecondHand" x:Name="SecondHand" RepeatBehavior="Forever" >
+            <DoubleAnimation
+                Duration="0:1:0" From="0" To="360"
+                Storyboard.TargetName="SecondLine"
+                Storyboard.TargetProperty="(Line.RenderTransform).(RotateTransform.Angle)"
+            />
+        </Storyboard>
+        <Storyboard x:Key="MinuteHand" x:Name="MinuteHand" RepeatBehavior="Forever">
+            <DoubleAnimation
+                Duration="1:0:0" From="0" To="360"
+                Storyboard.TargetName="MinuteLine"
+                Storyboard.TargetProperty="(Line.RenderTransform).(RotateTransform.Angle)"
+            />
+        </Storyboard>
+        <Storyboard x:Key="HourHand" x:Name="HourHand" RepeatBehavior="Forever">
+            <DoubleAnimation
+                Duration="12:0:0" From="0" To="360"
+                Storyboard.TargetName="HourLine"
+                Storyboard.TargetProperty="(Line.RenderTransform).(RotateTransform.Angle)"
+            />
+        </Storyboard>
+    </Window.Resources>
     <Grid x:Name="imageGrid" Width="240" Height="300">
         <Image x:Name="image" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="240" Source="../Resources/design_normal_1_1_1.png" MouseDown="image_MouseDown" MouseUp="image_MouseUp"/>
         <Image x:Name="icoSleep" HorizontalAlignment="Left" Height="48" Margin="10,126,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/design_ico_zzz.png" MouseDown="icoSleep_MouseDown" MouseUp="icoSleep_MouseUp" MouseLeave="icoSleep_MouseLeave"/>
@@ -17,6 +40,29 @@
         <Image x:Name="icoSetting" HorizontalAlignment="Left" Height="48" Margin="10,242,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/design_ico_setting.png" MouseDown="icoSetting_MouseDown" MouseLeave="icoSetting_MouseLeave" MouseUp="icoSetting_MouseUp"/>
         <Image x:Name="icoChat" HorizontalAlignment="Left" Height="48" Margin="182,126,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/design_ico_back.png" MouseDown="icoChat_MouseDown" MouseLeave="icoChat_MouseLeave" MouseUp="icoChat_MouseUp"/>
         <Image x:Name="icoClock" HorizontalAlignment="Left" Height="48" Margin="182,184,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/design_ico_back.png" MouseDown="icoClock_MouseDown" MouseLeave="icoClock_MouseLeave" MouseUp="icoClock_MouseUp"/>
+        <Canvas x:Name="canClock" Margin="182,184,10,68"  Width="48" Height="48">
+            <Line x:Name="HourLine"  Stroke="White" Fill="Black" X1="24" Y1="24" X2="24" Y2="12"              
+               StrokeThickness="3" >
+                <Line.RenderTransform>
+                    <RotateTransform  x:Name="AngleHour" Angle="0" CenterX="24" CenterY="24"/>
+                </Line.RenderTransform>
+            </Line>
+            <Line x:Name="MinuteLine"  Stroke="White" Fill="Black" X1="24" Y1="24" X2="24" Y2="4"              
+               StrokeThickness="2" >
+                <Line.RenderTransform>
+                    <RotateTransform x:Name="AngleMinute"  Angle="0" CenterX="24" CenterY="24"/>
+                </Line.RenderTransform>
+            </Line>
+            <Line x:Name="SecondLine"  Stroke="White" Fill="LightGray" X1="24" Y1="19.2" X2="24" Y2="0"  >
+                <Line.RenderTransform>
+                    <RotateTransform x:Name="AngleSecond" Angle="0"  CenterX="24" CenterY="24"/>
+                </Line.RenderTransform>
+            </Line>
+            <Ellipse x:Name="CenterDot" Fill="White" Width="6" Height="6" HorizontalAlignment="Center" 
+                 VerticalAlignment="Center" 
+                 Canvas.Top="21" Canvas.Left="21"/>
+            
+        </Canvas>
         <Image x:Name="icoBattery" HorizontalAlignment="Left" Height="48" Margin="182,242,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/design_battery_100.png" MouseDown="icoBattery_MouseDown" MouseLeave="icoBattery_MouseLeave" MouseUp="icoBattery_MouseUp"/>
         <Image x:Name="icoEnd" HorizontalAlignment="Left" Height="14" Margin="226,0,0,0" VerticalAlignment="Top" Width="14" Source="/Liplis;component/Resources/ico_win_wnd.png" MouseDown="icoEnd_MouseDown" MouseEnter="icoEnd_MouseEnter" MouseUp="icoEnd_MouseUp" MouseLeave="icoEnd_MouseLeave"/>
         <Image x:Name="icoMinimize" Height="14" Margin="212,0,0,0" VerticalAlignment="Top" Source="/Liplis;component/Resources/ico_win_min.png" MouseDown="icoMinimize_MouseDown" MouseEnter="icoMinimize_MouseEnter" MouseUp="icoMinimize_MouseUp" Width="14" MouseLeave="icoMinimize_MouseLeave" HorizontalAlignment="Left"/>

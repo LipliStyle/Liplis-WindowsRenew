@@ -25,8 +25,6 @@ namespace Liplis.Msg
         public int newsEmotion { get; set; }
         public int newsPoint { get; set; }
 
-
-
         /// <summary>
         /// コンストラクター
         /// このコンストラクターを使用する場合は、リザルトとソースは必ず設定する必要がある！！

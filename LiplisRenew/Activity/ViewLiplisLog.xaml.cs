@@ -15,6 +15,7 @@
 using Liplis.Gui;
 using Liplis.MainSystem;
 using Liplis.Msg;
+using Liplis.Web.Clalis;
 using Liplis.Wpf;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,10 @@ namespace Liplis.Activity
         //テキストブロックリスト
         private List<TextBox> tbList;
         private int searchIndex = 0;
+
+        //=================================
+        //バックグラウンドワーク
+        System.ComponentModel.BackgroundWorker workerTweet;
 
         /// <summary>
         /// コンストラクター
@@ -112,7 +117,7 @@ namespace Liplis.Activity
                 innerGrid.Children.Add(talkLog);
 
                 //右グリッド生成
-                Grid rightGrid = createRightGrid();
+                Grid rightGrid = createRightGrid(log);
 
 
                 //要素の追加
@@ -244,7 +249,7 @@ namespace Liplis.Activity
         /// 右グリッドを生成する
         /// </summary>
         /// <returns></returns>
-        private Grid createRightGrid()
+        private Grid createRightGrid(MsgTalkMessageLog log)
         {
             //右側グリッド生成
             Grid rightGrid = new Grid();
@@ -268,6 +273,7 @@ namespace Liplis.Activity
             btnTweet.Height = 25;
             btnTweet.Margin = new Thickness(0, -50, 0, 0);
             btnTweet.Background = WpfUtil.convertBitmapToImageBrash(Properties.Resources.ico_tweet);
+            btnTweet.Tag = log;
             btnTweet.Click += btnTweet_Click;
 
             //ボタン2生成
@@ -276,6 +282,7 @@ namespace Liplis.Activity
             btnWeb.Height = 25;
             btnWeb.Margin = new Thickness(0, 0, 0, 0);
             btnWeb.Background = WpfUtil.convertBitmapToImageBrash(Properties.Resources.ico_web);
+            btnWeb.Tag = log;
             btnWeb.Click += btnWeb_Click;
 
             //要素の追加
@@ -338,7 +345,27 @@ namespace Liplis.Activity
         /// <param name="e"></param>
         private void btnTweet_Click(object sender, RoutedEventArgs e)
         {
+            //ツイッター登録チェック
+            if(desktop.baseSetting.lpsTwitterActivate != 1)
+            {
+                LpsMessage.showError("ツイッター登録されていません。" + Environment.NewLine + "アカウントを登録してから実行して下さい。");
+                return;
+            }
 
+            //ボタン取得
+            Button bt = (Button)sender;
+
+            //タグのチェック
+            if(bt.Tag == null)
+            {
+                return;
+            }
+
+            //メッセージ取得
+            MsgTalkMessageLog log = (MsgTalkMessageLog)bt.Tag;
+
+            //内容ツイート
+            tweet(log.result); 
         }
 
         /// <summary>
@@ -348,7 +375,26 @@ namespace Liplis.Activity
         /// <param name="e"></param>
         private void btnWeb_Click(object sender, RoutedEventArgs e)
         {
+            //ボタン取得
+            Button bt = (Button)sender;
 
+            //タグのチェック
+            if (bt.Tag == null)
+            {
+                return;
+            }
+
+            //メッセージ取得
+            MsgTalkMessageLog log = (MsgTalkMessageLog)bt.Tag;
+
+            //空チェック
+            if(log.url == "")
+            {
+                return;
+            }
+
+            //指定URLを開く
+            System.Diagnostics.Process.Start(log.url);
         }
         #endregion
 
@@ -394,9 +440,31 @@ namespace Liplis.Activity
                 LpsMessage.showError("対象の語は見つかりませんでした。");
             }
         }
+        #endregion
 
 
+        //============================================================
+        //
+        //バックグラウンド処理
+        //
+        //============================================================
+        #region バックグラウンド処理
+        public void tweet(string sentence)
+        {
+            this.workerTweet = new System.ComponentModel.BackgroundWorker();
+            this.workerTweet.DoWork += (s, e) => tweetAsync(sentence);
+            this.workerTweet.RunWorkerAsync();
+        }
 
+        /// <summary>
+        /// 非同期処理実行
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="sentence"></param>
+        private void tweetAsync(string sentence)
+        {
+            ClalisForLiplis.tweet(desktop.baseSetting.uid, sentence);
+        }
         #endregion
     }
 }

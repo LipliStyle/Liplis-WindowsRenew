@@ -257,24 +257,54 @@ namespace Liplis.Widget
                 this.icoEnd.Margin = new Thickness(this.Width - 14, 0, 0, 0);
                 this.icoMinimize.Margin = new Thickness(this.Width - 42, 0, 0, 0);
 
+                //時計初期化
+                DateTime dt = DateTime.Now;
+                this.AngleSecond.Angle = dt.Second * 360.0 / 60.0;
+                this.AngleMinute.Angle = (dt.Minute + dt.Second / 60.0) * 360.0 / 60.0;
+                this.AngleHour.Angle = (dt.Hour + dt.Minute / 60.0) * 360.0 / 12;
+
+                this.canClock.Width = iconSide;
+                this.canClock.Height = iconSide;
+                this.canClock.Margin = new Thickness(rightSideXMargin , row2YMargin , 10, 68);
+
+                this.HourLine.X1 = iconSide / 2;
+                this.HourLine.Y1 = iconSide / 2;
+                this.HourLine.X2 = iconSide / 2;
+                this.AngleHour.CenterX = iconSide / 2;
+                this.AngleHour.CenterX = iconSide / 2;
+
+                this.MinuteLine.X1 = iconSide / 2;
+                this.MinuteLine.Y1 = iconSide / 2;
+                this.MinuteLine.X2 = iconSide / 2;
+                this.AngleMinute.CenterX = iconSide / 2;
+                this.AngleMinute.CenterX = iconSide / 2;
+
+                this.SecondLine.X1 = iconSide / 2;
+                this.SecondLine.Y1 = iconSide / 2;
+                this.SecondLine.X2 = iconSide / 2;
+                this.AngleSecond.CenterX = iconSide / 2;
+                this.AngleSecond.CenterX = iconSide / 2;
+
+                Canvas.SetLeft(this.CenterDot, (iconSide / 2) - 3);
+                Canvas.SetTop(this.CenterDot, (iconSide / 2) - 3);
 
                 //アイコンオパシティを0にしておく
-                if(LpsLiplisUtil.bitToBool(setting.lpsDisplayIcon))
+                if (LpsLiplisUtil.bitToBool(setting.lpsDisplayIcon))
                 {
                     flgIconOn = true;
                 }
                 else
                 {
                     this.icoMinimize.Opacity = 0;
-                    this.icoEnd.Opacity = 0;
-                    this.icoSleep.Opacity = 0;
-                    this.icoLog.Opacity = 0;
-                    this.icoSetting.Opacity = 0;
-                    this.icoChat.Opacity = 0;
-                    this.icoClock.Opacity = 0;
-                    this.icoBattery.Opacity = 0;
+                    this.icoEnd.Opacity      = 0;
+                    this.icoSleep.Opacity    = 0;
+                    this.icoLog.Opacity      = 0;
+                    this.icoSetting.Opacity  = 0;
+                    this.icoChat.Opacity     = 0;
+                    this.icoClock.Opacity    = 0;
+                    this.icoBattery.Opacity  = 0;
+                    this.canClock.Opacity    = 0;
                 }
-
 
 
                 //ロケーション設定
@@ -285,6 +315,8 @@ namespace Liplis.Widget
                 throw new ExpWidgetInitException(ex);
             }
         }
+
+
 
         /// <summary>
         /// チャット情報の初期化
@@ -302,6 +334,40 @@ namespace Liplis.Widget
 
             //ナウワードインデックスの初期化
             this.cntLnw = 0;
+        }
+
+        /// <summary>
+        /// ロードイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            initClock();
+        }
+
+        /// <summary>
+        /// 時計アニメーションの初期化
+        /// </summary>
+        private void initClock()
+        {
+            StartAnimation("HourHand", this.AngleHour.Angle);
+            StartAnimation("MinuteHand", this.AngleMinute.Angle);
+            StartAnimation("SecondHand", this.AngleSecond.Angle);
+        }
+
+        /// <summary>
+        /// 時計アニメーションの開始
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="angle"></param>
+        private void StartAnimation(string name, double angle)
+        {
+            var sb = this.Resources[name] as Storyboard;
+            var da = sb.Children[0] as DoubleAnimation;
+            da.From = angle;
+            da.To = da.From + 360.0;
+            sb.Begin();
         }
 
         //============================================================
@@ -2038,6 +2104,8 @@ namespace Liplis.Widget
             WpfAnimation.opacityUp(this, icoChat);
             WpfAnimation.opacityUp(this, icoClock);
             WpfAnimation.opacityUp(this, icoBattery);
+
+            WpfAnimation.opacityUp(this, canClock);
         }
 
         /// <summary>
@@ -2055,6 +2123,8 @@ namespace Liplis.Widget
             WpfAnimation.opacityDown(this, icoChat);
             WpfAnimation.opacityDown(this, icoClock);
             WpfAnimation.opacityDown(this, icoBattery);
+
+            WpfAnimation.opacityDown(this, canClock);
         }
 
         /// <summary>
@@ -2117,5 +2187,7 @@ namespace Liplis.Widget
         {
             stopLeaveTimer();
         }
+
+
     }
 }
