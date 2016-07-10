@@ -226,7 +226,7 @@ namespace Liplis.Voc
                 this.setting = option;
 
                 //ボイスロイドハンドル生成
-                lpsVrHandle = default(LpsVoiceRoidHandle);
+                lpsVrHandle = new LpsVoiceRoidHandle();
 
                 //ウインドウ、ボタンハンドル初期化
                 lpsVrHandle.hWindowHandle = IntPtr.Zero;
@@ -589,7 +589,7 @@ namespace Liplis.Voc
                 //取得できた場合は、登録する。
                 else
                 {
-                    LpsVoiceRoidHandle value = default(LpsVoiceRoidHandle);
+                    LpsVoiceRoidHandle value = new LpsVoiceRoidHandle();
                     value.hPlayHandle = this.msgHPlayButton;
                     value.hStopHandle = this.msgHStopButton;
                     value.hEditHandle = this.msgHEdit;

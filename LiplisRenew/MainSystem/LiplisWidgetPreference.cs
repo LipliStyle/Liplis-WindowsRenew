@@ -11,6 +11,7 @@
 //=======================================================================
 using Liplis.Com;
 using Liplis.Utl;
+using Liplis.Voc;
 using Liplis.Widget.LpsWindow;
 using Liplis.Xml;
 using System;
@@ -227,6 +228,18 @@ namespace Liplis.MainSystem
         {
             return lpsTopicNews + "," + lpsTopic2ch + "," + lpsTopicNico + "," + lpsTopicRss + "," + lpsTopicTwitterPu + "," + lpsTopicTwitterMy + "," + lpsTopicTwitter;
         }
+
+
+        /// <summary>
+        /// ボイスロイド取得
+        /// </summary>
+        /// <returns></returns>
+        public LpsVoiceRoid getSelectedVoiceRoid()
+        {
+            return EnableVoiceRoid.GetInstance().getSelectedVoiceRoid(this.lpsVoicePath);
+        }
+
+
         #endregion
 
         //============================================================
@@ -270,5 +283,8 @@ namespace Liplis.MainSystem
             this.locationY = y;
             setPreferenceData();
         }
+
+
+
     }
 }

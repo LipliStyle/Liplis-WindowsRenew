@@ -21,6 +21,7 @@ using Liplis.Msg;
 using Liplis.Talk;
 using Liplis.Tpc;
 using Liplis.Utl;
+using Liplis.Voc;
 using Liplis.Wpf;
 using System;
 using System.Collections.Generic;
@@ -70,6 +71,10 @@ namespace Liplis.Widget
         private LiplisNews lpsNews;
         private LiplisBattery lpsBattery;
         //private LiplisApiChat lpsChatTalk;
+
+        //=================================
+        //デスクトップインスタンス
+        private LpsVoiceRoid lvr;
 
         //=================================
         //タイマー
@@ -192,10 +197,8 @@ namespace Liplis.Widget
                 //ニュースの初期化
                 this.lpsNews = new LiplisNews(desk.baseSetting, setting,skin.xmlSkin.toneUrl);
 
-                //TODO: LiplisWidget initClass モードによっては話題収集の実行が必要
-                //TODO: LiplisWidget 話題収集はデスクトップクラスで行い、そこから取得するようにする。
-                //話題収集の実行
-                //this.onCheckNewsQueue();
+                //音声管理クラスの初期化
+                initVoiceRoid();
 
                 //バッテリーオブジェクトの初期化
                 this.lpsBattery = new LiplisBattery();
@@ -346,14 +349,19 @@ namespace Liplis.Widget
             initClock();
         }
 
+        //時計の針の名前定義
+        private const string CLOCK_HOUR_HAND   = "HourHand";
+        private const string CLOCK_MIN_HAND    = "MinuteHand";
+        private const string CLOCK_SECOND_HAND = "SecondHand";
+
         /// <summary>
         /// 時計アニメーションの初期化
         /// </summary>
         private void initClock()
         {
-            StartAnimation("HourHand", this.AngleHour.Angle);
-            StartAnimation("MinuteHand", this.AngleMinute.Angle);
-            StartAnimation("SecondHand", this.AngleSecond.Angle);
+            StartAnimation(CLOCK_HOUR_HAND, this.AngleHour.Angle);
+            StartAnimation(CLOCK_MIN_HAND, this.AngleMinute.Angle);
+            StartAnimation(CLOCK_SECOND_HAND, this.AngleSecond.Angle);
         }
 
         /// <summary>
@@ -368,6 +376,20 @@ namespace Liplis.Widget
             da.From = angle;
             da.To = da.From + 360.0;
             sb.Begin();
+        }
+
+        /// <summary>
+        /// initLiplisIcon
+        /// リプリスボイスロイド
+        /// </summary>
+        protected void initVoiceRoid()
+        {
+            if (lvr != null)
+            {
+                lvr.Dispose();
+            }
+
+            lvr = setting.getSelectedVoiceRoid();
         }
 
         //============================================================
@@ -388,6 +410,9 @@ namespace Liplis.Widget
             nextTimer.Dispose();
             updateTimer.Dispose();
             leaveTimer.Dispose();
+
+            //ボイスロイドクラスの破棄
+            lvr.Dispose();
 
             //設定の保存
             this.setting.setPreferenceData();
@@ -1700,6 +1725,18 @@ namespace Liplis.Widget
         }
         #endregion
 
+        /// <summary>
+        /// 音声おしゃべり
+        /// </summary>
+        #region 音声おしゃべり
+        protected void speechText()
+        {
+            if (liplisNowTopic != null)
+            {
+                lvr.addMessage(liplisNowTopic.sorce.Replace("@", ""));
+            }
+        }
+        #endregion
 
         /// <summary>
         /// ボディの更新
@@ -1898,6 +1935,12 @@ namespace Liplis.Widget
 
                 //更新タイマーをONする
                 this.startUpdateTimer();
+
+                //音声おしゃべり
+                if (setting.lpsVoiceOn == 1)
+                {
+                    speechText();
+                }
             }
         }
 
@@ -2075,6 +2118,12 @@ namespace Liplis.Widget
         {
             //ウェイクアップ状態の場合、おやすみ
             this.flgSitdown = true;
+
+            //ヴォイスロイドストップ
+            if (setting.lpsVoiceOn == 1)
+            {
+                lvr.callStopButtonDown();
+            }
 
             //アイコン変更
             this.lpsIcoSleep.setImage(this.skin.xmlWindow.ICO_WAIKUP);
