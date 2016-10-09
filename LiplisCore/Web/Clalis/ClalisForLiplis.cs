@@ -11,7 +11,10 @@
 
 using Clalis.v31.Res;
 using Clalis.v40.Res;
+using Clalis.v50.Msg;
+using Clalis.v50.Res;
 using Liplis.Com;
+using Liplis.Lst;
 using Liplis.Msg;
 using Liplis.Web.Clalis.Json;
 using Newtonsoft.Json;
@@ -54,6 +57,10 @@ namespace Liplis.Web.Clalis
         public const string LIPLIS_FREE_TALK                      = @"http://liplis.mine.nu/Clalis/v41/Liplis/ClalisForLiplisFreeTalk.aspx";
         public const string LIPLIS_TWEET                          = @"http://liplis.mine.nu/Clalis/v40/Liplis/ClalisForLiplisTweet.aspx";
         public const string LIPLIS_CHAT                           = @"http://liplis.mine.nu/Clalis/v40/Liplis/ClalisForLiplisTalk.aspx";
+        public const string LIPLIS_GILS_TALK                      = @"http://liplis.mine.nu/Clalis/v50/Liplis/ClalisForLiplisGirlsTalk.aspx";
+        public const string LIPLIS_GILS_TALKLIST                  = @"http://liplis.mine.nu/Clalis/v50/Liplis/ClalisForLiplisGirlsTalkList.aspx";
+        public const string LIPLIS_GILS_TALK_FROM_NEWSID          = @"http://liplis.mine.nu/Clalis/v50/Liplis/ClalisForLiplisGirlsTalkSpecifyNews.aspx";
+        public const string LIPLIS_GILS_TALK_GET_NEWSIDLIST       = @"http://liplis.mine.nu/Clalis/v50/Liplis/ClalisForLiplisGirlsTalkNewsIdList.aspx";
         #endregion
 
 
@@ -75,10 +82,10 @@ namespace Liplis.Web.Clalis
 
         ///====================================================================
         ///
-        ///                      ワンタイムパスワード関連
+        ///                       サマリーニュース関連
         ///                        
         ///====================================================================
-        #region ワンタイムパスワード関連
+        #region サマリーニュース関連
         /// <summary>
         /// サマリーニュースの取得
         /// </summary>
@@ -164,6 +171,274 @@ namespace Liplis.Web.Clalis
             return;
         }
         #endregion
+
+        ///====================================================================
+        ///
+        ///                        ガールズトーク関連
+        ///                        
+        ///====================================================================
+        #region ガールズトーク関連
+        /// <summary>
+        /// ガールズトークデータ取得
+        /// </summary>
+        /// <param name="sd"></param>
+        /// <returns></returns>
+        public static MsgGilsTalk getGalsTalkDataRandom(msgGirlsTalkSendData sd)
+        {
+            try
+            {
+                NameValueCollection postData = new NameValueCollection();
+                postData.Add("sd", JsonConvert.SerializeObject(sd));                //送信データ
+
+
+                //Jsonで結果取得
+                string jsonText = HttpPostOld.sendPost(LIPLIS_GILS_TALK, postData);
+
+                //結果取得
+                return new MsgGilsTalk(JsonConvert.DeserializeObject<ResLpsGirlsTalk>(jsonText));
+
+            }
+            catch
+            {
+                //失敗時NULLを返す
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// ニュースIDからガールズトークデータ取得
+        /// </summary>
+        /// <param name="sd"></param>
+        /// <returns></returns>
+        public static MsgGilsTalk getGalsTalkDataFromNewsId(msgGirlsTalkSendDataSpecifyNewsId sd)
+        {
+            try
+            {
+                NameValueCollection postData = new NameValueCollection();
+                postData.Add("sd", JsonConvert.SerializeObject(sd));                //送信データ
+
+
+                //Jsonで結果取得
+                string jsonText = HttpPostOld.sendPost(LIPLIS_GILS_TALK_FROM_NEWSID, postData);
+
+                ResLpsGirlsTalk result = JsonConvert.DeserializeObject<ResLpsGirlsTalk>(jsonText);
+
+                //結果取得
+                return new MsgGilsTalk(result);
+            }
+            catch(Exception ex)
+            {
+                //失敗時NULLを返す
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// ニュースIDリストを取得する
+        /// </summary>
+        /// <param name="newsIdQ"></param>
+        /// <param name="sd"></param>
+        public static void getGalsTalkNewsIdList(ConcurrentQueue<string> newsIdQ, msgGirlsTalkSendData sd)
+        {
+            try
+            {
+                //パラメーター生成
+                FormUrlEncodedContent postData = new FormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    { "sd", JsonConvert.SerializeObject(sd)},               //UIDLの指定
+                });
+
+                //Jsonで結果取得
+                string jsonText = HttpPost.sendPost(LIPLIS_GILS_TALK_GET_NEWSIDLIST, postData);
+
+                //結果取得
+                LstShufflableList<string> newsIdList = JsonConvert.DeserializeObject<LstShufflableList<string>>(jsonText);
+
+                //シャッフル
+                newsIdList.Shuffle();
+
+                //エンキューする
+                foreach (string newsId in newsIdList)
+                {
+                    newsIdQ.Enqueue(newsId);
+                }
+            }
+            catch
+            {
+
+            }
+            return;
+        }
+
+
+        /// <summary>
+        /// サマリーニュースのリストを取得する
+        /// </summary>
+        /// <param name="newsQ"></param>
+        /// <param name="uid"></param>
+        /// <param name="toneUrl"></param>
+        /// <param name="newsFlg"></param>
+        /// <param name="num"></param>
+        /// <param name="hour"></param>
+        /// <param name="already"></param>
+        /// <param name="twitterMode"></param>
+        /// <param name="runout"></param>
+        public static void getGalsTalkDataRandomList(ConcurrentQueue<MsgGilsTalk> gilsTalkQ, msgGirlsTalkSendData sd)
+        {
+            try
+            {
+                //パラメーター生成
+                FormUrlEncodedContent postData = new FormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    { "sd", JsonConvert.SerializeObject(sd)},               //UIDLの指定
+                });
+
+                //Jsonで結果取得
+                string jsonText = HttpPost.sendPost(LIPLIS_GILS_TALKLIST, postData);
+
+                //結果取得
+                ResLpsGirlsTalkList gltkList = JsonConvert.DeserializeObject<ResLpsGirlsTalkList>(jsonText);
+
+                //エンキューする
+                foreach (ResLpsGirlsTalk msg in gltkList.lstRes)
+                {
+                    gilsTalkQ.Enqueue(new MsgGilsTalk(msg));
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return;
+        }
+
+        /// <summary>
+        /// jsonを取得する
+        /// </summary>
+        /// <param name="sd"></param>
+        /// <returns></returns>
+        public static string getGalsTalkDataRandomListJson(msgGirlsTalkSendData sd)
+        {
+            try
+            {
+                //パラメーター生成
+                FormUrlEncodedContent postData = new FormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    { "sd", JsonConvert.SerializeObject(sd)},               //UIDLの指定
+                });
+
+                //Jsonで結果取得
+                return HttpPost.sendPost(LIPLIS_GILS_TALKLIST, postData);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return "";
+        }
+
+        /// <summary>
+        /// 取得JSONをMsgGilsTalkメッセージに変換し、Qに入れる
+        /// </summary>
+        /// <param name="gilsTalkQ"></param>
+        /// <param name="jsonText"></param>
+        public static ConcurrentQueue<MsgGilsTalk> getGalsTalkDataRandomListFromJson(string jsonText)
+        {
+            //結果取得
+            ResLpsGirlsTalkList gltkList = JsonConvert.DeserializeObject<ResLpsGirlsTalkList>(jsonText);
+
+            //エンキューする
+            //foreach (ResLpsGirlsTalk msg in gltkList.lstRes)
+            //{
+            //    gilsTalkQ.Enqueue(new MsgGilsTalk(msg));
+            //}
+
+            //エンキューした結果を入れる
+
+            return getShuffledList(gltkList.lstRes);
+        }
+        public static ConcurrentQueue<MsgGilsTalk> getGalsTalkDataRandomListFromJson(string jsonText, int count)
+        {
+            int idx = 0;
+
+            ResLpsGirlsTalkList gltkList = new ResLpsGirlsTalkList();
+
+            try
+            {
+                //結果取得
+                gltkList = JsonConvert.DeserializeObject<ResLpsGirlsTalkList>(jsonText);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+
+            //エンキューする
+            //foreach (ResLpsGirlsTalk msg in gltkList.lstRes)
+            //{
+            //    //指定数まで追加したら抜ける
+            //    if(idx == count)
+            //    {
+            //        break;
+            //    }
+
+            //    gilsTalkQ.Enqueue(new MsgGilsTalk(msg));
+
+            //    //インクリメント
+            //    idx++;
+            //}
+
+            //エンキューした結果を入れる
+            return getShuffledList(gltkList.lstRes, count);
+        }
+
+        /// <summary>
+        /// シャッフル済みリストを返す
+        /// </summary>
+        /// <param name="gltkList"></param>
+        /// <returns></returns>
+        private static ConcurrentQueue<MsgGilsTalk> getShuffledList(List<ResLpsGirlsTalk> lstRes)
+        {
+            return getShuffledList(lstRes, 99999);
+        }
+        private static ConcurrentQueue<MsgGilsTalk> getShuffledList(List<ResLpsGirlsTalk> lstRes, int count)
+        {
+            int idx = 0;
+            LstShufflableList<MsgGilsTalk> shuffledList = new LstShufflableList<MsgGilsTalk>();
+            ConcurrentQueue<MsgGilsTalk> result = new ConcurrentQueue<MsgGilsTalk>();
+
+            //結果リストを回しシャッフル可能リストに入れる
+            foreach (ResLpsGirlsTalk msg in lstRes)
+            {
+                shuffledList.Add(new MsgGilsTalk(msg));
+            }
+
+            //シャッフルする
+            shuffledList.Shuffle();
+
+            //シャッフル結果をキューニれる
+            foreach (MsgGilsTalk item in shuffledList)
+            {
+                //指定数まで追加したら抜ける
+                if (idx == count)
+                {
+                    break;
+                }
+
+                result.Enqueue(item);
+
+                //インクリメント
+                idx++;
+            }
+
+            //キューを返す
+            return result;
+        }
+
+        #endregion
+
 
         //====================================================================
         //
@@ -420,6 +695,8 @@ namespace Liplis.Web.Clalis
             }
         }
         #endregion
+
+
 
     }
 }

@@ -128,6 +128,7 @@
             this.Name = "ViewDeskTop";
             this.Text = "Liplis Menu";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ViewDeskTop_FormClosed);
+            this.Load += new System.EventHandler(this.ViewDeskTop_Load);
             this.liplisContext.ResumeLayout(false);
             this.ResumeLayout(false);
 

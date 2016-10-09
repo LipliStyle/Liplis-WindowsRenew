@@ -48,11 +48,11 @@ namespace Liplis.MainSystem
 
         /// <summary>
         /// setBatteryExists
-        /// バッテリー存在チェック
+        /// バッテリー状態チェック
         /// </summary>
         /// <param name="ps"></param>
         /// <returns></returns>
-        #region Dispose
+        #region setBatteryExists
         private bool setBatteryExists(PowerStatus ps)
         {
             switch (ps.BatteryChargeStatus)
@@ -68,9 +68,9 @@ namespace Liplis.MainSystem
                 case BatteryChargeStatus.NoSystemBattery:
                     return false;
                 case BatteryChargeStatus.Unknown:
-                    return true;
+                    return false;
                 default:
-                    return true;
+                    return false;
             }
         }
         #endregion
@@ -80,7 +80,14 @@ namespace Liplis.MainSystem
         /// </summary>
         /// <returns></returns>
         public double getBatteryRatel(){
-            return ps.BatteryLifePercent * 100;
+            if(setBatteryExists(this.ps))
+            {
+                return ps.BatteryLifePercent * 100;
+            }
+            else
+            {
+                return 999;
+            }
         }
     }
 }

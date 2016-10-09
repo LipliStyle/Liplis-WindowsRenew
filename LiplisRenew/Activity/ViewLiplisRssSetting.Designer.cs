@@ -140,21 +140,21 @@
             // tsmiCatAdd_
             // 
             this.tsmiCatAdd_.Name = "tsmiCatAdd_";
-            this.tsmiCatAdd_.Size = new System.Drawing.Size(152, 22);
+            this.tsmiCatAdd_.Size = new System.Drawing.Size(133, 22);
             this.tsmiCatAdd_.Text = "カテゴリ追加";
             this.tsmiCatAdd_.Click += new System.EventHandler(this.tsmiCatAdd__Click);
             // 
             // tsmiCatSearch
             // 
             this.tsmiCatSearch.Name = "tsmiCatSearch";
-            this.tsmiCatSearch.Size = new System.Drawing.Size(152, 22);
+            this.tsmiCatSearch.Size = new System.Drawing.Size(133, 22);
             this.tsmiCatSearch.Text = "検索";
             this.tsmiCatSearch.Click += new System.EventHandler(this.tsmiCatSearch_Click);
             // 
             // tsmiCatReload
             // 
             this.tsmiCatReload.Name = "tsmiCatReload";
-            this.tsmiCatReload.Size = new System.Drawing.Size(152, 22);
+            this.tsmiCatReload.Size = new System.Drawing.Size(133, 22);
             this.tsmiCatReload.Text = "再読み込み";
             this.tsmiCatReload.Click += new System.EventHandler(this.tsmiCatReload_Click);
             // 
@@ -392,7 +392,7 @@
             this.Controls.Add(this.msMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ViewLiplisRssSetting";
-            this.Text = "ViewLiplisRssSetting";
+            this.Text = "Liplis Rss設定";
             this.csmCat.ResumeLayout(false);
             this.msMenu.ResumeLayout(false);
             this.msMenu.PerformLayout();

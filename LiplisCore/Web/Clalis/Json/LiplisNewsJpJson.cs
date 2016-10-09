@@ -47,6 +47,8 @@ namespace Liplis.Web.Clalis.Json
             return json2MsgNewsList(jsonText);
         }
 
+        
+
         #endregion
 
         //============================================================

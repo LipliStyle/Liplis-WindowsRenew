@@ -124,8 +124,14 @@
   <data name="ico_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ico_minna" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ico_minna.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ico_pow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_pow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ico_rescue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ico_rescue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ico_rss" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_rss.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -133,11 +139,17 @@
   <data name="ico_setting" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_setting.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ico_tray" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ico_tray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ico_tweet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_tweet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ico_view" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_view.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ico_waikup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ico_waikup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ico_web" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_web.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -150,6 +162,15 @@
   </data>
   <data name="mode_minna" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mode_minna.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sel_setting" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sel_setting.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sel_topic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sel_topic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="version" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\version.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="window_pos_left" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\window_pos_left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

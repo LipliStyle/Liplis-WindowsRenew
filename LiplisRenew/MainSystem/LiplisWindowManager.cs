@@ -23,12 +23,14 @@ namespace Liplis.MainSystem
     {
         //=================================
         //ウィジェット設定
+        private LiplisWidget lips;
         private LiplisWidgetPreference setting;
         private Skin skin;
 
         //=================================
         //ウインドウインスタンス
         public List<LiplisWindow> talkWindowList { get; set; }
+        public List<LiplisWindow> everyoneTitleWindowList { get; set; }
         public LiplisWindow nowTalkWindow { get; set; }
 
         //=================================
@@ -37,8 +39,6 @@ namespace Liplis.MainSystem
         public List<LiplisWindow> leftList;
         public List<LiplisWindow> rightList;
         
-
-
         //============================================================
         //
         //初期化処理
@@ -49,8 +49,9 @@ namespace Liplis.MainSystem
         /// <summary>
         /// コンストラクター
         /// </summary>
-        public LiplisWindowManager(LiplisWidgetPreference setting, Skin skin)
+        public LiplisWindowManager(LiplisWidget lips, LiplisWidgetPreference setting, Skin skin)
         {
+            this.lips = lips;
             this.skin = skin;
             this.setting = setting;
 
@@ -64,12 +65,14 @@ namespace Liplis.MainSystem
         public void initClass()
         {
             //ウインドウリストの初期化
-            talkWindowList = new List<LiplisWindow>();
+            talkWindowList          = new List<LiplisWindow>();
+            everyoneTitleWindowList = new List<LiplisWindow>();
 
             //ロケーションリストの初期化
-            centerList = new List<LiplisWindow>();
-            leftList = new List<LiplisWindow>();
-            rightList = new List<LiplisWindow>();
+            centerList              = new List<LiplisWindow>();
+            leftList                = new List<LiplisWindow>();
+            rightList               = new List<LiplisWindow>();
+            
         }
 
 
@@ -127,7 +130,7 @@ namespace Liplis.MainSystem
             {
                 talkWindow.endWindow();
             }
-  
+
             //トークウインドウリストのクリア
             talkWindowList.Clear();
 
@@ -139,6 +142,20 @@ namespace Liplis.MainSystem
 
             //ライトリストのクリア
             rightList.Clear();
+        }
+
+        /// <summary>
+        /// みんなでおしゃべりタイトルウインドウを削除する
+        /// </summary>
+        public void closeEveryoneTitleWindow()
+        {
+            foreach (var talkWindow in everyoneTitleWindowList)
+            {
+                talkWindow.endWindow();
+            }
+
+            //トークウインドウリストのクリア
+            everyoneTitleWindowList.Clear();
         }
 
         /// <summary>
@@ -157,7 +174,7 @@ namespace Liplis.MainSystem
             talkWindowList = new List<LiplisWindow>();
 
             //トークウインドウ生成
-            nowTalkWindow = new LiplisWindow(this.setting, this.skin, lpsTop, lpsLeft, lpsWidth, LiplisWindowStack.NowTalkPos);
+            nowTalkWindow = new LiplisWindow(lips, this.setting, this.skin, lpsTop, lpsLeft, lpsWidth, LiplisWindowStack.NowTalkPos);
 
             //出現
             nowTalkWindow.Show();
@@ -171,38 +188,18 @@ namespace Liplis.MainSystem
         /// </summary>
         public void createTitleWindow(double lpsTop, double lpsLeft, double lpsWidth, double lpsHeight, string title, string url, string jpgUrl)
         {
-            //URI
-            Uri uri;
-            Uri jpgUri = null;
+            //URI生成
+            Uri uri = getUri(url);
+            Uri jpgUri = getJpgUri(jpgUrl);
 
-            try
-            {
-                //URI生成
-                uri = new Uri(url);
-            }
-            catch
+            //URIチェック
+            if(uri == null)
             {
                 //適切なURI出ない場合は、通常ウインドウとして開くウインドウ生成
                 createFirstWindow(lpsTop, lpsLeft, lpsWidth);
 
                 //ウインドウを生成し、終了
                 return;
-            }
-
-            //ピクチャーウインドウ表示
-            if (jpgUrl != null)
-            {
-                if (jpgUrl != "")
-                {
-                    try
-                    {
-                        //URI生成
-                        jpgUri = new Uri(jpgUrl);
-                    }
-                    catch
-                    {
-                    }
-                }
             }
 
             //ウインドウが残っていたら消しておく
@@ -215,12 +212,12 @@ namespace Liplis.MainSystem
             talkWindowList = new List<LiplisWindow>();
 
             //トークウインドウ生成
-            nowTalkWindow = new LiplisTitleWindow(this.setting, this.skin, lpsTop, lpsLeft, lpsWidth, LiplisWindowStack.NowTalkPos, title, uri, jpgUri);
+            nowTalkWindow = new LiplisTitleWindow(lips, this.setting, this.skin, lpsTop, lpsLeft, lpsWidth, LiplisWindowStack.NowTalkPos, title, uri, jpgUri);
 
             //出現
             nowTalkWindow.Show();
 
-            //スキッス
+            //スキップ
             nowTalkWindow.updateSkip(title);
 
             //追加
@@ -228,6 +225,103 @@ namespace Liplis.MainSystem
 
             //おしゃべりウインドウ追加
             addNewWindow(lpsTop, lpsLeft, lpsWidth, lpsHeight);
+        }
+
+        /// <summary>
+        /// みんなでおしゃべりタイトルウインドウ追加
+        /// </summary>
+        /// <param name="lpsTop"></param>
+        /// <param name="lpsLeft"></param>
+        /// <param name="lpsWidth"></param>
+        /// <param name="lpsHeight"></param>
+        /// <param name="title"></param>
+        /// <param name="url"></param>
+        /// <param name="jpgUrl"></param>
+        public void createEveryoneTitleWindow(double lpsTop, double lpsLeft, double lpsWidth, double lpsHeight, string title, string url, string jpgUrl)
+        {
+            //URI生成
+            Uri uri = getUri(url);
+            Uri jpgUri = getJpgUri(jpgUrl);
+
+            //URIチェック
+            if (uri == null)
+            {
+                //適切なURI出ない場合は、通常ウインドウとして開くウインドウ生成
+                createFirstWindow(lpsTop, lpsLeft, lpsWidth);
+
+                //ウインドウを生成し、終了
+                return;
+            }
+
+            //ウインドウが残っていたら消しておく
+            if (everyoneTitleWindowList.Count > 0)
+            {
+                closeEveryoneTitleWindow();
+            }
+
+            //リストの最初期化
+            everyoneTitleWindowList = new List<LiplisWindow>();
+
+            //トークウインドウ生成
+            LiplisWindow evTitleWindow = new LiplisEveryoneTitleWindow(lips, this.setting, this.skin, lpsTop, lpsLeft, lpsWidth, LiplisWindowStack.NowTalkPos, title, uri, jpgUri);
+
+            //ランダム位置
+            //evTitleWindow.windowMoveRandam(lpsTop, lpsLeft, lpsWidth, lpsHeight);
+
+            //出現
+            evTitleWindow.Show();
+
+            //スキップ
+            evTitleWindow.updateSkip(title);
+
+            //追加
+            everyoneTitleWindowList.Add(evTitleWindow);
+
+            setPrvWindowMove(evTitleWindow, lpsTop, lpsLeft, lpsWidth, lpsHeight);
+        }
+
+        /// <summary>
+        /// URIを取得する
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        private Uri getUri(string url)
+        {
+            try
+            {
+                //URI生成
+                return new Uri(url);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// JPGURIを取得する
+        /// </summary>
+        /// <param name="jpgUrl"></param>
+        /// <returns></returns>
+        private Uri getJpgUri(string jpgUrl)
+        {
+            if (jpgUrl != null)
+            {
+                if (jpgUrl != "")
+                {
+                    try
+                    {
+                        //URI生成
+                        return new Uri(jpgUrl);
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                }
+            }
+
+            return null;
         }
 
 
@@ -240,13 +334,13 @@ namespace Liplis.MainSystem
             delOldWindow(lpsTop, lpsLeft, lpsWidth);
 
             //なうウインドウの移動
-            setPrvWindowMove(lpsTop, lpsLeft, lpsWidth, lpsHeight);
+            setPrvWindowMove(nowTalkWindow, lpsTop, lpsLeft, lpsWidth, lpsHeight);
 
             //ランダム移動の場合は以下のようにする
             //nowTalkWindow.windowMoveRandam(lpsTop, lpsLeft, lpsWidth, lpsHeight);
 
             //トークウインドウ生成
-            nowTalkWindow = new LiplisWindow(this.setting, this.skin, lpsTop, lpsLeft, lpsWidth, LiplisWindowStack.NowTalkPos);
+            nowTalkWindow = new LiplisWindow(lips, this.setting, this.skin, lpsTop, lpsLeft, lpsWidth, LiplisWindowStack.NowTalkPos);
 
             //出現
             nowTalkWindow.Show();
@@ -262,11 +356,6 @@ namespace Liplis.MainSystem
         {
             double diff = 0;
 
-
-            ///このロジックには問題あり！！！！
-            ///頭をクールにしてから再度考えること！
-
-
             //最大数以上なら、最古参を終了する
             if (talkWindowList.Count >= setting.lpsWindowNum)
             {
@@ -277,16 +366,6 @@ namespace Liplis.MainSystem
                 //削除する
                 talkWindowList[0].endWindow();
                 talkWindowList.RemoveAt(0);
-
-                //このメソッド、もう少し整理する
-
-                //今あるウインドウをスライドさせる
-                //foreach (LiplisWindow window in talkWindowList)
-                //{
-                //    window.LocationX = window.Left;
-                //    window.LocationY = top;
-                //    window.windowMove(window.windowPos);
-                //}
 
                 //今あるウインドウをスライドさせる
                 switch (windowPos)
@@ -356,27 +435,27 @@ namespace Liplis.MainSystem
         /// <summary>
         /// 新規ウインドウのロケーションを取得する
         /// </summary>
-        private void setPrvWindowMove(double lpsTop, double lpsLeft, double lpsWidth, double lpsHeight)
+        private void setPrvWindowMove(LiplisWindow nowTalkWindow, double lpsTop, double lpsLeft, double lpsWidth, double lpsHeight)
         {
             LiplisWindowStack windowPos = LiplisWindowStack.NowTalkPos;
 
             //ウインドウが1個だけの場合は、上に移動させる
             if (setting.lpsWindowNum == 1)
             {
-                nowWindowUpperMove(lpsTop, lpsLeft, lpsWidth, lpsHeight);
+                nowWindowUpperMove(nowTalkWindow, lpsTop, lpsLeft, lpsWidth, lpsHeight);
             }
 
             //左、中、右に配置
             else if(setting.lpsWindowPos == LiplisWindowStack.RightStarck)
             {
                 //右移動
-                nowWindowRightMove(lpsTop, lpsLeft, lpsWidth);
+                nowWindowRightMove(nowTalkWindow, lpsTop, lpsLeft, lpsWidth);
                 windowPos = LiplisWindowStack.RightStarck;
             }
             else if (setting.lpsWindowPos == LiplisWindowStack.LeeftStack)
             {
                 //左移動
-                nowWindowLeftMove(lpsTop,lpsLeft);
+                nowWindowLeftMove(nowTalkWindow, lpsTop, lpsLeft);
                 windowPos = LiplisWindowStack.LeeftStack;
             }
             else
@@ -385,19 +464,19 @@ namespace Liplis.MainSystem
                 if(centerList.Count == rightList.Count && centerList.Count == leftList.Count && rightList.Count == leftList.Count)
                 {
                     //右移動
-                    nowWindowRightMove(lpsTop, lpsLeft, lpsWidth);
+                    nowWindowRightMove(nowTalkWindow, lpsTop, lpsLeft, lpsWidth);
                     windowPos = LiplisWindowStack.RightStarck;
                 }
                 else if(centerList.Count == leftList.Count)
                 {
                     //中央移動
-                    nowWindowCenterMove(lpsTop, lpsLeft, lpsWidth, lpsHeight);
+                    nowWindowCenterMove(nowTalkWindow, lpsTop, lpsLeft, lpsWidth, lpsHeight);
                     windowPos = LiplisWindowStack.AveStack;
                 }
                 else
                 {
                     //左移動
-                    nowWindowLeftMove(lpsTop, lpsLeft);
+                    nowWindowLeftMove(nowTalkWindow, lpsTop, lpsLeft);
                     windowPos = LiplisWindowStack.LeeftStack;
                 }
             }
@@ -412,31 +491,31 @@ namespace Liplis.MainSystem
         /// <param name="lpsTop"></param>
         /// <param name="lpsLeft"></param>
         /// <param name="lpsWidth"></param>
-        private void nowWindowRightMove(double lpsTop, double lpsLeft, double lpsWidth)
+        private void nowWindowRightMove(LiplisWindow targetWindow, double lpsTop, double lpsLeft, double lpsWidth)
         {
             //右に配置
             double left = lpsLeft + lpsWidth;
 
             if (setting.lpsWindowNum == 2)
             {
-                nowTalkWindow.LocationX = left;
-                nowTalkWindow.LocationY = lpsTop;
+                targetWindow.LocationX = left;
+                targetWindow.LocationY = lpsTop;
             }
 
             //初期ウインドウ表示
             else if (rightList.Count == 0)
             {
-                nowTalkWindow.LocationX = left;
-                nowTalkWindow.LocationY = lpsTop;
+                targetWindow.LocationX = left;
+                targetWindow.LocationY = lpsTop;
             }
             else
             {
-                nowTalkWindow.LocationX = left;
-                nowTalkWindow.LocationY = rightList[rightList.Count - 1].LocationY + rightList[rightList.Count - 1].Height;
+                targetWindow.LocationX = left;
+                targetWindow.LocationY = rightList[rightList.Count - 1].LocationY + rightList[rightList.Count - 1].Height;
             }
 
             //右リストに追加
-            rightList.Add(nowTalkWindow);
+            rightList.Add(targetWindow);
         }
 
         /// <summary>
@@ -444,31 +523,31 @@ namespace Liplis.MainSystem
         /// </summary>
         /// <param name="lpsTop"></param>
         /// <param name="lpsLeft"></param>
-        private void nowWindowLeftMove(double lpsTop, double lpsLeft)
+        private void nowWindowLeftMove(LiplisWindow targetWindow, double lpsTop, double lpsLeft)
         {
             //左に配置
-            double left = lpsLeft - nowTalkWindow.Width;
+            double left = lpsLeft - targetWindow.Width;
 
             if (setting.lpsWindowNum == 2)
             {
-                nowTalkWindow.LocationX = left;
-                nowTalkWindow.LocationY = lpsTop;
+                targetWindow.LocationX = left;
+                targetWindow.LocationY = lpsTop;
             }
 
             //初期ウインドウ表示
             else if (leftList.Count == 0)
             {
-                nowTalkWindow.LocationX = left;
-                nowTalkWindow.LocationY = lpsTop;
+                targetWindow.LocationX = left;
+                targetWindow.LocationY = lpsTop;
             }
             else
             {
-                nowTalkWindow.LocationX = left;
-                nowTalkWindow.LocationY = leftList[leftList.Count - 1].LocationY + leftList[leftList.Count - 1].Height;
+                targetWindow.LocationX = left;
+                targetWindow.LocationY = leftList[leftList.Count - 1].LocationY + leftList[leftList.Count - 1].Height;
             }
 
             //左リストに追加
-            leftList.Add(nowTalkWindow);
+            leftList.Add(targetWindow);
         }
 
         /// <summary>
@@ -476,35 +555,35 @@ namespace Liplis.MainSystem
         /// </summary>
         /// <param name="lpsTop"></param>
         /// <param name="lpsLeft"></param>
-        private void nowWindowCenterMove(double lpsTop, double lpsLeft, double lpsWidth, double lpsHeight)
+        private void nowWindowCenterMove(LiplisWindow targetWindow, double lpsTop, double lpsLeft, double lpsWidth, double lpsHeight)
         {
             //左に配置
-            double left = lpsLeft - nowTalkWindow.Width;
+            double left = lpsLeft - targetWindow.Width;
 
             //中心位置計算
             Int32 locationCenter = (Int32)(lpsLeft + lpsWidth / 2);
 
             //中央に配置
-            left = locationCenter - (Int32)nowTalkWindow.Width / 2; //レフト位置
+            left = locationCenter - (Int32)targetWindow.Width / 2; //レフト位置
 
             if (setting.lpsWindowNum == 2)
             {
-                nowTalkWindow.LocationX = left;
-                nowTalkWindow.LocationY = lpsTop + lpsHeight / 2;
+                targetWindow.LocationX = left;
+                targetWindow.LocationY = lpsTop + lpsHeight / 2;
             }
 
             else if (centerList.Count == 0)
             {
-                nowTalkWindow.LocationX = left;
-                nowTalkWindow.LocationY = lpsTop + lpsHeight / 2;
+                targetWindow.LocationX = left;
+                targetWindow.LocationY = lpsTop + lpsHeight / 2;
             }
             else
             {
-                nowTalkWindow.LocationX = left;
-                nowTalkWindow.LocationY = centerList[centerList.Count - 1].LocationY + centerList[centerList.Count - 1].Height;
+                targetWindow.LocationX = left;
+                targetWindow.LocationY = centerList[centerList.Count - 1].LocationY + centerList[centerList.Count - 1].Height;
             }
 
-            centerList.Add(nowTalkWindow);
+            centerList.Add(targetWindow);
         }
 
 
@@ -513,21 +592,45 @@ namespace Liplis.MainSystem
         /// </summary>
         /// <param name="lpsTop"></param>
         /// <param name="lpsLeft"></param>
-        private void nowWindowUpperMove(double lpsTop, double lpsLeft, double lpsWidth, double lpsHeight)
+        private void nowWindowUpperMove(LiplisWindow targetWindow, double lpsTop, double lpsLeft, double lpsWidth, double lpsHeight)
         {
             //左に配置
-            double left = lpsLeft - nowTalkWindow.Width;
+            double left = lpsLeft - targetWindow.Width;
 
             //中心位置計算
             Int32 locationCenter = (Int32)(lpsLeft + lpsWidth / 2);
 
             //中央に配置
-            left = locationCenter - (Int32)nowTalkWindow.Width / 2; //レフト位置
+            left = locationCenter - (Int32)targetWindow.Width / 2; //レフト位置
 
 
-            nowTalkWindow.LocationX = left;
-            nowTalkWindow.LocationY = nowTalkWindow.Top - 100;
+            targetWindow.LocationX = left;
+            targetWindow.LocationY = targetWindow.Top - 100;
         }
+
+        /// <summary>
+        /// みんなでおしゃべりのカウントセット
+        /// </summary>
+        public void everyoneCountSet(int val, int max)
+        {
+            try
+            {
+                if(everyoneTitleWindowList == null)
+                {
+                    return;
+                }
+
+                if(everyoneTitleWindowList.Count > 0)
+                {
+                    everyoneTitleWindowList[0].setProgress(val, max);
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
         #endregion
     }
 }

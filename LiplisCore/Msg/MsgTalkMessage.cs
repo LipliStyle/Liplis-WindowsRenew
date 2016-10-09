@@ -50,7 +50,7 @@ namespace Liplis.Msg
         public int proudP { get; set; }
         public int proudM { get; set; }
 
-
+        public int widgetIndex { get; set; }    //ガールズトーク識別用ID
 
         /// <summary>
         /// コンストラクター

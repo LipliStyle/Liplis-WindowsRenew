@@ -32,12 +32,14 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.lblMessage = new System.Windows.Forms.Label();
             this.pic = new System.Windows.Forms.PictureBox();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.grp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).BeginInit();
             this.SuspendLayout();
             // 
             // grp
             // 
+            this.grp.Controls.Add(this.btnCancel);
             this.grp.Controls.Add(this.btnClose);
             this.grp.Controls.Add(this.lblMessage);
             this.grp.Location = new System.Drawing.Point(12, 10);
@@ -48,7 +50,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(93, 71);
+            this.btnClose.Location = new System.Drawing.Point(42, 71);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 1;
@@ -74,6 +76,16 @@
             this.pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic.TabIndex = 4;
             this.pic.TabStop = false;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(141, 71);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 2;
+            this.btnCancel.Text = "キャンセル";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // _LpsMessage
             // 
@@ -102,6 +114,6 @@
         private System.Windows.Forms.PictureBox pic;
         private System.Windows.Forms.Label lblMessage;
         private System.Windows.Forms.Button btnClose;
-
+        private System.Windows.Forms.Button btnCancel;
     }
 }

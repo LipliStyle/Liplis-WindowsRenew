@@ -83,9 +83,29 @@ namespace Liplis.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap ico_minna {
+            get {
+                object obj = ResourceManager.GetObject("ico_minna", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap ico_pow {
             get {
                 object obj = ResourceManager.GetObject("ico_pow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap ico_rescue {
+            get {
+                object obj = ResourceManager.GetObject("ico_rescue", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,6 +133,16 @@ namespace Liplis.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap ico_tray {
+            get {
+                object obj = ResourceManager.GetObject("ico_tray", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap ico_tweet {
             get {
                 object obj = ResourceManager.GetObject("ico_tweet", resourceCulture);
@@ -126,6 +156,16 @@ namespace Liplis.Properties {
         internal static System.Drawing.Bitmap ico_view {
             get {
                 object obj = ResourceManager.GetObject("ico_view", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap ico_waikup {
+            get {
+                object obj = ResourceManager.GetObject("ico_waikup", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -166,6 +206,36 @@ namespace Liplis.Properties {
         internal static System.Drawing.Bitmap mode_minna {
             get {
                 object obj = ResourceManager.GetObject("mode_minna", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap sel_setting {
+            get {
+                object obj = ResourceManager.GetObject("sel_setting", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap sel_topic {
+            get {
+                object obj = ResourceManager.GetObject("sel_topic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap version {
+            get {
+                object obj = ResourceManager.GetObject("version", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

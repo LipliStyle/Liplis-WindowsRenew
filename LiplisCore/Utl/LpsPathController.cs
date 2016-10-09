@@ -451,7 +451,7 @@ namespace Liplis.Utl
         /// </summary>
         /// <returns>パス</returns> 
         #region getLogPath
-        public string getLogPath()
+        public static string getLogPath()
         {
             try
             {
@@ -580,6 +580,17 @@ namespace Liplis.Utl
                 LpsLogController.writingLog("LpsPathController", MethodBase.GetCurrentMethod().Name, err.ToString());
                 return "";
             }
+        }
+        #endregion
+
+        /// <summary>
+        /// アップデートプログラムの起動場所を返す
+        /// </summary>
+        /// <returns></returns>
+        #region getUpdatePrgPath
+        public static string getUpdatePrgPath()
+        {
+            return getAppPath() + "\\LiplisUpdater.exe";
         }
         #endregion
 
@@ -837,5 +848,19 @@ namespace Liplis.Utl
             return fileName;
         }
         #endregion
+
+        /// <summary>
+        /// getDirPath
+        /// ファイル名からディレクトリ名を取得する
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        #region getDirPath
+        public static string getDirPath(string fileName)
+        {
+            return System.IO.Path.GetDirectoryName(fileName);
+        }
+        #endregion
+
     }
 }

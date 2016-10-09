@@ -7,6 +7,7 @@
 //  Copyright(c) 2010-2016 LipliStyle.Sachin
 //=======================================================================
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Liplis.Gui
@@ -16,18 +17,50 @@ namespace Liplis.Gui
         /// <summary>
         /// コンストラクター
         /// </summary>
-        public _LpsMessage()
+        public _LpsMessage(MessageBoxButtons button)
         {
             InitializeComponent();
+
+            //ウインドウの初期化
+            initWindow(button);
         }
 
         /// <summary>
-        /// 閉じるボタン
+        /// ウインドウの初期化
+        /// </summary>
+        /// <param name="button"></param>
+        private void initWindow(MessageBoxButtons button)
+        {
+            if(button == MessageBoxButtons.OKCancel)
+            {
+
+            }
+            else
+            {
+                this.btnCancel.Visible = false;
+                this.btnClose.Location = new Point(93, 71);
+            }
+        }
+
+        /// <summary>
+        /// キャンセルボタン
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        /// <summary>
+        /// OKボタン
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnClose_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
@@ -65,5 +98,7 @@ namespace Liplis.Gui
                 this.Close();
             }
         }
+
+
     }
 }

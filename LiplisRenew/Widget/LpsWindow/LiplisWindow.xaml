@@ -24,5 +24,27 @@
             </Label.Content>
 
         </Label>
+        <Button x:Name="btnNext" Content="" HorizontalAlignment="Left" Margin="14,117,0,0" VerticalAlignment="Top" Width="20" Height="20" Click="btnNext_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="/Liplis;component/Resources/ico_talk_next.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="btnCopyUrl" Content="" HorizontalAlignment="Left" Margin="39,117,0,0" VerticalAlignment="Top" Width="20" Height="20" Click="btnCopyUrl_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="/Liplis;component/Resources/ico_talk_cpurl.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="btnWeb" Content="" HorizontalAlignment="Left" Margin="64,117,0,0" VerticalAlignment="Top" Width="20" Height="20" Click="btnWeb_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="/Liplis;component/Resources/ico_talk_web.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="btnTweet" Content="" HorizontalAlignment="Left" Margin="89,117,0,0" VerticalAlignment="Top" Width="20" Height="20" Click="btnTweet_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="/Liplis;component/Resources/ico_talk_tweet.png"/>
+            </Button.Background>
+        </Button>
+        <ProgressBar x:Name="prgEveryOneTalkGage" HorizontalAlignment="Left" Height="10" Margin="113,123,0,0" VerticalAlignment="Top" Width="126"/>
+        <Label x:Name="lblEveryOneTalkCount" Content="0/0" Margin="237,114,0,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Left" Width="59"/>
     </Grid>
 </Window>

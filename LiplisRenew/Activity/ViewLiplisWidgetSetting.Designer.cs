@@ -29,11 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewLiplisWidgetSetting));
-            this.pnlCtrl = new System.Windows.Forms.Panel();
-            this.btnTalkWindowSetting = new System.Windows.Forms.Label();
-            this.btnTopicSetting = new System.Windows.Forms.Label();
-            this.btnVoiceSetting = new System.Windows.Forms.Label();
-            this.btnWidgetSetting = new System.Windows.Forms.Label();
             this.tbpEnvironment = new System.Windows.Forms.TabPage();
             this.pnlBattery = new System.Windows.Forms.Panel();
             this.lblDescriptionBattery2 = new System.Windows.Forms.Label();
@@ -108,7 +103,6 @@
             this.rdTalkModeMinna = new System.Windows.Forms.RadioButton();
             this.rdTalkModeHitori = new System.Windows.Forms.RadioButton();
             this.lblTitleTalkMode = new System.Windows.Forms.Label();
-            this.pnlEnvironmentSpase = new System.Windows.Forms.Panel();
             this.tab = new System.Windows.Forms.TabControl();
             this.tbpWIndow = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -140,7 +134,6 @@
             this.picWindow1 = new System.Windows.Forms.PictureBox();
             this.rbWindow1 = new System.Windows.Forms.RadioButton();
             this.lblTitleWindow = new System.Windows.Forms.Label();
-            this.pnlWindwoSpase = new System.Windows.Forms.Panel();
             this.tbpTopic = new System.Windows.Forms.TabPage();
             this.pnlRange = new System.Windows.Forms.Panel();
             this.lblDescriptionRange = new System.Windows.Forms.Label();
@@ -191,7 +184,6 @@
             this.pnlTopic = new System.Windows.Forms.Panel();
             this.lblDescriptionTopic = new System.Windows.Forms.Label();
             this.lblTitleTopic = new System.Windows.Forms.Label();
-            this.pnlTopicSpase = new System.Windows.Forms.Panel();
             this.tbpVoice = new System.Windows.Forms.TabPage();
             this.pnl3VoiceEngineSetting = new System.Windows.Forms.Panel();
             this.lblDescription3VoiceEngineSetting = new System.Windows.Forms.Label();
@@ -208,7 +200,7 @@
             this.lblDescriptionVoiceSetting = new System.Windows.Forms.Label();
             this.lblTitleVoiceSetting = new System.Windows.Forms.Label();
             this.pnlVoiceSpase = new System.Windows.Forms.Panel();
-            this.pnlCtrl.SuspendLayout();
+            this.label1 = new System.Windows.Forms.Label();
             this.tbpEnvironment.SuspendLayout();
             this.pnlBattery.SuspendLayout();
             this.pnlIconOn.SuspendLayout();
@@ -248,66 +240,6 @@
             this.pnlVoiceSetting.SuspendLayout();
             this.SuspendLayout();
             // 
-            // pnlCtrl
-            // 
-            this.pnlCtrl.Controls.Add(this.btnTalkWindowSetting);
-            this.pnlCtrl.Controls.Add(this.btnTopicSetting);
-            this.pnlCtrl.Controls.Add(this.btnVoiceSetting);
-            this.pnlCtrl.Controls.Add(this.btnWidgetSetting);
-            this.pnlCtrl.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlCtrl.Location = new System.Drawing.Point(0, 0);
-            this.pnlCtrl.Name = "pnlCtrl";
-            this.pnlCtrl.Size = new System.Drawing.Size(464, 59);
-            this.pnlCtrl.TabIndex = 3;
-            // 
-            // btnTalkWindowSetting
-            // 
-            this.btnTalkWindowSetting.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(116)))), ((int)(((byte)(1)))));
-            this.btnTalkWindowSetting.ForeColor = System.Drawing.Color.White;
-            this.btnTalkWindowSetting.Location = new System.Drawing.Point(111, 9);
-            this.btnTalkWindowSetting.Name = "btnTalkWindowSetting";
-            this.btnTalkWindowSetting.Size = new System.Drawing.Size(130, 42);
-            this.btnTalkWindowSetting.TabIndex = 3;
-            this.btnTalkWindowSetting.Text = "おしゃべりウインドウ設定";
-            this.btnTalkWindowSetting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnTalkWindowSetting.Click += new System.EventHandler(this.btnTalkWindowSetting_Click);
-            // 
-            // btnTopicSetting
-            // 
-            this.btnTopicSetting.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(116)))), ((int)(((byte)(1)))));
-            this.btnTopicSetting.ForeColor = System.Drawing.Color.White;
-            this.btnTopicSetting.Location = new System.Drawing.Point(247, 9);
-            this.btnTopicSetting.Name = "btnTopicSetting";
-            this.btnTopicSetting.Size = new System.Drawing.Size(93, 42);
-            this.btnTopicSetting.TabIndex = 2;
-            this.btnTopicSetting.Text = "話題設定";
-            this.btnTopicSetting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnTopicSetting.Click += new System.EventHandler(this.btnTopicSetting_Click);
-            // 
-            // btnVoiceSetting
-            // 
-            this.btnVoiceSetting.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(116)))), ((int)(((byte)(1)))));
-            this.btnVoiceSetting.ForeColor = System.Drawing.Color.White;
-            this.btnVoiceSetting.Location = new System.Drawing.Point(346, 9);
-            this.btnVoiceSetting.Name = "btnVoiceSetting";
-            this.btnVoiceSetting.Size = new System.Drawing.Size(93, 42);
-            this.btnVoiceSetting.TabIndex = 1;
-            this.btnVoiceSetting.Text = "音声設定";
-            this.btnVoiceSetting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnVoiceSetting.Click += new System.EventHandler(this.btnVoiceSetting_Click);
-            // 
-            // btnWidgetSetting
-            // 
-            this.btnWidgetSetting.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.btnWidgetSetting.ForeColor = System.Drawing.Color.Black;
-            this.btnWidgetSetting.Location = new System.Drawing.Point(12, 9);
-            this.btnWidgetSetting.Name = "btnWidgetSetting";
-            this.btnWidgetSetting.Size = new System.Drawing.Size(93, 42);
-            this.btnWidgetSetting.TabIndex = 0;
-            this.btnWidgetSetting.Text = "ウィジェット設定";
-            this.btnWidgetSetting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnWidgetSetting.Click += new System.EventHandler(this.btnWidgetSetting_Click);
-            // 
             // tbpEnvironment
             // 
             this.tbpEnvironment.AutoScroll = true;
@@ -322,11 +254,10 @@
             this.tbpEnvironment.Controls.Add(this.lblTitleMode);
             this.tbpEnvironment.Controls.Add(this.pnlTalkMode);
             this.tbpEnvironment.Controls.Add(this.lblTitleTalkMode);
-            this.tbpEnvironment.Controls.Add(this.pnlEnvironmentSpase);
             this.tbpEnvironment.Location = new System.Drawing.Point(4, 22);
             this.tbpEnvironment.Name = "tbpEnvironment";
             this.tbpEnvironment.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpEnvironment.Size = new System.Drawing.Size(456, 476);
+            this.tbpEnvironment.Size = new System.Drawing.Size(456, 535);
             this.tbpEnvironment.TabIndex = 0;
             this.tbpEnvironment.Text = "ウィジェット設定";
             // 
@@ -336,7 +267,7 @@
             this.pnlBattery.Controls.Add(this.lblDescriptionBattery);
             this.pnlBattery.Controls.Add(this.chkBattery);
             this.pnlBattery.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlBattery.Location = new System.Drawing.Point(3, 771);
+            this.pnlBattery.Location = new System.Drawing.Point(3, 734);
             this.pnlBattery.Name = "pnlBattery";
             this.pnlBattery.Size = new System.Drawing.Size(433, 50);
             this.pnlBattery.TabIndex = 114;
@@ -379,7 +310,7 @@
             this.lblTitleBattery.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTitleBattery.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lblTitleBattery.ForeColor = System.Drawing.Color.Black;
-            this.lblTitleBattery.Location = new System.Drawing.Point(3, 751);
+            this.lblTitleBattery.Location = new System.Drawing.Point(3, 714);
             this.lblTitleBattery.Name = "lblTitleBattery";
             this.lblTitleBattery.Size = new System.Drawing.Size(433, 20);
             this.lblTitleBattery.TabIndex = 113;
@@ -391,7 +322,7 @@
             this.pnlIconOn.Controls.Add(this.lblDescriptionIconOn);
             this.pnlIconOn.Controls.Add(this.chkIconOn);
             this.pnlIconOn.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlIconOn.Location = new System.Drawing.Point(3, 701);
+            this.pnlIconOn.Location = new System.Drawing.Point(3, 664);
             this.pnlIconOn.Name = "pnlIconOn";
             this.pnlIconOn.Size = new System.Drawing.Size(433, 50);
             this.pnlIconOn.TabIndex = 112;
@@ -434,7 +365,7 @@
             this.lblTitleIconOn.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTitleIconOn.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lblTitleIconOn.ForeColor = System.Drawing.Color.Black;
-            this.lblTitleIconOn.Location = new System.Drawing.Point(3, 681);
+            this.lblTitleIconOn.Location = new System.Drawing.Point(3, 644);
             this.lblTitleIconOn.Name = "lblTitleIconOn";
             this.lblTitleIconOn.Size = new System.Drawing.Size(433, 20);
             this.lblTitleIconOn.TabIndex = 111;
@@ -463,7 +394,7 @@
             this.pnlActive.Controls.Add(this.txtActiveValue);
             this.pnlActive.Controls.Add(this.lblDescriptionActive);
             this.pnlActive.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlActive.Location = new System.Drawing.Point(3, 558);
+            this.pnlActive.Location = new System.Drawing.Point(3, 521);
             this.pnlActive.Name = "pnlActive";
             this.pnlActive.Size = new System.Drawing.Size(433, 123);
             this.pnlActive.TabIndex = 108;
@@ -668,7 +599,7 @@
             this.lblTitleActive.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTitleActive.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lblTitleActive.ForeColor = System.Drawing.Color.Black;
-            this.lblTitleActive.Location = new System.Drawing.Point(3, 538);
+            this.lblTitleActive.Location = new System.Drawing.Point(3, 501);
             this.lblTitleActive.Name = "lblTitleActive";
             this.lblTitleActive.Size = new System.Drawing.Size(433, 20);
             this.lblTitleActive.TabIndex = 107;
@@ -710,7 +641,7 @@
             this.pnlMode.Controls.Add(this.lblSetFrq2);
             this.pnlMode.Controls.Add(this.lblSetFrq1);
             this.pnlMode.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlMode.Location = new System.Drawing.Point(3, 219);
+            this.pnlMode.Location = new System.Drawing.Point(3, 182);
             this.pnlMode.Name = "pnlMode";
             this.pnlMode.Size = new System.Drawing.Size(433, 319);
             this.pnlMode.TabIndex = 106;
@@ -1079,7 +1010,7 @@
             this.lblTitleMode.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTitleMode.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lblTitleMode.ForeColor = System.Drawing.Color.Black;
-            this.lblTitleMode.Location = new System.Drawing.Point(3, 199);
+            this.lblTitleMode.Location = new System.Drawing.Point(3, 162);
             this.lblTitleMode.Name = "lblTitleMode";
             this.lblTitleMode.Size = new System.Drawing.Size(433, 20);
             this.lblTitleMode.TabIndex = 105;
@@ -1092,7 +1023,7 @@
             this.pnlTalkMode.Controls.Add(this.rdTalkModeMinna);
             this.pnlTalkMode.Controls.Add(this.rdTalkModeHitori);
             this.pnlTalkMode.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTalkMode.Location = new System.Drawing.Point(3, 60);
+            this.pnlTalkMode.Location = new System.Drawing.Point(3, 23);
             this.pnlTalkMode.Name = "pnlTalkMode";
             this.pnlTalkMode.Size = new System.Drawing.Size(433, 139);
             this.pnlTalkMode.TabIndex = 116;
@@ -1153,19 +1084,11 @@
             this.lblTitleTalkMode.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTitleTalkMode.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lblTitleTalkMode.ForeColor = System.Drawing.Color.Black;
-            this.lblTitleTalkMode.Location = new System.Drawing.Point(3, 40);
+            this.lblTitleTalkMode.Location = new System.Drawing.Point(3, 3);
             this.lblTitleTalkMode.Name = "lblTitleTalkMode";
             this.lblTitleTalkMode.Size = new System.Drawing.Size(433, 20);
             this.lblTitleTalkMode.TabIndex = 115;
             this.lblTitleTalkMode.Text = "おしゃべりモード";
-            // 
-            // pnlEnvironmentSpase
-            // 
-            this.pnlEnvironmentSpase.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlEnvironmentSpase.Location = new System.Drawing.Point(3, 3);
-            this.pnlEnvironmentSpase.Name = "pnlEnvironmentSpase";
-            this.pnlEnvironmentSpase.Size = new System.Drawing.Size(433, 37);
-            this.pnlEnvironmentSpase.TabIndex = 0;
             // 
             // tab
             // 
@@ -1174,10 +1097,10 @@
             this.tab.Controls.Add(this.tbpTopic);
             this.tab.Controls.Add(this.tbpVoice);
             this.tab.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tab.Location = new System.Drawing.Point(0, 59);
+            this.tab.Location = new System.Drawing.Point(0, 0);
             this.tab.Name = "tab";
             this.tab.SelectedIndex = 0;
-            this.tab.Size = new System.Drawing.Size(464, 502);
+            this.tab.Size = new System.Drawing.Size(464, 561);
             this.tab.TabIndex = 4;
             // 
             // tbpWIndow
@@ -1189,11 +1112,10 @@
             this.tbpWIndow.Controls.Add(this.lblTItleWindowPos);
             this.tbpWIndow.Controls.Add(this.pnlWindow);
             this.tbpWIndow.Controls.Add(this.lblTitleWindow);
-            this.tbpWIndow.Controls.Add(this.pnlWindwoSpase);
             this.tbpWIndow.Location = new System.Drawing.Point(4, 22);
             this.tbpWIndow.Name = "tbpWIndow";
             this.tbpWIndow.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpWIndow.Size = new System.Drawing.Size(456, 476);
+            this.tbpWIndow.Size = new System.Drawing.Size(456, 535);
             this.tbpWIndow.TabIndex = 3;
             this.tbpWIndow.Text = "おしゃべりウインドウ設定";
             // 
@@ -1203,7 +1125,7 @@
             this.panel2.Controls.Add(this.cboWindowNum);
             this.panel2.Controls.Add(this.lblDescriptionWindowNum2);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(3, 417);
+            this.panel2.Location = new System.Drawing.Point(3, 406);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(450, 58);
             this.panel2.TabIndex = 116;
@@ -1256,7 +1178,7 @@
             this.lblTitleWindowNum.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTitleWindowNum.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lblTitleWindowNum.ForeColor = System.Drawing.Color.Black;
-            this.lblTitleWindowNum.Location = new System.Drawing.Point(3, 397);
+            this.lblTitleWindowNum.Location = new System.Drawing.Point(3, 386);
             this.lblTitleWindowNum.Name = "lblTitleWindowNum";
             this.lblTitleWindowNum.Size = new System.Drawing.Size(450, 20);
             this.lblTitleWindowNum.TabIndex = 115;
@@ -1264,15 +1186,16 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.picWindowPos);
             this.panel1.Controls.Add(this.lblDescriptionWindowPos);
             this.panel1.Controls.Add(this.rdWindowPosLRC);
             this.panel1.Controls.Add(this.rdWindowPosLeft);
             this.panel1.Controls.Add(this.rdWindowPosRight);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(3, 269);
+            this.panel1.Location = new System.Drawing.Point(3, 232);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(450, 128);
+            this.panel1.Size = new System.Drawing.Size(450, 154);
             this.panel1.TabIndex = 114;
             // 
             // picWindowPos
@@ -1346,7 +1269,7 @@
             this.lblTItleWindowPos.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTItleWindowPos.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lblTItleWindowPos.ForeColor = System.Drawing.Color.Black;
-            this.lblTItleWindowPos.Location = new System.Drawing.Point(3, 249);
+            this.lblTItleWindowPos.Location = new System.Drawing.Point(3, 212);
             this.lblTItleWindowPos.Name = "lblTItleWindowPos";
             this.lblTItleWindowPos.Size = new System.Drawing.Size(450, 20);
             this.lblTItleWindowPos.TabIndex = 113;
@@ -1370,7 +1293,7 @@
             this.pnlWindow.Controls.Add(this.picWindow1);
             this.pnlWindow.Controls.Add(this.rbWindow1);
             this.pnlWindow.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlWindow.Location = new System.Drawing.Point(3, 60);
+            this.pnlWindow.Location = new System.Drawing.Point(3, 23);
             this.pnlWindow.Name = "pnlWindow";
             this.pnlWindow.Size = new System.Drawing.Size(450, 189);
             this.pnlWindow.TabIndex = 112;
@@ -1532,19 +1455,11 @@
             this.lblTitleWindow.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTitleWindow.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lblTitleWindow.ForeColor = System.Drawing.Color.Black;
-            this.lblTitleWindow.Location = new System.Drawing.Point(3, 40);
+            this.lblTitleWindow.Location = new System.Drawing.Point(3, 3);
             this.lblTitleWindow.Name = "lblTitleWindow";
             this.lblTitleWindow.Size = new System.Drawing.Size(450, 20);
             this.lblTitleWindow.TabIndex = 111;
             this.lblTitleWindow.Text = "ウインドウ";
-            // 
-            // pnlWindwoSpase
-            // 
-            this.pnlWindwoSpase.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlWindwoSpase.Location = new System.Drawing.Point(3, 3);
-            this.pnlWindwoSpase.Name = "pnlWindwoSpase";
-            this.pnlWindwoSpase.Size = new System.Drawing.Size(450, 37);
-            this.pnlWindwoSpase.TabIndex = 1;
             // 
             // tbpTopic
             // 
@@ -1560,11 +1475,10 @@
             this.tbpTopic.Controls.Add(this.pnlTopicNews);
             this.tbpTopic.Controls.Add(this.pnlTopic);
             this.tbpTopic.Controls.Add(this.lblTitleTopic);
-            this.tbpTopic.Controls.Add(this.pnlTopicSpase);
             this.tbpTopic.Location = new System.Drawing.Point(4, 22);
             this.tbpTopic.Name = "tbpTopic";
             this.tbpTopic.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpTopic.Size = new System.Drawing.Size(456, 476);
+            this.tbpTopic.Size = new System.Drawing.Size(456, 535);
             this.tbpTopic.TabIndex = 1;
             this.tbpTopic.Text = "話題設定";
             // 
@@ -1598,7 +1512,7 @@
             this.pnlRange.Controls.Add(this.lblRangeUnit);
             this.pnlRange.Controls.Add(this.trcRange);
             this.pnlRange.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlRange.Location = new System.Drawing.Point(3, 290);
+            this.pnlRange.Location = new System.Drawing.Point(3, 253);
             this.pnlRange.Name = "pnlRange";
             this.pnlRange.Size = new System.Drawing.Size(450, 186);
             this.pnlRange.TabIndex = 135;
@@ -1863,7 +1777,7 @@
             this.lblTitleRange.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTitleRange.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lblTitleRange.ForeColor = System.Drawing.Color.Black;
-            this.lblTitleRange.Location = new System.Drawing.Point(3, 270);
+            this.lblTitleRange.Location = new System.Drawing.Point(3, 233);
             this.lblTitleRange.Name = "lblTitleRange";
             this.lblTitleRange.Size = new System.Drawing.Size(450, 20);
             this.lblTitleRange.TabIndex = 134;
@@ -1875,7 +1789,7 @@
             this.pnlTopicTwMyTimeLine.Controls.Add(this.chkTopicTwMyTimeLine);
             this.pnlTopicTwMyTimeLine.Controls.Add(this.lblDescriptionTopicTwMyTimeLine);
             this.pnlTopicTwMyTimeLine.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTopicTwMyTimeLine.Location = new System.Drawing.Point(3, 240);
+            this.pnlTopicTwMyTimeLine.Location = new System.Drawing.Point(3, 203);
             this.pnlTopicTwMyTimeLine.Name = "pnlTopicTwMyTimeLine";
             this.pnlTopicTwMyTimeLine.Size = new System.Drawing.Size(450, 30);
             this.pnlTopicTwMyTimeLine.TabIndex = 133;
@@ -1908,7 +1822,7 @@
             this.pnlTopicRss.Controls.Add(this.chkTopicRss);
             this.pnlTopicRss.Controls.Add(this.lblDescriptionTopicRss);
             this.pnlTopicRss.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTopicRss.Location = new System.Drawing.Point(3, 210);
+            this.pnlTopicRss.Location = new System.Drawing.Point(3, 173);
             this.pnlTopicRss.Name = "pnlTopicRss";
             this.pnlTopicRss.Size = new System.Drawing.Size(450, 30);
             this.pnlTopicRss.TabIndex = 132;
@@ -1941,7 +1855,7 @@
             this.pnlTopicTwPublic.Controls.Add(this.chkTopicTwPublic);
             this.pnlTopicTwPublic.Controls.Add(this.lblDescriptionTopicTwPublic);
             this.pnlTopicTwPublic.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTopicTwPublic.Location = new System.Drawing.Point(3, 180);
+            this.pnlTopicTwPublic.Location = new System.Drawing.Point(3, 143);
             this.pnlTopicTwPublic.Name = "pnlTopicTwPublic";
             this.pnlTopicTwPublic.Size = new System.Drawing.Size(450, 30);
             this.pnlTopicTwPublic.TabIndex = 131;
@@ -1974,7 +1888,7 @@
             this.pnlTopicNico.Controls.Add(this.chkTopicNico);
             this.pnlTopicNico.Controls.Add(this.lblDescriptionTopicNico);
             this.pnlTopicNico.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTopicNico.Location = new System.Drawing.Point(3, 150);
+            this.pnlTopicNico.Location = new System.Drawing.Point(3, 113);
             this.pnlTopicNico.Name = "pnlTopicNico";
             this.pnlTopicNico.Size = new System.Drawing.Size(450, 30);
             this.pnlTopicNico.TabIndex = 130;
@@ -2007,7 +1921,7 @@
             this.pnlTopic2ch.Controls.Add(this.lblDescriptionTopic2ch);
             this.pnlTopic2ch.Controls.Add(this.chkTopic2ch);
             this.pnlTopic2ch.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTopic2ch.Location = new System.Drawing.Point(3, 120);
+            this.pnlTopic2ch.Location = new System.Drawing.Point(3, 83);
             this.pnlTopic2ch.Name = "pnlTopic2ch";
             this.pnlTopic2ch.Size = new System.Drawing.Size(450, 30);
             this.pnlTopic2ch.TabIndex = 129;
@@ -2040,7 +1954,7 @@
             this.pnlTopicNews.Controls.Add(this.lblDescriptionTopicNews);
             this.pnlTopicNews.Controls.Add(this.chkTopicNews);
             this.pnlTopicNews.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTopicNews.Location = new System.Drawing.Point(3, 90);
+            this.pnlTopicNews.Location = new System.Drawing.Point(3, 53);
             this.pnlTopicNews.Name = "pnlTopicNews";
             this.pnlTopicNews.Size = new System.Drawing.Size(450, 30);
             this.pnlTopicNews.TabIndex = 128;
@@ -2072,7 +1986,7 @@
             this.pnlTopic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlTopic.Controls.Add(this.lblDescriptionTopic);
             this.pnlTopic.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTopic.Location = new System.Drawing.Point(3, 60);
+            this.pnlTopic.Location = new System.Drawing.Point(3, 23);
             this.pnlTopic.Name = "pnlTopic";
             this.pnlTopic.Size = new System.Drawing.Size(450, 30);
             this.pnlTopic.TabIndex = 136;
@@ -2094,19 +2008,11 @@
             this.lblTitleTopic.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTitleTopic.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lblTitleTopic.ForeColor = System.Drawing.Color.Black;
-            this.lblTitleTopic.Location = new System.Drawing.Point(3, 40);
+            this.lblTitleTopic.Location = new System.Drawing.Point(3, 3);
             this.lblTitleTopic.Name = "lblTitleTopic";
             this.lblTitleTopic.Size = new System.Drawing.Size(450, 20);
             this.lblTitleTopic.TabIndex = 109;
             this.lblTitleTopic.Text = "おしゃべりジャンル";
-            // 
-            // pnlTopicSpase
-            // 
-            this.pnlTopicSpase.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTopicSpase.Location = new System.Drawing.Point(3, 3);
-            this.pnlTopicSpase.Name = "pnlTopicSpase";
-            this.pnlTopicSpase.Size = new System.Drawing.Size(450, 37);
-            this.pnlTopicSpase.TabIndex = 1;
             // 
             // tbpVoice
             // 
@@ -2121,7 +2027,7 @@
             this.tbpVoice.Controls.Add(this.pnlVoiceSpase);
             this.tbpVoice.Location = new System.Drawing.Point(4, 22);
             this.tbpVoice.Name = "tbpVoice";
-            this.tbpVoice.Size = new System.Drawing.Size(456, 476);
+            this.tbpVoice.Size = new System.Drawing.Size(456, 535);
             this.tbpVoice.TabIndex = 2;
             this.tbpVoice.Text = "音声設定";
             // 
@@ -2284,6 +2190,16 @@
             this.pnlVoiceSpase.Size = new System.Drawing.Size(456, 37);
             this.pnlVoiceSpase.TabIndex = 2;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(5, 132);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(344, 12);
+            this.label1.TabIndex = 111;
+            this.label1.Text = "みんなでおしゃべり時のタイトルウインドウもこの設定の位置に出てきます。";
+            // 
             // ViewLiplisWidgetSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2291,12 +2207,10 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.ClientSize = new System.Drawing.Size(464, 561);
             this.Controls.Add(this.tab);
-            this.Controls.Add(this.pnlCtrl);
             this.ForeColor = System.Drawing.Color.White;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ViewLiplisWidgetSetting";
             this.Text = "ViewLiplisWidgetSetting";
-            this.pnlCtrl.ResumeLayout(false);
             this.tbpEnvironment.ResumeLayout(false);
             this.pnlBattery.ResumeLayout(false);
             this.pnlBattery.PerformLayout();
@@ -2360,17 +2274,12 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel pnlCtrl;
-        private System.Windows.Forms.Label btnVoiceSetting;
-        private System.Windows.Forms.Label btnWidgetSetting;
         private System.Windows.Forms.TabPage tbpEnvironment;
         private System.Windows.Forms.Panel pnlActive;
         private System.Windows.Forms.Label lblDescriptionActive;
         private System.Windows.Forms.Label lblTitleActive;
         private System.Windows.Forms.Panel pnlMode;
         private System.Windows.Forms.Label lblTitleMode;
-        private System.Windows.Forms.Panel pnlEnvironmentSpase;
         private System.Windows.Forms.TabControl tab;
         private System.Windows.Forms.Panel pnlBattery;
         private System.Windows.Forms.Label lblDescriptionBattery;
@@ -2381,10 +2290,7 @@
         private System.Windows.Forms.CheckBox chkIconOn;
         private System.Windows.Forms.Label lblTitleIconOn;
         private System.Windows.Forms.TabPage tbpTopic;
-        private System.Windows.Forms.Panel pnlTopicSpase;
         private System.Windows.Forms.TabPage tbpVoice;
-        private System.Windows.Forms.Label btnTopicSetting;
-        private System.Windows.Forms.Panel pnlVoiceSpase;
         private System.Windows.Forms.Label lblTitleTopic;
         private System.Windows.Forms.Panel pnlTopicTwMyTimeLine;
         private System.Windows.Forms.CheckBox chkTopicTwMyTimeLine;
@@ -2501,7 +2407,6 @@
         private System.Windows.Forms.Panel pnlVoiceEngineSetting;
         private System.Windows.Forms.Label lblDescriptionVoiceEngineSetting;
         private System.Windows.Forms.TabPage tbpWIndow;
-        private System.Windows.Forms.Panel pnlWindwoSpase;
         private System.Windows.Forms.Panel pnlWindow;
         private System.Windows.Forms.Label lblDescriptionWindow;
         private System.Windows.Forms.PictureBox picWindow7;
@@ -2533,12 +2438,13 @@
         private System.Windows.Forms.Label lblDescriptionBattery2;
         private System.Windows.Forms.Label lblDescriptionIconOn2;
         private System.Windows.Forms.Label lblDescriptionWindowNum;
-        private System.Windows.Forms.Label btnTalkWindowSetting;
         private System.Windows.Forms.Label lblTitleTalkMode;
         private System.Windows.Forms.Panel pnlTalkMode;
         private System.Windows.Forms.PictureBox picTalkMode;
         private System.Windows.Forms.Label lblDescriptionTalkMode;
         private System.Windows.Forms.RadioButton rdTalkModeMinna;
         private System.Windows.Forms.RadioButton rdTalkModeHitori;
+        private System.Windows.Forms.Panel pnlVoiceSpase;
+        private System.Windows.Forms.Label label1;
     }
 }

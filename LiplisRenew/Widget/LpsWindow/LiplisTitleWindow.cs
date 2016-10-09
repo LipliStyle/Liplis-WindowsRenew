@@ -16,6 +16,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows;
 
 namespace Liplis.Widget.LpsWindow
 {
@@ -23,12 +24,12 @@ namespace Liplis.Widget.LpsWindow
     {
         //=================================
         //ウインドウ要素
-        Hyperlink hl;
-        TextBlock tb;
+        protected Hyperlink hl;
+        protected TextBlock tb;
 
         //=================================
         //ピクチャー
-        LiplisNewsPicture picture;
+        protected LiplisNewsPicture picture;
 
         //============================================================
         //
@@ -42,7 +43,7 @@ namespace Liplis.Widget.LpsWindow
         /// </summary>
         /// <param name="setting"></param>
         /// <param name="skin"></param>
-        public LiplisTitleWindow(LiplisWidgetPreference setting, Skin skin, double lpsTop, double lpsLeft, double lpsWidth, LiplisWindowStack windowPos,  string title, Uri url, Uri jpgUrl) : base(setting, skin, lpsTop, lpsLeft, lpsWidth, windowPos)
+        public LiplisTitleWindow(LiplisWidget lips, LiplisWidgetPreference setting, Skin skin, double lpsTop, double lpsLeft, double lpsWidth, LiplisWindowStack windowPos,  string title, Uri url, Uri jpgUrl) : base(lips, setting, skin, lpsTop, lpsLeft, lpsWidth, windowPos)
         {
             //ハイパーリンクの生成
             setHypderLink(title,url);
@@ -74,6 +75,32 @@ namespace Liplis.Widget.LpsWindow
 
             //ラベルコンテントの上書き
             this.lblLpsTalkLabel.Content = this.hl;
+        }
+
+        /// <summary>
+        /// ウインドウの初期化
+        /// </summary>
+        /// <param name="lpsTop"></param>
+        /// <param name="lpsLeft"></param>
+        /// <param name="lpsWidth"></param>
+        /// <param name="talkWindowHeightMargin"></param>
+        /// <param name="talkLabelHeightMargin"></param>
+        protected override void initWindow(double lpsTop, double lpsLeft, double lpsWidth, int talkWindowHeightMargin, int talkLabelHeightMargin)
+        {
+            //ウインドウをセットする
+            base.initWindow(lpsTop, lpsLeft, lpsWidth, 46, 36);
+
+            //ボタンの可視化
+            this.btnNext.Visibility = Visibility.Visible;
+            this.btnCopyUrl.Visibility = Visibility.Visible;
+            this.btnWeb.Visibility = Visibility.Visible;
+            this.btnTweet.Visibility = Visibility.Visible;
+
+            //アイコンロケーションを設定する
+            setIconLocation(this.btnNext);
+            setIconLocation(this.btnCopyUrl);
+            setIconLocation(this.btnWeb);
+            setIconLocation(this.btnTweet);
         }
 
         /// <summary>
@@ -122,6 +149,36 @@ namespace Liplis.Widget.LpsWindow
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
+        }
+
+        /// <summary>
+        /// リンクコピー
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected override void btnCopyUrl_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(this.hl.NavigateUri.ToString());
+        }
+
+        /// <summary>
+        /// ウェブボタン
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected override void btnWeb_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(this.hl.NavigateUri.ToString()));
+        }
+
+        /// <summary>
+        /// ツイートボタン
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected override void btnTweet_Click(object sender, RoutedEventArgs e)
+        {
+            tweet(this.tb.Text);
         }
         #endregion
 

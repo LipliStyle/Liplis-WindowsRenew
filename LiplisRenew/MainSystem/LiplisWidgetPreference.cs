@@ -121,7 +121,7 @@ namespace Liplis.MainSystem
             this.locationY = 0;
             this.lpsTalkMode = 0;
             this.lpsMode = 0;
-            this.lpsSpeed = 0;
+            this.lpsSpeed = 75;
             this.lpsWindow = 0;
             this.lpsDisplayIcon = 1;
             this.lpsTopicHour = 2;
@@ -155,7 +155,7 @@ namespace Liplis.MainSystem
             this.charName            = getString(KEY_CHAR_NAME, "");
             this.locationX           = getInt(KEY_LOCATION_X, 0);
             this.locationY           = getInt(KEY_LOCATION_Y, 0);
-            this.lpsTalkMode     = getInt(KEY_LPSTALKMODE, 0);
+            this.lpsTalkMode         = getInt(KEY_LPSTALKMODE, 0);
             this.lpsMode             = getInt(KEY_LPSMODE, 0);
             this.lpsSpeed            = getInt(KEY_LPSSPEED, 75);
             this.lpsWindow           = getInt(KEY_LPSWINDOW, 0);
@@ -254,21 +254,33 @@ namespace Liplis.MainSystem
         /// </summary>
         private void setMode()
         {
-            if (this.lpsMode == 0)
+            switch (lpsMode)
             {
-                this.lpsInterval = 10.0;
-            }
-            else if (this.lpsMode == 1)
-            {
-                this.lpsInterval = 30.0;
-            }
-            else if (this.lpsMode == 2)
-            {
-                this.lpsInterval = 60.0;
-            }
-            else
-            {
-                this.lpsInterval = 10.0;
+                case 0:
+                    this.lpsInterval = 999999; //きまぐれ
+                    this.lpsInterval = 5000;
+                    break;
+                case 1:
+                    this.lpsInterval = 10000;
+                    break;
+                case 2:
+                    this.lpsInterval = 20000;
+                    break;
+                case 3:
+                    this.lpsInterval = 60000;
+                    break;
+                case 4:
+                    this.lpsInterval = 120000;
+                    break;
+                case 5:
+                    this.lpsInterval = 180000;
+                    break;
+                case 6:
+                    this.lpsInterval = 0;
+                    break;
+                default:
+                    this.lpsInterval = 10000;
+                    break;
             }
         }
 

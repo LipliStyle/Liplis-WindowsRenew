@@ -55,6 +55,7 @@ namespace Liplis.Activity
         /// <param name="desktop"></param>
         public ViewLiplisLog(ViewDeskTop desktop)
         {
+            //デスクトップインスタンス取得
             this.desktop = desktop;
 
             InitializeComponent();
@@ -66,7 +67,7 @@ namespace Liplis.Activity
         /// <summary>
         /// ログビューを閉じる
         /// </summary>
-        private void closeLogView()
+        private void closeWindow()
         {
             this.flgEnd = true;
             this.Close();
@@ -345,13 +346,6 @@ namespace Liplis.Activity
         /// <param name="e"></param>
         private void btnTweet_Click(object sender, RoutedEventArgs e)
         {
-            //ツイッター登録チェック
-            if(desktop.baseSetting.lpsTwitterActivate != 1)
-            {
-                LpsMessage.showError("ツイッター登録されていません。" + Environment.NewLine + "アカウントを登録してから実行して下さい。");
-                return;
-            }
-
             //ボタン取得
             Button bt = (Button)sender;
 
@@ -451,9 +445,18 @@ namespace Liplis.Activity
         #region バックグラウンド処理
         public void tweet(string sentence)
         {
+            //ツイッター登録チェック
+            if (desktop.baseSetting.lpsTwitterActivate != 1)
+            {
+                LpsMessage.showError("ツイッター登録されていません。" + Environment.NewLine + "アカウントを登録してから実行して下さい。");
+                return;
+            }
+
             this.workerTweet = new System.ComponentModel.BackgroundWorker();
             this.workerTweet.DoWork += (s, e) => tweetAsync(sentence);
             this.workerTweet.RunWorkerAsync();
+
+            LpsMessage.showMessage("ツイートしました！");
         }
 
         /// <summary>

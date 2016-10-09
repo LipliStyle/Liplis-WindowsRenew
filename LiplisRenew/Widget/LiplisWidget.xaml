@@ -40,7 +40,7 @@
         <Image x:Name="icoSetting" HorizontalAlignment="Left" Height="48" Margin="10,242,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/design_ico_setting.png" MouseDown="icoSetting_MouseDown" MouseLeave="icoSetting_MouseLeave" MouseUp="icoSetting_MouseUp"/>
         <Image x:Name="icoChat" HorizontalAlignment="Left" Height="48" Margin="182,126,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/design_ico_back.png" MouseDown="icoChat_MouseDown" MouseLeave="icoChat_MouseLeave" MouseUp="icoChat_MouseUp"/>
         <Image x:Name="icoClock" HorizontalAlignment="Left" Height="48" Margin="182,184,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/design_ico_back.png" MouseDown="icoClock_MouseDown" MouseLeave="icoClock_MouseLeave" MouseUp="icoClock_MouseUp"/>
-        <Canvas x:Name="canClock" Margin="182,184,10,68"  Width="48" Height="48">
+        <Canvas x:Name="canClock" Margin="182,184,10,68" Height="48">
             <Line x:Name="HourLine"  Stroke="White" Fill="Black" X1="24" Y1="24" X2="24" Y2="12"              
                StrokeThickness="3" >
                 <Line.RenderTransform>
@@ -61,7 +61,7 @@
             <Ellipse x:Name="CenterDot" Fill="White" Width="6" Height="6" HorizontalAlignment="Center" 
                  VerticalAlignment="Center" 
                  Canvas.Top="21" Canvas.Left="21"/>
-            
+
         </Canvas>
         <Image x:Name="icoBattery" HorizontalAlignment="Left" Height="48" Margin="182,242,0,0" VerticalAlignment="Top" Width="48" Source="../Resources/design_battery_100.png" MouseDown="icoBattery_MouseDown" MouseLeave="icoBattery_MouseLeave" MouseUp="icoBattery_MouseUp"/>
         <Image x:Name="icoEnd" HorizontalAlignment="Left" Height="14" Margin="226,0,0,0" VerticalAlignment="Top" Width="14" Source="/Liplis;component/Resources/ico_win_wnd.png" MouseDown="icoEnd_MouseDown" MouseEnter="icoEnd_MouseEnter" MouseUp="icoEnd_MouseUp" MouseLeave="icoEnd_MouseLeave"/>

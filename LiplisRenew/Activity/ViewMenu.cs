@@ -12,8 +12,10 @@
 //
 //  Copyright(c) 2010-2016 LipliStyle.Sachin
 //=======================================================================
+using Liplis.Msg;
 using Liplis.Wpf;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -28,9 +30,7 @@ namespace Liplis.Activity
         //=================================
         //デスクトップインスタンス
         private ViewDeskTop desktop;
-        private ViewLiplisSetting viewSetting;
-        private ViewLiplisRssSetting viewRss;
-        private ViewCharacter viewCharacter;
+
 
         ///====================================================================
         ///
@@ -58,7 +58,15 @@ namespace Liplis.Activity
         /// </summary>
         private void initClass()
         {
-            
+            toolTips.SetToolTip(btnChar, "キャラクター選択画面を開きます。");
+            toolTips.SetToolTip(btnSetting, "Liplisの基本設定の画面を開きます。。");
+            toolTips.SetToolTip(btnRss, "RSS設定画面を開きます。");
+            toolTips.SetToolTip(btnLog, "おしゃべりのログ画面を開きます。");
+            toolTips.SetToolTip(btnMinimize, "すべてのLiplisを最小化し、お休みします。");
+            toolTips.SetToolTip(btnRescue, "画面外に出てしまったLiplisを復帰させます。");
+            toolTips.SetToolTip(btnSleep, "みんなでお休みします。");
+            toolTips.SetToolTip(btnWakeUp, "みんなで起床します。");
+            toolTips.SetToolTip(btnEnd, "Liplisを終了します。");
         }
 
         #endregion
@@ -107,7 +115,12 @@ namespace Liplis.Activity
 
         private void btnSleep_Click(object sender, EventArgs e)
         {
+            desktop.widgetSleep();
+        }
 
+        private void btnWakeUp_Click(object sender, EventArgs e)
+        {
+            desktop.widgetWakeup();
         }
 
         private void btnFlow_Click(object sender, EventArgs e)
@@ -117,12 +130,23 @@ namespace Liplis.Activity
 
         private void btnSetting_Click(object sender, EventArgs e)
         {
-            openViewSetting();
+            desktop.openViewSetting();
         }
 
         private void btnRss_Click(object sender, EventArgs e)
         {
-            openViewRss();
+            desktop.openViewRss();
+        }
+
+
+        private void btnRescue_Click(object sender, EventArgs e)
+        {
+            desktop.rescueWidgetAll();
+        }
+
+        private void btnMinimize_Click(object sender, EventArgs e)
+        {
+            desktop.miniMizeWidget();
         }
 
         /// <summary>
@@ -132,7 +156,7 @@ namespace Liplis.Activity
         /// <param name="e"></param>
         private void btnChar_Click(object sender, EventArgs e)
         {
-            openViewCharacter();
+            desktop.openViewCharacter();
         }
 
         
@@ -207,83 +231,9 @@ namespace Liplis.Activity
             }
         }
 
-        /// <summary>
-        /// キャラクター選択画面を表示する
-        /// </summary>
-        private void openViewCharacter()
-        {
-            //インスタンス化されているか
-            if (viewCharacter == null)
-            {
-                createViewCharacter();
-            }
 
-            //閉じられているか?
-            if (WpfUtil.isWpfDisposed(viewCharacter))
-            {
-                createViewCharacter();
-            }
 
-            //フォームを開く
-            viewCharacter.Show();
-            viewCharacter.Activate();
-        }
-        private void createViewCharacter()
-        {
-            viewCharacter = new ViewCharacter(this.desktop);
-        }
 
-        /// <summary>
-        /// 設定画面を開く
-        /// </summary>
-        private void openViewSetting()
-        {
-            //インスタンス化されているか
-            if (viewSetting == null)
-            {
-                createViewSetting();
-            }
-
-            //閉じられているか?
-            if (viewSetting.IsDisposed)
-            {
-                createViewSetting();
-            }
-
-            //フォームを開く
-            viewSetting.Show();
-            viewSetting.Activate();
-        }
-        private void createViewSetting()
-        {
-            viewSetting = new ViewLiplisSetting(this.desktop.baseSetting);
-        }
-
-        /// <summary>
-        /// RSS設定画面を開く
-        /// </summary>
-        private void openViewRss()
-        {
-            //インスタンス化されているか
-            if (viewRss == null)
-            {
-                createViewRss();
-            }
-
-            //閉じられているか?
-            if (viewRss.IsDisposed)
-            {
-                createViewRss();
-            }
-
-            //フォームを開く
-            viewRss.Show();
-            viewRss.Activate();
-        }
-        private void createViewRss()
-        {
-            viewRss = new ViewLiplisRssSetting(this.desktop.baseSetting);
-        }
 
         #endregion
 

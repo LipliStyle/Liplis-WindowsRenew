@@ -86,6 +86,11 @@ namespace Liplis.Xml
                 createDefault();
             }
         }
+
+        public string getString(object sKIN_APP_NAME, string appName)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         ///====================================================================
@@ -140,7 +145,7 @@ namespace Liplis.Xml
         /// saveMonoSettings
         /// 現在自クラスにセットされている値を設定ファイルに書き込む
         /// </summary>
-        protected void saveSettings()
+        public void saveSettings()
         {
             //XMLライタの宣言
             XmlWriter writer = null;

@@ -14,6 +14,7 @@
 using Liplis.Activity;
 using Liplis.Body;
 using Liplis.Com;
+using Liplis.Com.Defile;
 using Liplis.Exp;
 using Liplis.Gui;
 using Liplis.MainSystem;
@@ -26,6 +27,7 @@ using Liplis.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -51,12 +53,13 @@ namespace Liplis.Widget
         //=================================
         //Liplis要素
         public LiplisWidgetPreference setting;
-        private Skin skin;
+        public Skin skin;
         private LiplisWindowManager windowManager;
 
         //=================================
         //ウインドウ
         private ViewLiplisWidgetSetting viewWidgetSetting;
+        private ViewChat viewChat;
 
         //=================================
         //ロードボディオブジェクト
@@ -64,7 +67,7 @@ namespace Liplis.Widget
 
         //=================================
         //デスクトップインスタンス
-        private ViewDeskTop desk;
+        public ViewDeskTop desk;
 
         //=================================
         //ニュースインスタンス
@@ -73,7 +76,7 @@ namespace Liplis.Widget
         //private LiplisApiChat lpsChatTalk;
 
         //=================================
-        //デスクトップインスタンス
+        //ボイスロイドインスタンス
         private LpsVoiceRoid lvr;
 
         //=================================
@@ -110,19 +113,21 @@ namespace Liplis.Widget
 
         //=================================
         //制御フラグ
-        private bool flgConnect     = false;   //接続フラグ
-        private bool flgBodyChencge = false;   //ボディ変更フラグ
-        private bool flgChatting    = false;   //おしゃべり中フラグ
-        private bool flgSkip        = false;   //スキップフラグ
-        private bool flgSkipping    = false;   //スキップ中フラグ
-        private bool flgSitdown     = false;   //おすわり中フラグ
-        private bool flgThinking    = false;   //考え中フラグ
-        private bool flgEnd         = false;   //おしゃべり終了フラグ
-        private bool flgTag         = false;   //タグチェック
-        private bool flgChatTalk    = false;   //
-        private bool flgDebug       = false;   //
-        private bool flgOutputDemo  = false;   //
-        private bool flgIconOn      = false;   //アイコン表示状態
+        public bool flgConnect      = false;   //接続フラグ
+        public bool flgBodyChencge  = false;   //ボディ変更フラグ
+        public bool flgChatting     = false;   //おしゃべり中フラグ
+        public bool flgSkip         = false;   //スキップフラグ
+        public bool flgSkipping     = false;   //スキップ中フラグ
+        public bool flgSitdown      = false;   //おすわり中フラグ
+        public bool flgThinking     = false;   //考え中フラグ
+        public bool flgEnd          = false;   //おしゃべり終了フラグ
+        public bool flgTag          = false;   //タグチェック
+        public bool flgChatTalk     = false;   //
+        public bool flgEveryoneTalk = false;   //みんなでおしゃべり中
+        public bool flgDebug        = false;   //
+        public bool flgOutputDemo   = false;   //
+        public bool flgIconOn       = false;   //アイコン表示状態
+        public bool flgWidgetDelete = false;   //
 
         ///=====================================
         /// 設定値
@@ -140,6 +145,17 @@ namespace Liplis.Widget
         LiplisIconImage lpsIcoChat;
         LiplisIconImage lpsIcoClock;
         LiplisIconImage lpsIcoBattery;
+
+        ///=====================================
+        /// バックグラウンド処理
+        BackgroundWorker workLoading;
+
+        //============================================================
+        //
+        //初期化処理
+        //
+        //============================================================
+        #region 初期化処理 
 
         /// <summary>
         /// コンストラクター
@@ -160,29 +176,72 @@ namespace Liplis.Widget
                 //スキンデータ取得
                 this.skin = skin;
 
-                //ビューの初期化;
-                this.initView();
+                //ワーカーの初期化
+                this.initWorker();
+            }
+            catch (Exception err)
+            {
+                errorEnd(err);
+            }
+        }
 
+        /// <summary>
+        /// ロードイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //ロードワーカー開始
+                this.workLoading.RunWorkerAsync();
+            }
+            catch (Exception err)
+            {
+                errorEnd(err);
+            }
+        }
+
+        /// <summary>
+        /// ロード(ブロック可能)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void workLoading_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            try
+            {
                 //クラスの初期化
                 this.initClass();
+            }
+            catch (Exception err)
+            {
+                errorEnd(err);
+            }
+        }
+
+        /// <summary>
+        /// すべての初期化完了時、おしゃべり開始
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void workLoading_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            try
+            {
+                //ビューの初期化;
+                this.initView();
 
                 //あいさつ
                 this.greet();
             }
             catch (Exception err)
             {
-                //初期化処理でエラーが発生した場合は、メッセージを表示して終了する
-
-                //エラーメッセージ
-                LpsMessage.showError(err.Message);
-
-                //ログ出力
-                LpsLogController.writingLog(this.GetType().Name, MethodBase.GetCurrentMethod().Name, err.ToString());
-
-                //ウィジェットを閉じる
-                this.Close();
+                errorEnd(err);
             }
         }
+
 
         /// <summary>
         /// クラスの初期化
@@ -227,7 +286,10 @@ namespace Liplis.Widget
                 this.setSize(skin.xmlBody.height, skin.xmlBody.width);
 
                 //ウインドウの初期化
-                this.windowManager = new LiplisWindowManager(this.setting,this.skin);
+                this.windowManager = new LiplisWindowManager(this,this.setting,this.skin);
+
+                //ウインドウアイコンの設定
+                this.Icon = BitmapFrame.Create(new Uri(this.skin.xmlWindow.ICO_SETTING, UriKind.RelativeOrAbsolute));
 
                 //アイコンサイズ調整
                 Int32 iconBaseSide = (Int32)this.Width;
@@ -260,41 +322,49 @@ namespace Liplis.Widget
                 this.icoEnd.Margin = new Thickness(this.Width - 14, 0, 0, 0);
                 this.icoMinimize.Margin = new Thickness(this.Width - 42, 0, 0, 0);
 
-                //時計初期化
-                DateTime dt = DateTime.Now;
-                this.AngleSecond.Angle = dt.Second * 360.0 / 60.0;
-                this.AngleMinute.Angle = (dt.Minute + dt.Second / 60.0) * 360.0 / 60.0;
-                this.AngleHour.Angle = (dt.Hour + dt.Minute / 60.0) * 360.0 / 12;
+
 
                 this.canClock.Width = iconSide;
                 this.canClock.Height = iconSide;
-                this.canClock.Margin = new Thickness(rightSideXMargin , row2YMargin , 10, 68);
+                this.canClock.Margin = new Thickness(rightSideXMargin , row2YMargin , 10 + (24-iconSide/2), 68 + (24 - iconSide/2));
 
-                this.HourLine.X1 = iconSide / 2;
-                this.HourLine.Y1 = iconSide / 2;
-                this.HourLine.X2 = iconSide / 2;
+                this.HourLine.X1       = iconSide / 2;
+                this.HourLine.Y1       = iconSide / 2;
+                this.HourLine.X2       = iconSide / 2;
                 this.AngleHour.CenterX = iconSide / 2;
                 this.AngleHour.CenterX = iconSide / 2;
 
-                this.MinuteLine.X1 = iconSide / 2;
-                this.MinuteLine.Y1 = iconSide / 2;
-                this.MinuteLine.X2 = iconSide / 2;
+                this.MinuteLine.X1       = iconSide / 2;
+                this.MinuteLine.Y1       = iconSide / 2;
+                this.MinuteLine.X2       = iconSide / 2;
                 this.AngleMinute.CenterX = iconSide / 2;
                 this.AngleMinute.CenterX = iconSide / 2;
 
-                this.SecondLine.X1 = iconSide / 2;
-                this.SecondLine.Y1 = iconSide / 2;
-                this.SecondLine.X2 = iconSide / 2;
+                this.SecondLine.X1       = iconSide / 2;
+                this.SecondLine.Y1       = iconSide / 2;
+                this.SecondLine.X2       = iconSide / 2;
                 this.AngleSecond.CenterX = iconSide / 2;
                 this.AngleSecond.CenterX = iconSide / 2;
 
                 Canvas.SetLeft(this.CenterDot, (iconSide / 2) - 3);
                 Canvas.SetTop(this.CenterDot, (iconSide / 2) - 3);
 
+                //時計初期化
+                DateTime dt = DateTime.Now;
+                this.AngleSecond.Angle = dt.Second * 360.0 / 60.0;
+                this.AngleMinute.Angle = (dt.Minute + dt.Second / 60.0) * 360.0 / 60.0;
+                this.AngleHour.Angle = (dt.Hour + dt.Minute / 60.0) * 360.0 / 12;
+
+
+
+                //時計情報の初期化
+                this.initClock();
+
                 //アイコンオパシティを0にしておく
                 if (LpsLiplisUtil.bitToBool(setting.lpsDisplayIcon))
                 {
                     flgIconOn = true;
+                    this.canClock.Opacity = 100;
                 }
                 else
                 {
@@ -307,6 +377,9 @@ namespace Liplis.Widget
                     this.icoClock.Opacity    = 0;
                     this.icoBattery.Opacity  = 0;
                     this.canClock.Opacity    = 0;
+                    this.HourLine.Opacity    = 0;
+                    this.MinuteLine.Opacity  = 0;
+                    this.SecondLine.Opacity  = 0;
                 }
 
 
@@ -339,15 +412,7 @@ namespace Liplis.Widget
             this.cntLnw = 0;
         }
 
-        /// <summary>
-        /// ロードイベント
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            initClock();
-        }
+
 
         //時計の針の名前定義
         private const string CLOCK_HOUR_HAND   = "HourHand";
@@ -392,6 +457,43 @@ namespace Liplis.Widget
             lvr = setting.getSelectedVoiceRoid();
         }
 
+        /// <summary>
+        /// 初期化処理でエラーが発生した場合は、メッセージを表示して終了する
+        /// </summary>
+        private void errorEnd(Exception err)
+        {
+            //エラーメッセージ
+            LpsMessage.showError(err.Message);
+
+            //ログ出力
+            LpsLogController.writingLog(this.GetType().Name, MethodBase.GetCurrentMethod().Name, err.ToString());
+
+            //ウィジェットを閉じる
+            this.Close();
+        }
+        #endregion
+
+        //============================================================
+        //
+        //ワーカー初期化処理
+        //
+        //============================================================
+        #region ワーカー初期化処理 
+        /// <summary>
+        /// ロードワーカー初期化
+        /// </summary>
+        private void initWorker()
+        {
+            
+            this.workLoading = new System.ComponentModel.BackgroundWorker();
+            this.workLoading.DoWork += new System.ComponentModel.DoWorkEventHandler(workLoading_DoWork);
+            this.workLoading.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(workLoading_RunWorkerCompleted);
+
+            this.workLoading.WorkerReportsProgress = true;
+            this.workLoading.WorkerSupportsCancellation = true;
+        }
+        #endregion
+
         //============================================================
         //
         //終了処理
@@ -409,7 +511,7 @@ namespace Liplis.Widget
 
             nextTimer.Dispose();
             updateTimer.Dispose();
-            leaveTimer.Dispose();
+            if (leaveTimer != null) { leaveTimer.Dispose(); }
 
             //ボイスロイドクラスの破棄
             lvr.Dispose();
@@ -417,8 +519,8 @@ namespace Liplis.Widget
             //設定の保存
             this.setting.setPreferenceData();
 
-            //デスクトップのウィジェットから削除する
-            desk.delWidgetRegisterData(this);
+            //デスクトップからこのウィジェットを削除する
+            this.deleteWidgetFromDesktop();
 
             //閉じる
             Dispatcher.Invoke(new Action(() =>
@@ -438,17 +540,33 @@ namespace Liplis.Widget
             if (flgEnd) { return; }
 
             //アップデートカウントをほぼ無限に設定
-            nextTimer.Interval = 99999;
-
-            //チャットを停止しておく
-            chatStop();
+            if(nextTimer != null)
+            {
+                nextTimer.Interval = 99999;
+            }
 
             //終了フラグ有効
             flgEnd = true;
 
+            //チャットを停止しておく
+            chatStop();
+
             //お別れの挨拶セット
             goodBay();
         }
+
+        /// <summary>
+        /// デスクトップからこのウィジェットを削除する
+        /// </summary>
+        private void deleteWidgetFromDesktop()
+        {
+            //デスクトップのウィジェットから削除する
+            if (flgWidgetDelete)
+            {
+                desk.delWidgetRegisterData(this);
+            }
+        }
+
 
         //============================================================
         //
@@ -472,7 +590,8 @@ namespace Liplis.Widget
             {
                 this.stopUpdateTimer();
             }
-            
+
+
             this.updateTimer.Start();
         }
         private void stopUpdateTimer()
@@ -497,7 +616,7 @@ namespace Liplis.Widget
             {
                 this.nextTimer = new Timer();
                 this.nextTimer.Elapsed += new ElapsedEventHandler(onNext);
-                this.nextTimer.Interval = 10000;
+                this.nextTimer.Interval = pInterval;
             }
             else
             {
@@ -505,7 +624,7 @@ namespace Liplis.Widget
             }
 
             //タイマースタート
-            this.nextTimer.Start();
+            this.nextTimer.Start();            
         }
         private void stopNextTimer()
         {
@@ -525,7 +644,7 @@ namespace Liplis.Widget
         private void onNext(object sender, ElapsedEventArgs e)
         {
             //次の話題
-            this.nextLiplis();
+            this.nextLiplis(NEXT_LIPLIS_MODE_AUTO);
         }
 
 
@@ -537,18 +656,29 @@ namespace Liplis.Widget
         /// <param name="e"></param>
         private void onUpdate(object sender, ElapsedEventArgs e)
         {
-            //おしゃべり中なら、Liplisアップデート
-            if (this.flgAlarm == 12)
+            try
             {
-                this.updateLiplis();
+                //おしゃべり中なら、Liplisアップデート
+                if (this.flgAlarm == 12)
+                {
+                    this.updateLiplis();
+                }
             }
+            catch(Exception err)
+            {
+                LpsLogController.writingLog(this.GetType().Name, MethodBase.GetCurrentMethod().Name, err.ToString());
+
+                Console.WriteLine(err);
+
+            }
+
         }
 
 
         /// <summary>
         /// アップデートカウントのリセット
         /// </summary>
-        private void reSetUpdateCount()
+        public void reSetUpdateCount()
         {
             //無口の場合はタイマーを更新しない
             if (this.setting.lpsMode == 3)
@@ -565,9 +695,22 @@ namespace Liplis.Widget
             }
             else
             {
-                this.startNextTimer(60.0);
+                this.startNextTimer(60000);
             }
         }
+        //public void reSetUpdateCountEveryoneTlak()
+        //{
+        //    //無口の場合はタイマーを更新しない
+        //    if (this.setting.lpsMode == 3)
+        //    {
+        //        //すでに動作中なら停止しておく
+        //        this.stopNextTimer();
+        //        return;
+        //    }
+
+        //    //チャットトーク時は、60秒のインターバルを設定
+        //    this.startNextTimer(60000);
+        //}
 
         /// <summary>
         /// リーブタイマーのスタート
@@ -714,6 +857,10 @@ namespace Liplis.Widget
         /// <param name="e"></param>
         private void icoEnd_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            //削除フラグON
+            flgWidgetDelete = true;
+
+            //グッバイメッセージ
             goodBaydLiplis();
         }
 
@@ -724,23 +871,37 @@ namespace Liplis.Widget
         /// <param name="e"></param>
         private void icoEnd_MouseEnter(object sender, MouseEventArgs e)
         {
-            Dispatcher.Invoke(new Action(() =>
+            try
             {
-                this.icoEnd.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/ico_win_wnd_on.png"));
-            }));
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    this.icoEnd.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/ico_win_wnd_on.png"));
+                }));
+            }
+            catch
+            {
+
+            }
         }
 
         private void icoEnd_MouseLeave(object sender, MouseEventArgs e)
         {
-            Dispatcher.Invoke(new Action(() =>
+            try
             {
-                this.icoEnd.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/ico_win_wnd.png"));
-            }));
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    this.icoEnd.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/ico_win_wnd.png"));
+                }));
+            }
+            catch
+            {
+
+            }
         }
 
         private void icoMinimize_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            
         }
 
         /// <summary>
@@ -826,18 +987,18 @@ namespace Liplis.Widget
         /// <summary>
         /// ネクストアイコン押下時処理
         /// </summary>
-        protected void onNextClick()
+        public void onNextClick()
         {
             //チャット中チェック
             if (!flgChatting)
             {
-                nextLiplis();
+                nextLiplis(NEXT_LIPLIS_MODE_MANUAL);
             }
             //2015/09/04 Liplis4.5.4 連打対策
             else if (flgChatting && flgSkip)
             {
                 flgSkip = false;
-                nextLiplis();
+                nextLiplis(NEXT_LIPLIS_MODE_MANUAL);
             }
             else
             {
@@ -845,9 +1006,10 @@ namespace Liplis.Widget
             }
         }
 
-        /*
-        ウィジェットをデスクトップ内に復帰させる
-        */
+        /// <summary>
+        /// ウィジェットをデスクトップ内に復帰させる
+        /// </summary>
+        /// <param name="offset"></param>
         public void rescue(Int32 offset)
         {
             int h = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;     //ディスプレイの高さ
@@ -879,14 +1041,37 @@ namespace Liplis.Widget
             this.saveLocation();
         }
 
-        /*
-        座標をセーブルする
-        */
+        /// <summary>
+        /// 座標をセーブルする
+        /// </summary>
         private void saveLocation()
         {
             this.setting.locationX = (Int32)this.Left;
             this.setting.locationY = (Int32)this.Top;
             this.setting.setPreferenceData();
+        }
+
+        /// <summary>
+        /// ウインドウからマウスカーソルが出た時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (!LpsLiplisUtil.bitToBool(setting.lpsDisplayIcon))
+            {
+                startLeaveTimer();
+            }
+        }
+
+        /// <summary>
+        /// ウインドウにマウスカーソルが入った時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_MouseEnter(object sender, MouseEventArgs e)
+        {
+            stopLeaveTimer();
         }
 
 
@@ -922,6 +1107,9 @@ namespace Liplis.Widget
         private void icoLog_MouseUp(object sender, MouseButtonEventArgs e)
         {
             iconAnimationButtonOff(sender);
+
+            //ログ画面を表示する
+            desk.openViewLog();
         }
 
 
@@ -951,6 +1139,9 @@ namespace Liplis.Widget
         private void icoChat_MouseUp(object sender, MouseButtonEventArgs e)
         {
             iconAnimationButtonOff(sender);
+
+            //チャットウインドウを開く
+            callChatWindow();
         }
 
 
@@ -964,6 +1155,9 @@ namespace Liplis.Widget
         private void icoClock_MouseUp(object sender, MouseButtonEventArgs e)
         {
             iconAnimationButtonOff(sender);
+
+            //時刻情報おしゃべり
+            clockInfo();
         }
 
 
@@ -977,10 +1171,10 @@ namespace Liplis.Widget
         private void icoBattery_MouseUp(object sender, MouseButtonEventArgs e)
         {
             iconAnimationButtonOff(sender);
+
+            //バッテリー情報おしゃべり
+            batteryInfo();
         }
-
-
-
 
         /// <summary>
         /// アイコンをおした時のアニメーション
@@ -1150,27 +1344,25 @@ namespace Liplis.Widget
         }
         #endregion
 
-
-        //TODO: LiplisWidget 話しかけ処理 要実装
         /// <summary>
         /// 話しかけ取得
         /// </summary>
         /// <param name="chatText"></param>
-        private void chatTalkRecive(string chatText)
+        public void chatTalkRecive(MsgTalkMessage chatMessage)
         {
-            ////座り中なら回避
-            //if (this.flgSitdown) { return; }
+            //座り中なら回避
+            if (this.flgSitdown) { return; }
 
-            //this.flgChatTalk = true;
+            this.flgChatTalk = true;
 
-            ////挨拶の選定
-            //this.liplisNowTopic = lpsChatTalk.apiPost(this.desk.baseSetting.lpsUid, toneUrl: this.skin.xmlSkin.tone, version: "I" + LiplisUtil.getAppVersion(), chatText);
+            //挨拶の選定
+            this.liplisNowTopic = chatMessage;
 
-            ////チャット情報の初期化
-            //this.initChatInfo();
+            //チャット情報の初期化
+            this.initChatInfo();
 
-            ////チャットスタート
-            //this.chatStart();
+            //チャットスタート
+            this.chatStart();
         }
 
 
@@ -1218,15 +1410,31 @@ namespace Liplis.Widget
 
         /// <summary>
         /// 次の話題
+        /// mode:0 自動実行、1:手動実行
         /// </summary>
-        private void nextLiplis()
+        private const int NEXT_LIPLIS_MODE_AUTO = 0;
+        private const int NEXT_LIPLIS_MODE_MANUAL = 1;
+
+        private void nextLiplis(int mode)
         {
+            //暫定
+            if (NEXT_LIPLIS_MODE_AUTO == mode && desk.lpsGilsTalk.flgChatting)
+            {
+                return;
+            }
+
+            //個々みきたらチャッティングはOFFにしてみる
+            desk.lpsGilsTalk.flgChatting = false;
+
             this.flgAlarm = 0;
+            Console.WriteLine("flgAlarm0:nextLiplis:" + skin.charName);
 
-            //TODO: LiplisWidget バッテリーアイコン実装時　バッテリーアイコン変更処理
             //バッテリーチェック
-            //this.icoBattery.setImage(this.lpsIcon.getBatteryIcon(this.lpsBattery.getBatteryRatel()), forState: UIControlState.Normal);
-
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                this.lpsIcoBattery.setImage(this.skin.xmlWindow.getBatteryIcon(this.lpsBattery.getBatteryRatel()));
+            }));
+            
             //おすわりチェック
             if (this.flgSitdown)
             {
@@ -1234,12 +1442,13 @@ namespace Liplis.Widget
                 this.stopUpdateTimer();
                 return;
             }
+            
 
             //URLの初期化
             this.liplisUrl = "";
 
             //モードチェック
-            if (this.setting.lpsMode == 0 || this.setting.lpsMode == 1 || this.setting.lpsMode == 2)
+            if (this.setting.lpsMode == 0 || this.setting.lpsMode == 1 || this.setting.lpsMode == 2 || this.setting.lpsMode == 3)
             {
                 //時報チェック
                 if (this.onTimeSignal())
@@ -1255,12 +1464,24 @@ namespace Liplis.Widget
                 //    return;
                 //}
 
-                //次の話題おしゃべり
-                this.runLiplis();
-            }
-            else if (this.setting.lpsMode == 3)
-            {
-                this.runLiplis();
+                //みんなでおしゃべりチェック
+                if (this.setting.lpsTalkMode == (int)LPS_TALK_MODE.EVERYONE)
+                {
+                    //みんなでおしゃべり
+                    if(NEXT_LIPLIS_MODE_MANUAL == mode ||( NEXT_LIPLIS_MODE_AUTO == mode && !desk.lpsGilsTalk.flgChatting))
+                    {
+                        this.runLiplisEveryone();
+                    }
+                    
+                    return;
+                }
+                else
+                {
+                    //一人でおしゃべり
+                    //次の話題おしゃべり
+                    this.runLiplis();
+                }
+
             }
             else if (this.setting.lpsMode == 4)
             {
@@ -1285,9 +1506,6 @@ namespace Liplis.Widget
             //クロックチェック
             //windows版では時計表示なし
 
-            //アイコンカウント
-            //iconCloseCheck()
-
             //立ち絵をデフォルトに戻す
             this.setObjectBodyNeutral();
 
@@ -1305,45 +1523,43 @@ namespace Liplis.Widget
         }
 
         /// <summary>
+        /// みんなでおしゃべり 次の話題スタート
+        /// </summary>
+        private void runLiplisEveryone()
+        {
+            try
+            {
+                //座り中なら回避
+                if (this.flgSitdown) { this.chatStop(); return; }
+
+                //トピックを取得する
+                this.nextEveryoneTopic();
+                Console.WriteLine("nextTalkDelivery:nextTopicRequest runLiplisEveryone");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+
+            ////立ち絵をデフォルトに戻す
+            //this.setObjectBodyNeutral();
+
+            ////チャット情報の初期化
+            //this.initChatInfo();
+
+            ////チャットスタート
+            //this.chatStart();
+
+            ////ネクストタイマーを止めておく
+            //this.stopNextTimer();
+        }
+
+        /// <summary>
         /// リプリスの更新
         /// </summary>
         private void updateLiplis()
         {
-            //設定速度に応じて動作をウェイトさせる
-            //switch (this.setting.lpsSpeed)
-            //{
-            //    case 0:    //最速　常に実行
-            //        if (this.flgAlarm != 0) { this.refreshLiplis(); }
-            //        break;
-            //    case 1:    //普通　１回休む
-            //            if (this.cntSlow >= 1)
-            //            {
-            //                this.refreshLiplis();
-            //                this.cntSlow = 0;
-            //            }
-            //            else
-            //            {
-            //                this.cntSlow = this.cntSlow + 1;
-            //            }
-            //            break;
-            //    case 2:    //おそい　２回休む
-            //            if (this.cntSlow >= 2)
-            //            {
-            //                refreshLiplis();
-            //                this.cntSlow = 0;
-            //            }
-            //            else
-            //            {
-            //                this.cntSlow = this.cntSlow + 1;
-            //            }
-            //            break;
-            //    case 3:    //瞬間表示
-            //            this.immediateRefresh();
-            //            break;
-            //    default:   //ほかの値が設定された場合は瞬間表示とする
-            //        this.immediateRefresh();
-            //    break;
-            //}
             try
             {
                 if (this.setting.lpsSpeed != 0)
@@ -1357,7 +1573,7 @@ namespace Liplis.Widget
                 }
 
             }
-            catch
+            catch(Exception ex)
             {
                 checkEnd();
             }
@@ -1368,6 +1584,8 @@ namespace Liplis.Widget
         /// </summary>
         private void refreshLiplis()
         {
+            System.Threading.Thread.Sleep(10);
+
             //キャンセルフェーズ
             if (this.checkMsg()){ return; }
 
@@ -1424,6 +1642,13 @@ namespace Liplis.Widget
             //現在の話題が破棄されていれば、アップデートカウントをリセットする
             if (this.liplisNowTopic == null)
             {
+                //途中で話題がNULLになる対策
+                if (this.setting.lpsTalkMode == (int)LPS_TALK_MODE.EVERYONE)
+                {
+                    //次の人にバトンを渡す
+                    batonTouch();
+                }
+
                 this.reSetUpdateCount();
                 return true;
             }
@@ -1544,95 +1769,103 @@ namespace Liplis.Widget
         /// <returns></returns>
         private bool setText()
         {
-            //送りワード文字数チェック
-            if (this.cntLnw != 0)
+            try
             {
-                if (this.cntLct >= this.liplisNowWord.Length)
+                //送りワード文字数チェック
+                if (this.cntLnw != 0)
                 {
-                    //終了チェック
-                    if (this.checkEnd()) { return true; }
-
-                    //チャットテキストカウントの初期化
-                    this.cntLct = 0;
-
-                    //なうワードの初期化
-                    this.liplisNowWord = this.liplisNowTopic.nameList[cntLnw];
-
-                    //プレブエモーションセット
-                    this.prvEmotion = this.nowEmotion;
-
-                    //なうエモーションの取得
-                    this.nowEmotion = this.liplisNowTopic.emotionList[this.cntLnw];
-
-                    //なうポイントの取得
-                    this.nowPoint = this.liplisNowTopic.pointList[this.cntLnw];
-
-                    //インデックスインクリメント
-                    this.cntLnw = this.cntLnw + 1;
-                }
-            }
-            else if (this.cntLnw == 0)
-            {
-                //チャットテキストカウントの初期化
-                this.cntLct = 0;
-
-                //空チェック
-                if (this.liplisNowTopic.nameList.Count == 0)
-                {
-                    this.checkEnd();
-                    return true;
-                }
-
-                //なうワードの初期化
-                this.liplisNowWord = this.liplisNowTopic.nameList[this.cntLnw];
-
-                //次ワード遷移
-                this.cntLnw = this.cntLnw + 1;
-
-                //空だったら、空じゃなくなるまで繰り返す
-                if (this.liplisNowWord == "")
-                {
-                    while (this.liplisNowWord == "")
+                    if (this.cntLct >= this.liplisNowWord.Length)
                     {
-                        //チェックエンド
-                        checkEnd();
-
                         //終了チェック
-                        if (this.cntLnw > this.liplisNowTopic.nameList[cntLnw].Length) { break; }
+                        if (this.checkEnd()) { return true; }
 
-                        //ナウワードの初期化
-                        this.liplisNowWord = this.liplisNowTopic.nameList[this.cntLnw];
+                        //チャットテキストカウントの初期化
+                        this.cntLct = 0;
 
-                        //次ワード遷移
+                        //なうワードの初期化
+                        this.liplisNowWord = this.liplisNowTopic.nameList[cntLnw];
+
+                        //プレブエモーションセット
+                        this.prvEmotion = this.nowEmotion;
+
+                        //なうエモーションの取得
+                        this.nowEmotion = this.liplisNowTopic.emotionList[this.cntLnw];
+
+                        //なうポイントの取得
+                        this.nowPoint = this.liplisNowTopic.pointList[this.cntLnw];
+
+                        //インデックスインクリメント
                         this.cntLnw = this.cntLnw + 1;
                     }
                 }
+                else if (this.cntLnw == 0)
+                {
+                    //チャットテキストカウントの初期化
+                    this.cntLct = 0;
+
+                    //空チェック
+                    if (this.liplisNowTopic.nameList.Count == 0)
+                    {
+                        this.checkEnd();
+                        return true;
+                    }
+
+                    //なうワードの初期化
+                    this.liplisNowWord = this.liplisNowTopic.nameList[this.cntLnw];
+
+                    //次ワード遷移
+                    this.cntLnw = this.cntLnw + 1;
+
+                    //空だったら、空じゃなくなるまで繰り返す
+                    if (this.liplisNowWord == "")
+                    {
+                        while (this.liplisNowWord == "")
+                        {
+                            //チェックエンド
+                            checkEnd();
+
+                            //終了チェック
+                            if (this.cntLnw > this.liplisNowTopic.nameList[cntLnw].Length) { break; }
+
+                            //ナウワードの初期化
+                            this.liplisNowWord = this.liplisNowTopic.nameList[this.cntLnw];
+
+                            //次ワード遷移
+                            this.cntLnw = this.cntLnw + 1;
+                        }
+                    }
+                }
+                else
+                {
+
+                }
+
+                //今回送り出し文字
+                string nowSendChar = this.liplisNowWord.Substring(this.cntLct, 1);
+
+                //アットマーク検出(新規ウインドウ追加)
+                if (nowSendChar == "@")
+                {
+                    //アットマークは送らず、ウインドウ生成
+                    addNewWindow();
+                }
+                else
+                {
+                    //おしゃべり
+                    this.liplisChatText = this.liplisChatText + nowSendChar;
+                }
+
+
+                //LCTカウントインクリメント
+                this.cntLct = this.cntLct + 1;
+
+                return false;
             }
-            else
+            catch (Exception err)
             {
-
+                LpsLogController.writingLog(this.GetType().Name, MethodBase.GetCurrentMethod().Name, err.ToString());
+                return false;
             }
-
-            //今回送り出し文字
-            string nowSendChar = this.liplisNowWord.Substring(this.cntLct, 1);
-
-            //アットマーク検出(新規ウインドウ追加)
-            if (nowSendChar == "@")
-            {
-                //アットマークは送らず、ウインドウ生成
-                addNewWindow();
-            }
-            else
-            {
-                //おしゃべり
-                this.liplisChatText = this.liplisChatText + nowSendChar;
-            }
-
-
-            //LCTカウントインクリメント
-            this.cntLct = this.cntLct + 1;
-
-            return false;
         }
 
         /// <summary>
@@ -1795,6 +2028,23 @@ namespace Liplis.Widget
             }));
         }
 
+        /// <summary>
+        /// みんなでおしゃべり時のバトンタッチ
+        /// </summary>
+        private void batonTouch()
+        {
+            desk.lpsGilsTalk.nextTalkDelivery();
+        }
+
+        /// <summary>
+        /// みんなでおしゃべりカウントセット
+        /// </summary>
+        /// <param name="val"></param>
+        /// <param name="max"></param>
+        public void everyoneCountSet(int val, int max)
+        {
+            windowManager.everyoneCountSet(val, max);
+        }
 
 
         //============================================================
@@ -1820,7 +2070,7 @@ namespace Liplis.Widget
                 {
                     //現在の感情値、感情レベルからボディを一つ取得
                     this.lpsBody = skin.xmlBody.getLiplisBody(nowEmotion, nowPoint);
-                    Console.WriteLine("c" + prvEmotion + " : " + nowEmotion);
+                    //Console.WriteLine("c" + prvEmotion + " : " + nowEmotion);
                 }
 
 
@@ -1949,12 +2199,67 @@ namespace Liplis.Widget
         /// </summary>
         private void chatStop()
         {
+            try
+            {
+                //アラームIDを0に設定
+                this.flgAlarm = 0;
+
+                //チャット終了
+                this.flgChatting = false;
+
+                //スキップフラグも寝かせる
+                this.flgSkip = false;
+
+                if (!flgEnd)
+                {
+                    //みんなでおしゃべりモードの場合、バトンタッチ
+                    //if (this.setting.lpsTalkMode == (int)LPS_TALK_MODE.EVERYONE && flgEveryoneTalk)
+                    if (this.setting.lpsTalkMode == (int)LPS_TALK_MODE.EVERYONE && flgEveryoneTalk)
+                    {
+                        //次の人にバトンを渡す
+                        batonTouch();
+                    }
+                    else
+                    {
+                        ////アップデートカウントをりせっとする
+                        //this.reSetUpdateCount();
+                    }
+                }
+
+                //アップデートカウントをりせっとする
+                this.reSetUpdateCount();
+
+                //みんなでおしゃべりフラグを寝かす
+                flgEveryoneTalk = false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        /// <summary>
+        /// エブリワンからチャットを止める
+        /// </summary>
+       public void chatStopFromEveryone()
+        {
+            //アラームIDを0に設定
             this.flgAlarm = 0;
 
-            this.reSetUpdateCount();
-
+            //チャット終了
             this.flgChatting = false;
+
+            //スキップフラグも寝かせる
             this.flgSkip = false;
+
+            //アップデートカウント更新
+            //reSetUpdateCountEveryoneTlak();
+
+            //みんなでおしゃべりフラグを寝かす
+            flgEveryoneTalk = false;
+
+            //チャットクローズ
+            //closeWindow();
         }
 
         /// <summary>
@@ -1992,7 +2297,11 @@ namespace Liplis.Widget
             {
                 try
                 {
-                    if (this.liplisNowTopic.url == "")
+                    if (this.liplisNowTopic == null)
+                    {
+
+                    }
+                    else if (this.liplisNowTopic.url == "")
                     {
                         windowManager.createFirstWindow(this.Top, this.Left, this.Width);
                     }
@@ -2005,7 +2314,7 @@ namespace Liplis.Widget
                         windowManager.createTitleWindow(this.Top, this.Left, this.Width, this.Height, this.liplisNowTopic.title, this.liplisNowTopic.url, "");
                     }
                 }
-                catch
+                catch(Exception ex)
                 {
                     chatStop();
                     return;
@@ -2037,6 +2346,43 @@ namespace Liplis.Widget
             setWidgetLocation();
         }
 
+        /// <summary>
+        /// ウインドウを閉じる
+        /// </summary>
+        public void closeWindow()
+        {
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                try
+                {
+                    windowManager.closeWindowList();
+                    windowManager.closeEveryoneTitleWindow();
+                }
+                catch (Exception ex)
+                {
+                    chatStop();
+                    return;
+                }
+
+            }));
+        }
+        public void closeEveryoneWindow()
+        {
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                try
+                {
+                    windowManager.closeEveryoneTitleWindow();
+                }
+                catch (Exception ex)
+                {
+                    chatStop();
+                    return;
+                }
+
+            }));
+        }
+
         //============================================================
         //
         //話題管理
@@ -2056,8 +2402,6 @@ namespace Liplis.Widget
             this.flgThinking = false;
         }
 
-
-        //TODO: LiplisWidget ニュースキューチェック処理 要実装
         /// <summary>
         /// ニュースキューチェック
         /// </summary>
@@ -2069,7 +2413,6 @@ namespace Liplis.Widget
             }
         }
 
-        //TODO: LiplisWidget ニュース取得処理 要実装
         /// <summary>
         /// ニュースを取得する
         /// </summary>
@@ -2089,6 +2432,35 @@ namespace Liplis.Widget
                 this.liplisUrl = this.liplisNowTopic.url;
             }
         }
+
+        /// <summary>
+        ///  次のみんなでおしゃべりを要求する
+        /// </summary>
+        private void nextEveryoneTopic()
+        {
+            this.desk.lpsGilsTalk.nextTopicRequest();
+        }
+
+        /// <summary>
+        /// みんなでおしゃべり話題セット
+        /// </summary>
+        public void setTopicEveryone(MsgTalkMessage nextTalk)
+        {
+            //みんなでおしゃべり
+            this.flgEveryoneTalk = true;
+
+            //話題取得
+            this.liplisNowTopic = nextTalk;
+
+            //チャット情報の初期化
+            this.initChatInfo();
+
+            //チャットスタート
+            this.chatStart();
+        }
+
+
+
 
         //============================================================
         //
@@ -2155,6 +2527,9 @@ namespace Liplis.Widget
             WpfAnimation.opacityUp(this, icoBattery);
 
             WpfAnimation.opacityUp(this, canClock);
+            WpfAnimation.opacityUp(this, HourLine);
+            WpfAnimation.opacityUp(this, MinuteLine);
+            WpfAnimation.opacityUp(this, SecondLine);
         }
 
         /// <summary>
@@ -2174,6 +2549,9 @@ namespace Liplis.Widget
             WpfAnimation.opacityDown(this, icoBattery);
 
             WpfAnimation.opacityDown(this, canClock);
+            WpfAnimation.opacityDown(this, HourLine);
+            WpfAnimation.opacityDown(this, MinuteLine);
+            WpfAnimation.opacityDown(this, SecondLine);
         }
 
         /// <summary>
@@ -2191,23 +2569,39 @@ namespace Liplis.Widget
             this.image.Width = width;
         }
 
+        /// <summary>
+        /// 最小化する
+        /// </summary>
+        public void minimize()
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                this.WindowState = WindowState.Minimized;
+                this.sleep();
+
+                 this.windowManager.closeWindowList();
+            }));
+
+        }
+
         //============================================================
         //
         //ほか画面呼び出し
         //
         //============================================================
+        #region ほか画面呼び出し
         /// <summary>
         /// ウィジェット設定画面を呼び出す
         /// </summary>
         private void callWidgetSetting()
         {
-            if(viewWidgetSetting == null)
+            if (viewWidgetSetting == null)
             {
                 viewWidgetSetting = new ViewLiplisWidgetSetting(this, this.desk.baseSetting, this.setting, this.skin);
             }
             else
             {
-                if(viewWidgetSetting.IsDisposed)
+                if (viewWidgetSetting.IsDisposed)
                 {
                     viewWidgetSetting = new ViewLiplisWidgetSetting(this, this.desk.baseSetting, this.setting, this.skin);
                 }
@@ -2219,23 +2613,54 @@ namespace Liplis.Widget
         /// <summary>
         /// チャット画面を呼び出す
         /// </summary>
-        private void callChat()
+        private void callChatWindow()
         {
-            //TODO: LiplisWidget チャット画面とアイコンを作成したら、処理を作成する
-        }
-
-        private void Window_MouseLeave(object sender, MouseEventArgs e)
-        {
-            if (!LpsLiplisUtil.bitToBool(setting.lpsDisplayIcon))
+            if (viewChat == null)
             {
-                startLeaveTimer();
+                viewChat = new ViewChat(this);
             }
+            else
+            {
+                if (viewChat.IsDisposed)
+                {
+                    viewChat = new ViewChat(this);
+                }
+            }
+
+            viewChat.Show();
         }
 
-        private void Window_MouseEnter(object sender, MouseEventArgs e)
+        /// <summary>
+        /// みんなでおしゃべり時のタイトルウインドウを表示する
+        /// </summary>
+        public void callEveryoneTitleWindow(string title, string url, string jpgUrl)
         {
-            stopLeaveTimer();
+            Dispatcher.Invoke(new Action(() =>
+            {
+                if (url != "" && jpgUrl != "")
+                {
+                    windowManager.createEveryoneTitleWindow(this.Top, this.Left, this.Width, this.Height, title, url, jpgUrl);
+                }
+                else
+                {
+                    windowManager.createEveryoneTitleWindow(this.Top, this.Left, this.Width, this.Height, title, url, "");
+                }
+            }));
+
         }
+
+        /// <summary>
+        /// みんなでおしゃべり時のタイトルウインドウを消去する
+        /// </summary>
+        public void closeEveryoneTitleWindow()
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                this.windowManager.closeEveryoneTitleWindow();
+            }));        }
+
+        #endregion
+
 
 
     }

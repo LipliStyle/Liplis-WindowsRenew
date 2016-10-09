@@ -52,12 +52,16 @@
     <Compile Include="v31\Res\ResLpsTopicSearchWord.cs" />
     <Compile Include="v31\Res\ResLpsTopicSearchWordList.cs" />
     <Compile Include="v31\Res\ResUserOnetimePass.cs" />
+    <Compile Include="v40\Res\ResLpsChatResponse.cs" />
     <Compile Include="v40\Res\ResLpsShortNews2Json.cs" />
     <Compile Include="v40\Res\ResLpsShortNews2JsonList.cs" />
     <Compile Include="v40\Res\ResLpsSummaryNews2Json.cs" />
+    <Compile Include="v50\Msg\msgGirlsTalkSendData.cs" />
+    <Compile Include="v50\Msg\msgGirlsTalkSendDataSpecifyNewsId.cs" />
     <Compile Include="v50\Msg\msgTalkData.cs" />
     <Compile Include="v50\Res\ResLpsGirlsTalk.cs" />
     <Compile Include="v40\Res\ResLpsSummaryNews2JsonList.cs" />
+    <Compile Include="v50\Res\ResLpsGirlsTalkList.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

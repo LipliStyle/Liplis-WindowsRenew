@@ -31,6 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewLiplisSetting));
             this.tab = new System.Windows.Forms.TabControl();
             this.tbpEnvironment = new System.Windows.Forms.TabPage();
+            this.pnlMenuOpen = new System.Windows.Forms.Panel();
+            this.lblDescriptionMenuOpen = new System.Windows.Forms.Label();
+            this.chkMenuOpen = new System.Windows.Forms.CheckBox();
+            this.pnl2MenuOpen = new System.Windows.Forms.Panel();
+            this.lblDescription2MenuOpen = new System.Windows.Forms.Label();
+            this.lblTitleMenuOpen = new System.Windows.Forms.Label();
             this.pnlAutoWakeup = new System.Windows.Forms.Panel();
             this.lblDescriptionAutoWakeup = new System.Windows.Forms.Label();
             this.chkAutoWakeup = new System.Windows.Forms.CheckBox();
@@ -57,7 +63,7 @@
             this.btnFileReference = new System.Windows.Forms.Button();
             this.txtPath = new System.Windows.Forms.TextBox();
             this.lblTitleVoiceRoid = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
+            this.pnlVoiceSpase = new System.Windows.Forms.Panel();
             this.tbpTwitter = new System.Windows.Forms.TabPage();
             this.pnlTwitterRegister = new System.Windows.Forms.Panel();
             this.btnTwitterRegister = new System.Windows.Forms.Button();
@@ -68,7 +74,7 @@
             this.lblDescriptionTwitterRegisterStatus2 = new System.Windows.Forms.Label();
             this.lbllblTitleTwitterRegisterStatus = new System.Windows.Forms.Label();
             this.lblTitleTwitterRegisterStatus = new System.Windows.Forms.Label();
-            this.panel7 = new System.Windows.Forms.Panel();
+            this.pnlTwitterSpase = new System.Windows.Forms.Panel();
             this.tbpSync = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -85,12 +91,13 @@
             this.pnlSyncPassIssue = new System.Windows.Forms.Panel();
             this.lblDescriptionSyncPassIssue = new System.Windows.Forms.Label();
             this.lblTitleSyncPassIssue = new System.Windows.Forms.Label();
+            this.pnlSyncSpase = new System.Windows.Forms.Panel();
             this.pnlCtrl = new System.Windows.Forms.Panel();
             this.btnSync = new System.Windows.Forms.Label();
             this.btnTwetterSetting = new System.Windows.Forms.Label();
             this.btnVoiceSetting = new System.Windows.Forms.Label();
             this.btnEnvironmentSetting = new System.Windows.Forms.Label();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menu = new System.Windows.Forms.MenuStrip();
             this.tsmiFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiEnd = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiControl = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,14 +109,10 @@
             this.bwTwitterRegister = new System.ComponentModel.BackgroundWorker();
             this.bwGetOneTimePassword = new System.ComponentModel.BackgroundWorker();
             this.bwSync = new System.ComponentModel.BackgroundWorker();
-            this.pnlMenuOpen = new System.Windows.Forms.Panel();
-            this.lblDescriptionMenuOpen = new System.Windows.Forms.Label();
-            this.chkMenuOpen = new System.Windows.Forms.CheckBox();
-            this.pnl2MenuOpen = new System.Windows.Forms.Panel();
-            this.lblDescription2MenuOpen = new System.Windows.Forms.Label();
-            this.lblTitleMenuOpen = new System.Windows.Forms.Label();
             this.tab.SuspendLayout();
             this.tbpEnvironment.SuspendLayout();
+            this.pnlMenuOpen.SuspendLayout();
+            this.pnl2MenuOpen.SuspendLayout();
             this.pnlAutoWakeup.SuspendLayout();
             this.pnl2AutoWakeup.SuspendLayout();
             this.pnlAutoSleep.SuspendLayout();
@@ -132,9 +135,7 @@
             this.pnl2SyncPassIssue.SuspendLayout();
             this.pnlSyncPassIssue.SuspendLayout();
             this.pnlCtrl.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
-            this.pnlMenuOpen.SuspendLayout();
-            this.pnl2MenuOpen.SuspendLayout();
+            this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab
@@ -144,10 +145,10 @@
             this.tab.Controls.Add(this.tbpTwitter);
             this.tab.Controls.Add(this.tbpSync);
             this.tab.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tab.Location = new System.Drawing.Point(0, 83);
+            this.tab.Location = new System.Drawing.Point(0, 24);
             this.tab.Name = "tab";
             this.tab.SelectedIndex = 0;
-            this.tab.Size = new System.Drawing.Size(784, 478);
+            this.tab.Size = new System.Drawing.Size(784, 537);
             this.tab.TabIndex = 0;
             // 
             // tbpEnvironment
@@ -166,9 +167,71 @@
             this.tbpEnvironment.Location = new System.Drawing.Point(4, 22);
             this.tbpEnvironment.Name = "tbpEnvironment";
             this.tbpEnvironment.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpEnvironment.Size = new System.Drawing.Size(776, 452);
+            this.tbpEnvironment.Size = new System.Drawing.Size(776, 511);
             this.tbpEnvironment.TabIndex = 0;
             this.tbpEnvironment.Text = "環境設定";
+            // 
+            // pnlMenuOpen
+            // 
+            this.pnlMenuOpen.Controls.Add(this.lblDescriptionMenuOpen);
+            this.pnlMenuOpen.Controls.Add(this.chkMenuOpen);
+            this.pnlMenuOpen.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlMenuOpen.Location = new System.Drawing.Point(3, 290);
+            this.pnlMenuOpen.Name = "pnlMenuOpen";
+            this.pnlMenuOpen.Size = new System.Drawing.Size(770, 50);
+            this.pnlMenuOpen.TabIndex = 112;
+            // 
+            // lblDescriptionMenuOpen
+            // 
+            this.lblDescriptionMenuOpen.AutoSize = true;
+            this.lblDescriptionMenuOpen.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblDescriptionMenuOpen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.lblDescriptionMenuOpen.Location = new System.Drawing.Point(5, 9);
+            this.lblDescriptionMenuOpen.Name = "lblDescriptionMenuOpen";
+            this.lblDescriptionMenuOpen.Size = new System.Drawing.Size(199, 16);
+            this.lblDescriptionMenuOpen.TabIndex = 1;
+            this.lblDescriptionMenuOpen.Text = "起動時にメニューを表示する";
+            // 
+            // chkMenuOpen
+            // 
+            this.chkMenuOpen.AutoSize = true;
+            this.chkMenuOpen.ForeColor = System.Drawing.Color.White;
+            this.chkMenuOpen.Location = new System.Drawing.Point(296, 13);
+            this.chkMenuOpen.Name = "chkMenuOpen";
+            this.chkMenuOpen.Size = new System.Drawing.Size(15, 14);
+            this.chkMenuOpen.TabIndex = 0;
+            this.chkMenuOpen.UseVisualStyleBackColor = true;
+            this.chkMenuOpen.CheckedChanged += new System.EventHandler(this.chkMenuOpen_CheckedChanged);
+            // 
+            // pnl2MenuOpen
+            // 
+            this.pnl2MenuOpen.Controls.Add(this.lblDescription2MenuOpen);
+            this.pnl2MenuOpen.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnl2MenuOpen.Location = new System.Drawing.Point(3, 260);
+            this.pnl2MenuOpen.Name = "pnl2MenuOpen";
+            this.pnl2MenuOpen.Size = new System.Drawing.Size(770, 30);
+            this.pnl2MenuOpen.TabIndex = 113;
+            // 
+            // lblDescription2MenuOpen
+            // 
+            this.lblDescription2MenuOpen.AutoSize = true;
+            this.lblDescription2MenuOpen.ForeColor = System.Drawing.Color.White;
+            this.lblDescription2MenuOpen.Location = new System.Drawing.Point(5, 9);
+            this.lblDescription2MenuOpen.Name = "lblDescription2MenuOpen";
+            this.lblDescription2MenuOpen.Size = new System.Drawing.Size(501, 12);
+            this.lblDescription2MenuOpen.TabIndex = 2;
+            this.lblDescription2MenuOpen.Text = "チェックしておくと、起動時に操作メニューを開きます。　メニューは、タスクトレイアイコンから開くこともできます。\r\n";
+            // 
+            // lblTitleMenuOpen
+            // 
+            this.lblTitleMenuOpen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(227)))), ((int)(((byte)(96)))));
+            this.lblTitleMenuOpen.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblTitleMenuOpen.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblTitleMenuOpen.Location = new System.Drawing.Point(3, 240);
+            this.lblTitleMenuOpen.Name = "lblTitleMenuOpen";
+            this.lblTitleMenuOpen.Size = new System.Drawing.Size(770, 20);
+            this.lblTitleMenuOpen.TabIndex = 111;
+            this.lblTitleMenuOpen.Text = "起動時のメニューの表示";
             // 
             // pnlAutoWakeup
             // 
@@ -307,11 +370,11 @@
             this.tbpVoice.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.tbpVoice.Controls.Add(this.splVoiceRoid);
             this.tbpVoice.Controls.Add(this.lblTitleVoiceRoid);
-            this.tbpVoice.Controls.Add(this.panel5);
+            this.tbpVoice.Controls.Add(this.pnlVoiceSpase);
             this.tbpVoice.Location = new System.Drawing.Point(4, 22);
             this.tbpVoice.Name = "tbpVoice";
             this.tbpVoice.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpVoice.Size = new System.Drawing.Size(776, 452);
+            this.tbpVoice.Size = new System.Drawing.Size(776, 511);
             this.tbpVoice.TabIndex = 1;
             this.tbpVoice.Text = "音声設定";
             // 
@@ -331,8 +394,8 @@
             // splVoiceRoid.Panel2
             // 
             this.splVoiceRoid.Panel2.Controls.Add(this.pnlVoiceRoid);
-            this.splVoiceRoid.Size = new System.Drawing.Size(770, 389);
-            this.splVoiceRoid.SplitterDistance = 324;
+            this.splVoiceRoid.Size = new System.Drawing.Size(770, 448);
+            this.splVoiceRoid.SplitterDistance = 383;
             this.splVoiceRoid.TabIndex = 108;
             // 
             // dgvVoiceRoidList
@@ -347,7 +410,7 @@
             this.dgvVoiceRoidList.Location = new System.Drawing.Point(0, 30);
             this.dgvVoiceRoidList.Name = "dgvVoiceRoidList";
             this.dgvVoiceRoidList.RowTemplate.Height = 21;
-            this.dgvVoiceRoidList.Size = new System.Drawing.Size(770, 294);
+            this.dgvVoiceRoidList.Size = new System.Drawing.Size(770, 353);
             this.dgvVoiceRoidList.TabIndex = 2;
             // 
             // colName
@@ -449,13 +512,13 @@
             this.lblTitleVoiceRoid.TabIndex = 106;
             this.lblTitleVoiceRoid.Text = "ボイスロイド登録リスト";
             // 
-            // panel5
+            // pnlVoiceSpase
             // 
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel5.Location = new System.Drawing.Point(3, 3);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(770, 37);
-            this.panel5.TabIndex = 3;
+            this.pnlVoiceSpase.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlVoiceSpase.Location = new System.Drawing.Point(3, 3);
+            this.pnlVoiceSpase.Name = "pnlVoiceSpase";
+            this.pnlVoiceSpase.Size = new System.Drawing.Size(770, 37);
+            this.pnlVoiceSpase.TabIndex = 3;
             // 
             // tbpTwitter
             // 
@@ -464,10 +527,10 @@
             this.tbpTwitter.Controls.Add(this.lblTitleTwitterRegister);
             this.tbpTwitter.Controls.Add(this.pnlTwitterRegisterStatus);
             this.tbpTwitter.Controls.Add(this.lblTitleTwitterRegisterStatus);
-            this.tbpTwitter.Controls.Add(this.panel7);
+            this.tbpTwitter.Controls.Add(this.pnlTwitterSpase);
             this.tbpTwitter.Location = new System.Drawing.Point(4, 22);
             this.tbpTwitter.Name = "tbpTwitter";
-            this.tbpTwitter.Size = new System.Drawing.Size(776, 452);
+            this.tbpTwitter.Size = new System.Drawing.Size(776, 511);
             this.tbpTwitter.TabIndex = 2;
             this.tbpTwitter.Text = "ツイッター設定";
             // 
@@ -568,13 +631,13 @@
             this.lblTitleTwitterRegisterStatus.TabIndex = 108;
             this.lblTitleTwitterRegisterStatus.Text = "ツイッター設定状態";
             // 
-            // panel7
+            // pnlTwitterSpase
             // 
-            this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel7.Location = new System.Drawing.Point(0, 0);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(776, 37);
-            this.panel7.TabIndex = 107;
+            this.pnlTwitterSpase.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTwitterSpase.Location = new System.Drawing.Point(0, 0);
+            this.pnlTwitterSpase.Name = "pnlTwitterSpase";
+            this.pnlTwitterSpase.Size = new System.Drawing.Size(776, 37);
+            this.pnlTwitterSpase.TabIndex = 107;
             // 
             // tbpSync
             // 
@@ -587,9 +650,10 @@
             this.tbpSync.Controls.Add(this.pnl2SyncPassIssue);
             this.tbpSync.Controls.Add(this.pnlSyncPassIssue);
             this.tbpSync.Controls.Add(this.lblTitleSyncPassIssue);
+            this.tbpSync.Controls.Add(this.pnlSyncSpase);
             this.tbpSync.Location = new System.Drawing.Point(4, 22);
             this.tbpSync.Name = "tbpSync";
-            this.tbpSync.Size = new System.Drawing.Size(776, 452);
+            this.tbpSync.Size = new System.Drawing.Size(776, 511);
             this.tbpSync.TabIndex = 3;
             this.tbpSync.Text = "設定同期";
             // 
@@ -597,7 +661,7 @@
             // 
             this.panel2.Controls.Add(this.label1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 240);
+            this.panel2.Location = new System.Drawing.Point(0, 277);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(776, 55);
             this.panel2.TabIndex = 119;
@@ -618,7 +682,7 @@
             this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(227)))), ((int)(((byte)(96)))));
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
             this.label2.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(0, 220);
+            this.label2.Location = new System.Drawing.Point(0, 257);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(776, 20);
             this.label2.TabIndex = 118;
@@ -629,7 +693,7 @@
             this.pn2FromOtherSync.Controls.Add(this.txtFromOtherSync);
             this.pn2FromOtherSync.Controls.Add(this.btnFromOtherSync);
             this.pn2FromOtherSync.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pn2FromOtherSync.Location = new System.Drawing.Point(0, 160);
+            this.pn2FromOtherSync.Location = new System.Drawing.Point(0, 197);
             this.pn2FromOtherSync.Name = "pn2FromOtherSync";
             this.pn2FromOtherSync.Size = new System.Drawing.Size(776, 60);
             this.pn2FromOtherSync.TabIndex = 117;
@@ -658,7 +722,7 @@
             // 
             this.pnlFromOtherSync.Controls.Add(this.lblDescriptionFromOtherSync);
             this.pnlFromOtherSync.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlFromOtherSync.Location = new System.Drawing.Point(0, 130);
+            this.pnlFromOtherSync.Location = new System.Drawing.Point(0, 167);
             this.pnlFromOtherSync.Name = "pnlFromOtherSync";
             this.pnlFromOtherSync.Size = new System.Drawing.Size(776, 30);
             this.pnlFromOtherSync.TabIndex = 116;
@@ -678,7 +742,7 @@
             this.lblTitleFromOtherSync.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(227)))), ((int)(((byte)(96)))));
             this.lblTitleFromOtherSync.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTitleFromOtherSync.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblTitleFromOtherSync.Location = new System.Drawing.Point(0, 110);
+            this.lblTitleFromOtherSync.Location = new System.Drawing.Point(0, 147);
             this.lblTitleFromOtherSync.Name = "lblTitleFromOtherSync";
             this.lblTitleFromOtherSync.Size = new System.Drawing.Size(776, 20);
             this.lblTitleFromOtherSync.TabIndex = 115;
@@ -689,7 +753,7 @@
             this.pnl2SyncPassIssue.Controls.Add(this.txtSyncPassIssue);
             this.pnl2SyncPassIssue.Controls.Add(this.btnSyncPassIssue);
             this.pnl2SyncPassIssue.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnl2SyncPassIssue.Location = new System.Drawing.Point(0, 50);
+            this.pnl2SyncPassIssue.Location = new System.Drawing.Point(0, 87);
             this.pnl2SyncPassIssue.Name = "pnl2SyncPassIssue";
             this.pnl2SyncPassIssue.Size = new System.Drawing.Size(776, 60);
             this.pnl2SyncPassIssue.TabIndex = 114;
@@ -719,7 +783,7 @@
             // 
             this.pnlSyncPassIssue.Controls.Add(this.lblDescriptionSyncPassIssue);
             this.pnlSyncPassIssue.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlSyncPassIssue.Location = new System.Drawing.Point(0, 20);
+            this.pnlSyncPassIssue.Location = new System.Drawing.Point(0, 57);
             this.pnlSyncPassIssue.Name = "pnlSyncPassIssue";
             this.pnlSyncPassIssue.Size = new System.Drawing.Size(776, 30);
             this.pnlSyncPassIssue.TabIndex = 113;
@@ -739,11 +803,19 @@
             this.lblTitleSyncPassIssue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(227)))), ((int)(((byte)(96)))));
             this.lblTitleSyncPassIssue.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTitleSyncPassIssue.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblTitleSyncPassIssue.Location = new System.Drawing.Point(0, 0);
+            this.lblTitleSyncPassIssue.Location = new System.Drawing.Point(0, 37);
             this.lblTitleSyncPassIssue.Name = "lblTitleSyncPassIssue";
             this.lblTitleSyncPassIssue.Size = new System.Drawing.Size(776, 20);
             this.lblTitleSyncPassIssue.TabIndex = 112;
             this.lblTitleSyncPassIssue.Text = "同期用ワンタイムパスワード発行";
+            // 
+            // pnlSyncSpase
+            // 
+            this.pnlSyncSpase.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlSyncSpase.Location = new System.Drawing.Point(0, 0);
+            this.pnlSyncSpase.Name = "pnlSyncSpase";
+            this.pnlSyncSpase.Size = new System.Drawing.Size(776, 37);
+            this.pnlSyncSpase.TabIndex = 120;
             // 
             // pnlCtrl
             // 
@@ -805,18 +877,18 @@
             this.btnEnvironmentSetting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnEnvironmentSetting.Click += new System.EventHandler(this.btnEnvironmentSetting_Click);
             // 
-            // menuStrip1
+            // menu
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiFile,
             this.tsmiControl,
             this.tsmiHelp,
             this.tsmiVersion});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(784, 24);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menu.Location = new System.Drawing.Point(0, 0);
+            this.menu.Name = "menu";
+            this.menu.Size = new System.Drawing.Size(784, 24);
+            this.menu.TabIndex = 1;
+            this.menu.Text = "menuStrip1";
             // 
             // tsmiFile
             // 
@@ -828,9 +900,11 @@
             // 
             // tsmiEnd
             // 
+            this.tsmiEnd.Image = global::Liplis.Properties.Resources.ico_pow;
             this.tsmiEnd.Name = "tsmiEnd";
-            this.tsmiEnd.Size = new System.Drawing.Size(113, 22);
+            this.tsmiEnd.Size = new System.Drawing.Size(152, 22);
             this.tsmiEnd.Text = "終了(&X)";
+            this.tsmiEnd.Click += new System.EventHandler(this.tsmiEnd_Click);
             // 
             // tsmiControl
             // 
@@ -845,6 +919,7 @@
             this.tsmiDefault.Name = "tsmiDefault";
             this.tsmiDefault.Size = new System.Drawing.Size(164, 22);
             this.tsmiDefault.Text = "デフォルトに戻す(&D)";
+            this.tsmiDefault.Click += new System.EventHandler(this.tsmiDefault_Click);
             // 
             // tsmiHelp
             // 
@@ -857,21 +932,26 @@
             // 
             // tsmiOpenHelp
             // 
+            this.tsmiOpenHelp.Image = global::Liplis.Properties.Resources.sel_topic;
             this.tsmiOpenHelp.Name = "tsmiOpenHelp";
             this.tsmiOpenHelp.Size = new System.Drawing.Size(179, 22);
             this.tsmiOpenHelp.Text = "LiplisWindowsヘルプ";
+            this.tsmiOpenHelp.Click += new System.EventHandler(this.tsmiOpenHelp_Click);
             // 
             // tsmiOpenSite
             // 
+            this.tsmiOpenSite.Image = global::Liplis.Properties.Resources.sel_setting;
             this.tsmiOpenSite.Name = "tsmiOpenSite";
             this.tsmiOpenSite.Size = new System.Drawing.Size(179, 22);
             this.tsmiOpenSite.Text = "LipliStyleWebサイト";
+            this.tsmiOpenSite.Click += new System.EventHandler(this.tsmiOpenSite_Click);
             // 
             // tsmiVersion
             // 
             this.tsmiVersion.Name = "tsmiVersion";
             this.tsmiVersion.Size = new System.Drawing.Size(102, 20);
             this.tsmiVersion.Text = "バージョン情報(&V)";
+            this.tsmiVersion.Click += new System.EventHandler(this.tsmiVersion_Click);
             // 
             // bwTwitterRegister
             // 
@@ -888,83 +968,25 @@
             this.bwSync.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwSync_DoWork);
             this.bwSync.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwSync_RunWorkerCompleted);
             // 
-            // pnlMenuOpen
-            // 
-            this.pnlMenuOpen.Controls.Add(this.lblDescriptionMenuOpen);
-            this.pnlMenuOpen.Controls.Add(this.chkMenuOpen);
-            this.pnlMenuOpen.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlMenuOpen.Location = new System.Drawing.Point(3, 290);
-            this.pnlMenuOpen.Name = "pnlMenuOpen";
-            this.pnlMenuOpen.Size = new System.Drawing.Size(770, 50);
-            this.pnlMenuOpen.TabIndex = 112;
-            // 
-            // lblDescriptionMenuOpen
-            // 
-            this.lblDescriptionMenuOpen.AutoSize = true;
-            this.lblDescriptionMenuOpen.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblDescriptionMenuOpen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.lblDescriptionMenuOpen.Location = new System.Drawing.Point(5, 9);
-            this.lblDescriptionMenuOpen.Name = "lblDescriptionMenuOpen";
-            this.lblDescriptionMenuOpen.Size = new System.Drawing.Size(199, 16);
-            this.lblDescriptionMenuOpen.TabIndex = 1;
-            this.lblDescriptionMenuOpen.Text = "起動時にメニューを表示する";
-            // 
-            // chkMenuOpen
-            // 
-            this.chkMenuOpen.AutoSize = true;
-            this.chkMenuOpen.ForeColor = System.Drawing.Color.White;
-            this.chkMenuOpen.Location = new System.Drawing.Point(296, 13);
-            this.chkMenuOpen.Name = "chkMenuOpen";
-            this.chkMenuOpen.Size = new System.Drawing.Size(15, 14);
-            this.chkMenuOpen.TabIndex = 0;
-            this.chkMenuOpen.UseVisualStyleBackColor = true;
-            this.chkMenuOpen.CheckedChanged += new System.EventHandler(this.chkMenuOpen_CheckedChanged);
-            // 
-            // pnl2MenuOpen
-            // 
-            this.pnl2MenuOpen.Controls.Add(this.lblDescription2MenuOpen);
-            this.pnl2MenuOpen.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnl2MenuOpen.Location = new System.Drawing.Point(3, 260);
-            this.pnl2MenuOpen.Name = "pnl2MenuOpen";
-            this.pnl2MenuOpen.Size = new System.Drawing.Size(770, 30);
-            this.pnl2MenuOpen.TabIndex = 113;
-            // 
-            // lblDescription2MenuOpen
-            // 
-            this.lblDescription2MenuOpen.AutoSize = true;
-            this.lblDescription2MenuOpen.ForeColor = System.Drawing.Color.White;
-            this.lblDescription2MenuOpen.Location = new System.Drawing.Point(5, 9);
-            this.lblDescription2MenuOpen.Name = "lblDescription2MenuOpen";
-            this.lblDescription2MenuOpen.Size = new System.Drawing.Size(501, 12);
-            this.lblDescription2MenuOpen.TabIndex = 2;
-            this.lblDescription2MenuOpen.Text = "チェックしておくと、起動時に操作メニューを開きます。　メニューは、タスクトレイアイコンから開くこともできます。\r\n";
-            // 
-            // lblTitleMenuOpen
-            // 
-            this.lblTitleMenuOpen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(227)))), ((int)(((byte)(96)))));
-            this.lblTitleMenuOpen.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblTitleMenuOpen.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblTitleMenuOpen.Location = new System.Drawing.Point(3, 240);
-            this.lblTitleMenuOpen.Name = "lblTitleMenuOpen";
-            this.lblTitleMenuOpen.Size = new System.Drawing.Size(770, 20);
-            this.lblTitleMenuOpen.TabIndex = 111;
-            this.lblTitleMenuOpen.Text = "起動時のメニューの表示";
-            // 
             // ViewLiplisSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.tab);
             this.Controls.Add(this.pnlCtrl);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.tab);
+            this.Controls.Add(this.menu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.menu;
             this.Name = "ViewLiplisSetting";
-            this.Text = "ViewLiplisSetting";
+            this.Text = "Liplis 環境設定";
             this.tab.ResumeLayout(false);
             this.tbpEnvironment.ResumeLayout(false);
+            this.pnlMenuOpen.ResumeLayout(false);
+            this.pnlMenuOpen.PerformLayout();
+            this.pnl2MenuOpen.ResumeLayout(false);
+            this.pnl2MenuOpen.PerformLayout();
             this.pnlAutoWakeup.ResumeLayout(false);
             this.pnlAutoWakeup.PerformLayout();
             this.pnl2AutoWakeup.ResumeLayout(false);
@@ -1000,12 +1022,8 @@
             this.pnlSyncPassIssue.ResumeLayout(false);
             this.pnlSyncPassIssue.PerformLayout();
             this.pnlCtrl.ResumeLayout(false);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.pnlMenuOpen.ResumeLayout(false);
-            this.pnlMenuOpen.PerformLayout();
-            this.pnl2MenuOpen.ResumeLayout(false);
-            this.pnl2MenuOpen.PerformLayout();
+            this.menu.ResumeLayout(false);
+            this.menu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1025,7 +1043,7 @@
         private System.Windows.Forms.TabPage tbpTwitter;
         private System.Windows.Forms.TabPage tbpSync;
         private System.Windows.Forms.DataGridView dgvVoiceRoidList;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menu;
         private System.Windows.Forms.ToolStripMenuItem tsmiFile;
         private System.Windows.Forms.ToolStripMenuItem tsmiEnd;
         private System.Windows.Forms.ToolStripMenuItem tsmiControl;
@@ -1045,7 +1063,7 @@
         private System.Windows.Forms.Label lblTitleAutoSleep;
         private System.Windows.Forms.DataGridViewTextBoxColumn colName;
         private System.Windows.Forms.DataGridViewTextBoxColumn colPath;
-        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel pnlVoiceSpase;
         private System.Windows.Forms.Label lblTitleVoiceRoid;
         private System.Windows.Forms.SplitContainer splVoiceRoid;
         private System.Windows.Forms.Panel pnlVoiceRoid;
@@ -1057,7 +1075,7 @@
         private System.Windows.Forms.Panel pnlTwitterRegisterStatus;
         private System.Windows.Forms.Label lblDescriptionTwitterRegisterStatus2;
         private System.Windows.Forms.Label lblTitleTwitterRegisterStatus;
-        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Panel pnlTwitterSpase;
         private System.Windows.Forms.Label lblDescriptionTwitterRegisterStatus;
         private System.Windows.Forms.Button btnVoiceRoidDel;
         private System.Windows.Forms.Button btnVoiceRoidAdd;
@@ -1092,5 +1110,6 @@
         private System.Windows.Forms.Panel pnl2MenuOpen;
         private System.Windows.Forms.Label lblDescription2MenuOpen;
         private System.Windows.Forms.Label lblTitleMenuOpen;
+        private System.Windows.Forms.Panel pnlSyncSpase;
     }
 }

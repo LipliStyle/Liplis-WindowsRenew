@@ -21,9 +21,22 @@ namespace Liplis.Gui
         /// <param name="message"></param>
         public static void showMessage(string message)
         {
-            using (_LpsMessage f = new _LpsMessage())
+            using (_LpsMessage f = new _LpsMessage(System.Windows.Forms.MessageBoxButtons.OK))
             {
                 f.popMessage(LpsDefine.PRG_NAME_LIPLIS, message);
+            }
+        }
+
+        /// <summary>
+        /// メッセージを表示する
+        /// </summary>
+        /// <param name="message"></param>
+        public static bool showMessageDialog(string message)
+        {
+            using (_LpsMessage f = new _LpsMessage(System.Windows.Forms.MessageBoxButtons.OKCancel))
+            {
+                f.popMessage(LpsDefine.PRG_NAME_LIPLIS, message);
+                return f.DialogResult == System.Windows.Forms.DialogResult.OK;
             }
         }
 

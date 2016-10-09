@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B15B7B25-558C-43B7-AD8F-78968E25BF1E}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Liplis</RootNamespace>
     <AssemblyName>Liplis</AssemblyName>
@@ -36,6 +36,9 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>liplis.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CoreTweet">
       <HintPath>..\..\..\DLL\CoreTweet\net45\CoreTweet.dll</HintPath>
@@ -63,6 +66,27 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activity\ViewChat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Activity\ViewChat.Designer.cs">
+      <DependentUpon>ViewChat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Activity\Ctrl\CharPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Activity\Ctrl\CusCtlDataPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Activity\Ctrl\CusCtlPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Activity\Ctrl\CusCtlTellPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Activity\Ctrl\CusCtlTellPanelChar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Activity\Sub\ViewRssAdd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +132,12 @@
     <Compile Include="Activity\ViewDeskTop.Designer.cs">
       <DependentUpon>ViewDeskTop.cs</DependentUpon>
     </Compile>
+    <Compile Include="Activity\ViewVersion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Activity\ViewVersion.Designer.cs">
+      <DependentUpon>ViewVersion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Com\LiplisErrorDefine.cs" />
     <Compile Include="Exp\ExpWidgetInitException.cs" />
     <Compile Include="MainSystem\LiplisKeyManager.cs" />
@@ -124,6 +154,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Tpc\LiplisGilsTalk.cs" />
     <Compile Include="Tpc\LiplisNews.cs" />
     <Compile Include="Widget\LiplisWidget.xaml.cs">
       <DependentUpon>LiplisWidget.xaml</DependentUpon>
@@ -131,6 +162,7 @@
     <Compile Include="Activity\ViewCharacter.xaml.cs">
       <DependentUpon>ViewCharacter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widget\LpsWindow\LiplisEveryoneTitleWindow.cs" />
     <Compile Include="Widget\LpsWindow\LiplisNewsPicture.xaml.cs">
       <DependentUpon>LiplisNewsPicture.xaml</DependentUpon>
     </Compile>
@@ -146,6 +178,9 @@
     <Compile Include="Widget\LpsWindow\LiplisWindow.xaml.cs">
       <DependentUpon>LiplisWindow.xaml</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Activity\ViewChat.resx">
+      <DependentUpon>ViewChat.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Activity\Sub\ViewRssAdd.resx">
       <DependentUpon>ViewRssAdd.cs</DependentUpon>
     </EmbeddedResource>
@@ -166,6 +201,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Activity\ViewDeskTop.resx">
       <DependentUpon>ViewDeskTop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Activity\ViewVersion.resx">
+      <DependentUpon>ViewVersion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -233,12 +271,26 @@
     <Resource Include="window_red.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="liplis.ico" />
     <Content Include="Resources\design_battery_100.png" />
     <Content Include="Resources\design_ico_back.png" />
     <Content Include="Resources\design_ico_char_lili.png" />
     <Content Include="Resources\design_ico_ntro.png" />
     <Content Include="Resources\design_ico_og.png" />
     <Content Include="Resources\design_ico_setting.png" />
+    <None Include="Resources\ico_tray.png" />
+    <Resource Include="Resources\ico_talk_tell.png" />
+    <Resource Include="Resources\ico_talk_tweet.png" />
+    <Resource Include="Resources\ico_talk_web.png" />
+    <Resource Include="Resources\ico_talk_cpurl.png" />
+    <Resource Include="Resources\ico_talk_next.png" />
+    <None Include="Resources\ico_minna.png" />
+    <None Include="Resources\ico_rescue.png" />
+    <None Include="Resources\ico_tray.pdn" />
+    <None Include="Resources\sel_topic.png" />
+    <None Include="Resources\sel_setting.png" />
+    <None Include="Resources\ico_waikup.png" />
+    <None Include="Resources\version.png" />
     <None Include="Resources\ico_web.png" />
     <None Include="Resources\ico_tweet.png" />
     <None Include="Resources\mode_hitori.png" />

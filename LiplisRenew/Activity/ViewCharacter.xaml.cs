@@ -209,14 +209,22 @@ namespace Liplis.Activity
         /// <returns></returns>
         private ImageSource createCharBitmapIamge(string picPath)
         {
-            //ビットマップイメージ生成
-            BitmapImage bmpImage = new BitmapImage(new Uri(picPath));
+            try
+            {
+                //ビットマップイメージ生成
+                BitmapImage bmpImage = new BitmapImage(new Uri(picPath));
 
-            //切り抜き
-            CroppedBitmap clippingImage = new CroppedBitmap(bmpImage, new Int32Rect((int)bmpImage.Width / 2 - 50, 0, 100, 300));
+                //切り抜き
+                CroppedBitmap clippingImage = new CroppedBitmap(bmpImage, new Int32Rect((int)bmpImage.Width / 2 - 50, 0, 100, 300));
 
-            //差k性イメージを返す
-            return clippingImage;
+                //差k性イメージを返す
+                return clippingImage;
+            }
+            catch
+            {
+                return null;
+            }
+
         }
         #endregion
 

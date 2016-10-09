@@ -63,6 +63,7 @@ namespace Liplis.Xml
 
                 //キャッシュファイルの取得
                 xmlFilePath = LpsPathController.getChatDefinePath(loadSkin);
+                //xmlFilePath = loadSkin;
 
                 //body.xmlの存在チェック
                 if (LpsPathController.checkFileExist(xmlFilePath))
@@ -83,6 +84,10 @@ namespace Liplis.Xml
                 //読み込みに失敗した場合はエラー
                 throw new ExpSkinNotFoundException(err);
             }
+        }
+        public XmlLiplisChat()
+        {
+            initList();
         }
         #endregion
 

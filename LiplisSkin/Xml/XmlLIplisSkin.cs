@@ -143,7 +143,7 @@ namespace Liplis.Xml
         /// setPreferenceData
         /// セーブ
         /// </summary>
-        public void setPreferenceData()
+        public virtual void setPreferenceData()
         {
 
         }

@@ -26,14 +26,19 @@
 //  Copyright(c) 2010-2016 LipliStyle.Sachin
 //=======================================================================
 using Liplis.Com;
+using Liplis.Com.Defile;
 using Liplis.Gui;
 using Liplis.MainSystem;
 using Liplis.Msg;
+using Liplis.Tpc;
+using Liplis.Utl;
 using Liplis.Widget;
 using Liplis.Wpf;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Security.Permissions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Liplis.Activity
@@ -58,9 +63,21 @@ namespace Liplis.Activity
         public SkinController sc;
 
         //=================================
+        //ニュースインスタンス
+        public LiplisGilsTalk lpsGilsTalk;
+
+        //=================================
         //画面
-        private ViewMenu menu;
+        public ViewMenu menu;
         public ViewLiplisLog vLog;
+        //public ViewChattingWithEveryone vEveryone;
+        public ViewLiplisSetting viewSetting;
+        public ViewLiplisRssSetting viewRss;
+        public ViewCharacter viewCharacter;
+
+        ///=====================================
+        /// バックグラウンド処理
+        BackgroundWorker workLoading;
 
         ///====================================================================
         ///
@@ -108,11 +125,61 @@ namespace Liplis.Activity
             //起動前チェック
             liplisStartCheck();
 
-            //ウィジェットリストの初期化
-            initLiplis();
+            //ワーカーの初期化
+            this.initWorker();
+        }
 
+        /// <summary>
+        /// ロードイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ViewDeskTop_Load(object sender, EventArgs e)
+        {
+            //ウィジェットリストの初期化
+            this.initLiplis();
+
+            //ロードワーカー開始
+            this.workLoading.RunWorkerAsync();
+        }
+
+        /// <summary>
+        /// ノラリスからデスクトップをロードする
+        /// </summary>
+        public void ViewDeskTop_Load_FromNoralis()
+        {
+            //ウィジェットリストの初期化
+            widgetList = new List<LiplisWidget>();
+        }
+
+        /// <summary>
+        /// ロード(ブロック可能)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void workLoading_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            //ガールズトークデータ収集初期化
+            this.initGilsTalk();
+
+            Invoke((MethodInvoker)delegate
+            {
+                widgetLoadShow();
+            });
+            
+        }
+
+
+        /// <summary>
+        /// すべての初期化完了時、おしゃべり開始
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void workLoading_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
             //メニューを開く
-            if(baseSetting.lpsMenuOpen == 1) { openMenu(); }
+            if (baseSetting.lpsMenuOpen == 1) { openMenu(); }
+            //openViewEveryoneWindow();
         }
 
         /// <summary>
@@ -120,11 +187,12 @@ namespace Liplis.Activity
         /// </summary>
         private void initClass()
         {
-            this.kman        = new LiplisKeyManager();  //キーマネージャーの初期化
-            this.lpsLog      = new MsgLiplisLogList();  //ログリストの初期化
-            this.baseSetting = new LiplisPreference();  //設定読み込み
-            this.sc          = new SkinController();    //スキン管理クラス
+            this.kman                = new LiplisKeyManager();  //キーマネージャーの初期化
+            this.lpsLog              = new MsgLiplisLogList();  //ログリストの初期化
+            this.baseSetting         = new LiplisPreference();  //設定読み込み
+            this.sc                  = new SkinController();    //スキン管理クラス
             this.createViewLog();                       //ログウインドウを開く
+            //this.createViewEveryoneWindow();            //みんなでおしゃべりウインドウを開く
         }
 
         /// <summary>
@@ -178,8 +246,49 @@ namespace Liplis.Activity
         private void createViewLog()
         {
             vLog = new ViewLiplisLog(this);
-            vLog.Show();
+            vLog.Opacity = 0;
             vLog.Hide();
+            vLog.Opacity = 100;
+        }
+
+        /// <summary>
+        /// ログ画面の初期化
+        /// </summary>
+        //private void createViewEveryoneWindow()
+        //{
+        //    vEveryone = new ViewChattingWithEveryone(this);
+        //    //vEveryone.Show();
+        //    vEveryone.Hide();
+        //}
+
+        /// <summary>
+        /// ガールズトーク初期化
+        /// </summary>
+        private void initGilsTalk()
+        {
+            this.lpsGilsTalk = new LiplisGilsTalk(this.widgetList, this.baseSetting, this);
+        }
+
+        #endregion
+
+        //============================================================
+        //
+        //ワーカー初期化処理
+        //
+        //============================================================
+        #region ワーカー初期化処理 
+        /// <summary>
+        /// ロードワーカー初期化
+        /// </summary>
+        private void initWorker()
+        {
+
+            this.workLoading = new System.ComponentModel.BackgroundWorker();
+            this.workLoading.DoWork += new System.ComponentModel.DoWorkEventHandler(workLoading_DoWork);
+            this.workLoading.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(workLoading_RunWorkerCompleted);
+
+            this.workLoading.WorkerReportsProgress = true;
+            this.workLoading.WorkerSupportsCancellation = true;
         }
         #endregion
 
@@ -218,7 +327,7 @@ namespace Liplis.Activity
         /// <param name="e"></param>
         private void tsmSetting_Click(object sender, EventArgs e)
         {
-
+            openViewSetting();
         }
 
         /// <summary>
@@ -228,7 +337,7 @@ namespace Liplis.Activity
         /// <param name="e"></param>
         private void tsmLog_Click(object sender, EventArgs e)
         {
-
+            openViewLog();
         }
 
         /// <summary>
@@ -238,8 +347,28 @@ namespace Liplis.Activity
         /// <param name="e"></param>
         private void tsmMinimize_Click(object sender, EventArgs e)
         {
+            bool allHide = true;
 
+            foreach (var widget in widgetList)
+            {
+                if (widget.WindowState == System.Windows.WindowState.Normal)
+                {
+                    allHide = false;
+                    break;
+                }
+            }
+
+            //全員最小化していたら、全員復帰、それ以外なら、全員最小化する
+            if (allHide)
+            {
+                widgetNormalizeAll();
+            }
+            else
+            {
+                widgetMinmizeAll();
+            }
         }
+
 
         /// <summary>
         /// 全員おやすみ/ 起床
@@ -248,6 +377,26 @@ namespace Liplis.Activity
         /// <param name="e"></param>
         private void tsmSleep_Click(object sender, EventArgs e)
         {
+            bool allSleep = true;
+
+            foreach (var widget in widgetList)
+            {
+                if(!widget.flgSitdown)
+                {
+                    allSleep = false;
+                    break;
+                }
+            }
+
+            //全員寝ていたらウェイクアップを発動し、起きていたらスリープを発動する
+            if(allSleep)
+            {
+                widgetWakeup();
+            }
+            else
+            {
+                widgetSleep();
+            }
 
         }
 
@@ -276,8 +425,15 @@ namespace Liplis.Activity
         {
             //TODO: ViewDeskTop liplisEnd もろもろの終了処理が必要か？
 
+            //ログファイル削除
+            LpsLiplisUtil.DeleteFileTargetDir(LpsPathController.getTempPath2());
+            LpsLiplisUtil.DeleteFile(LpsPathController.getLogPath());
+
             //すべてのウィジェットを終了する
-            this.endAllWidget();
+            this.goodByeAllWidget();
+
+            //5s待つ
+            LpsLiplisUtil.wait(5000);
 
             //終了
             this.Close();
@@ -346,7 +502,7 @@ namespace Liplis.Activity
         /// ウィジェットを追加する(読み込み追加)
         /// </summary>
         /// <param name="key"></param>
-        private bool addLoadWidget(string key)
+        public bool addLoadWidget(string key)
         {
             //キー取得
             LiplisWidgetPreference widgetSetting = createWidgetSetttingFromKey(key);
@@ -361,9 +517,6 @@ namespace Liplis.Activity
 
                 //ウィジェットリストに追加する
                 this.widgetList.Add(lps);
-
-                //出現させる
-                lps.Show();
 
                 return true;
             }
@@ -394,7 +547,42 @@ namespace Liplis.Activity
             this.kman.addKey(widgetSetting.key);
         }
 
+        /// <summary>
+        /// ノラリスからウィジェットをロードする
+        /// </summary>
+        /// <param name="skin"></param>
+        /// <returns></returns>
+        public bool addLoadWidgetFromNoralis(Skin skin)
+        {
+            //スキンデータ取得チェック
+            if (skin != null)
+            {
+                //キー取得
+                LiplisWidgetPreference widgetSetting = createWidgetSettingFromSkin(skin);
 
+                LiplisWidget lps = new LiplisWidget(this, widgetSetting, skin);
+
+                //キーマネージャに追加する
+                this.kman.addKey(widgetSetting.key);
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// ウィジェットリストを回し、showする
+        /// </summary>
+        private void widgetLoadShow()
+        {
+            foreach (var lps in this.widgetList)
+            {
+                lps.Show();
+            }
+        }
 
 
         /// <summary>
@@ -457,6 +645,28 @@ namespace Liplis.Activity
         }
 
         /// <summary>
+        /// すべてのウィジェットをグッバイする
+        /// </summary>
+        public void goodByeAllWidget()
+        {
+            foreach (LiplisWidget widget in widgetList)
+            {
+                widget.goodBaydLiplis();
+            }
+        }
+
+        /// <summary>
+        /// すべてのウィジェットを最小化する
+        /// </summary>
+        public void miniMizeWidget()
+        {
+            foreach (LiplisWidget widget in widgetList)
+            {
+                widget.minimize();
+            }
+        }
+
+        /// <summary>
         /// ウィジェットをデスクトップから削除する
         /// </summary>
         /// <param name="widget"></param>
@@ -488,7 +698,7 @@ namespace Liplis.Activity
         /// <summary>
         /// デスクトップの全てのウィジェットを削除する
         /// </summary>
-        private void delWidgetAll()
+        public void delWidgetAll()
         {
             foreach(var widget in widgetList)
             {
@@ -515,7 +725,7 @@ namespace Liplis.Activity
         /// <summary>
         /// ウィジェットをスリープにする
         /// </summary>
-        private void widgetSleep()
+        private void widgetSleepAuto()
         {
             //設定チェック
             if (this.baseSetting.lpsAutoSleep == 1)
@@ -530,28 +740,54 @@ namespace Liplis.Activity
                 }
             }
         }
+        public void widgetSleep()
+        {
+            //ウィジェットリストを回してらりほー
+            foreach (var wid in this.widgetList)
+            {
+                Invoke((MethodInvoker)delegate
+                {
+                    wid.sleep();
+                });
+            }
+        }
 
         /// <summary>
         ///  ウィジェットをウェイクアップする
         /// </summary>
-        private void widgetWakeup()
+        private void widgetWakeupAuto()
         {
-            ////設定チェック
-            //if (this.baseSetting.lpsAutoWakeup == 1)
-            //{
-            //    //ウィジェットリストを回して起こす
+            //設定チェック
+            if (this.baseSetting.lpsAutoWakeup == 1)
+            {
+                //ウィジェットリストを回して起こす
 
-            //    foreach (var widget in this.widgetList)
-            //    {
-            //        widget.wakeup();
-            //    }
-            //}
+                foreach (var widget in this.widgetList)
+                {
+                    Invoke((MethodInvoker)delegate
+                    {
+                        widget.wakeup();
+                    });
+                    
+                }
+            }
+        }
+        public void widgetWakeup()
+        {
+            foreach (var widget in this.widgetList)
+            {
+                Invoke((MethodInvoker)delegate
+                {
+                    widget.wakeup();
+                });
+
+            }
         }
 
         /// <summary>
         /// デスクトップの全てのウィジェットにレスキューする
         /// </summary>
-        private void rescueWidgetAll()
+        public void rescueWidgetAll()
         {
             foreach (var widget in this.widgetList)
             {
@@ -559,6 +795,28 @@ namespace Liplis.Activity
                 {
                     widget.rescue(0);
                 });
+            }
+        }
+
+        /// <summary>
+        /// すべてのウィジェットを最小化する
+        /// </summary>
+        public void widgetMinmizeAll()
+        {
+            foreach (var widget in widgetList)
+            {
+                widget.WindowState =System.Windows.WindowState.Minimized;
+            }
+        }
+
+        /// <summary>
+        /// すべてのウィジェットを復帰させる
+        /// </summary>
+        public void widgetNormalizeAll()
+        {
+            foreach (var widget in widgetList)
+            {
+                widget.WindowState = System.Windows.WindowState.Normal;
             }
         }
 
@@ -571,6 +829,9 @@ namespace Liplis.Activity
         //============================================================
         #region 画面処理
 
+        /// <summary>
+        /// ログウィンドウを開く
+        /// </summary>
         public void openViewLog()
         {
             //インスタンス化されているか
@@ -587,6 +848,7 @@ namespace Liplis.Activity
 
             //フォームを開く
             vLog.Show();
+            vLog.WindowState = System.Windows.WindowState.Normal;
             vLog.Activate();
         }
 
@@ -597,6 +859,188 @@ namespace Liplis.Activity
         {
             vLog.addLog(log, skin, setting);
         }
+
+        /// <summary>
+        /// みんなでおしゃべりウインドウを開く
+        /// </summary>
+        //public void openViewEveryoneWindow()
+        //{
+        //    //インスタンス化されているか
+        //    if (vLog == null)
+        //    {
+        //        createViewEveryoneWindow();
+        //    }
+
+        //    //閉じられているか?
+        //    if (vEveryone.IsDisposed)
+        //    {
+        //        createViewEveryoneWindow();
+        //    }
+
+        //    //フォームを開く
+        //    vEveryone.Show();
+        //    vEveryone.Activate();
+        //}
+
+
+        /// <summary>
+        /// キャラクター選択画面を表示する
+        /// </summary>
+        public void openViewCharacter()
+        {
+            //インスタンス化されているか
+            if (viewCharacter == null)
+            {
+                createViewCharacter();
+            }
+
+            //閉じられているか?
+            if (WpfUtil.isWpfDisposed(viewCharacter))
+            {
+                createViewCharacter();
+            }
+
+            //フォームを開く
+            viewCharacter.Show();
+            viewCharacter.Activate();
+        }
+        public void createViewCharacter()
+        {
+            viewCharacter = new ViewCharacter(this);
+        }
+
+        /// <summary>
+        /// 設定画面を開く
+        /// </summary>
+        public void openViewSetting()
+        {
+            //インスタンス化されているか
+            if (viewSetting == null)
+            {
+                createViewSetting();
+            }
+
+            //閉じられているか?
+            if (viewSetting.IsDisposed)
+            {
+                createViewSetting();
+            }
+
+            //フォームを開く
+            viewSetting.Show();
+            viewSetting.Activate();
+        }
+        public void createViewSetting()
+        {
+            viewSetting = new ViewLiplisSetting(this.baseSetting);
+        }
+
+        /// <summary>
+        /// RSS設定画面を開く
+        /// </summary>
+        public void openViewRss()
+        {
+            //インスタンス化されているか
+            if (viewRss == null)
+            {
+                createViewRss();
+            }
+
+            //閉じられているか?
+            if (viewRss.IsDisposed)
+            {
+                createViewRss();
+            }
+
+            //フォームを開く
+            viewRss.Show();
+            viewRss.Activate();
+        }
+        public void createViewRss()
+        {
+            viewRss = new ViewLiplisRssSetting(this.baseSetting);
+        }
+
+        #endregion
+
+        //============================================================
+        //
+        //設定同期
+        //
+        //============================================================
+        #region 設定同期  
+        /// <summary>
+        /// 設定同期
+        /// みんなでおしゃべりする場合は、話題設定が同期される
+        /// </summary>
+        /// <param name="setWidget"></param>
+        public void syncSetting(LiplisWidget setWidget)
+        {
+            foreach (LiplisWidget widget in widgetList)
+            {
+                if (widget.setting.lpsTalkMode == (int)LPS_TALK_MODE.EVERYONE)
+                {
+                    if(widget.setting.key != setWidget.setting.key)
+                    {
+                        widget.setting.lpsTopicNews      = setWidget.setting.lpsTopicNews; 
+                        widget.setting.lpsTopic2ch       = setWidget.setting.lpsTopic2ch; 
+                        widget.setting.lpsTopicNico      = setWidget.setting.lpsTopicNico; 
+                        widget.setting.lpsTopicRss       = setWidget.setting.lpsTopicRss;
+                        widget.setting.lpsTopicTwitterPu = setWidget.setting.lpsTopicTwitterPu;
+                        widget.setting.lpsTopicTwitterMy = setWidget.setting.lpsTopicTwitterMy;
+                        widget.setting.setPreferenceData();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 元々登録されているウィジェットに話題設定を同期する
+        /// </summary>
+        public void syncSetting()
+        {
+            if(widgetList.Count < 1)
+            {
+                return;
+            }
+            
+            //一番最初のウィジェットに同期する
+            LiplisWidget setWidget = widgetList[0];
+
+            foreach (LiplisWidget widget in widgetList)
+            {
+                if (widget.setting.lpsTalkMode == (int)LPS_TALK_MODE.EVERYONE)
+                {
+                    if (widget.setting.key != setWidget.setting.key)
+                    {
+                        widget.setting.lpsTopicNews = setWidget.setting.lpsTopicNews;
+                        widget.setting.lpsTopic2ch = setWidget.setting.lpsTopic2ch;
+                        widget.setting.lpsTopicNico = setWidget.setting.lpsTopicNico;
+                        widget.setting.lpsTopicRss = setWidget.setting.lpsTopicRss;
+                        widget.setting.lpsTopicTwitterPu = setWidget.setting.lpsTopicTwitterPu;
+                        widget.setting.lpsTopicTwitterMy = setWidget.setting.lpsTopicTwitterMy;
+                        widget.setting.setPreferenceData();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        ///　みんなでおしゃべりの代表設定を返す
+        /// </summary>
+        /// <returns></returns>
+        public LiplisWidgetPreference getMinnaRepresentativeSetting()
+        {
+            if (widgetList.Count < 1)
+            {
+                return null;
+            }
+
+            //一番最初のウィジェットに同期する
+            return widgetList[0].setting;
+        }
+
+
 
 
         #endregion

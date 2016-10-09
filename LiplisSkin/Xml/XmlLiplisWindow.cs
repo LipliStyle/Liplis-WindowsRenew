@@ -10,6 +10,8 @@
 
 using Liplis.Com;
 using Liplis.Utl;
+using System;
+using System.Drawing;
 
 namespace Liplis.Xml
 {
@@ -68,6 +70,9 @@ namespace Liplis.Xml
         public string WINDOW_RED { get; set; }
         public string WINDOW_YELLOW { get; set; }
 
+        ///=============================
+        /// 定義
+        public const string DEF_BASE_ICON_NAME = "ico_back.png";
 
         /// <summary>
         /// コンストラクター
@@ -97,21 +102,21 @@ namespace Liplis.Xml
             this.BATTERY_75       = getIconPath("battery_75.png");
             this.BATTERY_87       = getIconPath("battery_87.png");
             this.BATTERY_NON      = getIconPath("battery_non.png");
-            this.BTN              = getIconPath("btn.png");
-            this.CLOCK_0          = getIconPath("clock_0.png");
-            this.CLOCK_1          = getIconPath("clock_1.png");
-            this.CLOCK_2          = getIconPath("clock_2.png");
-            this.CLOCK_3          = getIconPath("clock_3.png");
-            this.CLOCK_4          = getIconPath("clock_4.png");
-            this.CLOCK_5          = getIconPath("clock_5.png");
-            this.CLOCK_6          = getIconPath("clock_6.png");
-            this.CLOCK_7          = getIconPath("clock_7.png");
-            this.CLOCK_8          = getIconPath("clock_8.png");
-            this.CLOCK_9          = getIconPath("clock_9.png");
-            this.CLOCK_CONMA      = getIconPath("clock_conma.png");
-            this.CLOCK_SLASH      = getIconPath("clock_slash.png");
+            //this.BTN              = getIconPath("btn.png");
+            //this.CLOCK_0          = getIconPath("clock_0.png");
+            //this.CLOCK_1          = getIconPath("clock_1.png");
+            //this.CLOCK_2          = getIconPath("clock_2.png");
+            //this.CLOCK_3          = getIconPath("clock_3.png");
+            //this.CLOCK_4          = getIconPath("clock_4.png");
+            //this.CLOCK_5          = getIconPath("clock_5.png");
+            //this.CLOCK_6          = getIconPath("clock_6.png");
+            //this.CLOCK_7          = getIconPath("clock_7.png");
+            //this.CLOCK_8          = getIconPath("clock_8.png");
+            //this.CLOCK_9          = getIconPath("clock_9.png");
+            //this.CLOCK_CONMA      = getIconPath("clock_conma.png");
+            //this.CLOCK_SLASH      = getIconPath("clock_slash.png");
             this.ICON             = getIconPath("icon.png");
-            this.ICO_BACK         = getIconPath("ico_back.png");
+            this.ICO_BACK         = getIconPath(DEF_BASE_ICON_NAME);
             this.ICO_BATTERYGAGE  = getIconPath("ico_batterygage.png");
             this.ICO_CHAR         = getIconPath("ico_char.png");
             this.ICO_LOG          = getIconPath("ico_log.png");
@@ -124,15 +129,15 @@ namespace Liplis.Xml
             this.ICO_TRAY         = getIconPath("ico_tray.png");
             this.ICO_WAIKUP       = getIconPath("ico_waikup.png");
             this.ICO_ZZZ          = getIconPath("ico_zzz.png");
-            this.ICO_INTRODUCTION = getIconPath("ico_intro");
+            this.ICO_INTRODUCTION = getIconPath("ico_intro.png");
             this.SETTING          = getIconPath("setting.png");
-            this.WINDOW           = getIconPath("window.png");
-            this.WINDOW_BLUE      = getIconPath("window_blue.png");
-            this.WINDOW_GREEN     = getIconPath("window_green.png");
-            this.WINDOW_PINK      = getIconPath("window_pink.png");
-            this.WINDOW_PURPLE    = getIconPath("window_purple.png");
-            this.WINDOW_RED       = getIconPath("window_red.png");
-            this.WINDOW_YELLOW    = getIconPath("window_yellow.png");
+            this.WINDOW           = getWindowPath("window.png");
+            this.WINDOW_BLUE      = getWindowPath("window_blue.png");
+            this.WINDOW_GREEN     = getWindowPath("window_green.png");
+            this.WINDOW_PINK      = getWindowPath("window_pink.png");
+            this.WINDOW_PURPLE    = getWindowPath("window_purple.png");
+            this.WINDOW_RED       = getWindowPath("window_red.png");
+            this.WINDOW_YELLOW    = getWindowPath("window_yellow.png");
         }
 
         /// <summary>
@@ -142,6 +147,7 @@ namespace Liplis.Xml
         private string getIconPath(string iconFileName)
         {
             string iconPath = "";
+            string iconBasePath = "";
 
             //アイコンパスの設定
             iconPath = this.liplisWindowDirPath + iconFileName;
@@ -153,12 +159,20 @@ namespace Liplis.Xml
             }
 
             //デフォルト無地アイコンパスの設定
-            iconPath = this.liplisWindowDirPath + "ico_back.png";
+            iconBasePath = this.liplisWindowDirPath + DEF_BASE_ICON_NAME;
 
             //アイコンが見つからなければデフォルトアイコンを返す
-            if (LpsLiplisUtil.ExistsFile(iconPath))
+            if (LpsLiplisUtil.ExistsFile(iconBasePath))
             {
-                return iconPath;
+                //アイコン生成を試みる
+                if(createIcon(iconFileName))
+                {
+                    return iconPath;
+                }
+                else
+                {
+                    return iconBasePath;
+                }
             }
 
             //デフォルト無地アイコンパスの設定
@@ -173,6 +187,181 @@ namespace Liplis.Xml
                 throw new System.Exception("");
             }
         }
+
+        /// <summary>
+        /// アイコンパスを設定する
+        /// </summary>
+        /// <param name="iconFileName"></param>
+        public string getBatteryIcon(double batteryNowLevel)
+        {
+            if (batteryNowLevel <= 10)
+            {
+                return this.BATTERY_0;
+            }
+            else if (batteryNowLevel <= 12)
+            {
+                return this.BATTERY_12;
+            }
+            else if (batteryNowLevel <= 25)
+            {
+                return this.BATTERY_25;
+            }
+            else if (batteryNowLevel <= 37)
+            {
+                return this.BATTERY_37;
+            }
+            else if (batteryNowLevel <= 50)
+            {
+                return this.BATTERY_50;
+            }
+            else if (batteryNowLevel <= 62)
+            {
+                return this.BATTERY_62;
+            }
+            else if (batteryNowLevel <= 75)
+            {
+                return this.BATTERY_75;
+            }
+            else if (batteryNowLevel <= 87)
+            {
+                return this.BATTERY_87;
+            }
+            else if (batteryNowLevel > 87 && batteryNowLevel <= 100)
+            {
+                return this.BATTERY_100;
+            }
+            else
+            {
+                return this.BATTERY_100;
+            }
+        }
+
+        /// <summary>
+        /// ウインドウパスを取得する
+        /// </summary>
+        /// <param name="iconFileName"></param>
+        /// <returns></returns>
+        private string getWindowPath(string iconFileName)
+        {
+            string iconPath = "";
+
+            //アイコンパスの設定
+            iconPath = this.liplisWindowDirPath + iconFileName;
+
+            //アイコンが見つかれば、パスを返す
+            if (LpsLiplisUtil.ExistsFile(iconPath))
+            {
+                return iconPath;
+            }
+
+            //デフォルト無地アイコンパスの設定
+            iconPath = LpsPathController.getAppPath() + "\\Skin\\LiliRenew\\window\\window.png";
+
+            if (LpsLiplisUtil.ExistsFile(iconPath))
+            {
+                return iconPath;
+            }
+            else
+            {
+                throw new System.Exception("");
+            }
+        }
+
+
+        /// <summary>
+        /// アイコンを生成する。
+        /// 生成に成功したらtrue,失敗ならfalseを返す
+        /// </summary>
+        /// <param name="iconFileName"></param>
+        /// <returns></returns>
+        private bool createIcon(string iconFileName)
+        {
+            try
+            {
+                string iconPath = this.liplisWindowDirPath + iconFileName;
+                string iconBasePath = this.liplisWindowDirPath + DEF_BASE_ICON_NAME;
+
+                using (Bitmap img1 = new Bitmap(iconBasePath))
+                {
+                    using (Bitmap img2 = getDefaultImage(iconFileName))
+                    {
+                        using (Bitmap img3 = new Bitmap(img1))
+                        {
+                            using (Graphics g = Graphics.FromImage(img3))
+                            {
+                                g.DrawImage(img2, img3.Width - img2.Width, img3.Height - img2.Height, img2.Width, img2.Height);
+                                img3.Save(iconPath, System.Drawing.Imaging.ImageFormat.Png);
+                            }
+                        }
+                    }
+
+                }
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// デフォルトイメージアイコンの取得
+        /// </summary>
+        /// <param name="iconFileName"></param>
+        /// <returns></returns>
+        private Bitmap getDefaultImage(string iconFileName)
+        {
+            switch(iconFileName)
+            {
+                case "battery_0.png": return Properties.Resources.def_battery_0;
+                case "battery_100.png": return Properties.Resources.def_battery_100;
+                case "battery_12.png": return Properties.Resources.def_battery_12;
+                case "battery_25.png": return Properties.Resources.def_battery_25;
+                case "battery_37.png": return Properties.Resources.def_battery_37;
+                case "battery_50.png": return Properties.Resources.def_battery_50;
+                case "battery_62.png": return Properties.Resources.def_battery_62;
+                case "battery_75.png": return Properties.Resources.def_battery_75;
+                case "battery_87.png": return Properties.Resources.def_battery_87;
+                case "battery_non.png": return Properties.Resources.def_battery_non;
+                case "btn.png": return Properties.Resources.def_btn;
+                case "clock_0.png": return Properties.Resources.def_clock_0;
+                case "clock_1.png": return Properties.Resources.def_clock_1;
+                case "clock_2.png": return Properties.Resources.def_clock_2;
+                case "clock_3.png": return Properties.Resources.def_clock_3;
+                case "clock_4.png": return Properties.Resources.def_clock_4;
+                case "clock_5.png": return Properties.Resources.def_clock_5;
+                case "clock_6.png": return Properties.Resources.def_clock_6;
+                case "clock_7.png": return Properties.Resources.def_clock_7;
+                case "clock_8.png": return Properties.Resources.def_clock_8;
+                case "clock_9.png": return Properties.Resources.def_clock_9;
+                case "clock_conma.png": return Properties.Resources.def_clock_conma;
+                case "clock_slash.png": return Properties.Resources.def_clock_slash;
+                case "icon.png": return Properties.Resources.def_icon;
+                case DEF_BASE_ICON_NAME: return Properties.Resources.ico_back;
+                case "ico_batterygage.png": return Properties.Resources.def_ico_batterygage;
+                case "ico_char.png": return Properties.Resources.def_ico_char;
+                case "ico_log.png": return Properties.Resources.def_ico_log;
+                case "ico_next.png": return Properties.Resources.def_ico_next;
+                case "ico_pow.png": return Properties.Resources.def_ico_pow;
+                case "ico_rss.png": return Properties.Resources.def_ico_rss;
+                case "ico_setting.png": return Properties.Resources.def_ico_setting;
+                case "ico_thinking.png": return Properties.Resources.def_ico_thinking;
+                case "ico_thinking_not.png": return Properties.Resources.def_ico_thinking_not;
+                case "ico_tray.png": return Properties.Resources.def_ico_tray;
+                case "ico_waikup.png": return Properties.Resources.def_ico_waikup;
+                case "ico_zzz.png": return Properties.Resources.def_ico_zzz;
+                case "ico_intro.png": return Properties.Resources.def_ico_intro;
+                case "setting.png": return Properties.Resources.setting;
+                default:return Properties.Resources.ico_back;
+            }
+        }
+
+
+
+
+
+
 
         /// <summary>
         /// ウインドウパスを取得する

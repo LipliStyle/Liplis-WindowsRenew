@@ -13,6 +13,7 @@
 //  Copyright(c) 2010-2016 LipliStyle.Sachin
 //=======================================================================
 using Liplis.Com;
+using Liplis.Com.Defile;
 using Liplis.MainSystem;
 using Liplis.Properties;
 using Liplis.Widget;
@@ -31,6 +32,8 @@ namespace Liplis.Activity
         private Skin skin;
         private LiplisWidget lips;
 
+        private bool flgLoad = false;
+
         //============================================================
         //
         //初期化処理
@@ -44,13 +47,15 @@ namespace Liplis.Activity
             this.baseSetting = baseSetting;
             this.setting = setting;
             this.skin = skin;
-
+            
             //画面初期化
             InitializeComponent();
 
             //ウインドウの初期化
             initWindow();
 
+            //ロード
+            this.flgLoad = true;
         }
 
         /// <summary>
@@ -58,6 +63,9 @@ namespace Liplis.Activity
         /// </summary>
         private void initWindow()
         {
+            //ウインドウタイトル設定
+            this.Text = skin.charName + " 設定";
+                
             //ウインドウ画像設定
             setWindowPic();
 
@@ -208,62 +216,7 @@ namespace Liplis.Activity
         }
 
         #endregion
-
-        //============================================================
-        //
-        //タブ操作ボタン
-        //
-        //============================================================
-        #region タブ操作ボタン
-        private void btnWidgetSetting_Click(object sender, System.EventArgs e)
-        {
-            this.tab.SelectedTab = this.tbpEnvironment;
-            this.setButtonDefaultColor();
-            this.btnWidgetSetting.BackColor = Color.FromArgb(192, 255, 255);
-            this.btnWidgetSetting.ForeColor = Color.Black;
-        }
-
-
-        private void btnTopicSetting_Click(object sender, System.EventArgs e)
-        {
-            
-            this.tab.SelectedTab = this.tbpTopic;
-            this.setButtonDefaultColor();
-            this.btnTopicSetting.BackColor = Color.FromArgb(192, 255, 255);
-            this.btnTopicSetting.ForeColor = Color.Black;
-        }
-
-        private void btnTalkWindowSetting_Click(object sender, System.EventArgs e)
-        {
-            this.tab.SelectedTab = this.tbpWIndow;
-            this.setButtonDefaultColor();
-            this.btnTalkWindowSetting.BackColor = Color.FromArgb(192, 255, 255);
-            this.btnTalkWindowSetting.ForeColor = Color.Black;
-        }
-
-        private void btnVoiceSetting_Click(object sender, System.EventArgs e)
-        {
-            this.tab.SelectedTab = this.tbpVoice;
-            this.setButtonDefaultColor();
-            this.btnVoiceSetting.BackColor = Color.FromArgb(192, 255, 255);
-            this.btnVoiceSetting.ForeColor = Color.Black;
-        }
-
-        private void setButtonDefaultColor()
-        {
-            this.btnWidgetSetting.BackColor      = Color.FromArgb(223, 116, 1);
-            this.btnTalkWindowSetting.BackColor  = Color.FromArgb(223, 116, 1);
-            this.btnTopicSetting.BackColor       = Color.FromArgb(223, 116, 1);
-            this.btnVoiceSetting.BackColor       = Color.FromArgb(223, 116, 1);
-            this.btnWidgetSetting.ForeColor      = Color.White;
-            this.btnTalkWindowSetting.ForeColor  = Color.White;
-            this.btnTopicSetting.ForeColor       = Color.White;
-            this.btnVoiceSetting.ForeColor       = Color.White;
-        }
-        #endregion
-
-
-
+        
         //============================================================
         //
         //設定反映
@@ -279,10 +232,12 @@ namespace Liplis.Activity
             if(talkMode == 1)
             {
                 rdTalkModeMinna.Checked = true;
+                this.picTalkMode.Image = LpsResorceManager.getResourceBitmap(typeof(Resources).Assembly, "mode_minna");
             }
             else
             {
                 rdTalkModeHitori.Checked = true;
+                this.picTalkMode.Image = LpsResorceManager.getResourceBitmap(typeof(Resources).Assembly, "mode_hitori");
             }
         }
 
@@ -366,12 +321,15 @@ namespace Liplis.Activity
             {
                 case LiplisWindowStack.AveStack:
                     rdWindowPosLRC.Checked = true;
+                    this.picWindowPos.Image = LpsResorceManager.getResourceBitmap(typeof(Resources).Assembly, "window_pos_lrc");
                     break;
                 case LiplisWindowStack.LeeftStack:
                     rdWindowPosLeft.Checked = true;
+                    this.picWindowPos.Image = LpsResorceManager.getResourceBitmap(typeof(Resources).Assembly, "window_pos_left");
                     break;
                 case LiplisWindowStack.RightStarck:
                     rdWindowPosRight.Checked = true;
+                    this.picWindowPos.Image = LpsResorceManager.getResourceBitmap(typeof(Resources).Assembly, "window_pos_right");
                     break;
                 default:
                     rdWindowPosLeft.Checked = true;
@@ -388,6 +346,17 @@ namespace Liplis.Activity
             this.cboWindowNum.Text = windowNum.ToString();
         }
 
+        /// <summary>
+        /// 設定を同期する
+        /// </summary>
+        private void syncTopicSetting()
+        {
+            //エブリワンモードなら、同期する
+            if(lips.setting.lpsTalkMode == (int)LPS_TALK_MODE.EVERYONE)
+            {
+                lips.desk.syncSetting(lips);
+            }
+        }
         #endregion
 
         //============================================================
@@ -427,15 +396,41 @@ namespace Liplis.Activity
         /// <param name="e"></param>
         private void rdTalkModeHitori_CheckedChanged(object sender, System.EventArgs e)
         {
-            setting.lpsTalkMode = 0;
-            setting.setPreferenceData();
-            this.picTalkMode.Image = LpsResorceManager.getResourceBitmap(typeof(Resources).Assembly, "mode_hitori");
+            if(flgLoad)
+            {
+                if(!rdTalkModeHitori.Checked)
+                {
+                    return;
+                }
+
+                //みんなでおしゃべりリストから削除する
+                lips.desk.lpsGilsTalk.removeWidgetEveryoneTalkWidgetList(lips);
+
+                setting.lpsTalkMode = (int)LPS_TALK_MODE.NORMAL;
+                setting.setPreferenceData();
+                this.picTalkMode.Image = LpsResorceManager.getResourceBitmap(typeof(Resources).Assembly, "mode_hitori");
+            }
+
         }
         private void rdTalkModeMinna_CheckedChanged(object sender, System.EventArgs e)
         {
-            setting.lpsTalkMode = 1;
-            setting.setPreferenceData();
-            this.picTalkMode.Image = LpsResorceManager.getResourceBitmap(typeof(Resources).Assembly, "mode_minna");
+            if (flgLoad)
+            {
+                if (!rdTalkModeMinna.Checked)
+                {
+                    return;
+                }
+
+                //みんなでおしゃべりリストに追加する
+                lips.desk.lpsGilsTalk.addWidgetEveryoneTalkWidgetList(lips);
+
+                setting.lpsTalkMode = (int)LPS_TALK_MODE.EVERYONE;
+                setting.setPreferenceData();
+                this.picTalkMode.Image = LpsResorceManager.getResourceBitmap(typeof(Resources).Assembly, "mode_minna");
+
+                //話題設定を同期する(元々設定されているウィジェットに合わせる)
+                lips.desk.syncSetting();
+            }
         }
 
         /// <summary>
@@ -652,37 +647,49 @@ namespace Liplis.Activity
         private void chkTopicNews_CheckedChanged(object sender, System.EventArgs e)
         {
             setting.lpsTopicNews = LpsLiplisUtil.boolToBit(chkTopicNews.Checked);
-            setting.setPreferenceData();
+            savePreference();
         }
 
         private void chkTopic2ch_CheckedChanged(object sender, System.EventArgs e)
         {
             setting.lpsTopic2ch = LpsLiplisUtil.boolToBit(chkTopic2ch.Checked);
-            setting.setPreferenceData();
+            savePreference();
         }
 
         private void chkTopicNico_CheckedChanged(object sender, System.EventArgs e)
         {
             setting.lpsTopicNico = LpsLiplisUtil.boolToBit(chkTopicNico.Checked);
-            setting.setPreferenceData();
+            savePreference();
         }
 
         private void chkTopicTwPublic_CheckedChanged(object sender, System.EventArgs e)
         {
             setting.lpsTopicTwitterPu = LpsLiplisUtil.boolToBit(chkTopicTwPublic.Checked);
-            setting.setPreferenceData();
+            savePreference();
         }
 
         private void chkTopicRss_CheckedChanged(object sender, System.EventArgs e)
         {
             setting.lpsTopicRss = LpsLiplisUtil.boolToBit(chkTopicRss.Checked);
-            setting.setPreferenceData();
+            savePreference();
         }
 
         private void chkTopicTwMyTimeLine_CheckedChanged(object sender, System.EventArgs e)
         {
             setting.lpsTopicTwitterMy = LpsLiplisUtil.boolToBit(chkTopicTwMyTimeLine.Checked);
+            savePreference();
+        }
+
+        /// <summary>
+        /// 設定保存
+        /// </summary>
+        private void savePreference()
+        {
+            //設定保存
             setting.setPreferenceData();
+
+            //設定同期
+            syncTopicSetting();
         }
 
         /// <summary>

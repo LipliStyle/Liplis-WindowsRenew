@@ -65,7 +65,7 @@ namespace Liplis.Web
         /// <returns></returns>
         private static async Task<string> sendPostTask(string uri, FormUrlEncodedContent postData)
         {
-            return await sendPostTask(uri, "Liplis5.x", "ja-JP", TimeSpan.FromSeconds(20.0), postData);
+            return await sendPostTask(uri, "Liplis5.x", "ja-JP", TimeSpan.FromSeconds(60.0), postData);
         }
         private static async Task<string> sendPostTask(string uri, string userAgent, string language, TimeSpan timeOut, FormUrlEncodedContent postData)
         {

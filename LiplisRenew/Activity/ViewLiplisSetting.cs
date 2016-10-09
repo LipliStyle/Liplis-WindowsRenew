@@ -149,7 +149,45 @@ namespace Liplis.Activity
             this.btnTwetterSetting.ForeColor = Color.White;
             this.btnSync.ForeColor = Color.White;
         }
+
+        private void tsmiVersion_Click(object sender, EventArgs e)
+        {
+            using (ViewVersion f = new ViewVersion())
+            {
+                f.ShowDialog();
+            }
+        }
+
+        private void tsmiOpenHelp_Click(object sender, EventArgs e)
+        {
+            dlgCallBrowser(LpsDefine.LIPLIS_HELP);
+        }
+
+        private void tsmiOpenSite_Click(object sender, EventArgs e)
+        {
+            dlgCallBrowser(LpsDefine.LIPLIS_LIPLISTYLE);
+        }
+
+        private void tsmiDefault_Click(object sender, EventArgs e)
+        {
+            if (LpsMessage.showMessageDialog("設定をデフォルトに戻しますか？"))
+            {
+                //ロードデフォルト
+                baseSetting.defaultLoad();
+
+                //設定の初期化
+                initWindow();
+            }
+        }
+
+        private void tsmiEnd_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         #endregion
+
+
 
 
         //============================================================
@@ -560,8 +598,49 @@ namespace Liplis.Activity
 
 
 
+
         #endregion
 
+
+        ///====================================================================
+        ///
+        ///                       デリゲート
+        ///                         
+        ///====================================================================
+
+        /// <summary>
+        /// dlgSetBackGround
+        /// 背景を設定する
+        /// </summary>
+        #region dlgSetBackGround
+        private void dlgSetBackGround(Bitmap bmp)
+        {
+            this.BackgroundImage = bmp;
+        }
+        #endregion
+
+        /// <summary>
+        /// ブラウザをコールする
+        /// </summary>
+        #region dlgCallBrowser
+        private void dlgCallBrowser(string url)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(url);
+            }
+            catch (System.ComponentModel.Win32Exception fileNotFoundErr)
+            {
+                Console.Write(fileNotFoundErr);
+                //lips.chatFixedSentence(ComDefine.err_BrowzerErr);
+                //lips.expression = ComDefine.EXPRESSION_CRY;
+            }
+            catch (System.Exception err)
+            {
+                Console.Write(err);
+            }
+        }
+        #endregion
 
     }
 }

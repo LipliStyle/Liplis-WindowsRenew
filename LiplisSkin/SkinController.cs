@@ -11,6 +11,7 @@
 //=======================================================================
 using Liplis.Com;
 using Liplis.Utl;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -88,7 +89,7 @@ namespace Liplis
                         }
                     }
                 }
-                catch
+                catch(Exception ex)
                 {
                     LpsLogController.writingLogSt("スキンファイルの読み込みに失敗しました。確認してください。");
                     LpsLogController.writingLogSt("対象パス:" + skinSettingpath);

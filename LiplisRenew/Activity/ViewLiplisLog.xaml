@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Liplis.Activity"
         mc:Ignorable="d"
-        Title="ViewLiplisLog" Height="564" Width="660" Background="#FF1F1F1F" Closing="Window_Closing">
+        Title="Liplis おしゃべりログ" Height="564" Width="660" Background="#FF1F1F1F" Closing="Window_Closing" Opacity="0" >
     <Window.BorderBrush>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FF04AEEE" Offset="0"/>

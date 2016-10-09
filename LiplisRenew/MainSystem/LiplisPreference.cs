@@ -56,6 +56,13 @@ namespace Liplis.MainSystem
                 this.lpsTwitterActivate = getInt(KEY_TWITTER_ACTIVATE, 0);
                 this.voiceRoidSetList   = JsonConvert.DeserializeObject<List<voiceRoidSet>>(getString(KEY_VOICE_ROID,""));
                
+                //空なら生成
+                if (this.uid == "")
+                {
+                    this.uid =  LpsGuidCreator.createLiplisGuid();
+                    setPreferenceData();
+                }
+
                 //ヴォイスロイドリストがNULLの場合には、一旦保存
                 if (this.voiceRoidSetList == null)
                 {
@@ -69,6 +76,17 @@ namespace Liplis.MainSystem
                 LpsLogController.writingLog(this.GetType().Name, MethodBase.GetCurrentMethod().Name, "readResult:設定の読込失敗" + Environment.NewLine + err);
             }
 
+        }
+
+        /// <summary>
+        /// デフォルトロード
+        /// </summary>
+        public void defaultLoad()
+        {
+            this.lpsAutoSleep = getInt(PREFS_AUTO_SLEEP, 0);
+            this.lpsAutoWakeup = getInt(PREFS_AUTO_WAKEUP, 0);
+            this.lpsMenuOpen = getInt(PREFS_MENU_OPEN, 1);
+            this.setPreferenceData();
         }
 
         /// <summary>

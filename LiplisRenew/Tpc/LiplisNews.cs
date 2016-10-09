@@ -44,6 +44,12 @@ namespace Liplis.Tpc
 
         public object FctLiplisMsg { get; private set; }
 
+        //============================================================
+        //
+        //初期化処理
+        //
+        //============================================================
+        #region 初期化処理
         /// <summary>
         /// コンストラクター
         /// </summary>
@@ -58,9 +64,21 @@ namespace Liplis.Tpc
             //ニュースキューの初期化
             singleNewsQ = new ConcurrentQueue<MsgTalkMessage>();
 
+            //1件だけ取得しておく
+            collectOne();
+
             //初期収集開始
             collectTaskRun();
         }
+
+        #endregion
+
+        //============================================================
+        //
+        //データ取得
+        //
+        //============================================================
+        #region データ取得
 
         /// <summary>
         /// Qからサマリーニュースを一つ取得する
@@ -93,16 +111,8 @@ namespace Liplis.Tpc
                 //収集要請
                 collectTaskRun();
 
-                //2014/01/07 ver3.2.1 話題が尽きた時の挙動の修正
-                if (setting.lpsNewsRunOut == 0)
-                {
-                    return getSummaryNews();
-                }
-                else
-                {
-                    return null;
-                }
-
+                //直接取得API呼び出し
+                return getSummaryNews();
             }
         }
 
@@ -146,6 +156,16 @@ namespace Liplis.Tpc
             }
         }
 
+        #endregion
+
+
+        //============================================================
+        //
+        //データ収集
+        //
+        //============================================================
+        #region データ収集
+
         /// <summary>
         /// タスクでデータ収集を行う
         /// </summary>
@@ -184,12 +204,22 @@ namespace Liplis.Tpc
             }
         }
 
+        /// <summary>
+        /// データ収集する
+        /// </summary>
+        public virtual void collectOne()
+        {
+            try
+            {
+                //1件だけキューに入れる
+                singleNewsQ.Enqueue(getSummaryNews());
+            }
+            catch
+            {
 
+            }
+        }
 
-
-
-
-
-
+        #endregion
     }
 }

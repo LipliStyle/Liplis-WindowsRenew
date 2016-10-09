@@ -22,6 +22,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Liplis.Com
@@ -728,6 +729,29 @@ namespace Liplis.Com
             }
         }
         #endregion
+
+        /// <summary>
+        /// 大正ディレクトリのファイルをすべて削除する
+        /// </summary>
+        /// <param name="dirName"></param>
+        /// <returns></returns>
+        public static bool DeleteFileTargetDir(string dirName)
+        {
+            try
+            {
+                foreach (var item in getFileList(dirName, "*.*"))
+                {
+                    DeleteFile(item);
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
 
         /// <summary>
         /// getFileList
@@ -2069,5 +2093,32 @@ namespace Liplis.Com
             }
         }
         #endregion
+
+        //====================================================================
+        //
+        //                           メッセージ
+        //                         
+        //====================================================================
+
+        #region ウェイト処理
+
+        /// <summary>
+        /// 指定ミリ秒待つ
+        /// </summary>
+        /// <param name="waitTime"></param>
+        public static void wait(int waitTime)
+        {
+            int count = 0;
+
+            while(count < waitTime)
+            {
+                Application.DoEvents();
+                Thread.Sleep(10);
+                count = count + 10;
+            }
+        }
+
+        #endregion
+
     }
 }

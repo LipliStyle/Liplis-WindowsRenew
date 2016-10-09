@@ -34,6 +34,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -55,16 +56,20 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Com\Defile\LPS_TALK_MODE.cs" />
     <Compile Include="Com\LpsDelegate.cs" />
+    <Compile Include="Com\LpsIme.cs" />
     <Compile Include="Com\LpsLiplisUtil.cs" />
     <Compile Include="Com\LpsRegularEx.cs" />
     <Compile Include="Com\LpsResorceManager.cs" />
+    <Compile Include="Com\LpsTable.cs" />
     <Compile Include="Com\LpsWindowsApi.cs" />
     <Compile Include="Com\LpsWindowsApiDefine.cs" />
     <Compile Include="Com\Random\BaseCompatilizedRandom.cs" />
     <Compile Include="Com\Random\BaseRandom.cs" />
     <Compile Include="Com\Random\RndMersenneTwister.cs" />
     <Compile Include="Com\LpsDefine.cs" />
+    <Compile Include="Com\LpsResourceCreator.cs" />
     <Compile Include="Gui\LpsMessage.cs" />
     <Compile Include="Gui\_LpsError.cs">
       <SubType>Form</SubType>
@@ -81,11 +86,11 @@
     <Compile Include="Lst\LstShufflableList.cs" />
     <Compile Include="Lst\LstSortComparator.cs" />
     <Compile Include="Msg\MsgEmotion.cs" />
+    <Compile Include="Msg\MsgGilsTalk.cs" />
     <Compile Include="Msg\MsgTalkMessageLog.cs" />
     <Compile Include="Msg\Rss\MsgRss.cs" />
     <Compile Include="Msg\Rss\MsgRssCatList.cs" />
     <Compile Include="Msg\Rss\MsgRssList.cs" />
-    <Compile Include="Msg\MsgTalkData.cs" />
     <Compile Include="Msg\MsgTalkMessage.cs" />
     <Compile Include="Pic\ComImageController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,6 +102,7 @@
     <Compile Include="Talk\LiplisFaildMessage.cs" />
     <Compile Include="Talk\LiplisTag.cs" />
     <Compile Include="Task\LpsSTATask.cs" />
+    <Compile Include="Utl\LpsEmotionNameExpert.cs" />
     <Compile Include="Utl\LpsGuidCreator.cs" />
     <Compile Include="Utl\LpsLogController.cs" />
     <Compile Include="Utl\LpsPathController.cs" />
@@ -108,6 +114,7 @@
     <Compile Include="Voc\Option\LpsVoiceRoidInfo.cs" />
     <Compile Include="Voc\Option\msgVoiceRoid.cs" />
     <Compile Include="Web\Clalis\ClalisForLiplis.cs" />
+    <Compile Include="Web\Clalis\ClalisForLiplisChat.cs" />
     <Compile Include="Web\Clalis\ClalisForLiplisOld.cs" />
     <Compile Include="Web\Clalis\Json\LiplisNewsJpJson.cs" />
     <Compile Include="Web\HtmlParser.cs" />

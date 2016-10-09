@@ -7,6 +7,9 @@
 //  Copyright(c) 2010-2016 LipliStyle.Sachin
 //=======================================================================
 
+using Liplis.Msg;
+using System.Drawing;
+
 namespace Liplis.Com
 {
     public class LpsDelegate
@@ -36,5 +39,11 @@ namespace Liplis.Com
         public delegate void dlgI5ToVoid(int val1, int val2, int val3, int val4, int val5);
         public delegate void dlgI6ToVoid(int val1, int val2, int val3, int val4, int val5, int val6);
         public delegate void dlgI7ToVoid(int val1, int val2, int val3, int val4, int val5, int val6, int val7);
+
+
+        ///============================
+        /// 引数MsgShortNews
+        public delegate void dlgMsnToVoid(MsgTalkMessage msg, Bitmap bmp);
+
     }
 }
