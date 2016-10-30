@@ -26,22 +26,14 @@ using Liplis.Voc;
 using Liplis.Wpf;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Liplis.Widget
 {
@@ -447,7 +439,7 @@ namespace Liplis.Widget
         /// initLiplisIcon
         /// リプリスボイスロイド
         /// </summary>
-        protected void initVoiceRoid()
+        public void initVoiceRoid()
         {
             if (lvr != null)
             {
@@ -1456,14 +1448,6 @@ namespace Liplis.Widget
                     return;
                 }
 
-                ////話題がつきたかチェック
-                //if (this.checkRunout())
-                //{
-                //    //再カウント
-                //    reSetUpdateCount();
-                //    return;
-                //}
-
                 //みんなでおしゃべりチェック
                 if (this.setting.lpsTalkMode == (int)LPS_TALK_MODE.EVERYONE)
                 {
@@ -1540,19 +1524,6 @@ namespace Liplis.Widget
             {
                 Console.WriteLine(ex);
             }
-
-
-            ////立ち絵をデフォルトに戻す
-            //this.setObjectBodyNeutral();
-
-            ////チャット情報の初期化
-            //this.initChatInfo();
-
-            ////チャットスタート
-            //this.chatStart();
-
-            ////ネクストタイマーを止めておく
-            //this.stopNextTimer();
         }
 
         /// <summary>
@@ -2193,11 +2164,42 @@ namespace Liplis.Widget
                 }
             }
         }
+        private void chatStartEveryone()
+        {
+            //nullチェック
+            if (liplisNowTopic == null)
+            {
+                chatStop();
+            }
+
+            //チャット中フラグON
+            this.flgChatting = true;
+
+            //瞬時表示チェック
+            if (this.setting.lpsSpeed == 3)
+            {
+                this.immediateRefresh();
+            }
+            else
+            {
+                //実行モードを12に設定する
+                this.flgAlarm = 12;
+
+                //更新タイマーをONする
+                this.startUpdateTimer();
+
+                //音声おしゃべり
+                if (setting.lpsVoiceOn == 1)
+                {
+                    speechText();
+                }
+            }
+        }
 
         /// <summary>
         /// チャットストップ
         /// </summary>
-        private void chatStop()
+        public void chatStop()
         {
             try
             {
@@ -2297,9 +2299,10 @@ namespace Liplis.Widget
             {
                 try
                 {
+
                     if (this.liplisNowTopic == null)
                     {
-
+                        //話題が無いときは何もしない
                     }
                     else if (this.liplisNowTopic.url == "")
                     {
@@ -2456,7 +2459,7 @@ namespace Liplis.Widget
             this.initChatInfo();
 
             //チャットスタート
-            this.chatStart();
+            this.chatStartEveryone();
         }
 
 
@@ -2500,11 +2503,10 @@ namespace Liplis.Widget
             //アイコン変更
             this.lpsIcoSleep.setImage(this.skin.xmlWindow.ICO_WAIKUP);
 
-            //一つウインドウを作成
-            createFirstWindow();
-
-            //表示テキスト変更
-            this.windowManager.updateText("zzz");
+            Dispatcher.Invoke(new Action(() =>
+            {
+                this.windowManager.closeWindowList();
+            }));
 
             //おやすみの立ち絵に変更
             this.updateBodySitDown();

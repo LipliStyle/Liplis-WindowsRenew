@@ -406,8 +406,13 @@ namespace Liplis.Activity
                 //みんなでおしゃべりリストから削除する
                 lips.desk.lpsGilsTalk.removeWidgetEveryoneTalkWidgetList(lips);
 
+                //トークモード設定
                 setting.lpsTalkMode = (int)LPS_TALK_MODE.NORMAL;
+
+                //プリファレンス保存
                 setting.setPreferenceData();
+
+                //イメージを変更
                 this.picTalkMode.Image = LpsResorceManager.getResourceBitmap(typeof(Resources).Assembly, "mode_hitori");
             }
 
@@ -424,8 +429,13 @@ namespace Liplis.Activity
                 //みんなでおしゃべりリストに追加する
                 lips.desk.lpsGilsTalk.addWidgetEveryoneTalkWidgetList(lips);
 
+                //トークモード設定
                 setting.lpsTalkMode = (int)LPS_TALK_MODE.EVERYONE;
+
+                //プリファレンス保存
                 setting.setPreferenceData();
+
+                //イメージを変更
                 this.picTalkMode.Image = LpsResorceManager.getResourceBitmap(typeof(Resources).Assembly, "mode_minna");
 
                 //話題設定を同期する(元々設定されているウィジェットに合わせる)
@@ -748,6 +758,12 @@ namespace Liplis.Activity
         {
             setting.lpsVoiceOn = LpsLiplisUtil.boolToBit(chkVoiceSetting.Checked);
             setting.setPreferenceData();
+
+            //ONに変更されたら、Liplisの音声インスタンスを更新する
+            if(chkVoiceSetting.Checked)
+            {
+                lips.initVoiceRoid();
+            }
         }
 
         private void cboVoiceEngineSetting_SelectedIndexChanged(object sender, System.EventArgs e)
@@ -761,10 +777,33 @@ namespace Liplis.Activity
                 setting.lpsVoicePath = vrs.path;
                 setting.setPreferenceData();
 
-                //TODO:リプリスに音声おしゃべり設定
-
+                //ONのときに変更されたら、Liplisの音声インスタンスを更新する
+                if (chkVoiceSetting.Checked)
+                {
+                    lips.initVoiceRoid();
+                }
             }
 
+        }
+
+        /// <summary>
+        /// このウインドウを閉じる
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsmiEnd_Click(object sender, System.EventArgs e)
+        {
+            this.Close();
+        }
+
+        /// <summary>
+        /// 環境設定を開く
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsmiOpenSetting_Click(object sender, System.EventArgs e)
+        {
+            this.lips.desk.openViewSetting();
         }
 
 

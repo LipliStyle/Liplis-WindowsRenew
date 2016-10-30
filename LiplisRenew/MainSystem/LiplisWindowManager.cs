@@ -156,6 +156,15 @@ namespace Liplis.MainSystem
 
             //トークウインドウリストのクリア
             everyoneTitleWindowList.Clear();
+
+            //センターリストのクリア
+            centerList.Clear();
+
+            //レフトリストのクリア
+            leftList.Clear();
+
+            //ライトリストのクリア
+            rightList.Clear();
         }
 
         /// <summary>

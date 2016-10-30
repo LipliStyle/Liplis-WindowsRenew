@@ -528,16 +528,16 @@ namespace Liplis.Tpc
         private void callEveryoneTitleWindow()
         {
             //ウインドウを出すウィジェットの番号をランダムでケテイ
-            int count = LpsLiplisUtil.getRandamInt(0, everyoneTalkWidgetList.indexTable.Count);
+            int targetIndex = LpsLiplisUtil.getRandamInt(0, everyoneTalkWidgetList.indexTable.Count);
             int idx = 0;
 
             //決定したウインドウを作成する
-            everyoneTalkWidgetList[count].callEveryoneTitleWindow(liplisNowTalk.title, liplisNowTalk.url, liplisNowTalk.jpgUrl);
+            everyoneTalkWidgetList[targetIndex].callEveryoneTitleWindow(liplisNowTalk.title, liplisNowTalk.url, liplisNowTalk.jpgUrl);
 
             //それ以外のウインドウは閉じる
             foreach (var widget in everyoneTalkWidgetList.table)
             {
-                if(count != idx)
+                if(targetIndex != idx)
                 {
                     widget.Value.closeEveryoneWindow();
                 }

@@ -220,8 +220,9 @@ namespace Liplis.Activity
                 //差k性イメージを返す
                 return clippingImage;
             }
-            catch
+            catch(Exception ex)
             {
+                Console.WriteLine(ex);
                 return null;
             }
 

@@ -380,7 +380,7 @@ namespace Liplis.Voc
                         bool flag = false;
 
                         //ボイスロイド名をリストから探す
-                        foreach (string name in LpsVoiceRoidDefine.voiceLoidNameList)
+                        foreach (string name in EnableVoiceRoid.GetInstance().enableVoiceRoidList)
                         {
                             //ウインドウタイトルと名前を比較
                             if (this.setting.windowTitle == name)
@@ -974,7 +974,7 @@ namespace Liplis.Voc
         /// <returns></returns>
         protected string getSearchProcessName(string sWindowTitle)
         {
-            foreach (string name in LpsVoiceRoidDefine.voiceLoidNameList)
+            foreach (string name in EnableVoiceRoid.GetInstance().enableVoiceRoidList)
             {
                 if (sWindowTitle == name)
                 {

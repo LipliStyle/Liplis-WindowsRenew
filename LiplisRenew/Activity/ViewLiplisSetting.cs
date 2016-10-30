@@ -23,12 +23,8 @@ using Liplis.Web.Clalis;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Liplis.Activity
@@ -101,55 +97,7 @@ namespace Liplis.Activity
         //
         //============================================================
         #region メニューボタン押下処理
-        /// <summary>
-        /// 環境設定ボタン
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnEnvironmentSetting_Click(object sender, EventArgs e)
-        {
-            this.tab.SelectedTab = this.tbpEnvironment;
-            this.setButtonDefaultColor();
-            this.btnEnvironmentSetting.BackColor = Color.FromArgb(192, 255, 255);
-            this.btnEnvironmentSetting.ForeColor = Color.Black;
-        }
-
-        private void btnVoiceSetting_Click(object sender, EventArgs e)
-        {
-            this.tab.SelectedTab = this.tbpVoice;
-            this.setButtonDefaultColor();
-            this.btnVoiceSetting.BackColor = Color.FromArgb(192, 255, 255);
-            this.btnVoiceSetting.ForeColor = Color.Black;
-        }
-
-        private void btnTwetterSetting_Click(object sender, EventArgs e)
-        {
-            this.tab.SelectedTab = this.tbpTwitter;
-            this.setButtonDefaultColor();
-            this.btnTwetterSetting.BackColor = Color.FromArgb(192, 255, 255);
-            this.btnTwetterSetting.ForeColor = Color.Black;
-        }
-
-        private void btnSync_Click(object sender, EventArgs e)
-        {
-            this.tab.SelectedTab = this.tbpSync;
-            this.setButtonDefaultColor();
-            this.btnSync.BackColor = Color.FromArgb(192, 255, 255);
-            this.btnSync.ForeColor = Color.Black;
-        }
-
-        private void setButtonDefaultColor()
-        {
-            this.btnEnvironmentSetting.BackColor = Color.FromArgb(223, 116, 1);
-            this.btnVoiceSetting.BackColor = Color.FromArgb(223, 116, 1);
-            this.btnTwetterSetting.BackColor = Color.FromArgb(223, 116, 1);
-            this.btnSync.BackColor = Color.FromArgb(223, 116, 1);
-            this.btnEnvironmentSetting.ForeColor = Color.White;
-            this.btnVoiceSetting.ForeColor = Color.White;
-            this.btnTwetterSetting.ForeColor = Color.White;
-            this.btnSync.ForeColor = Color.White;
-        }
-
+        
         private void tsmiVersion_Click(object sender, EventArgs e)
         {
             using (ViewVersion f = new ViewVersion())
@@ -248,6 +196,16 @@ namespace Liplis.Activity
         }
 
         /// <summary>
+        /// パス参照ボタン
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnFileReference_Click(object sender, EventArgs e)
+        {
+            referenceVoiceRoidExe();
+        }
+
+        /// <summary>
         /// ボイスロイドの登録
         /// </summary>
         private void registerVoiceRoid()
@@ -343,7 +301,29 @@ namespace Liplis.Activity
 
         }
 
+        /// <summary>
+        /// ボイスロイドパスを参照する
+        /// </summary>
+        private void referenceVoiceRoidExe()
+        {
+            //OpenFileDialogクラスのインスタンスを作成
+            OpenFileDialog ofd = new OpenFileDialog();
 
+            ofd.FileName = "VOICEROID.exe";
+            ofd.InitialDirectory = @"C:\";
+            ofd.Filter = "VoiceRoid 実行ファイル(*.exe;)|*.exe";
+            ofd.FilterIndex = 1;
+            ofd.Title = "VoiceRoidのEXEファイルを選択してください";
+            ofd.RestoreDirectory = true;
+            ofd.CheckFileExists = true;
+            ofd.CheckPathExists = true;
+
+            //ダイアログを表示する
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                txtPath.Text = ofd.FileName;
+            }
+        }
 
         #endregion
 
@@ -640,6 +620,7 @@ namespace Liplis.Activity
                 Console.Write(err);
             }
         }
+
         #endregion
 
     }

@@ -109,7 +109,6 @@
     <Compile Include="Voc\EnableVoiceRoid.cs" />
     <Compile Include="Voc\LpsVoiceRoid.cs" />
     <Compile Include="Voc\LpsVoiceRoid150.cs" />
-    <Compile Include="Voc\Option\LpsVoiceRoidDefine.cs" />
     <Compile Include="Voc\Option\LpsVoiceRoidHandle.cs" />
     <Compile Include="Voc\Option\LpsVoiceRoidInfo.cs" />
     <Compile Include="Voc\Option\msgVoiceRoid.cs" />

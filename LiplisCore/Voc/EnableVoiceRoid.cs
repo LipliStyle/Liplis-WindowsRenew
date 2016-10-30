@@ -4,6 +4,9 @@
 ////
 //Liplis5.0
 //
+// 2016/10/29 きりたん追加
+//
+//
 //
 //  Copyright(c) 2010-2016 LipliStyle.Sachin
 //=======================================================================
@@ -23,16 +26,18 @@ namespace Liplis.Voc
 
         //=================================
         //有効ボイスロイド名
-        public const string VOICEROID_SOFTALK   = "SofTalk";
-        public const string VOICEROID_YUKARI    = "VOICEROID＋ 結月ゆかり";
-        public const string VOICEROID_TOMOE     = "VOICEROID＋ 民安ともえ";
-        public const string VOICEROID_ZUNKO     = "VOICEROID＋ 東北ずん子";
-        public const string VOICEROID_YUKARI_EX = "VOICEROID＋ 結月ゆかり EX";
-        public const string VOICEROID_TOMOE_EX  = "VOICEROID＋ 民安ともえ EX";
-        public const string VOICEROID_ZUNKO_EX  = "VOICEROID＋ 東北ずん子 EX";
-        public const string VOICEROID_AKANE     = "VOICEROID＋ 琴葉茜";
-        public const string VOICEROID_AOI       = "VOICEROID＋ 琴葉葵";
-        public const string VOICEROID_SEIKA_EX  = "VOICEROID＋ 京町セイカ EX";
+        public const string VOICEROID_SOFTALK    = "SofTalk";
+        public const string VOICEROID_YUKARI     = "VOICEROID＋ 結月ゆかり";
+        public const string VOICEROID_TOMOE      = "VOICEROID＋ 民安ともえ";
+        public const string VOICEROID_ZUNKO      = "VOICEROID＋ 東北ずん子";
+        public const string VOICEROID_YUKARI_EX  = "VOICEROID＋ 結月ゆかり EX";
+        public const string VOICEROID_TOMOE_EX   = "VOICEROID＋ 民安ともえ EX";
+        public const string VOICEROID_ZUNKO_EX   = "VOICEROID＋ 東北ずん子 EX";
+        public const string VOICEROID_AKANE      = "VOICEROID＋ 琴葉茜";
+        public const string VOICEROID_AOI        = "VOICEROID＋ 琴葉葵";
+        public const string VOICEROID_SEIKA_EX   = "VOICEROID＋ 京町セイカ EX";
+        public const string VOICEROID_KIRITAN    = "VOICEROID＋ 東北きりたん";
+        public const string VOICEROID_KIRITAN_EX = "VOICEROID＋ 東北きりたん EX";
 
         //============================================================
         //
@@ -78,6 +83,8 @@ namespace Liplis.Voc
             enableVoiceRoidList.Add(VOICEROID_AKANE);
             enableVoiceRoidList.Add(VOICEROID_AOI);
             enableVoiceRoidList.Add(VOICEROID_SEIKA_EX);
+            enableVoiceRoidList.Add(VOICEROID_KIRITAN); 
+            enableVoiceRoidList.Add(VOICEROID_KIRITAN_EX);
         }
         #endregion
 
@@ -180,7 +187,10 @@ namespace Liplis.Voc
                     return new LpsVoiceRoid(new msgVoiceRoid(VOICEROID_AOI, path));
                 case VOICEROID_SEIKA_EX://京町セイカ EX
                     return new LpsVoiceRoid(new msgVoiceRoid(VOICEROID_SEIKA_EX, path));
-
+                case VOICEROID_KIRITAN_EX://東北きりたん EX
+                    return new LpsVoiceRoid(new msgVoiceRoid(VOICEROID_KIRITAN_EX, path));
+                case VOICEROID_KIRITAN: //東北きりたん どうも、EXE情報を取得した場合は、EXが付かない模様。こちらでもインスタンスを生成できるようにしておく。
+                    return new LpsVoiceRoid(new msgVoiceRoid(VOICEROID_KIRITAN_EX, path));
                 default:
                     return new LpsVoiceRoid(new msgVoiceRoid("", ""));
             }

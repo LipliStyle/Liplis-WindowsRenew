@@ -111,6 +111,7 @@
             this.lblDescriptionWindowNum2 = new System.Windows.Forms.Label();
             this.lblTitleWindowNum = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.picWindowPos = new System.Windows.Forms.PictureBox();
             this.lblDescriptionWindowPos = new System.Windows.Forms.Label();
             this.rdWindowPosLRC = new System.Windows.Forms.RadioButton();
@@ -199,8 +200,12 @@
             this.pnlVoiceSetting = new System.Windows.Forms.Panel();
             this.lblDescriptionVoiceSetting = new System.Windows.Forms.Label();
             this.lblTitleVoiceSetting = new System.Windows.Forms.Label();
-            this.pnlVoiceSpase = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.menu = new System.Windows.Forms.MenuStrip();
+            this.tsmiFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiEnd = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSetting = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiOpenSetting = new System.Windows.Forms.ToolStripMenuItem();
+            this.label2 = new System.Windows.Forms.Label();
             this.tbpEnvironment.SuspendLayout();
             this.pnlBattery.SuspendLayout();
             this.pnlIconOn.SuspendLayout();
@@ -238,6 +243,7 @@
             this.pnlVoiceEngineSetting.SuspendLayout();
             this.pnl2VoiceSetting.SuspendLayout();
             this.pnlVoiceSetting.SuspendLayout();
+            this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbpEnvironment
@@ -257,7 +263,7 @@
             this.tbpEnvironment.Location = new System.Drawing.Point(4, 22);
             this.tbpEnvironment.Name = "tbpEnvironment";
             this.tbpEnvironment.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpEnvironment.Size = new System.Drawing.Size(456, 535);
+            this.tbpEnvironment.Size = new System.Drawing.Size(456, 511);
             this.tbpEnvironment.TabIndex = 0;
             this.tbpEnvironment.Text = "ウィジェット設定";
             // 
@@ -1097,10 +1103,10 @@
             this.tab.Controls.Add(this.tbpTopic);
             this.tab.Controls.Add(this.tbpVoice);
             this.tab.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tab.Location = new System.Drawing.Point(0, 0);
+            this.tab.Location = new System.Drawing.Point(0, 24);
             this.tab.Name = "tab";
             this.tab.SelectedIndex = 0;
-            this.tab.Size = new System.Drawing.Size(464, 561);
+            this.tab.Size = new System.Drawing.Size(464, 537);
             this.tab.TabIndex = 4;
             // 
             // tbpWIndow
@@ -1115,7 +1121,7 @@
             this.tbpWIndow.Location = new System.Drawing.Point(4, 22);
             this.tbpWIndow.Name = "tbpWIndow";
             this.tbpWIndow.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpWIndow.Size = new System.Drawing.Size(456, 535);
+            this.tbpWIndow.Size = new System.Drawing.Size(456, 511);
             this.tbpWIndow.TabIndex = 3;
             this.tbpWIndow.Text = "おしゃべりウインドウ設定";
             // 
@@ -1197,6 +1203,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(450, 154);
             this.panel1.TabIndex = 114;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(5, 132);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(344, 12);
+            this.label1.TabIndex = 111;
+            this.label1.Text = "みんなでおしゃべり時のタイトルウインドウもこの設定の位置に出てきます。";
             // 
             // picWindowPos
             // 
@@ -1478,7 +1494,7 @@
             this.tbpTopic.Location = new System.Drawing.Point(4, 22);
             this.tbpTopic.Name = "tbpTopic";
             this.tbpTopic.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpTopic.Size = new System.Drawing.Size(456, 535);
+            this.tbpTopic.Size = new System.Drawing.Size(456, 511);
             this.tbpTopic.TabIndex = 1;
             this.tbpTopic.Text = "話題設定";
             // 
@@ -2024,21 +2040,22 @@
             this.tbpVoice.Controls.Add(this.pnl2VoiceSetting);
             this.tbpVoice.Controls.Add(this.pnlVoiceSetting);
             this.tbpVoice.Controls.Add(this.lblTitleVoiceSetting);
-            this.tbpVoice.Controls.Add(this.pnlVoiceSpase);
             this.tbpVoice.Location = new System.Drawing.Point(4, 22);
             this.tbpVoice.Name = "tbpVoice";
-            this.tbpVoice.Size = new System.Drawing.Size(456, 535);
+            this.tbpVoice.Padding = new System.Windows.Forms.Padding(3);
+            this.tbpVoice.Size = new System.Drawing.Size(456, 511);
             this.tbpVoice.TabIndex = 2;
             this.tbpVoice.Text = "音声設定";
             // 
             // pnl3VoiceEngineSetting
             // 
             this.pnl3VoiceEngineSetting.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnl3VoiceEngineSetting.Controls.Add(this.label2);
             this.pnl3VoiceEngineSetting.Controls.Add(this.lblDescription3VoiceEngineSetting);
             this.pnl3VoiceEngineSetting.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnl3VoiceEngineSetting.Location = new System.Drawing.Point(0, 217);
+            this.pnl3VoiceEngineSetting.Location = new System.Drawing.Point(3, 183);
             this.pnl3VoiceEngineSetting.Name = "pnl3VoiceEngineSetting";
-            this.pnl3VoiceEngineSetting.Size = new System.Drawing.Size(456, 43);
+            this.pnl3VoiceEngineSetting.Size = new System.Drawing.Size(450, 58);
             this.pnl3VoiceEngineSetting.TabIndex = 131;
             // 
             // lblDescription3VoiceEngineSetting
@@ -2050,7 +2067,7 @@
             this.lblDescription3VoiceEngineSetting.Name = "lblDescription3VoiceEngineSetting";
             this.lblDescription3VoiceEngineSetting.Size = new System.Drawing.Size(394, 12);
             this.lblDescription3VoiceEngineSetting.TabIndex = 3;
-            this.lblDescription3VoiceEngineSetting.Text = "ボイスロイドを選択するには、共通設定で、ボスロイドソフトのパスを設定して下さい。";
+            this.lblDescription3VoiceEngineSetting.Text = "ボイスロイドを選択するには、環境設定で、ボスロイドソフトのパスを設定して下さい。";
             // 
             // pnl2VoiceEngineSetting
             // 
@@ -2058,9 +2075,9 @@
             this.pnl2VoiceEngineSetting.Controls.Add(this.lblDescription2VoiceEngineSetting);
             this.pnl2VoiceEngineSetting.Controls.Add(this.cboVoiceEngineSetting);
             this.pnl2VoiceEngineSetting.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnl2VoiceEngineSetting.Location = new System.Drawing.Point(0, 187);
+            this.pnl2VoiceEngineSetting.Location = new System.Drawing.Point(3, 153);
             this.pnl2VoiceEngineSetting.Name = "pnl2VoiceEngineSetting";
-            this.pnl2VoiceEngineSetting.Size = new System.Drawing.Size(456, 30);
+            this.pnl2VoiceEngineSetting.Size = new System.Drawing.Size(450, 30);
             this.pnl2VoiceEngineSetting.TabIndex = 184;
             // 
             // lblDescription2VoiceEngineSetting
@@ -2088,9 +2105,9 @@
             // 
             this.pnlVoiceEngineSetting.Controls.Add(this.lblDescriptionVoiceEngineSetting);
             this.pnlVoiceEngineSetting.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlVoiceEngineSetting.Location = new System.Drawing.Point(0, 157);
+            this.pnlVoiceEngineSetting.Location = new System.Drawing.Point(3, 123);
             this.pnlVoiceEngineSetting.Name = "pnlVoiceEngineSetting";
-            this.pnlVoiceEngineSetting.Size = new System.Drawing.Size(456, 30);
+            this.pnlVoiceEngineSetting.Size = new System.Drawing.Size(450, 30);
             this.pnlVoiceEngineSetting.TabIndex = 184;
             // 
             // lblDescriptionVoiceEngineSetting
@@ -2110,9 +2127,9 @@
             this.lblTitleVoiceEngineSetting.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTitleVoiceEngineSetting.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lblTitleVoiceEngineSetting.ForeColor = System.Drawing.Color.Black;
-            this.lblTitleVoiceEngineSetting.Location = new System.Drawing.Point(0, 137);
+            this.lblTitleVoiceEngineSetting.Location = new System.Drawing.Point(3, 103);
             this.lblTitleVoiceEngineSetting.Name = "lblTitleVoiceEngineSetting";
-            this.lblTitleVoiceEngineSetting.Size = new System.Drawing.Size(456, 20);
+            this.lblTitleVoiceEngineSetting.Size = new System.Drawing.Size(450, 20);
             this.lblTitleVoiceEngineSetting.TabIndex = 132;
             this.lblTitleVoiceEngineSetting.Text = "音声おしゃべり時　使用エンジン設定";
             // 
@@ -2122,9 +2139,9 @@
             this.pnl2VoiceSetting.Controls.Add(this.lblDescription2VoiceSetting);
             this.pnl2VoiceSetting.Controls.Add(this.chkVoiceSetting);
             this.pnl2VoiceSetting.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnl2VoiceSetting.Location = new System.Drawing.Point(0, 87);
+            this.pnl2VoiceSetting.Location = new System.Drawing.Point(3, 53);
             this.pnl2VoiceSetting.Name = "pnl2VoiceSetting";
-            this.pnl2VoiceSetting.Size = new System.Drawing.Size(456, 50);
+            this.pnl2VoiceSetting.Size = new System.Drawing.Size(450, 50);
             this.pnl2VoiceSetting.TabIndex = 183;
             // 
             // lblDescription2VoiceSetting
@@ -2154,9 +2171,9 @@
             this.pnlVoiceSetting.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlVoiceSetting.Controls.Add(this.lblDescriptionVoiceSetting);
             this.pnlVoiceSetting.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlVoiceSetting.Location = new System.Drawing.Point(0, 57);
+            this.pnlVoiceSetting.Location = new System.Drawing.Point(3, 23);
             this.pnlVoiceSetting.Name = "pnlVoiceSetting";
-            this.pnlVoiceSetting.Size = new System.Drawing.Size(456, 30);
+            this.pnlVoiceSetting.Size = new System.Drawing.Size(450, 30);
             this.pnlVoiceSetting.TabIndex = 137;
             // 
             // lblDescriptionVoiceSetting
@@ -2176,29 +2193,66 @@
             this.lblTitleVoiceSetting.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTitleVoiceSetting.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lblTitleVoiceSetting.ForeColor = System.Drawing.Color.Black;
-            this.lblTitleVoiceSetting.Location = new System.Drawing.Point(0, 37);
+            this.lblTitleVoiceSetting.Location = new System.Drawing.Point(3, 3);
             this.lblTitleVoiceSetting.Name = "lblTitleVoiceSetting";
-            this.lblTitleVoiceSetting.Size = new System.Drawing.Size(456, 20);
+            this.lblTitleVoiceSetting.Size = new System.Drawing.Size(450, 20);
             this.lblTitleVoiceSetting.TabIndex = 129;
             this.lblTitleVoiceSetting.Text = "音声おしゃべり設定";
             // 
-            // pnlVoiceSpase
+            // menu
             // 
-            this.pnlVoiceSpase.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlVoiceSpase.Location = new System.Drawing.Point(0, 0);
-            this.pnlVoiceSpase.Name = "pnlVoiceSpase";
-            this.pnlVoiceSpase.Size = new System.Drawing.Size(456, 37);
-            this.pnlVoiceSpase.TabIndex = 2;
+            this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiFile,
+            this.tsmiSetting});
+            this.menu.Location = new System.Drawing.Point(0, 0);
+            this.menu.Name = "menu";
+            this.menu.Size = new System.Drawing.Size(464, 24);
+            this.menu.TabIndex = 5;
+            this.menu.Text = "menuStrip1";
             // 
-            // label1
+            // tsmiFile
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(5, 132);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(344, 12);
-            this.label1.TabIndex = 111;
-            this.label1.Text = "みんなでおしゃべり時のタイトルウインドウもこの設定の位置に出てきます。";
+            this.tsmiFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiEnd});
+            this.tsmiFile.ForeColor = System.Drawing.Color.Black;
+            this.tsmiFile.Name = "tsmiFile";
+            this.tsmiFile.Size = new System.Drawing.Size(66, 20);
+            this.tsmiFile.Text = "ファイル(&F)";
+            // 
+            // tsmiEnd
+            // 
+            this.tsmiEnd.Name = "tsmiEnd";
+            this.tsmiEnd.Size = new System.Drawing.Size(152, 22);
+            this.tsmiEnd.Text = "閉じる(&X)";
+            this.tsmiEnd.ToolTipText = "このウインドウを閉じます";
+            this.tsmiEnd.Click += new System.EventHandler(this.tsmiEnd_Click);
+            // 
+            // tsmiSetting
+            // 
+            this.tsmiSetting.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiOpenSetting});
+            this.tsmiSetting.ForeColor = System.Drawing.Color.Black;
+            this.tsmiSetting.Name = "tsmiSetting";
+            this.tsmiSetting.Size = new System.Drawing.Size(81, 20);
+            this.tsmiSetting.Text = "環境設定(&S)";
+            // 
+            // tsmiOpenSetting
+            // 
+            this.tsmiOpenSetting.Name = "tsmiOpenSetting";
+            this.tsmiOpenSetting.Size = new System.Drawing.Size(174, 22);
+            this.tsmiOpenSetting.Text = "環境設定画面を開く";
+            this.tsmiOpenSetting.Click += new System.EventHandler(this.tsmiOpenSetting_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(7, 38);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(165, 12);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "メニューの環境設定から開けます。";
             // 
             // ViewLiplisWidgetSetting
             // 
@@ -2207,10 +2261,12 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.ClientSize = new System.Drawing.Size(464, 561);
             this.Controls.Add(this.tab);
+            this.Controls.Add(this.menu);
             this.ForeColor = System.Drawing.Color.White;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menu;
             this.Name = "ViewLiplisWidgetSetting";
-            this.Text = "ViewLiplisWidgetSetting";
+            this.Text = "ウィジェット設定";
             this.tbpEnvironment.ResumeLayout(false);
             this.pnlBattery.ResumeLayout(false);
             this.pnlBattery.PerformLayout();
@@ -2269,7 +2325,10 @@
             this.pnl2VoiceSetting.PerformLayout();
             this.pnlVoiceSetting.ResumeLayout(false);
             this.pnlVoiceSetting.PerformLayout();
+            this.menu.ResumeLayout(false);
+            this.menu.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -2444,7 +2503,12 @@
         private System.Windows.Forms.Label lblDescriptionTalkMode;
         private System.Windows.Forms.RadioButton rdTalkModeMinna;
         private System.Windows.Forms.RadioButton rdTalkModeHitori;
-        private System.Windows.Forms.Panel pnlVoiceSpase;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.MenuStrip menu;
+        private System.Windows.Forms.ToolStripMenuItem tsmiFile;
+        private System.Windows.Forms.ToolStripMenuItem tsmiEnd;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSetting;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOpenSetting;
+        private System.Windows.Forms.Label label2;
     }
 }
