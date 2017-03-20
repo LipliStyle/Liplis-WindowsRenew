@@ -33,6 +33,12 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>lipliskey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -70,6 +76,7 @@
     <Compile Include="Com\Random\RndMersenneTwister.cs" />
     <Compile Include="Com\LpsDefine.cs" />
     <Compile Include="Com\LpsResourceCreator.cs" />
+    <Compile Include="Gui\DataGrid\ExcelPaset.cs" />
     <Compile Include="Gui\LpsMessage.cs" />
     <Compile Include="Gui\_LpsError.cs">
       <SubType>Form</SubType>
@@ -159,6 +166,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="lipliskey.pfx" />
     <None Include="packages.config" />
     <None Include="Resources\icon.bmp" />
   </ItemGroup>

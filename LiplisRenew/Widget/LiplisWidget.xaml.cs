@@ -1642,6 +1642,13 @@ namespace Liplis.Widget
                 //チャット停止
                 this.chatStop();
 
+
+                //音声おしゃべりをストップさせる
+                if (setting.lpsVoiceOn == 1)
+                {
+                    stopSpeechText();
+                }
+
                 //スキップ処理
                 result = this.skipLiplis();
 
@@ -1932,16 +1939,34 @@ namespace Liplis.Widget
         /// <summary>
         /// 音声おしゃべり
         /// </summary>
-        #region 音声おしゃべり
         protected void speechText()
         {
             if (liplisNowTopic != null)
             {
-                lvr.addMessage(liplisNowTopic.sorce.Replace("@", ""));
+                if (lvr != null)
+                {
+                    //おしゃべりする場合、一つ前をキャンセルしてからおしゃべり
+                    lvr.callStopButtonDown();
+
+                    //キューに入れる
+                    lvr.addMessage(liplisNowTopic.sorce.Replace("@", ""));
+                }
             }
         }
-        #endregion
 
+        /// <summary>
+        /// 音声おしゃべりを停止する
+        /// </summary>
+        protected void stopSpeechText()
+        {
+            if (liplisNowTopic != null)
+            {
+                if (lvr != null)
+                {
+                    lvr.callStopButtonDown();
+                }
+            }
+        }
         /// <summary>
         /// ボディの更新
         /// </summary>
@@ -2221,14 +2246,9 @@ namespace Liplis.Widget
                         //次の人にバトンを渡す
                         batonTouch();
                     }
-                    else
-                    {
-                        ////アップデートカウントをりせっとする
-                        //this.reSetUpdateCount();
-                    }
                 }
 
-                //アップデートカウントをりせっとする
+                //アップデートカウントをリセットする
                 this.reSetUpdateCount();
 
                 //みんなでおしゃべりフラグを寝かす

@@ -174,7 +174,7 @@ namespace Liplis.Voc
                 case VOICEROID_TOMOE://民安ともえ
                     return new LpsVoiceRoid150(new msgVoiceRoid(VOICEROID_TOMOE, path));
                 case VOICEROID_ZUNKO://東北ずん子
-                    return new LpsVoiceRoid(new msgVoiceRoid(VOICEROID_ZUNKO, path));
+                    return new LpsVoiceRoid150(new msgVoiceRoid(VOICEROID_ZUNKO, path));
                 case VOICEROID_YUKARI_EX://結月ゆかり EX
                     return new LpsVoiceRoid(new msgVoiceRoid(VOICEROID_YUKARI_EX, path));
                 case VOICEROID_TOMOE_EX://民安ともえ EX
