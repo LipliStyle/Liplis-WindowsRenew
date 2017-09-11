@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiplisCore", "LiplisCore\LiplisCore.csproj", "{8E7B170F-7E64-49E5-9487-3108C5F6850D}"
 EndProject
@@ -9,11 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiplisSkin", "LiplisSkin\Li
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiplisUpdater", "LiplisUpdater\LiplisUpdater.csproj", "{0E8463BF-EF02-4976-868D-6B3432A27906}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClalisInterface", "ClalisInterface\ClalisInterface.csproj", "{6C3C910F-9CBA-4BEF-84EA-4523BD11B153}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiplisRenew", "LiplisRenew\LiplisRenew.csproj", "{B15B7B25-558C-43B7-AD8F-78968E25BF1E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiplisWidget", "LiplisWidget\LiplisWidget.csproj", "{ECB00D98-D495-4D35-B671-C1BD8A7F5C8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClalisInterface", "..\..\Common\LiplisMainProject\ClalisInterface\ClalisInterface.csproj", "{6C3C910F-9CBA-4BEF-84EA-4523BD11B153}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +33,6 @@ Global
 		{0E8463BF-EF02-4976-868D-6B3432A27906}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E8463BF-EF02-4976-868D-6B3432A27906}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E8463BF-EF02-4976-868D-6B3432A27906}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6C3C910F-9CBA-4BEF-84EA-4523BD11B153}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6C3C910F-9CBA-4BEF-84EA-4523BD11B153}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6C3C910F-9CBA-4BEF-84EA-4523BD11B153}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6C3C910F-9CBA-4BEF-84EA-4523BD11B153}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B15B7B25-558C-43B7-AD8F-78968E25BF1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B15B7B25-558C-43B7-AD8F-78968E25BF1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B15B7B25-558C-43B7-AD8F-78968E25BF1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{ECB00D98-D495-4D35-B671-C1BD8A7F5C8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECB00D98-D495-4D35-B671-C1BD8A7F5C8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECB00D98-D495-4D35-B671-C1BD8A7F5C8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C3C910F-9CBA-4BEF-84EA-4523BD11B153}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C3C910F-9CBA-4BEF-84EA-4523BD11B153}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C3C910F-9CBA-4BEF-84EA-4523BD11B153}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C3C910F-9CBA-4BEF-84EA-4523BD11B153}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

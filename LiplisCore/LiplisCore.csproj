@@ -177,7 +177,7 @@
     <None Include="Resources\iconsud.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClalisInterface\ClalisInterface.csproj">
+    <ProjectReference Include="..\..\..\Common\LiplisMainProject\ClalisInterface\ClalisInterface.csproj">
       <Project>{6c3c910f-9cba-4bef-84ea-4523bd11b153}</Project>
       <Name>ClalisInterface</Name>
     </ProjectReference>

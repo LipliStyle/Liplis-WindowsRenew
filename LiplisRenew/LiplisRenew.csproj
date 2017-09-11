@@ -40,13 +40,14 @@
     <ApplicationIcon>liplis.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>lipliskey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CoreTweet">
+    <Reference Include="CoreTweet, Version=0.5.2.200, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\DLL\CoreTweet\net45\CoreTweet.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -232,8 +233,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClalisInterface\ClalisInterface.csproj">
-      <Project>{6C3C910F-9CBA-4BEF-84EA-4523BD11B153}</Project>
+    <ProjectReference Include="..\..\..\Common\LiplisMainProject\ClalisInterface\ClalisInterface.csproj">
+      <Project>{6c3c910f-9cba-4bef-84ea-4523bd11b153}</Project>
       <Name>ClalisInterface</Name>
     </ProjectReference>
     <ProjectReference Include="..\LiplisCore\LiplisCore.csproj">
